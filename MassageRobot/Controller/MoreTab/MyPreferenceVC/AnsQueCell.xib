@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Text-Medium.otf">
+            <string>SFProText-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AnsQueCell" rowHeight="91" id="KGk-i7-Jjw" customClass="AnsQueCell" customModule="MassageRobot" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you have a specific body area you want to concentrate on" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sln-Zy-8Jc">
+                        <rect key="frame" x="10" y="10" width="355" height="39"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="39" id="7Wi-NY-Wje"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="SFProText-Medium" family="SF Pro Text" pointSize="16"/>
+                        <color key="textColor" red="0.27450980392156865" green="0.27450980392156865" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answer : Yes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GFU-nE-5pa">
+                        <rect key="frame" x="10" y="50" width="355" height="20"/>
+                        <fontDescription key="fontDescription" name="SFProText-Medium" family="SF Pro Text" pointSize="13"/>
+                        <color key="textColor" red="0.27450980390000002" green="0.27450980390000002" blue="0.27450980390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="sln-Zy-8Jc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="2zH-Jf-stV"/>
+                    <constraint firstAttribute="bottom" secondItem="GFU-nE-5pa" secondAttribute="bottom" constant="10" id="VDb-lo-o6O"/>
+                    <constraint firstItem="GFU-nE-5pa" firstAttribute="top" secondItem="sln-Zy-8Jc" secondAttribute="bottom" constant="1" id="WHZ-0t-M29"/>
+                    <constraint firstAttribute="trailing" secondItem="sln-Zy-8Jc" secondAttribute="trailing" constant="10" id="Ydx-tH-MLD"/>
+                    <constraint firstAttribute="trailing" secondItem="GFU-nE-5pa" secondAttribute="trailing" constant="10" id="Zw9-JG-Imd"/>
+                    <constraint firstItem="sln-Zy-8Jc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="kZ6-vQ-USN"/>
+                    <constraint firstItem="GFU-nE-5pa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="zc6-N8-gJC"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" red="0.8784313725490196" green="0.8901960784313725" blue="0.90588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <connections>
+                <outlet property="lblAns" destination="GFU-nE-5pa" id="hyE-0K-d6A"/>
+                <outlet property="lblQue" destination="sln-Zy-8Jc" id="UhN-Ol-xnH"/>
+            </connections>
+            <point key="canvasLocation" x="177.536231884058" y="89.0625"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Light.ttf">
+            <string>Lato-Light</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FeatureCell" id="gTV-IL-0wX" customClass="FeatureCell" customModule="MassageRobot" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="254" height="196"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="254" height="196"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KG3-TD-qn4">
+                        <rect key="frame" x="0.0" y="0.0" width="254" height="196"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qeu-YP-Vff">
+                                <rect key="frame" x="0.0" y="0.0" width="254" height="144"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultIcon" translatesAutoresizingMaskIntoConstraints="NO" id="dbf-LJ-c4f">
+                                        <rect key="frame" x="0.0" y="0.0" width="254" height="144"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="36"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="dbf-LJ-c4f" firstAttribute="top" secondItem="Qeu-YP-Vff" secondAttribute="top" id="Cjz-Xe-QGz"/>
+                                    <constraint firstItem="dbf-LJ-c4f" firstAttribute="leading" secondItem="Qeu-YP-Vff" secondAttribute="leading" id="JlH-Eb-5w3"/>
+                                    <constraint firstAttribute="bottom" secondItem="dbf-LJ-c4f" secondAttribute="bottom" id="cSf-uC-E0c"/>
+                                    <constraint firstAttribute="height" constant="144" id="mGj-da-bQI"/>
+                                    <constraint firstAttribute="trailing" secondItem="dbf-LJ-c4f" secondAttribute="trailing" id="nsD-Zr-QNp"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="36"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RountineName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0j-9S-vCr">
+                                <rect key="frame" x="0.0" y="149" width="254" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="QQz-ra-9nv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="13"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jhb-VM-wf0">
+                                <rect key="frame" x="0.0" y="169" width="254" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Acupressure" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="beE-Lr-aUV">
+                                        <rect key="frame" x="0.0" y="1" width="254" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="13"/>
+                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="P0j-9S-vCr" firstAttribute="top" secondItem="Qeu-YP-Vff" secondAttribute="bottom" constant="5" id="23H-Oa-2tz"/>
+                            <constraint firstItem="P0j-9S-vCr" firstAttribute="leading" secondItem="KG3-TD-qn4" secondAttribute="leading" id="4mJ-7k-oV5"/>
+                            <constraint firstItem="Qeu-YP-Vff" firstAttribute="leading" secondItem="KG3-TD-qn4" secondAttribute="leading" id="FcF-vd-bON"/>
+                            <constraint firstItem="Qeu-YP-Vff" firstAttribute="top" secondItem="KG3-TD-qn4" secondAttribute="top" id="Hab-3q-e37"/>
+                            <constraint firstAttribute="trailing" secondItem="Qeu-YP-Vff" secondAttribute="trailing" id="lda-5Q-TCZ"/>
+                            <constraint firstAttribute="trailing" secondItem="P0j-9S-vCr" secondAttribute="trailing" id="p4g-63-Ok8"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="KG3-TD-qn4" secondAttribute="trailing" id="UPN-sa-I7D"/>
+                <constraint firstItem="KG3-TD-qn4" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="r2B-ph-tdF"/>
+                <constraint firstItem="KG3-TD-qn4" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="rrY-ol-pQN"/>
+                <constraint firstAttribute="bottom" secondItem="KG3-TD-qn4" secondAttribute="bottom" id="vg3-7F-hdI"/>
+            </constraints>
+            <connections>
+                <outlet property="lblRoutineName" destination="P0j-9S-vCr" id="rJY-VV-y4N"/>
+                <outlet property="lblSubCategory" destination="beE-Lr-aUV" id="3cm-w4-2IO"/>
+                <outlet property="viewBack" destination="Qeu-YP-Vff" id="O9S-vd-3Fn"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="118.52678571428571"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="DefaultIcon" width="360" height="202.5"/>
+    </resources>
+</document>
