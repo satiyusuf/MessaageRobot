@@ -84,6 +84,10 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
     var arrSaveLocation = [[String:Any]]()
     var Gender = String()
     var IndexData : Int = 0
+    var NewCurrentIndexData: Int = 0
+    var RImageSetLocation = String()
+    var LImageSetLocation = String()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -428,7 +432,9 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
     }
 
+    
     func fillData(index: Int) {
+        
         if svContainer.subviews.count >= index, let view1 = svContainer.subviews.first(where: { ($0 as? RoutineParam)?.currentViewTag == index }) as? RoutineParam, arrSegmentList.count > index {
 
             let segmentData = arrSegmentList[index]
@@ -561,6 +567,11 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         lblSliderValue.center = CGPoint(x: thumbRect.midX, y: lblSliderValue.center.y)
 
         lblSliderValue.text = "\(Int(sender.value))"
+        
+//        let data = arrRoutines[self.IndexData]
+//        data.lblLeftSpeed.text
+     //   data.blSliderValue.text = "\(Int(sender.value))"
+       // data.btnLocationRight.setTitle("Glutiusmaximus", for: .normal)
     }
 
     @IBAction func btnPopupClose(_ sender: UIButton) {
@@ -572,41 +583,113 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         if strSliderValue == "LeftSpeed" {
             strLeftSpeed = String(format: "%.f", slider.value)
             strRightSpeed = String(format: "%.f", slider.value)
-            delegate?.sliderValueSet(value: slider.value, strAction: "", index: 0)
-            
-            if isLink == true {
-                strRightSpeed = String(format: "%.f", slider.value)
-                strLeftSpeed = String(format: "%.f", slider.value)
+           
+            let data = arrRoutines[IndexData]
+            if isLink == false {
+                data.lblLeftSpeed.text = String(format: "%.f", slider.value)
+                data.triLeftSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: data.viewLeftSpeed.frame.width, height: 33))
+                data.triLeftSpeed.backgroundColor = .white
+                data.triLeftSpeed.setFillValue(value: CGFloat(slider.value / 100))
+                data.viewLeftSpeed.addSubview(data.triLeftSpeed)
                 delegate?.sliderValueSet(value: slider.value, strAction: "", index: 1)
             }
+            else
+            {
+                data.lblLeftSpeed.text = String(format: "%.f", slider.value)
+                data.triLeftSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: data.viewLeftSpeed.frame.width, height: 33))
+                data.triLeftSpeed.backgroundColor = .white
+                data.triLeftSpeed.setFillValue(value: CGFloat(slider.value / 100))
+                data.viewLeftSpeed.addSubview(data.triLeftSpeed)
+                
+                data.lblRightSpeed.text = String(format: "%.f", slider.value)
+                data.triRightSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: data.viewRightSpeed.frame.width, height: 33))
+                data.triRightSpeed.backgroundColor = .white
+                data.triRightSpeed.setFillValue(value: CGFloat( slider.value / 100))
+                data.viewRightSpeed.addSubview(data.triRightSpeed)
+                delegate?.sliderValueSet(value: slider.value, strAction: "", index: 0)
+            }
+            
         }else if strSliderValue == "RightSpeed" {
             strRightSpeed = String(format: "%.f", slider.value)
             strLeftSpeed = String(format: "%.f", slider.value)
-            delegate?.sliderValueSet(value: slider.value, strAction: "", index: 1)
             
-            if isLink == true {
-                strLeftSpeed = String(format: "%.f", slider.value)
-                strRightSpeed = String(format: "%.f", slider.value)
+            let data = arrRoutines[IndexData]
+            if isLink == false {
+                data.lblRightSpeed.text = String(format: "%.f", slider.value)
+                data.triRightSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: data.viewRightSpeed.frame.width, height: 33))
+                data.triRightSpeed.backgroundColor = .white
+                data.triRightSpeed.setFillValue(value: CGFloat( slider.value / 100))
+                data.viewRightSpeed.addSubview(data.triRightSpeed)
                 delegate?.sliderValueSet(value: slider.value, strAction: "", index: 0)
             }
+            else
+            {
+                data.lblLeftSpeed.text = String(format: "%.f", slider.value)
+                data.triLeftSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: data.viewLeftSpeed.frame.width, height: 33))
+                data.triLeftSpeed.backgroundColor = .white
+                data.triLeftSpeed.setFillValue(value: CGFloat(slider.value / 100))
+                data.viewLeftSpeed.addSubview(data.triLeftSpeed)
+                
+                data.lblRightSpeed.text = String(format: "%.f", slider.value)
+                data.triRightSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: data.viewRightSpeed.frame.width, height: 33))
+                data.triRightSpeed.backgroundColor = .white
+                data.triRightSpeed.setFillValue(value: CGFloat( slider.value / 100))
+                data.viewRightSpeed.addSubview(data.triRightSpeed)
+                delegate?.sliderValueSet(value: slider.value, strAction: "", index: 1)
+            }
+         
         }else if strSliderValue == "LeftForce" {
             strLeftForce = String(format: "%.f", slider.value)
             strRightForce = String(format: "%.f", slider.value)
-            delegate?.sliderValueSet(value: slider.value, strAction: "", index: 2)
-            
-            if isLink == true {
-                strLeftForce = String(format: "%.f", slider.value)
-                strRightForce = String(format: "%.f", slider.value)
+           
+            let data = arrRoutines[IndexData]
+            if isLink == false {
+                data.lblLeftForce.text = String(format: "%.f", slider.value)
+                data.triLeftForce = TriangleView(frame: CGRect(x: 0, y: 0, width: data.viewLeftForce.frame.width, height: 33))
+                data.triLeftForce.backgroundColor = .white
+                data.triLeftForce.setFillValue(value: CGFloat(slider.value / 100))
+                data.viewLeftForce.addSubview(data.triLeftForce)
+                delegate?.sliderValueSet(value: slider.value, strAction: "", index: 2)
+            }else{
+                
+                data.lblLeftForce.text = String(format: "%.f", slider.value)
+                data.triLeftForce = TriangleView(frame: CGRect(x: 0, y: 0, width: data.viewLeftForce.frame.width, height: 33))
+                data.triLeftForce.backgroundColor = .white
+                data.triLeftForce.setFillValue(value: CGFloat(slider.value / 100))
+                data.viewLeftForce.addSubview(data.triLeftForce)
+                
+                data.lblRightForce.text = String(format: "%.f", slider.value)
+                data.triRightForce = TriangleView(frame: CGRect(x: 0, y: 0, width: data.viewRightForce.frame.width, height: 33))
+                data.triRightForce.backgroundColor = .white
+                data.triRightForce.setFillValue(value: CGFloat(slider.value / 100))
+                data.viewRightForce.addSubview(data.triRightForce)
                 delegate?.sliderValueSet(value: slider.value, strAction: "", index: 3)
             }
         }else {
             strLeftForce = String(format: "%.f", slider.value)
             strRightForce = String(format: "%.f", slider.value)
-            delegate?.sliderValueSet(value: slider.value, strAction: "", index: 3)
-            
-            if isLink == true {
-                strLeftForce = String(format: "%.f", slider.value)
-                strRightForce = String(format: "%.f", slider.value)
+           
+            let data = arrRoutines[IndexData]
+            if isLink == false {
+                data.lblRightForce.text = String(format: "%.f", slider.value)
+                data.triRightForce = TriangleView(frame: CGRect(x: 0, y: 0, width: data.viewRightForce.frame.width, height: 33))
+                data.triRightForce.backgroundColor = .white
+                data.triRightForce.setFillValue(value: CGFloat(slider.value / 100))
+                data.viewRightForce.addSubview(data.triRightForce)
+                delegate?.sliderValueSet(value: slider.value, strAction: "", index: 3)
+            }else{
+                
+                data.lblLeftForce.text = String(format: "%.f", slider.value)
+                data.triLeftForce = TriangleView(frame: CGRect(x: 0, y: 0, width: data.viewLeftForce.frame.width, height: 33))
+                data.triLeftForce.backgroundColor = .white
+                data.triLeftForce.setFillValue(value: CGFloat(slider.value / 100))
+                data.viewLeftForce.addSubview(data.triLeftForce)
+                
+                data.lblRightForce.text = String(format: "%.f", slider.value)
+                data.triRightForce = TriangleView(frame: CGRect(x: 0, y: 0, width: data.viewRightForce.frame.width, height: 33))
+                data.triRightForce.backgroundColor = .white
+                data.triRightForce.setFillValue(value: CGFloat(slider.value / 100))
+                data.viewRightForce.addSubview(data.triRightForce)
                 delegate?.sliderValueSet(value: slider.value, strAction: "", index: 2)
             }
         }
@@ -690,20 +773,22 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
                 self.addNewSegmentView()
             }
         }else {
+         
             self.addNewSegmentIntoRoutine()
         }
     }
 
     func addNewSegmentIntoRoutine() {
 
+        let data = arrRoutines[IndexData]
         let userID: String = UserDefaults.standard.object(forKey: USERID) as? String ?? ""
-        let strLeftTool: String = UserDefaults.standard.object(forKey: LTOOL) as? String ?? ""
-        let strRightTool: String = UserDefaults.standard.object(forKey: RTOOL) as? String ?? ""
-        let strLeftPath: String = UserDefaults.standard.object(forKey: LPATH) as? String ?? ""
-        let strRightPath: String = UserDefaults.standard.object(forKey: RPATH) as? String ?? ""
-        let strLeftLoction: String = UserDefaults.standard.object(forKey: LLOCATION) as? String ?? ""
-        let strRightLocation: String = UserDefaults.standard.object(forKey: RLOCATION) as? String ?? ""
-        var strExTime: String = UserDefaults.standard.object(forKey: EXTIME) as? String ?? "60"
+        let strLeftTool: String = data.txtLeftTool.text!//UserDefaults.standard.object(forKey: LTOOL) as? String ?? ""
+        let strRightTool: String = data.txtRightTool.text!//UserDefaults.standard.object(forKey: RTOOL) as? String ?? ""
+        let strLeftPath: String = data.txtLeftPath.text!//UserDefaults.standard.object(forKey: LPATH) as? String ?? ""
+        let strRightPath: String = data.txtRightPath.text!//UserDefaults.standard.object(forKey: RPATH) as? String ?? ""
+        let strLeftLoction: String = LImageSetLocation//UserDefaults.standard.object(forKey: LLOCATION) as? String ?? ""
+        let strRightLocation: String = RImageSetLocation//UserDefaults.standard.object(forKey: RLOCATION) as? String ?? ""
+        var strExTime: String = data.txtTime.text!//UserDefaults.standard.object(forKey: EXTIME) as? String ?? "60"
         let strSegCount: String = UserDefaults.standard.object(forKey: SEGMENTCOUNT) as? String ?? "1"
 
         if strExTime == "" {
@@ -786,15 +871,49 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
 
 //        https://massage-robotics-website.uc.r.appspot.com/wt?tablename=RoutineEntity&row=[('sagmet3qiZJMzCncH0Zuk7M7hr','1','23','76','iliotibal tract','Hamstring','Linear','Circular','48','55','2021-03-19,12:42','Inline','Point','1','oapuvvjy6ln1w9wioqv4')]
 
+        
         if userID != "" {
-            let url = "https://massage-robotics-website.uc.r.appspot.com/wt?tablename=RoutineEntity&row=[('sagmet\(randomSegmentId())','\(strExTime)','\(strLeftForce)','\(strRightForce)','\(strLeftLoction.lowercased())','\(strRightLocation.lowercased())','\(strLeftPath)','\(strRightPath)','\(strLeftSpeed)','\(strRightSpeed)','\(strDate),\(strTime)','\(strLeftTool)','\(strRightTool)','\(strSegCount)','\(strRoutingID!)')]"
+            
+            var url = String()
+            let Countindex = arrRoutines.count - 1
+            if arrRoutines.count > 0 && IndexData == Countindex
+            {
+                url = "https://massage-robotics-website.uc.r.appspot.com/wt?tablename=RoutineEntity&row=[('sagmet\(randomSegmentId())','\(strExTime)','\(strLeftForce)','\(strRightForce)','\(strLeftLoction.lowercased())','\(strRightLocation.lowercased())','\(strLeftPath)','\(strRightPath)','\(strLeftSpeed)','\(strRightSpeed)','\(strDate),\(strTime)','\(strLeftTool)','\(strRightTool)','\(strSegCount)','\(strRoutingID!)')]"
+            }
+            else
+            {
+                let segmentData = arrSegmentList[self.IndexData]//arrSegmentList[intCurrentIndex]
+                
+                url = "https://massage-robotics-website.uc.r.appspot.com/rd?query='UPDATE Routineentity SET duration= '\(strExTime)',force_l= '\(strLeftForce)',force_r= '\(strRightForce)',location_l= '\(strLeftLoction.lowercased())',location_r= '\(strRightLocation.lowercased())',path_l= '\(strLeftPath)',path_r= '\(strRightPath) ',speed_l= '\(strLeftSpeed)',speed_r= '\(strRightSpeed)',tool_l= '\(strLeftTool)',tool_r= '\(strRightTool)' WHERE segmentid= '\(segmentData.getString(key: "segmentid"))''"
+                
+                arrSegmentList[self.IndexData]["duration"] = data.txtTime.text!
+                arrSegmentList[self.IndexData]["force_l"] = strLeftForce
+                arrSegmentList[self.IndexData]["force_r"] = strRightForce
+                arrSegmentList[self.IndexData]["location_l"] = strLeftLoction.lowercased()
+                arrSegmentList[self.IndexData]["location_r"] = strRightLocation.lowercased()
+                arrSegmentList[self.IndexData]["path_l"] = strLeftPath
+                arrSegmentList[self.IndexData]["path_r"] = strRightPath
+                arrSegmentList[self.IndexData]["speed_l"] = strLeftSpeed
+                arrSegmentList[self.IndexData]["speed_r"] = strRightSpeed
+                arrSegmentList[self.IndexData]["tool_l"] = strLeftTool
+                arrSegmentList[self.IndexData]["tool_r"] = strRightTool
+            }
+           // let url = "https://massage-robotics-website.uc.r.appspot.com/wt?tablename=RoutineEntity&row=[('sagmet\(randomSegmentId())','\(strExTime)','\(strLeftForce)','\(strRightForce)','\(strLeftLoction.lowercased())','\(strRightLocation.lowercased())','\(strLeftPath)','\(strRightPath)','\(strLeftSpeed)','\(strRightSpeed)','\(strDate),\(strTime)','\(strLeftTool)','\(strRightTool)','\(strSegCount)','\(strRoutingID!)')]"
 
             print(url)
             
-            let Location_L = UserDefaults.standard.object(forKey: LLOCATION) as? String ?? ""
-            let Location_R = UserDefaults.standard.object(forKey: RLOCATION) as? String ?? ""
-            let Dict = ["location_r":Location_R.lowercased(),"location_l":Location_L.lowercased()]
-            self.arrSaveLocation.append(Dict)
+            if arrRoutines.count > 0 && IndexData == Countindex {
+                let Location_L = UserDefaults.standard.object(forKey: LLOCATION) as? String ?? ""
+                let Location_R = UserDefaults.standard.object(forKey: RLOCATION) as? String ?? ""
+                let Dict = ["location_r":Location_R.lowercased(),"location_l":Location_L.lowercased()]
+                self.arrSaveLocation.append(Dict)
+            }
+            else{
+                let Location_L = strLeftLoction.lowercased()
+                let Location_R = strRightLocation.lowercased()
+                self.SetImagePart(Location_L: Location_L, Location_R: Location_R)
+            }
+           
             
             let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 
@@ -805,13 +924,24 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
                 self.hideLoading()
                 if json.getString(key: "Response") == "Success"
                 {
-                    UserDefaults.standard.set("", forKey: LTOOL)
-                    UserDefaults.standard.set("", forKey: RTOOL)
-                    UserDefaults.standard.set("", forKey: LPATH)
-                    UserDefaults.standard.set("", forKey: RPATH)
-                    UserDefaults.standard.set("", forKey: LLOCATION)
-                    UserDefaults.standard.set("", forKey: RLOCATION)
-                    UserDefaults.standard.set("", forKey: EXTIME)
+                    
+                   
+                    
+                    if arrRoutines.count > 0 && IndexData == Countindex {
+                        self.NewDataSegmentList()
+                        
+                        UserDefaults.standard.set("", forKey: LTOOL)
+                        UserDefaults.standard.set("", forKey: RTOOL)
+                        UserDefaults.standard.set("", forKey: LPATH)
+                        UserDefaults.standard.set("", forKey: RPATH)
+                        UserDefaults.standard.set("", forKey: LLOCATION)
+                        UserDefaults.standard.set("", forKey: RLOCATION)
+                        UserDefaults.standard.set("", forKey: EXTIME)
+                    }
+                    else{
+                        fillData(index: IndexData)
+                    }
+                    
 
                     strLeftSpeed = ""
                     strRightSpeed = ""
@@ -842,7 +972,12 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
                     arrRoutines.append(viewRoutine)
                     viewRoutine.tag = arrRoutines.count
 
-                    numberOfRoutine += 1
+                    if arrRoutines.count > 0 && IndexData == Countindex {
+                        numberOfRoutine += 1
+                    }
+                    else{
+                    }
+                    
 
                     svContainer.contentSize = CGSize(width: screenWidth * CGFloat(numberOfRoutine), height: viewRoutine.frame.height)
             //        if strPath != "NotCreateRoutine" {
@@ -888,17 +1023,29 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
                     lblSegCount.layer.masksToBounds = true
                     lblSegCount.layer.cornerRadius = 10.0
 
-                    view.addSubview(lblSegCount)
+                    if arrRoutines.count > 0 && IndexData == Countindex {
+                        view.addSubview(lblSegCount)
 
-                    viewRuler.addSubview(view)
-                    arrRuler.append(view)
+                        viewRuler.addSubview(view)
+                        arrRuler.append(view)
+                    }
+                    else{
+                    }
+                    
+                    
 
                     viewRuler.subviews.map({  if !$0.isKind(of: UIImageView.self) { $0.backgroundColor = UIColor.btnBGColor } })
 
                     if let viewLast = viewRuler.subviews.last as? UIView {
                         viewLast.backgroundColor = UIColor.SegmentCountBGColor
                     }
-                    svContainer.contentOffset.x = screenWidth * CGFloat(Double(numberOfRoutine) - 1.0)
+                    if arrRoutines.count > 0 && IndexData == Countindex {
+                        svContainer.contentOffset.x = screenWidth * CGFloat(Double(numberOfRoutine) - 1.0)
+                    }
+                    else{
+                    }
+                    
+                   
                 }
             }
         }
@@ -906,13 +1053,15 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
 
     func addNewSegmentView() {
 
-        let strLeftTool: String = UserDefaults.standard.object(forKey: LTOOL) as? String ?? ""
-        let strRightTool: String = UserDefaults.standard.object(forKey: RTOOL) as? String ?? ""
-        let strLeftPath: String = UserDefaults.standard.object(forKey: LPATH) as? String ?? ""
-        let strRightPath: String = UserDefaults.standard.object(forKey: RPATH) as? String ?? ""
+        let ViewCurrentData = arrRoutines[IndexData]
+        
+        let strLeftTool: String = ViewCurrentData.txtLeftTool.text!//UserDefaults.standard.object(forKey: LTOOL) as? String ?? ""
+        let strRightTool: String = ViewCurrentData.txtRightTool.text!//UserDefaults.standard.object(forKey: RTOOL) as? String ?? ""
+        let strLeftPath: String = ViewCurrentData.txtLeftPath.text!//UserDefaults.standard.object(forKey: LPATH) as? String ?? ""
+        let strRightPath: String = ViewCurrentData.txtRightPath.text!//UserDefaults.standard.object(forKey: RPATH) as? String ?? ""
         let strLeftLoction: String = UserDefaults.standard.object(forKey: LLOCATION) as? String ?? ""
         let strRightLocation: String = UserDefaults.standard.object(forKey: RLOCATION) as? String ?? ""
-        var strExTime: String = UserDefaults.standard.object(forKey: EXTIME) as? String ?? "60"
+        var strExTime: String = ViewCurrentData.txtTime.text!//UserDefaults.standard.object(forKey: EXTIME) as? String ?? "60"
 
         if strExTime == "" {
             strExTime = "60"
@@ -983,9 +1132,10 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
 
             isUpdateSegmentData = false
 
-            let segmentData = arrSegmentList[IndexData]//arrSegmentList[intCurrentIndex]
+            var segmentData = arrSegmentList[self.IndexData]//arrSegmentList[intCurrentIndex]
 
-            let url = "https://massage-robotics-website.uc.r.appspot.com/rd?query='UPDATE Routineentity SET duration= '\(strExTime)',force_l= '\(strLeftForce)',force_r= '\(strRightForce)',location_l= '\(strLeftLoction.lowercased())',location_r= '\(strRightLocation.lowercased())',path_l= '\(strLeftPath)',path_r= '\(strRightPath) ',speed_l= '\(strLeftSpeed)',speed_r= '\(strRightSpeed)',tool_l= '\(strLeftTool)',tool_r= '\(strRightTool)' WHERE segmentid= '\(segmentData.getString(key: "segmentid"))''"
+            
+            let url = "https://massage-robotics-website.uc.r.appspot.com/rd?query='UPDATE Routineentity SET duration= '\(ViewCurrentData.txtTime.text!)',force_l= '\(ViewCurrentData.lblLeftForce.text!)',force_r= '\(ViewCurrentData.lblRightForce.text!)',location_l= '\(strLeftLoction.lowercased())',location_r= '\(strRightLocation.lowercased())',path_l= '\(strLeftPath)',path_r= '\(strRightPath) ',speed_l= '\(ViewCurrentData.lblLeftSpeed.text!)',speed_r= '\(ViewCurrentData.lblRightSpeed.text!)',tool_l= '\(strLeftTool)',tool_r= '\(strRightTool)' WHERE segmentid= '\(segmentData.getString(key: "segmentid"))''"
 
                 print(url)
 
@@ -996,89 +1146,112 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
                     self.hideLoading()
                     if json.getString(key: "Response") == "UPDATE query executed Successfully"
                     {
-                        UserDefaults.standard.set("", forKey: LTOOL)
-                        UserDefaults.standard.set("", forKey: RTOOL)
-                        UserDefaults.standard.set("", forKey: LPATH)
-                        UserDefaults.standard.set("", forKey: RPATH)
-                        UserDefaults.standard.set("", forKey: LLOCATION)
-                        UserDefaults.standard.set("", forKey: RLOCATION)
-                        UserDefaults.standard.set("", forKey: EXTIME)
+//                        let data = string.data(using: .utf8)!
+//                        let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>]
+                        
+//
+                        arrSegmentList[self.IndexData]["duration"] = ViewCurrentData.txtTime.text!
+                        arrSegmentList[self.IndexData]["force_l"] = strLeftForce
+                        arrSegmentList[self.IndexData]["force_r"] = strRightForce
+                        arrSegmentList[self.IndexData]["location_l"] = strLeftLoction.lowercased()
+                        arrSegmentList[self.IndexData]["location_r"] = strRightLocation.lowercased()
+                        arrSegmentList[self.IndexData]["path_l"] = strLeftPath
+                        arrSegmentList[self.IndexData]["path_r"] = strRightPath
+                        arrSegmentList[self.IndexData]["speed_l"] = strLeftSpeed
+                        arrSegmentList[self.IndexData]["speed_r"] = strRightSpeed
+                        arrSegmentList[self.IndexData]["tool_l"] = strLeftTool
+                        arrSegmentList[self.IndexData]["tool_r"] = strRightTool
+                        
 
-                        strLeftSpeed = ""
-                        strRightSpeed = ""
-                        strLeftForce = ""
-                        strRightForce = ""
-
-                        showToast(message: "Segment Updated Successfully.")
-
-                        let viewRoutine = RoutineParam.instanceFromNib()
-
-                        viewRoutine.delegate = self
-                        delegate = viewRoutine
-                        viewRoutine.delegateChangeData = self
-                        viewRoutine.delegateLocation = self
-                        delegateLocation = viewRoutine
-                        viewRoutine.delegateRuler = self
-                        viewRoutine.delegateCopyData = self
-                        delegateCopyData = viewRoutine
-                        viewRoutine.frame = CGRect(x: screenWidth * CGFloat(numberOfRoutine), y: 0, width: screenWidth, height: viewRoutine.frame.height)
-
-                        viewRoutine.currentViewTag = numberOfRoutine
-                        svContainer.addSubview(viewRoutine)
-                        arrRoutines.append(viewRoutine)
-                        viewRoutine.tag = arrRoutines.count
-
-                        numberOfRoutine += 1
-
-                        svContainer.contentSize = CGSize(width: screenWidth * CGFloat(numberOfRoutine), height: viewRoutine.frame.height)
-                //        if strPath != "NotCreateRoutine" {
-                            if isRulerAdd == false {
-                                intRuler = 28
-                            }else {
-                                isRulerAdd = false
-                            }
-                //        }
-
-                        let strRulerWidth: String = UserDefaults.standard.object(forKey: RULERWIDTH) as? String ?? "0"
-
-                        let intRWidth = Int(strRulerWidth)
-
-                        intStoreRuler = intRWidth! + intRuler
-
-                        UserDefaults.standard.set("\(intStoreRuler)", forKey: RULERWIDTH)
-
-                        let view = UIView(frame: CGRect(x: 12 + intStoreRuler, y: 32, width: 28, height: 36))
-
-                        let i = viewRuler.subviews.count
-
-                        view.backgroundColor = UIColor.SegmentCountBGColor
-
-                        let lblSegCount = UILabel(frame: CGRect(x: 4, y: 8, width: 20, height: 20))
-                        lblSegCount.font = lblSegCount.font.withSize(10)
-                        lblSegCount.textAlignment = .center
-
-                        if i+1 > 10 {
-                            lblSegCount.text = String(format: "%d", i)
-                        }else {
-                            lblSegCount.text = String(format: "0%d", i)
-                        }
-
-                        lblSegCount.textColor = UIColor.black
-                        lblSegCount.backgroundColor = UIColor.white
-                        lblSegCount.layer.masksToBounds = true
-                        lblSegCount.layer.cornerRadius = 10.0
-
+                        //getRoutinSegmentDataListUpdate(index: self.IndexData)
+                        fillData(index: self.IndexData)
+                        
+//                        UserDefaults.standard.set("", forKey: LTOOL)
+//                        UserDefaults.standard.set("", forKey: RTOOL)
+//                        UserDefaults.standard.set("", forKey: LPATH)
+//                        UserDefaults.standard.set("", forKey: RPATH)
+//                        UserDefaults.standard.set("", forKey: LLOCATION)
+//                        UserDefaults.standard.set("", forKey: RLOCATION)
+//                        UserDefaults.standard.set("", forKey: EXTIME)
+//
+//                        strLeftSpeed = ""
+//                        strRightSpeed = ""
+//                        strLeftForce = ""
+//                        strRightForce = ""
+//
+//                        showToast(message: "Segment Updated Successfully.")
+//
+//                        let viewRoutine = RoutineParam.instanceFromNib()
+//
+//                        viewRoutine.delegate = self
+//                        delegate = viewRoutine
+//                        viewRoutine.delegateChangeData = self
+//                        viewRoutine.delegateLocation = self
+//                        delegateLocation = viewRoutine
+//                        viewRoutine.delegateRuler = self
+//                        viewRoutine.delegateCopyData = self
+//                        delegateCopyData = viewRoutine
+//                        viewRoutine.frame = CGRect(x: screenWidth * CGFloat(numberOfRoutine), y: 0, width: screenWidth, height: viewRoutine.frame.height)
+//
+//                        viewRoutine.currentViewTag = numberOfRoutine
+//                        svContainer.addSubview(viewRoutine)
+//                        arrRoutines.append(viewRoutine)
+//                        viewRoutine.tag = arrRoutines.count
+//
+//                        numberOfRoutine += 1
+//
+//                        svContainer.contentSize = CGSize(width: screenWidth * CGFloat(numberOfRoutine), height: viewRoutine.frame.height)
+//                //        if strPath != "NotCreateRoutine" {
+//                            if isRulerAdd == false {
+//                                intRuler = 28
+//                            }else {
+//                                isRulerAdd = false
+//                            }
+//                //        }
+//
+//                        let strRulerWidth: String = UserDefaults.standard.object(forKey: RULERWIDTH) as? String ?? "0"
+//
+//                        let intRWidth = Int(strRulerWidth)
+//
+//                        intStoreRuler = intRWidth! + intRuler
+//
+//                        UserDefaults.standard.set("\(intStoreRuler)", forKey: RULERWIDTH)
+//
+//                        let view = UIView(frame: CGRect(x: 12 + intStoreRuler, y: 32, width: 28, height: 36))
+//
+//                        let i = viewRuler.subviews.count
+//
+//                        view.backgroundColor = UIColor.SegmentCountBGColor
+//
+//                        let lblSegCount = UILabel(frame: CGRect(x: 4, y: 8, width: 20, height: 20))
+//                        lblSegCount.font = lblSegCount.font.withSize(10)
+//                        lblSegCount.textAlignment = .center
+//
+//                        if i+1 > 10 {
+//                            lblSegCount.text = String(format: "%d", i)
+//                        }else {
+//                            lblSegCount.text = String(format: "0%d", i)
+//                        }
+//
+//                        lblSegCount.textColor = UIColor.black
+//                        lblSegCount.backgroundColor = UIColor.white
+//                        lblSegCount.layer.masksToBounds = true
+//                        lblSegCount.layer.cornerRadius = 10.0
+//
+//
+//
+//
 //                        view.addSubview(lblSegCount)
 //
 //                        viewRuler.addSubview(view)
 //                        arrRuler.append(view)
 
-                        viewRuler.subviews.map({  if !$0.isKind(of: UIImageView.self) { $0.backgroundColor = UIColor.btnBGColor } })
-
-                        if let viewLast = viewRuler.subviews.last as? UIView {
-                            viewLast.backgroundColor = UIColor.SegmentCountBGColor
-                        }
-                        svContainer.contentOffset.x = screenWidth * CGFloat(Double(numberOfRoutine) - 1.0)
+//                        viewRuler.subviews.map({  if !$0.isKind(of: UIImageView.self) { $0.backgroundColor = UIColor.btnBGColor } })
+//
+//                        if let viewLast = viewRuler.subviews.last as? UIView {
+//                            viewLast.backgroundColor = UIColor.SegmentCountBGColor
+//                        }
+//                        svContainer.contentOffset.x = screenWidth * CGFloat(Double(numberOfRoutine) - 1.0)
                       //  getRoutinSegmentDataListUpdate()
                     }
                 }
@@ -1181,219 +1354,481 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
 
     @IBAction func btnBodyPartPectoralisAction(_ sender: UIButton) {
         isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Pectoralis", currentIndex: intCurrentIndex)
+        
         let data = arrRoutines[self.IndexData]
-        data.btnLocationLeft.setTitle("Pectoralis", for: .normal)
-        data.btnLocationRight.setTitle("Pectoralis", for: .normal)
+        
+        if strLocationAction == "Left" {
+            
+            if isLink == false
+            {
+                data.btnLocationLeft.setTitle("Pectoralis", for: .normal)
+                LImageSetLocation = "Pectoralis"
+            }else
+            {
+                data.btnLocationLeft.setTitle("Pectoralis", for: .normal)
+                data.btnLocationRight.setTitle("Pectoralis", for: .normal)
+                LImageSetLocation = "Pectoralis"
+                RImageSetLocation = "Pectoralis"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Pectoralis", for: .normal)
+                RImageSetLocation = "Pectoralis"
+            }else{
+                data.btnLocationLeft.setTitle("Pectoralis", for: .normal)
+                data.btnLocationRight.setTitle("Pectoralis", for: .normal)
+                LImageSetLocation = "Pectoralis"
+                RImageSetLocation = "Pectoralis"
+            }
+        }
         
         self.selectBodyPartToHiddenView()
-        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Pectoralis", currentIndex: intCurrentIndex)
-        let LLocation = UserDefaults.standard.object(forKey: LLOCATION) as? String ?? ""
-        let RLocation = UserDefaults.standard.object(forKey: RLOCATION) as? String ?? ""
-        self.SetImagePart(Location_L: LLocation.lowercased(), Location_R: RLocation.lowercased())
-        
-        
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
 
     @IBAction func btnBodyPartQuadraceptsAction(_ sender: UIButton) {
         isUpdateSegmentData = true
-        self.selectBodyPartToHiddenView()
-        let data = arrRoutines[self.IndexData]
-        data.btnLocationLeft.setTitle("Quadracepts", for: .normal)
-        data.btnLocationRight.setTitle("Quadracepts", for: .normal)
-        
         delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Quadracepts", currentIndex: intCurrentIndex)
-        let LLocation = UserDefaults.standard.object(forKey: LLOCATION) as? String ?? ""
-        let RLocation = UserDefaults.standard.object(forKey: RLOCATION) as? String ?? ""
-        self.SetImagePart(Location_L: LLocation.lowercased(), Location_R: RLocation.lowercased())
+        let data = arrRoutines[self.IndexData]
+    
+        if strLocationAction == "Left" {
+            
+            if isLink == false{
+                data.btnLocationLeft.setTitle("Quadracepts", for: .normal)
+                LImageSetLocation = "Quadracepts"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Quadracepts", for: .normal)
+                data.btnLocationRight.setTitle("Quadracepts", for: .normal)
+                LImageSetLocation = "Quadracepts"
+                RImageSetLocation = "Quadracepts"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Quadracepts", for: .normal)
+                RImageSetLocation = "Quadracepts"
+            }else{
+                data.btnLocationLeft.setTitle("Quadracepts", for: .normal)
+                data.btnLocationRight.setTitle("Quadracepts", for: .normal)
+                LImageSetLocation = "Quadracepts"
+                RImageSetLocation = "Quadracepts"
+            }
+        }
         
-       
-        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
 
     @IBAction func btnBodyPartIliotibalTractAction(_ sender: UIButton) {
         isUpdateSegmentData = true
-        self.selectBodyPartToHiddenView()
-        let data = arrRoutines[self.IndexData]
-        data.btnLocationLeft.setTitle("iliotibal tract", for: .normal)
-        data.btnLocationRight.setTitle("iliotibal tract", for: .normal)
-        
         delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "iliotibal tract", currentIndex: intCurrentIndex)
-        let LLocation = UserDefaults.standard.object(forKey: LLOCATION) as? String ?? ""
-        let RLocation = UserDefaults.standard.object(forKey: RLOCATION) as? String ?? ""
-        self.SetImagePart(Location_L: LLocation.lowercased(), Location_R: RLocation.lowercased())
+        
+        let data = arrRoutines[self.IndexData]
+        
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("iliotibal tract", for: .normal)
+                LImageSetLocation = "iliotibal tract"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("iliotibal tract", for: .normal)
+                data.btnLocationRight.setTitle("iliotibal tract", for: .normal)
+                LImageSetLocation = "iliotibal tract"
+                RImageSetLocation = "iliotibal tract"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("iliotibal tract", for: .normal)
+                RImageSetLocation = "iliotibal tract"
+            }else{
+                data.btnLocationLeft.setTitle("iliotibal tract", for: .normal)
+                data.btnLocationRight.setTitle("iliotibal tract", for: .normal)
+                LImageSetLocation = "iliotibal tract"
+                RImageSetLocation = "iliotibal tract"
+            }
+        }
+        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        
     }
 
     @IBAction func btnBodyPartTibalisAnteriorAction(_ sender: UIButton) {
         isUpdateSegmentData = true
-        self.selectBodyPartToHiddenView()
-        let data = arrRoutines[self.IndexData]
-        data.btnLocationLeft.setTitle("Tibalis Anterior", for: .normal)
-        data.btnLocationRight.setTitle("Tibalis Anterior", for: .normal)
-        
         delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Tibalis Anterior", currentIndex: intCurrentIndex)
-        let LLocation = UserDefaults.standard.object(forKey: LLOCATION) as? String ?? ""
-        let RLocation = UserDefaults.standard.object(forKey: RLOCATION) as? String ?? ""
-        self.SetImagePart(Location_L: LLocation.lowercased(), Location_R: RLocation.lowercased())
+        
+        let data = arrRoutines[self.IndexData]
+        
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Tibalis Anterior", for: .normal)
+                LImageSetLocation = "Tibalis Anterior"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Tibalis Anterior", for: .normal)
+                data.btnLocationRight.setTitle("Tibalis Anterior", for: .normal)
+                LImageSetLocation = "Tibalis Anterior"
+                RImageSetLocation = "Tibalis Anterior"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Tibalis Anterior", for: .normal)
+                RImageSetLocation = "Tibalis Anterior"
+            }else{
+                data.btnLocationLeft.setTitle("Tibalis Anterior", for: .normal)
+                data.btnLocationRight.setTitle("Tibalis Anterior", for: .normal)
+                LImageSetLocation = "Tibalis Anterior"
+                RImageSetLocation = "Tibalis Anterior"
+            }
+        }
+        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
 
     @IBAction func btnBodyPartBodyparamAction(_ sender: UIButton) {
         isUpdateSegmentData = true
-        self.selectBodyPartToHiddenView()
+       delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "bodyparam", currentIndex: intCurrentIndex )
+        
         let data = arrRoutines[self.IndexData]
-        data.btnLocationLeft.setTitle("bodyparam", for: .normal)
-        data.btnLocationRight.setTitle("bodyparam", for: .normal)
+
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
+                LImageSetLocation = "bodyparam"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
+                data.btnLocationRight.setTitle("bodyparam", for: .normal)
+                LImageSetLocation = "bodyparam"
+                RImageSetLocation = "bodyparam"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("bodyparam", for: .normal)
+                RImageSetLocation = "bodyparam"
+            }else{
+                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
+                data.btnLocationRight.setTitle("bodyparam", for: .normal)
+                LImageSetLocation = "bodyparam"
+                RImageSetLocation = "bodyparam"
+            }
+        }
         
-        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "bodyparam", currentIndex: intCurrentIndex )
-        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: "", Location_R: "")
     }
 
     @IBAction func btnBodyPartDeltoidAction(_ sender: UIButton) {
-        let data = arrRoutines[self.IndexData]
-        data.btnLocationLeft.setTitle("Deltoid", for: .normal)
-        data.btnLocationRight.setTitle("Deltoid", for: .normal)
-
+        
         isUpdateSegmentData = true
-        self.selectBodyPartToHiddenView()
         delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Deltoid", currentIndex: intCurrentIndex)
-        let LLocation = UserDefaults.standard.object(forKey: LLOCATION) as? String ?? ""
-        let RLocation = UserDefaults.standard.object(forKey: RLOCATION) as? String ?? ""
-        self.SetImagePart(Location_L: LLocation.lowercased(), Location_R: RLocation.lowercased())
+        
+        let data = arrRoutines[self.IndexData]
+        
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Deltoid", for: .normal)
+                LImageSetLocation = "Deltoid"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Deltoid", for: .normal)
+                data.btnLocationRight.setTitle("Deltoid", for: .normal)
+                LImageSetLocation = "Deltoid"
+                RImageSetLocation = "Deltoid"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Deltoid", for: .normal)
+                RImageSetLocation = "Deltoid"
+            }else{
+                data.btnLocationLeft.setTitle("Deltoid", for: .normal)
+                data.btnLocationRight.setTitle("Deltoid", for: .normal)
+                LImageSetLocation = "Deltoid"
+                RImageSetLocation = "Deltoid"
+            }
+        }
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
 
     @IBAction func btnBodyPartUpperbackAction(_ sender: UIButton) {
         isUpdateSegmentData = true
-        self.selectBodyPartToHiddenView()
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Upperback", currentIndex: intCurrentIndex)
         
         let data = arrRoutines[self.IndexData]
-        data.btnLocationLeft.setTitle("Upperback", for: .normal)
-        data.btnLocationRight.setTitle("Upperback", for: .normal)
         
-        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Upperback", currentIndex: intCurrentIndex)
-        let LLocation = UserDefaults.standard.object(forKey: LLOCATION) as? String ?? ""
-        let RLocation = UserDefaults.standard.object(forKey: RLOCATION) as? String ?? ""
-        self.SetImagePart(Location_L: LLocation.lowercased(), Location_R: RLocation.lowercased())
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Upperback", for: .normal)
+                LImageSetLocation = "Upperback"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Upperback", for: .normal)
+                data.btnLocationRight.setTitle("Upperback", for: .normal)
+                LImageSetLocation = "Upperback"
+                RImageSetLocation = "Upperback"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Upperback", for: .normal)
+                RImageSetLocation = "Upperback"
+            }else{
+                data.btnLocationLeft.setTitle("Upperback", for: .normal)
+                data.btnLocationRight.setTitle("Upperback", for: .normal)
+                LImageSetLocation = "Upperback"
+                RImageSetLocation = "Upperback"
+            }
+        }
+        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
 
     @IBAction func btnBodyPartLowerbackAction(_ sender: UIButton) {
         isUpdateSegmentData = true
-        self.selectBodyPartToHiddenView()
-        let data = arrRoutines[self.IndexData]
-        data.btnLocationLeft.setTitle("Lowerback", for: .normal)
-        data.btnLocationRight.setTitle("Lowerback", for: .normal)
-        
         delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Lowerback", currentIndex: intCurrentIndex)
-        let LLocation = UserDefaults.standard.object(forKey: LLOCATION) as? String ?? ""
-        let RLocation = UserDefaults.standard.object(forKey: RLOCATION) as? String ?? ""
-        self.SetImagePart(Location_L: LLocation.lowercased(), Location_R: RLocation.lowercased())
+       
+        let data = arrRoutines[self.IndexData]
+
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Lowerback", for: .normal)
+                LImageSetLocation = "Lowerback"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Lowerback", for: .normal)
+                data.btnLocationRight.setTitle("Lowerback", for: .normal)
+                LImageSetLocation = "Lowerback"
+                RImageSetLocation = "Lowerback"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false{
+                data.btnLocationRight.setTitle("Lowerback", for: .normal)
+                RImageSetLocation = "Lowerback"
+            }else{
+                data.btnLocationLeft.setTitle("Lowerback", for: .normal)
+                data.btnLocationRight.setTitle("Lowerback", for: .normal)
+                LImageSetLocation = "Lowerback"
+                RImageSetLocation = "Lowerback"
+            }
+        }
+        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
 
     @IBAction func btnBodyPartGlutiusmaximusAction(_ sender: UIButton) {
         isUpdateSegmentData = true
-        self.selectBodyPartToHiddenView()
-        let data = arrRoutines[self.IndexData]
-        data.btnLocationLeft.setTitle("Glutiusmaximus", for: .normal)
-        data.btnLocationRight.setTitle("Glutiusmaximus", for: .normal)
-
         delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Glutiusmaximus", currentIndex: intCurrentIndex)
-        let LLocation = UserDefaults.standard.object(forKey: LLOCATION) as? String ?? ""
-        let RLocation = UserDefaults.standard.object(forKey: RLOCATION) as? String ?? ""
-        self.SetImagePart(Location_L: LLocation.lowercased(), Location_R: RLocation.lowercased())
+        
+        let data = arrRoutines[self.IndexData]
+
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Glutiusmaximus", for: .normal)
+                LImageSetLocation = "Glutiusmaximus"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Glutiusmaximus", for: .normal)
+                data.btnLocationRight.setTitle("Glutiusmaximus", for: .normal)
+                LImageSetLocation = "Glutiusmaximus"
+                RImageSetLocation = "Glutiusmaximus"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Glutiusmaximus", for: .normal)
+                RImageSetLocation = "Glutiusmaximus"
+            }else{
+                data.btnLocationLeft.setTitle("Glutiusmaximus", for: .normal)
+                data.btnLocationRight.setTitle("Glutiusmaximus", for: .normal)
+                LImageSetLocation = "Glutiusmaximus"
+                RImageSetLocation = "Glutiusmaximus"
+            }
+        }
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
 
     @IBAction func btnBodyPartHamstringAction(_ sender: UIButton) {
         isUpdateSegmentData = true
-        self.selectBodyPartToHiddenView()
-        let data = arrRoutines[self.IndexData]
-        data.btnLocationLeft.setTitle("Hamstring", for: .normal)
-        data.btnLocationRight.setTitle("Hamstring", for: .normal)
-        
         delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Hamstring", currentIndex: intCurrentIndex)
-        let LLocation = UserDefaults.standard.object(forKey: LLOCATION) as? String ?? ""
-        let RLocation = UserDefaults.standard.object(forKey: RLOCATION) as? String ?? ""
-        self.SetImagePart(Location_L: LLocation.lowercased(), Location_R: RLocation.lowercased())
+        
+        let data = arrRoutines[self.IndexData]
+
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Hamstring", for: .normal)
+                LImageSetLocation = "Hamstring"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Hamstring", for: .normal)
+                data.btnLocationRight.setTitle("Hamstring", for: .normal)
+                LImageSetLocation = "Hamstring"
+                RImageSetLocation = "Hamstring"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Hamstring", for: .normal)
+                RImageSetLocation = "Hamstring"
+            }else{
+                data.btnLocationLeft.setTitle("Hamstring", for: .normal)
+                data.btnLocationRight.setTitle("Hamstring", for: .normal)
+                LImageSetLocation = "Hamstring"
+                RImageSetLocation = "Hamstring"
+            }
+        }
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
 
     @IBAction func btnBodyPartGastrocnemiusAction(_ sender: UIButton) {
         isUpdateSegmentData = true
-        self.selectBodyPartToHiddenView()
-        let data = arrRoutines[self.IndexData]
-        data.btnLocationLeft.setTitle("Gastrocnemius", for: .normal)
-        data.btnLocationRight.setTitle("Gastrocnemius", for: .normal)
-        
         delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Gastrocnemius", currentIndex: intCurrentIndex)
-        let LLocation = UserDefaults.standard.object(forKey: LLOCATION) as? String ?? ""
-        let RLocation = UserDefaults.standard.object(forKey: RLOCATION) as? String ?? ""
-        self.SetImagePart(Location_L: LLocation.lowercased(), Location_R: RLocation.lowercased())
+        
+        let data = arrRoutines[self.IndexData]
+
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Gastrocnemius", for: .normal)
+                LImageSetLocation = "Gastrocnemius"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Gastrocnemius", for: .normal)
+                data.btnLocationRight.setTitle("Gastrocnemius", for: .normal)
+                LImageSetLocation = "Gastrocnemius"
+                RImageSetLocation = "Gastrocnemius"
+            }
+        }else if strLocationAction == "Right" {
+            
+             if isLink == false {
+                data.btnLocationRight.setTitle("Gastrocnemius", for: .normal)
+                RImageSetLocation = "Gastrocnemius"
+            }else{
+                data.btnLocationLeft.setTitle("Gastrocnemius", for: .normal)
+                data.btnLocationRight.setTitle("Gastrocnemius", for: .normal)
+                LImageSetLocation = "Gastrocnemius"
+                RImageSetLocation = "Gastrocnemius"
+            }
+        }
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
 
     @IBAction func btnFirstSegmentAction(_ sender: UIButton)
     {
         if strPath == "NotCreateRoutine"
         {
-            let viewRoutine = RoutineParam.instanceFromNib()
-            viewRoutine.delegate = self
-            delegate = viewRoutine
-            viewRoutine.delegateChangeData = self
-            viewRoutine.delegateLocation = self
-            delegateLocation = viewRoutine
-            viewRoutine.delegateRuler = self
-            viewRoutine.delegateCopyData = self
-            delegateCopyData = viewRoutine
-            viewRoutine.frame = CGRect(x: screenWidth * CGFloat(0), y: 0, width: screenWidth, height: viewRoutine.frame.height)
-
-            viewRoutine.currentViewTag = 0
-            svContainer.addSubview(viewRoutine)
-            arrRoutines.append(viewRoutine)
-            viewRoutine.tag = arrRoutines.count
-
+            IndexData = 0
+            let SetX = self.view.bounds.width as CGFloat * CGFloat(arrRoutines.count - 1)
+            if svContainer.contentOffset.x > 0 {
+                svContainer.contentOffset.x -=  SetX
+                changeColorOfRuler(index: IndexData + 1)
+                fillData(index: IndexData)
+             }
         }else
         {
-            let viewRoutine = RoutineParam.instanceFromNib()
-            viewRoutine.delegate = self
-            delegate = viewRoutine
-            viewRoutine.delegateChangeData = self
-            viewRoutine.delegateLocation = self
-            delegateLocation = viewRoutine
-            viewRoutine.delegateRuler = self
-            viewRoutine.delegateCopyData = self
-            delegateCopyData = viewRoutine
-            viewRoutine.frame = CGRect(x: screenWidth * CGFloat(0), y: 0, width: screenWidth, height: viewRoutine.frame.height)
-
-            viewRoutine.currentViewTag = 0
-            svContainer.addSubview(viewRoutine)
-            arrRoutines.append(viewRoutine)
-            viewRoutine.tag = arrRoutines.count
+            IndexData = 0
+            let SetX = self.view.bounds.width as CGFloat * CGFloat(arrRoutines.count - 1)
+            if svContainer.contentOffset.x > 0 {
+                svContainer.contentOffset.x -=  SetX
+                changeColorOfRuler(index: IndexData + 1)
+                fillData(index: IndexData)
+             }
         }
         print("First Segment")
     }
     
     @IBAction func btnLastSegmentAction(_ sender: UIButton) {
-//        let LastIndex = arrRoutines.count
-//        if strPath == "NotCreateRoutine" {
-//
-//            intCurrentIndex = index
-//            changeColorOfRuler(index: index + 1)
-//
-//            fillData(index: index)
-//            }else {
-//                let data = arrSegmentList[LastIndex]
-//                self.IndexDataSwapDataSet(index: LastIndex, segmentData: data)
-//            }
-      //  print("Last Segment\(LastIndex)")
+        
+        if strPath == "NotCreateRoutine"
+        {
+            IndexData = arrSegmentList.count - 1
+            let SetX = self.view.bounds.width as CGFloat * CGFloat(arrRoutines.count - 1)
+            if svContainer.contentOffset.x < self.view.bounds.width * CGFloat(arrRoutines.count-IndexData) {
+                svContainer.contentOffset.x +=  SetX
+                   }
+            changeColorOfRuler(index: IndexData + 1)
+            fillData(index: IndexData)
+
+        }else
+        {
+            
+        }
     }
     
     @IBAction func btnNextSegmentAction(_ sender: UIButton) {
-        let index = intCurrentIndex + 1
         
-        fillData(index: index)
-        print("Next Click\(index)")
+        if strPath == "NotCreateRoutine"{
+            if svContainer.contentOffset.x < self.view.bounds.width * CGFloat(arrRoutines.count - 1)
+            {
+                svContainer.contentOffset.x +=  self.view.bounds.width
+                IndexData += 1
+                changeColorOfRuler(index: IndexData + 1)
+                fillData(index: IndexData)
+            }
+            
+        }else{
+            if svContainer.contentOffset.x < self.view.bounds.width * CGFloat(arrRoutines.count-1)
+            {
+                svContainer.contentOffset.x +=  self.view.bounds.width
+                IndexData += 1
+                changeColorOfRuler(index: IndexData + 1)
+                fillData(index: IndexData)
+            }
+        }
+        
     }
     
     @IBAction func btnPreviousSegmentAction(_ sender: UIButton) {
-        let index = intCurrentIndex - 1
         
-        fillData(index: index)
-        print("Previous Click\(index)")
+        if strPath == "NotCreateRoutine"{
+            if svContainer.contentOffset.x > 0 {
+                svContainer.contentOffset.x -=  self.view.bounds.width
+                IndexData -= 1
+                changeColorOfRuler(index: IndexData + 1)
+                fillData(index: IndexData)
+            }
+           
+        }else{
+            if svContainer.contentOffset.x > 0 {
+                svContainer.contentOffset.x -=  self.view.bounds.width
+                
+                IndexData -= 1
+                changeColorOfRuler(index: IndexData + 1)
+                fillData(index: IndexData)
+            }
+        }
     }
     
     func selectBodyPartToHiddenView()  {
@@ -1419,7 +1854,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         print("END Scrolling \(scrollView.contentOffset.x / scrollView.bounds.size.width)")
         let index: Int = Int(scrollView.contentOffset.x / scrollView.bounds.size.width)
         print("Index Count:::\(index)")
-
+      
             intCurrentIndex = index
         self.IndexData = index
             changeColorOfRuler(index: index + 1)
@@ -1498,7 +1933,6 @@ extension CreateSegmentVC
 {
     private func SetImagePart(Location_L:String,Location_R:String)
     {
-        
         if Location_L.isEmpty == true && Location_R.isEmpty == true
         {
             self.ImageLeft.image = UIImage(named: "")
@@ -1506,6 +1940,9 @@ extension CreateSegmentVC
         }
         else
         {
+            let OldLLocation = UserDefaults.standard.object(forKey: LLOCATION) as? String ?? ""
+            let OldRLocation = UserDefaults.standard.object(forKey: LLOCATION) as? String ?? ""
+            
             if arrUserDetail.count > 0 {
                 let routingData = arrUserDetail[0]
                 let Gender = routingData.getString(key: "gender")
@@ -1797,7 +2234,7 @@ extension CreateSegmentVC
         strRightSpeed = segmentData.getString(key: "speed_r")
     }
     
-    func getRoutinSegmentDataListUpdate() {
+    func getRoutinSegmentDataListUpdate(index : Int) {
 
         let url = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select * from Routineentity where routineID = '\(strRoutingID!)''"
 
@@ -1815,16 +2252,142 @@ extension CreateSegmentVC
                 let data = string.data(using: .utf8)!
                 do {
                     if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
+                        arrSegmentList.removeAll()
                         arrSegmentList.append(contentsOf: jsonArray)
-                        intCurrentIndex = arrSegmentList.count
                         
+                        self.fillData(index: index )
+                        
+//                        for (index, element) in arrSegmentList.enumerated() {
+//                          print("Item \(index): \(element)")
+//                            self.fillData(index: index)
+//                        }
+//
                         if arrSegmentList.count > 0
                         {
-                            let FirstIndex = arrSegmentList[0] as NSDictionary
+                            let FirstIndex = arrSegmentList[IndexData ] as NSDictionary
                             let Location_R = FirstIndex["location_r"] as? String ?? ""
                             let Location_L = FirstIndex["location_l"] as? String ?? ""
                             self.SetImagePart(Location_L: Location_L, Location_R: Location_R)
                         }
+                       // self.changeColorOfRuler(index: IndexData)
+                    } else {
+                        showToast(message: "Bad Json")
+                    }
+                } catch let error as NSError {
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    func EmtySegmet()
+    {
+        UserDefaults.standard.set("", forKey: LTOOL)
+        UserDefaults.standard.set("", forKey: RTOOL)
+        UserDefaults.standard.set("", forKey: LPATH)
+        UserDefaults.standard.set("", forKey: RPATH)
+        UserDefaults.standard.set("", forKey: LLOCATION)
+        UserDefaults.standard.set("", forKey: RLOCATION)
+        UserDefaults.standard.set("", forKey: EXTIME)
+
+        strLeftSpeed = ""
+        strRightSpeed = ""
+        strLeftForce = ""
+        strRightForce = ""
+
+        let viewRoutine = RoutineParam.instanceFromNib()
+
+        viewRoutine.delegate = self
+        delegate = viewRoutine
+        viewRoutine.delegateChangeData = self
+        viewRoutine.delegateLocation = self
+        delegateLocation = viewRoutine
+        viewRoutine.delegateRuler = self
+        viewRoutine.delegateCopyData = self
+        delegateCopyData = viewRoutine
+        viewRoutine.frame = CGRect(x: screenWidth * CGFloat(numberOfRoutine), y: 0, width: screenWidth, height: viewRoutine.frame.height)
+
+        viewRoutine.currentViewTag = numberOfRoutine
+        svContainer.addSubview(viewRoutine)
+        arrRoutines.append(viewRoutine)
+        viewRoutine.tag = arrRoutines.count
+
+        numberOfRoutine += 1
+        
+        svContainer.contentSize = CGSize(width: screenWidth * CGFloat(numberOfRoutine), height: viewRoutine.frame.height)
+//        if strPath != "NotCreateRoutine" {
+            if isRulerAdd == false {
+                intRuler = 28
+            }else {
+                isRulerAdd = false
+            }
+//        }
+
+        let strRulerWidth: String = UserDefaults.standard.object(forKey: RULERWIDTH) as? String ?? "0"
+
+        let intRWidth = Int(strRulerWidth)
+
+        intStoreRuler = intRWidth! + intRuler
+
+        UserDefaults.standard.set("\(intStoreRuler)", forKey: RULERWIDTH)
+
+        let view = UIView(frame: CGRect(x: 12 + intStoreRuler, y: 32, width: 28, height: 36))
+
+        let i = viewRuler.subviews.count
+
+        view.backgroundColor = UIColor.SegmentCountBGColor
+
+        let lblSegCount = UILabel(frame: CGRect(x: 4, y: 8, width: 20, height: 20))
+        lblSegCount.font = lblSegCount.font.withSize(10)
+        lblSegCount.textAlignment = .center
+
+        var strSegCo: String = ""
+
+        if i+1 > 10 {
+            lblSegCount.text = String(format: "%d", i)
+            strSegCo = String(format: "%d", i)
+        }else {
+            lblSegCount.text = String(format: "0%d", i)
+            strSegCo = String(format: "%d", i)
+        }
+
+        UserDefaults.standard.set(strSegCo, forKey: SEGMENTCOUNT)
+
+        lblSegCount.textColor = UIColor.black
+        lblSegCount.backgroundColor = UIColor.white
+        lblSegCount.layer.masksToBounds = true
+        lblSegCount.layer.cornerRadius = 10.0
+
+        view.addSubview(lblSegCount)
+
+        viewRuler.addSubview(view)
+        arrRuler.append(view)
+
+        viewRuler.subviews.map({  if !$0.isKind(of: UIImageView.self) { $0.backgroundColor = UIColor.btnBGColor } })
+
+        if let viewLast = viewRuler.subviews.last as? UIView {
+            viewLast.backgroundColor = UIColor.SegmentCountBGColor
+        }
+        svContainer.contentOffset.x = screenWidth * CGFloat(Double(numberOfRoutine) - 1.0)
+    }
+    
+    func NewDataSegmentList() {
+        
+        let url = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select * from Routineentity where routineID = '\(strRoutingID!)''"
+        print(url)
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        callAPI(url: encodedUrl!) { [self] (json, data1) in
+            print(json)
+            self.hideLoading()
+            if json.getString(key: "status") == "false"
+            {
+                arrSegmentList.removeAll()
+                let string = json.getString(key: "response_message")
+                let data = string.data(using: .utf8)!
+                do {
+                    if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
+                        arrSegmentList.append(contentsOf: jsonArray)
                     } else {
                         showToast(message: "Bad Json")
                     }
