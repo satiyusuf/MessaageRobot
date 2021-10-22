@@ -456,7 +456,7 @@
                                                         <rect key="frame" x="0.0" y="48" width="414" height="196"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This routine doesn't  have any segment" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BfL-dm-9Tz">
-                                                                <rect key="frame" x="20" y="88.5" width="374" height="19.5"/>
+                                                                <rect key="frame" x="20" y="88.5" width="374" height="19"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -552,7 +552,7 @@
                                                         <rect key="frame" x="0.0" y="48" width="414" height="196"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This routine doesn't  have any segment" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7b-Fz-ALg">
-                                                                <rect key="frame" x="20" y="88.5" width="374" height="19.5"/>
+                                                                <rect key="frame" x="20" y="88.5" width="374" height="19"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -735,7 +735,7 @@
                                                         <rect key="frame" x="0.0" y="48" width="414" height="196"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This routine doesn't  have any segment" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kiJ-Kr-nk8">
-                                                                <rect key="frame" x="20" y="88.5" width="374" height="19.5"/>
+                                                                <rect key="frame" x="20" y="88.5" width="374" height="19"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -831,7 +831,7 @@
                                                         <rect key="frame" x="0.0" y="48" width="414" height="196"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This routine doesn't  have any segment" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xK1-ky-W6f">
-                                                                <rect key="frame" x="20" y="88.5" width="374" height="19.5"/>
+                                                                <rect key="frame" x="20" y="88.5" width="374" height="19"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -927,7 +927,7 @@
                                                         <rect key="frame" x="0.0" y="48" width="414" height="196"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This routine doesn't  have any segment" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HoW-ML-PGs">
-                                                                <rect key="frame" x="20" y="88.5" width="374" height="19.5"/>
+                                                                <rect key="frame" x="20" y="88.5" width="374" height="19"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -1197,7 +1197,7 @@
                                                         <rect key="frame" x="0.0" y="48" width="414" height="196"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This routine doesn't  have any segment" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="znS-Ur-MpY">
-                                                                <rect key="frame" x="20" y="88.5" width="374" height="19.5"/>
+                                                                <rect key="frame" x="20" y="88.5" width="374" height="19"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -1293,7 +1293,7 @@
                                                         <rect key="frame" x="0.0" y="48" width="414" height="196"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This routine doesn't  have any segment" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NU1-4l-dIm">
-                                                                <rect key="frame" x="20" y="88.5" width="374" height="19.5"/>
+                                                                <rect key="frame" x="20" y="88.5" width="374" height="19"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -1867,7 +1867,7 @@
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data Found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7n-2p-dgr">
-                                <rect key="frame" x="153.5" y="438.5" width="107.5" height="19"/>
+                                <rect key="frame" x="152.5" y="438.5" width="109" height="19"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -3787,7 +3787,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="52"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Routines" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T5M-GS-Qge">
-                                        <rect key="frame" x="167" y="14" width="80" height="24"/>
+                                        <rect key="frame" x="167.5" y="14" width="79" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="ird-ZJ-KAd"/>
                                         </constraints>
@@ -4316,13 +4316,13 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ShH-Bp-fk8">
-                                <rect key="frame" x="0.0" y="176" width="414" height="637"/>
+                                <rect key="frame" x="0.0" y="176" width="434" height="737"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yi-Gv-KON">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="85"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="434" height="85"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xk6-y1-WuJ">
-                                                <rect key="frame" x="187" y="5" width="40" height="40"/>
+                                                <rect key="frame" x="197" y="5" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="LyL-y4-s27"/>
                                                     <constraint firstAttribute="height" constant="40" id="RVP-Cf-XU5"/>
@@ -4333,7 +4333,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fQ9-zd-XJl">
-                                                <rect key="frame" x="344" y="5" width="40" height="40"/>
+                                                <rect key="frame" x="364" y="5" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="Dhi-IN-NL5"/>
                                                     <constraint firstAttribute="width" constant="40" id="TAn-ab-LgG"/>
@@ -4344,7 +4344,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overview" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btx-yl-pV2">
-                                                <rect key="frame" x="171.5" y="55" width="71" height="20"/>
+                                                <rect key="frame" x="181.5" y="55" width="71" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="lgb-Yu-Z7X"/>
                                                     <constraint firstAttribute="width" constant="71" id="uYV-cq-xGa"/>
@@ -4371,10 +4371,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MSj-Lz-d3L">
-                                        <rect key="frame" x="0.0" y="85" width="414" height="2132"/>
+                                        <rect key="frame" x="0.0" y="85" width="434" height="2232"/>
                                         <subviews>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8jr-o0-6ca">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="2132"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="434" height="2232"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z35-kE-PmD">
                                                         <rect key="frame" x="186" y="2130" width="42" height="21"/>
@@ -6392,7 +6392,6 @@
                                             <constraint firstItem="8jr-o0-6ca" firstAttribute="top" secondItem="MSj-Lz-d3L" secondAttribute="top" id="GRJ-Oz-4yz"/>
                                             <constraint firstAttribute="bottom" secondItem="8jr-o0-6ca" secondAttribute="bottom" id="Jnk-fX-ooB"/>
                                             <constraint firstAttribute="trailing" secondItem="8jr-o0-6ca" secondAttribute="trailing" id="Skt-JH-3Ir"/>
-                                            <constraint firstItem="RCz-98-lDJ" firstAttribute="width" secondItem="MSj-Lz-d3L" secondAttribute="width" id="ZsX-PD-Ryy"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -6404,7 +6403,6 @@
                                     <constraint firstItem="MSj-Lz-d3L" firstAttribute="top" secondItem="2yi-Gv-KON" secondAttribute="bottom" id="Pjn-gT-XnI"/>
                                     <constraint firstItem="2yi-Gv-KON" firstAttribute="top" secondItem="ShH-Bp-fk8" secondAttribute="top" id="Tv0-e3-MaB"/>
                                     <constraint firstItem="2yi-Gv-KON" firstAttribute="leading" secondItem="ShH-Bp-fk8" secondAttribute="leading" id="ZHZ-kh-uUp"/>
-                                    <constraint firstAttribute="height" constant="637" id="cD3-hc-8zz"/>
                                     <constraint firstAttribute="trailing" secondItem="MSj-Lz-d3L" secondAttribute="trailing" id="qJL-Ga-C03"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -6421,7 +6419,7 @@
                         <viewLayoutGuide key="safeArea" id="hD4-ah-ZRG"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ShH-Bp-fk8" firstAttribute="bottom" secondItem="hD4-ah-ZRG" secondAttribute="bottom" id="1g7-KD-y1Q"/>
+                            <constraint firstItem="ShH-Bp-fk8" firstAttribute="bottom" secondItem="hD4-ah-ZRG" secondAttribute="bottom" constant="100" id="1g7-KD-y1Q"/>
                             <constraint firstItem="iRi-sX-Qz5" firstAttribute="leading" secondItem="3d2-TJ-CnH" secondAttribute="leading" id="7Kq-t4-GA8"/>
                             <constraint firstItem="jgM-kN-SG0" firstAttribute="leading" secondItem="hD4-ah-ZRG" secondAttribute="leading" id="8aO-UJ-4ND"/>
                             <constraint firstItem="ShH-Bp-fk8" firstAttribute="top" secondItem="IKk-FE-VtS" secondAttribute="bottom" constant="132" id="9sj-iL-Eyh"/>
@@ -6437,7 +6435,7 @@
                             <constraint firstAttribute="bottom" secondItem="iRi-sX-Qz5" secondAttribute="bottom" id="j79-ld-PRT"/>
                             <constraint firstItem="jOr-Gu-ofn" firstAttribute="trailing" secondItem="hD4-ah-ZRG" secondAttribute="trailing" id="jro-8i-0C5"/>
                             <constraint firstItem="IKk-FE-VtS" firstAttribute="top" secondItem="3d2-TJ-CnH" secondAttribute="top" id="mi3-xY-znm"/>
-                            <constraint firstItem="ShH-Bp-fk8" firstAttribute="trailing" secondItem="hD4-ah-ZRG" secondAttribute="trailing" id="oKY-0h-rkV"/>
+                            <constraint firstItem="ShH-Bp-fk8" firstAttribute="trailing" secondItem="hD4-ah-ZRG" secondAttribute="trailing" constant="20" id="oKY-0h-rkV"/>
                             <constraint firstItem="jgM-kN-SG0" firstAttribute="top" secondItem="IKk-FE-VtS" secondAttribute="bottom" id="y8K-Gq-iTm"/>
                         </constraints>
                     </view>
@@ -8725,50 +8723,6 @@
             <point key="canvasLocation" x="-810.14492753623199" y="93.75"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="0iu-xL-Jrz">
-            <size key="intrinsicContentSize" width="45" height="18.5"/>
-        </designable>
-        <designable name="3mM-RR-deH">
-            <size key="intrinsicContentSize" width="4" height="18.5"/>
-        </designable>
-        <designable name="DqE-YD-Pw0">
-            <size key="intrinsicContentSize" width="71" height="18.5"/>
-        </designable>
-        <designable name="KOg-Rg-P04">
-            <size key="intrinsicContentSize" width="72.5" height="18.5"/>
-        </designable>
-        <designable name="NXi-zC-Xox">
-            <size key="intrinsicContentSize" width="3" height="18.5"/>
-        </designable>
-        <designable name="OJk-P8-5bK">
-            <size key="intrinsicContentSize" width="42" height="18.5"/>
-        </designable>
-        <designable name="RLs-gd-6sd">
-            <size key="intrinsicContentSize" width="44" height="18.5"/>
-        </designable>
-        <designable name="VQA-8y-bj8">
-            <size key="intrinsicContentSize" width="43" height="18.5"/>
-        </designable>
-        <designable name="Z9H-tN-Phe">
-            <size key="intrinsicContentSize" width="69.5" height="18.5"/>
-        </designable>
-        <designable name="g2a-7u-uUQ">
-            <size key="intrinsicContentSize" width="122" height="18.5"/>
-        </designable>
-        <designable name="sXD-QM-o7w">
-            <size key="intrinsicContentSize" width="3" height="18.5"/>
-        </designable>
-        <designable name="vk4-6r-XlN">
-            <size key="intrinsicContentSize" width="46" height="18.5"/>
-        </designable>
-        <designable name="xwv-Sm-Vbn">
-            <size key="intrinsicContentSize" width="97.5" height="18.5"/>
-        </designable>
-        <designable name="yLm-op-5Rc">
-            <size key="intrinsicContentSize" width="69.5" height="18.5"/>
-        </designable>
-    </designables>
     <resources>
         <image name="AnimalIcon" width="43" height="55.5"/>
         <image name="BackIcon" width="12" height="20.5"/>

@@ -1773,17 +1773,28 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         
         if strPath == "NotCreateRoutine"
         {
-            IndexData = arrSegmentList.count - 1
-            let SetX = self.view.bounds.width as CGFloat * CGFloat(arrRoutines.count - 1)
-            if svContainer.contentOffset.x < self.view.bounds.width * CGFloat(arrRoutines.count-IndexData) {
+            let Count = arrRoutines.count - 1 - IndexData
+            let SetX = self.view.bounds.width as CGFloat * CGFloat(Count)
+            if svContainer.contentOffset.x < self.view.bounds.width * CGFloat(arrRoutines.count-1) {
                 svContainer.contentOffset.x +=  SetX
+                
+                changeColorOfRuler(index: Count + 1)
+                fillData(index: IndexData)
+                
                    }
-            changeColorOfRuler(index: IndexData + 1)
-            fillData(index: IndexData)
+            
 
         }else
         {
-            
+            let Count = arrRoutines.count - 1 - IndexData
+            let SetX = self.view.bounds.width as CGFloat * CGFloat(Count)
+            if svContainer.contentOffset.x < self.view.bounds.width * CGFloat(arrRoutines.count-1) {
+                svContainer.contentOffset.x +=  SetX
+                
+                changeColorOfRuler(index: Count + 1)
+                fillData(index: IndexData)
+                
+            }
         }
     }
     
