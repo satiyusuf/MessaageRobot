@@ -28,6 +28,8 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
     @IBOutlet weak var ImageAddView: UIView!
     @IBOutlet weak var ImageLeft: UIImageView!
     @IBOutlet weak var ImageRight: UIImageView!
+    @IBOutlet weak var NewBodySelecView: UIView!
+    @IBOutlet weak var ImgNewBodySelec: UIImageView!
     let picker = UIPickerView()
 
     var triLeftSpeed: TriangleView!
@@ -87,12 +89,13 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
     var NewCurrentIndexData: Int = 0
     var RImageSetLocation = String()
     var LImageSetLocation = String()
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        NewBodySelecView.addGestureRecognizer(tap)
         
         let userID: String = UserDefaults.standard.object(forKey: USERID) as? String ?? "9ccx8ms5pc0000000000"
         
@@ -121,6 +124,10 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         self.addRoutineSegmentView()
     }
         
+    @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
+      //  self.NewBodySelecView.isHidden = true
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
 //        constContainerWidth.constant = CGFloat(numberOfRoutine) * screenWidth
     }
@@ -165,9 +172,9 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
                             self.Gender = Gender
                             if Gender == "F"
                             {
-                                self.BodyPartImage.image = UIImage(named: "F-grey female body back")
+                                self.BodyPartImage.image = UIImage(named: "F-grey female body front")
                             }else{
-                                self.BodyPartImage.image = UIImage(named: "grey male body back")
+                                self.BodyPartImage.image = UIImage(named: "grey male body front")
                             }
                         }
                     } else {
@@ -341,6 +348,138 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
     }
     */
     
+    // **************************************  Action Body Part Select  **************************************
+    //Front Body Action RightSide
+    @IBAction func btnFRChest(_ sender: Any) {
+        
+        self.selectBodyPartToHiddenView()
+        print("btnFRHip")
+        
+//        isUpdateSegmentData = true
+//        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Pectoralis", currentIndex: intCurrentIndex)
+//
+//        let data = arrRoutines[self.IndexData]
+//
+//        if strLocationAction == "Left" {
+//
+//            if isLink == false
+//            {
+//                data.btnLocationLeft.setTitle("Pectoralis", for: .normal)
+//                LImageSetLocation = "Pectoralis"
+//            }else
+//            {
+//                data.btnLocationLeft.setTitle("Pectoralis", for: .normal)
+//                data.btnLocationRight.setTitle("Pectoralis", for: .normal)
+//                LImageSetLocation = "Pectoralis"
+//                RImageSetLocation = "Pectoralis"
+//            }
+//        }else if strLocationAction == "Right" {
+//
+//            if isLink == false {
+//                data.btnLocationRight.setTitle("Pectoralis", for: .normal)
+//                RImageSetLocation = "Pectoralis"
+//            }else{
+//                data.btnLocationLeft.setTitle("Pectoralis", for: .normal)
+//                data.btnLocationRight.setTitle("Pectoralis", for: .normal)
+//                LImageSetLocation = "Pectoralis"
+//                RImageSetLocation = "Pectoralis"
+//            }
+//        }
+//
+//        self.selectBodyPartToHiddenView()
+//        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+    }
+    @IBAction func btnFRHip(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnFRHip")
+    }
+    @IBAction func btnFRThigh(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnFRThigh")
+    }
+    @IBAction func btnFRKnee(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnFRKnee")
+    }
+    @IBAction func btnFRCalf(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnFRCalf")
+    }
+    
+    //Front Body Action LeftSide
+    @IBAction func btnFLChest(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnFLChest")
+    }
+    @IBAction func btnFLHip(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnFLHip")
+    }
+    @IBAction func btnFLThigh(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnFLThigh")
+    }
+    @IBAction func btnFLKnee(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnFLKnee")
+    }
+    @IBAction func btnFLCalf(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnFLCalf")
+    }
+    
+    //Back Body Action RightSide
+    @IBAction func btnBRShoulder(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnBRShoulder")
+    }
+    @IBAction func btnBRWaistUp(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnBRWaistUp")
+    }
+    @IBAction func btnBRWaistDow(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnBRWaistDow")
+    }
+    @IBAction func btnBRButtock(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnBRButtock")
+    }
+    @IBAction func btnBRThigh(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnBRThigh")
+    }
+    @IBAction func btnLegDow(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnLegDow")
+    }
+    
+    //Back Body Action LeftSide
+    @IBAction func btnBLShoulder(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnBLShoulder")
+    }
+    @IBAction func btnBLWaistUp(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnBLWaistUp")
+    }
+    @IBAction func btnBLWaistDow(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnBLWaistDow")
+    }
+    @IBAction func btnBLButtock(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnBLButtock")
+    }
+    @IBAction func btnBLThigh(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnBLThigh")
+    }
+    @IBAction func btnBLLegDow(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+        print("btnBLLegDow")
+    }
+    // **************************************     END      **************************************
     func addRoutineSegmentView() {
 
         let viewRoutine = RoutineParam.instanceFromNib()
@@ -1844,8 +1983,10 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
     
     func selectBodyPartToHiddenView()  {
         //viewLocation.animHide()
-
-        self.viewLocationPopup.isHidden = true
+  
+        self.NewBodySelecView.isHidden = true
+        
+       // self.viewLocationPopup.isHidden = true
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
 //        }
     }
@@ -1919,9 +2060,23 @@ extension CreateSegmentVC: RulerSizeDelegate {
 
 extension CreateSegmentVC: LocationDelegate {
     func locationViewAnimation(strLRLocation: String, strBodyPart: String, currentIndex: Int) {
-        viewLocationPopup.isHidden = false
+       // viewLocationPopup.isHidden = false
         //viewLocation.animShow()
-
+        self.NewBodySelecView.isHidden = false
+        
+        if strLRLocation == "Left" {
+            if strBodyPart == "L. Location"{
+                self.ImgNewBodySelec.image = UIImage(named: "LeftBodyP")
+            }else{
+                self.ImgNewBodySelec.image = UIImage(named: "SecondTimeLeft")
+            }
+        }else if strLRLocation == "Right"{
+            if strBodyPart == "R. Location"{
+                self.ImgNewBodySelec.image = UIImage(named: "RightBodyP")
+            }else{
+                self.ImgNewBodySelec.image = UIImage(named: "SecondTimeRight")
+            }
+        }
         strLocationAction = strLRLocation
     }
     

@@ -184,12 +184,14 @@ class RoutineParam: UIView {
     
     @IBAction func btnLeftLocationAction(_ sender: UIButton) {
        //let data = RoutineParam[0]
-        delegateLocation?.locationViewAnimation(strLRLocation: "Left", strBodyPart: "", currentIndex: 0)
+        let text = btnLocationLeft.titleLabel?.text ?? ""
+        delegateLocation?.locationViewAnimation(strLRLocation: "Left", strBodyPart:text, currentIndex: 0)
     }
     
     @IBAction func btnRightLocationAction(_ sender: UIButton) {
         //let data = RoutineParam[0]
-        delegateLocation?.locationViewAnimation(strLRLocation: "Right", strBodyPart: "", currentIndex: 0 )
+        let text = btnLocationRight.titleLabel?.text ?? ""
+        delegateLocation?.locationViewAnimation(strLRLocation: "Right", strBodyPart: text, currentIndex: 0 )
     }
 }
 
