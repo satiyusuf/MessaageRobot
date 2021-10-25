@@ -110,8 +110,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2372"
-            endingLineNumber = "2372"
+            startingLineNumber = "3100"
+            endingLineNumber = "3100"
             landmarkName = "IndexDataSwapDataSet(index:segmentData:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -126,8 +126,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2371"
-            endingLineNumber = "2371"
+            startingLineNumber = "3099"
+            endingLineNumber = "3099"
             landmarkName = "IndexDataSwapDataSet(index:segmentData:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -142,8 +142,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2317"
-            endingLineNumber = "2317"
+            startingLineNumber = "3045"
+            endingLineNumber = "3045"
             landmarkName = "CreateDataGetSegmant()"
             landmarkType = "7">
          </BreakpointContent>
@@ -158,8 +158,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2320"
-            endingLineNumber = "2320"
+            startingLineNumber = "3048"
+            endingLineNumber = "3048"
             landmarkName = "CreateDataGetSegmant()"
             landmarkType = "7">
          </BreakpointContent>
@@ -174,8 +174,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1289"
-            endingLineNumber = "1289"
+            startingLineNumber = "1979"
+            endingLineNumber = "1979"
             landmarkName = "addNewSegmentView()"
             landmarkType = "7">
          </BreakpointContent>
@@ -190,8 +190,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1277"
-            endingLineNumber = "1277"
+            startingLineNumber = "1967"
+            endingLineNumber = "1967"
             landmarkName = "addNewSegmentView()"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,13 +206,13 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1282"
-            endingLineNumber = "1282"
+            startingLineNumber = "1972"
+            endingLineNumber = "1972"
             landmarkName = "addNewSegmentView()"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "596DC26D-596F-4003-BA84-E66AE04629B4 - 9071e115894c8a4d"
+                  uuid = "596DC26D-596F-4003-BA84-E66AE04629B4 - 9071e115894ce55f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -222,12 +222,12 @@
                   urlString = "file:///Users/emp-mac/Desktop/MessageRobotGithub/MessaageRobot/MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1283"
-                  endingLineNumber = "1283"
+                  startingLineNumber = "1973"
+                  endingLineNumber = "1973"
                   offsetFromSymbolStart = "13785">
                </Location>
                <Location
-                  uuid = "596DC26D-596F-4003-BA84-E66AE04629B4 - 9071e115894c8a4d"
+                  uuid = "596DC26D-596F-4003-BA84-E66AE04629B4 - 9071e115894ce55f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -237,12 +237,12 @@
                   urlString = "file:///Users/emp-mac/Desktop/MessageRobotGithub/MessaageRobot/MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1283"
-                  endingLineNumber = "1283"
+                  startingLineNumber = "1973"
+                  endingLineNumber = "1973"
                   offsetFromSymbolStart = "13973">
                </Location>
                <Location
-                  uuid = "596DC26D-596F-4003-BA84-E66AE04629B4 - a977f8ee71b3e901"
+                  uuid = "596DC26D-596F-4003-BA84-E66AE04629B4 - a977f8ee71b38617"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -252,8 +252,8 @@
                   urlString = "file:///Users/emp-mac/Desktop/MessageRobotGithub/MessaageRobot/MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1284"
-                  endingLineNumber = "1284"
+                  startingLineNumber = "1974"
+                  endingLineNumber = "1974"
                   offsetFromSymbolStart = "687">
                </Location>
             </Locations>
@@ -269,8 +269,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2424"
-            endingLineNumber = "2424"
+            startingLineNumber = "3152"
+            endingLineNumber = "3152"
             landmarkName = "getRoutinSegmentDataListUpdate(index:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -285,8 +285,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1306"
-            endingLineNumber = "1306"
+            startingLineNumber = "1996"
+            endingLineNumber = "1996"
             landmarkName = "addNewSegmentView()"
             landmarkType = "7">
          </BreakpointContent>
@@ -301,8 +301,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1279"
-            endingLineNumber = "1279"
+            startingLineNumber = "1969"
+            endingLineNumber = "1969"
             landmarkName = "addNewSegmentView()"
             landmarkType = "7">
          </BreakpointContent>
@@ -317,8 +317,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "909"
-            endingLineNumber = "909"
+            startingLineNumber = "1599"
+            endingLineNumber = "1599"
             landmarkName = "btnPlusAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -333,8 +333,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "912"
-            endingLineNumber = "912"
+            startingLineNumber = "1602"
+            endingLineNumber = "1602"
             landmarkName = "btnPlusAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -349,8 +349,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "916"
-            endingLineNumber = "916"
+            startingLineNumber = "1606"
+            endingLineNumber = "1606"
             landmarkName = "btnPlusAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -365,8 +365,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1945"
-            endingLineNumber = "1945"
+            startingLineNumber = "2635"
+            endingLineNumber = "2635"
             landmarkName = "btnNextSegmentAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -381,8 +381,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1295"
-            endingLineNumber = "1295"
+            startingLineNumber = "1985"
+            endingLineNumber = "1985"
             landmarkName = "addNewSegmentView()"
             landmarkType = "7">
          </BreakpointContent>
@@ -397,41 +397,9 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "932"
-            endingLineNumber = "932"
+            startingLineNumber = "1622"
+            endingLineNumber = "1622"
             landmarkName = "addNewSegmentIntoRoutine()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C3349915-D4A1-41F6-BB64-667DD38573A2"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2011"
-            endingLineNumber = "2011"
-            landmarkName = "scrollViewDidEndDecelerating(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D1682362-EAFB-4949-9DDC-0F2C3A284B04"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2013"
-            endingLineNumber = "2013"
-            landmarkName = "scrollViewDidEndDecelerating(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -445,8 +413,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1048"
-            endingLineNumber = "1048"
+            startingLineNumber = "1738"
+            endingLineNumber = "1738"
             landmarkName = "addNewSegmentIntoRoutine()"
             landmarkType = "7">
          </BreakpointContent>
@@ -461,8 +429,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1053"
-            endingLineNumber = "1053"
+            startingLineNumber = "1743"
+            endingLineNumber = "1743"
             landmarkName = "addNewSegmentIntoRoutine()"
             landmarkType = "7">
          </BreakpointContent>
@@ -477,8 +445,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1915"
-            endingLineNumber = "1915"
+            startingLineNumber = "2605"
+            endingLineNumber = "2605"
             landmarkName = "btnLastSegmentAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -493,8 +461,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1855"
-            endingLineNumber = "1855"
+            startingLineNumber = "2545"
+            endingLineNumber = "2545"
             landmarkName = "btnBodyPartGastrocnemiusAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -509,8 +477,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1819"
-            endingLineNumber = "1819"
+            startingLineNumber = "2509"
+            endingLineNumber = "2509"
             landmarkName = "btnBodyPartHamstringAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -525,8 +493,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1784"
-            endingLineNumber = "1784"
+            startingLineNumber = "2474"
+            endingLineNumber = "2474"
             landmarkName = "btnBodyPartGlutiusmaximusAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -541,8 +509,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1748"
-            endingLineNumber = "1748"
+            startingLineNumber = "2438"
+            endingLineNumber = "2438"
             landmarkName = "btnBodyPartLowerbackAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -557,8 +525,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1713"
-            endingLineNumber = "1713"
+            startingLineNumber = "2403"
+            endingLineNumber = "2403"
             landmarkName = "btnBodyPartUpperbackAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -573,8 +541,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1677"
-            endingLineNumber = "1677"
+            startingLineNumber = "2367"
+            endingLineNumber = "2367"
             landmarkName = "btnBodyPartDeltoidAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -589,8 +557,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1640"
-            endingLineNumber = "1640"
+            startingLineNumber = "2330"
+            endingLineNumber = "2330"
             landmarkName = "btnBodyPartBodyparamAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -605,8 +573,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1604"
-            endingLineNumber = "1604"
+            startingLineNumber = "2294"
+            endingLineNumber = "2294"
             landmarkName = "btnBodyPartTibalisAnteriorAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -621,8 +589,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1567"
-            endingLineNumber = "1567"
+            startingLineNumber = "2257"
+            endingLineNumber = "2257"
             landmarkName = "btnBodyPartIliotibalTractAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -637,8 +605,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1532"
-            endingLineNumber = "1532"
+            startingLineNumber = "2222"
+            endingLineNumber = "2222"
             landmarkName = "btnBodyPartQuadraceptsAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -653,8 +621,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1496"
-            endingLineNumber = "1496"
+            startingLineNumber = "2186"
+            endingLineNumber = "2186"
             landmarkName = "btnBodyPartPectoralisAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -669,25 +637,9 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "434"
-            endingLineNumber = "434"
+            startingLineNumber = "761"
+            endingLineNumber = "761"
             landmarkName = "btnBRShoulder(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "96E56A39-4CCB-4FA5-971A-B03D9605754B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MassageRobot/Controller/HomeTab/RoutineParam.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "542"
-            endingLineNumber = "542"
-            landmarkName = "textFieldDidBeginEditing(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

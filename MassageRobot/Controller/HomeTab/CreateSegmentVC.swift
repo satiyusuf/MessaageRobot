@@ -89,14 +89,12 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
     var NewCurrentIndexData: Int = 0
     var RImageSetLocation = String()
     var LImageSetLocation = String()
+    var FrontAndBackImage = String()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-        NewBodySelecView.addGestureRecognizer(tap)
-        
         let userID: String = UserDefaults.standard.object(forKey: USERID) as? String ?? "9ccx8ms5pc0000000000"
         
         if strPath == "CreateRoutine" {
@@ -122,10 +120,6 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         UserDefaults.standard.set("1", forKey: SEGMENTCOUNT)
                 
         self.addRoutineSegmentView()
-    }
-        
-    @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
-      //  self.NewBodySelecView.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -351,133 +345,829 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
     // **************************************  Action Body Part Select  **************************************
     //Front Body Action RightSide
     @IBAction func btnFRChest(_ sender: Any) {
+        print("btnFRChest")
+        self.FrontAndBackImage = "F"
         
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Pectoralis", currentIndex: intCurrentIndex)
+
+        let data = arrRoutines[self.IndexData]
+
+        if strLocationAction == "Left" {
+
+            if isLink == false
+            {
+                data.btnLocationLeft.setTitle("Pectoralis", for: .normal)
+                LImageSetLocation = "Pectoralis"
+            }else
+            {
+                data.btnLocationLeft.setTitle("Pectoralis", for: .normal)
+                data.btnLocationRight.setTitle("Pectoralis", for: .normal)
+                LImageSetLocation = "Pectoralis"
+                RImageSetLocation = "Pectoralis"
+            }
+        }else if strLocationAction == "Right" {
+
+            if isLink == false {
+                data.btnLocationRight.setTitle("Pectoralis", for: .normal)
+                RImageSetLocation = "Pectoralis"
+            }else{
+                data.btnLocationLeft.setTitle("Pectoralis", for: .normal)
+                data.btnLocationRight.setTitle("Pectoralis", for: .normal)
+                LImageSetLocation = "Pectoralis"
+                RImageSetLocation = "Pectoralis"
+            }
+        }
+
         self.selectBodyPartToHiddenView()
-        print("btnFRHip")
-        
-//        isUpdateSegmentData = true
-//        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Pectoralis", currentIndex: intCurrentIndex)
-//
-//        let data = arrRoutines[self.IndexData]
-//
-//        if strLocationAction == "Left" {
-//
-//            if isLink == false
-//            {
-//                data.btnLocationLeft.setTitle("Pectoralis", for: .normal)
-//                LImageSetLocation = "Pectoralis"
-//            }else
-//            {
-//                data.btnLocationLeft.setTitle("Pectoralis", for: .normal)
-//                data.btnLocationRight.setTitle("Pectoralis", for: .normal)
-//                LImageSetLocation = "Pectoralis"
-//                RImageSetLocation = "Pectoralis"
-//            }
-//        }else if strLocationAction == "Right" {
-//
-//            if isLink == false {
-//                data.btnLocationRight.setTitle("Pectoralis", for: .normal)
-//                RImageSetLocation = "Pectoralis"
-//            }else{
-//                data.btnLocationLeft.setTitle("Pectoralis", for: .normal)
-//                data.btnLocationRight.setTitle("Pectoralis", for: .normal)
-//                LImageSetLocation = "Pectoralis"
-//                RImageSetLocation = "Pectoralis"
-//            }
-//        }
-//
-//        self.selectBodyPartToHiddenView()
-//        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
     @IBAction func btnFRHip(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnFRHip")
+        self.FrontAndBackImage = "F"
+        
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "iliotibal tract", currentIndex: intCurrentIndex)
+        
+        let data = arrRoutines[self.IndexData]
+        
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("iliotibal tract", for: .normal)
+                LImageSetLocation = "iliotibal tract"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("iliotibal tract", for: .normal)
+                data.btnLocationRight.setTitle("iliotibal tract", for: .normal)
+                LImageSetLocation = "iliotibal tract"
+                RImageSetLocation = "iliotibal tract"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("iliotibal tract", for: .normal)
+                RImageSetLocation = "iliotibal tract"
+            }else{
+                data.btnLocationLeft.setTitle("iliotibal tract", for: .normal)
+                data.btnLocationRight.setTitle("iliotibal tract", for: .normal)
+                LImageSetLocation = "iliotibal tract"
+                RImageSetLocation = "iliotibal tract"
+            }
+        }
+        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        
     }
     @IBAction func btnFRThigh(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnFRThigh")
+        self.FrontAndBackImage = "F"
+    
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Quadracepts", currentIndex: intCurrentIndex)
+        let data = arrRoutines[self.IndexData]
+    
+        if strLocationAction == "Left" {
+            
+            if isLink == false{
+                data.btnLocationLeft.setTitle("Quadracepts", for: .normal)
+                LImageSetLocation = "Quadracepts"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Quadracepts", for: .normal)
+                data.btnLocationRight.setTitle("Quadracepts", for: .normal)
+                LImageSetLocation = "Quadracepts"
+                RImageSetLocation = "Quadracepts"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Quadracepts", for: .normal)
+                RImageSetLocation = "Quadracepts"
+            }else{
+                data.btnLocationLeft.setTitle("Quadracepts", for: .normal)
+                data.btnLocationRight.setTitle("Quadracepts", for: .normal)
+                LImageSetLocation = "Quadracepts"
+                RImageSetLocation = "Quadracepts"
+            }
+        }
+        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
     @IBAction func btnFRKnee(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnFRKnee")
+        self.FrontAndBackImage = "F"
+        
+        isUpdateSegmentData = true
+       delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "bodyparam", currentIndex: intCurrentIndex )
+        
+        let data = arrRoutines[self.IndexData]
+
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
+                LImageSetLocation = "bodyparam"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
+                data.btnLocationRight.setTitle("bodyparam", for: .normal)
+                LImageSetLocation = "bodyparam"
+                RImageSetLocation = "bodyparam"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("bodyparam", for: .normal)
+                RImageSetLocation = "bodyparam"
+            }else{
+                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
+                data.btnLocationRight.setTitle("bodyparam", for: .normal)
+                LImageSetLocation = "bodyparam"
+                RImageSetLocation = "bodyparam"
+            }
+        }
+        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: "", Location_R: "")
     }
     @IBAction func btnFRCalf(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnFRCalf")
+        self.FrontAndBackImage = "F"
+        
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Tibalis Anterior", currentIndex: intCurrentIndex)
+        
+        let data = arrRoutines[self.IndexData]
+        
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Tibalis Anterior", for: .normal)
+                LImageSetLocation = "Tibalis Anterior"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Tibalis Anterior", for: .normal)
+                data.btnLocationRight.setTitle("Tibalis Anterior", for: .normal)
+                LImageSetLocation = "Tibalis Anterior"
+                RImageSetLocation = "Tibalis Anterior"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Tibalis Anterior", for: .normal)
+                RImageSetLocation = "Tibalis Anterior"
+            }else{
+                data.btnLocationLeft.setTitle("Tibalis Anterior", for: .normal)
+                data.btnLocationRight.setTitle("Tibalis Anterior", for: .normal)
+                LImageSetLocation = "Tibalis Anterior"
+                RImageSetLocation = "Tibalis Anterior"
+            }
+        }
+        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
     
     //Front Body Action LeftSide
     @IBAction func btnFLChest(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnFLChest")
+        self.FrontAndBackImage = "F"
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Pectoralis", currentIndex: intCurrentIndex)
+
+        let data = arrRoutines[self.IndexData]
+
+        if strLocationAction == "Left" {
+
+            if isLink == false
+            {
+                data.btnLocationLeft.setTitle("Pectoralis", for: .normal)
+                LImageSetLocation = "Pectoralis"
+            }else
+            {
+                data.btnLocationLeft.setTitle("Pectoralis", for: .normal)
+                data.btnLocationRight.setTitle("Pectoralis", for: .normal)
+                LImageSetLocation = "Pectoralis"
+                RImageSetLocation = "Pectoralis"
+            }
+        }else if strLocationAction == "Right" {
+
+            if isLink == false {
+                data.btnLocationRight.setTitle("Pectoralis", for: .normal)
+                RImageSetLocation = "Pectoralis"
+            }else{
+                data.btnLocationLeft.setTitle("Pectoralis", for: .normal)
+                data.btnLocationRight.setTitle("Pectoralis", for: .normal)
+                LImageSetLocation = "Pectoralis"
+                RImageSetLocation = "Pectoralis"
+            }
+        }
+
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
     @IBAction func btnFLHip(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnFLHip")
+        self.FrontAndBackImage = "F"
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "iliotibal tract", currentIndex: intCurrentIndex)
+        
+        let data = arrRoutines[self.IndexData]
+        
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("iliotibal tract", for: .normal)
+                LImageSetLocation = "iliotibal tract"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("iliotibal tract", for: .normal)
+                data.btnLocationRight.setTitle("iliotibal tract", for: .normal)
+                LImageSetLocation = "iliotibal tract"
+                RImageSetLocation = "iliotibal tract"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("iliotibal tract", for: .normal)
+                RImageSetLocation = "iliotibal tract"
+            }else{
+                data.btnLocationLeft.setTitle("iliotibal tract", for: .normal)
+                data.btnLocationRight.setTitle("iliotibal tract", for: .normal)
+                LImageSetLocation = "iliotibal tract"
+                RImageSetLocation = "iliotibal tract"
+            }
+        }
+        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        
     }
     @IBAction func btnFLThigh(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnFLThigh")
+        self.FrontAndBackImage = "F"
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Quadracepts", currentIndex: intCurrentIndex)
+        let data = arrRoutines[self.IndexData]
+    
+        if strLocationAction == "Left" {
+            
+            if isLink == false{
+                data.btnLocationLeft.setTitle("Quadracepts", for: .normal)
+                LImageSetLocation = "Quadracepts"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Quadracepts", for: .normal)
+                data.btnLocationRight.setTitle("Quadracepts", for: .normal)
+                LImageSetLocation = "Quadracepts"
+                RImageSetLocation = "Quadracepts"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Quadracepts", for: .normal)
+                RImageSetLocation = "Quadracepts"
+            }else{
+                data.btnLocationLeft.setTitle("Quadracepts", for: .normal)
+                data.btnLocationRight.setTitle("Quadracepts", for: .normal)
+                LImageSetLocation = "Quadracepts"
+                RImageSetLocation = "Quadracepts"
+            }
+        }
+        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
     @IBAction func btnFLKnee(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnFLKnee")
+        self.FrontAndBackImage = "F"
+        isUpdateSegmentData = true
+       delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "bodyparam", currentIndex: intCurrentIndex )
+        
+        let data = arrRoutines[self.IndexData]
+
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
+                LImageSetLocation = "bodyparam"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
+                data.btnLocationRight.setTitle("bodyparam", for: .normal)
+                LImageSetLocation = "bodyparam"
+                RImageSetLocation = "bodyparam"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("bodyparam", for: .normal)
+                RImageSetLocation = "bodyparam"
+            }else{
+                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
+                data.btnLocationRight.setTitle("bodyparam", for: .normal)
+                LImageSetLocation = "bodyparam"
+                RImageSetLocation = "bodyparam"
+            }
+        }
+        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: "", Location_R: "")
     }
     @IBAction func btnFLCalf(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnFLCalf")
+        self.FrontAndBackImage = "F"
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Tibalis Anterior", currentIndex: intCurrentIndex)
+        
+        let data = arrRoutines[self.IndexData]
+        
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Tibalis Anterior", for: .normal)
+                LImageSetLocation = "Tibalis Anterior"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Tibalis Anterior", for: .normal)
+                data.btnLocationRight.setTitle("Tibalis Anterior", for: .normal)
+                LImageSetLocation = "Tibalis Anterior"
+                RImageSetLocation = "Tibalis Anterior"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Tibalis Anterior", for: .normal)
+                RImageSetLocation = "Tibalis Anterior"
+            }else{
+                data.btnLocationLeft.setTitle("Tibalis Anterior", for: .normal)
+                data.btnLocationRight.setTitle("Tibalis Anterior", for: .normal)
+                LImageSetLocation = "Tibalis Anterior"
+                RImageSetLocation = "Tibalis Anterior"
+            }
+        }
+        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
     
     //Back Body Action RightSide
     @IBAction func btnBRShoulder(_ sender: Any) {
+        
+        self.FrontAndBackImage = "B"
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Deltoid", currentIndex: intCurrentIndex)
+        
+        let data = arrRoutines[self.IndexData]
+        
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Deltoid", for: .normal)
+                LImageSetLocation = "Deltoid"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Deltoid", for: .normal)
+                data.btnLocationRight.setTitle("Deltoid", for: .normal)
+                LImageSetLocation = "Deltoid"
+                RImageSetLocation = "Deltoid"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Deltoid", for: .normal)
+                RImageSetLocation = "Deltoid"
+            }else{
+                data.btnLocationLeft.setTitle("Deltoid", for: .normal)
+                data.btnLocationRight.setTitle("Deltoid", for: .normal)
+                LImageSetLocation = "Deltoid"
+                RImageSetLocation = "Deltoid"
+            }
+        }
         self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
         print("btnBRShoulder")
     }
     @IBAction func btnBRWaistUp(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnBRWaistUp")
+        self.FrontAndBackImage = "B"
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Upperback", currentIndex: intCurrentIndex)
+        
+        let data = arrRoutines[self.IndexData]
+        
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Upperback", for: .normal)
+                LImageSetLocation = "Upperback"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Upperback", for: .normal)
+                data.btnLocationRight.setTitle("Upperback", for: .normal)
+                LImageSetLocation = "Upperback"
+                RImageSetLocation = "Upperback"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Upperback", for: .normal)
+                RImageSetLocation = "Upperback"
+            }else{
+                data.btnLocationLeft.setTitle("Upperback", for: .normal)
+                data.btnLocationRight.setTitle("Upperback", for: .normal)
+                LImageSetLocation = "Upperback"
+                RImageSetLocation = "Upperback"
+            }
+        }
+        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
     @IBAction func btnBRWaistDow(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnBRWaistDow")
+        self.FrontAndBackImage = "B"
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Lowerback", currentIndex: intCurrentIndex)
+       
+        let data = arrRoutines[self.IndexData]
+
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Lowerback", for: .normal)
+                LImageSetLocation = "Lowerback"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Lowerback", for: .normal)
+                data.btnLocationRight.setTitle("Lowerback", for: .normal)
+                LImageSetLocation = "Lowerback"
+                RImageSetLocation = "Lowerback"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false{
+                data.btnLocationRight.setTitle("Lowerback", for: .normal)
+                RImageSetLocation = "Lowerback"
+            }else{
+                data.btnLocationLeft.setTitle("Lowerback", for: .normal)
+                data.btnLocationRight.setTitle("Lowerback", for: .normal)
+                LImageSetLocation = "Lowerback"
+                RImageSetLocation = "Lowerback"
+            }
+        }
+        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
     @IBAction func btnBRButtock(_ sender: Any) {
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Gastrocnemius", currentIndex: intCurrentIndex)
+        self.FrontAndBackImage = "B"
+        let data = arrRoutines[self.IndexData]
+
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Gastrocnemius", for: .normal)
+                LImageSetLocation = "Gastrocnemius"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Gastrocnemius", for: .normal)
+                data.btnLocationRight.setTitle("Gastrocnemius", for: .normal)
+                LImageSetLocation = "Gastrocnemius"
+                RImageSetLocation = "Gastrocnemius"
+            }
+        }else if strLocationAction == "Right" {
+            
+             if isLink == false {
+                data.btnLocationRight.setTitle("Gastrocnemius", for: .normal)
+                RImageSetLocation = "Gastrocnemius"
+            }else{
+                data.btnLocationLeft.setTitle("Gastrocnemius", for: .normal)
+                data.btnLocationRight.setTitle("Gastrocnemius", for: .normal)
+                LImageSetLocation = "Gastrocnemius"
+                RImageSetLocation = "Gastrocnemius"
+            }
+        }
         self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
         print("btnBRButtock")
     }
     @IBAction func btnBRThigh(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnBRThigh")
+        self.FrontAndBackImage = "B"
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Hamstring", currentIndex: intCurrentIndex)
+        
+        let data = arrRoutines[self.IndexData]
+
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Hamstring", for: .normal)
+                LImageSetLocation = "Hamstring"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Hamstring", for: .normal)
+                data.btnLocationRight.setTitle("Hamstring", for: .normal)
+                LImageSetLocation = "Hamstring"
+                RImageSetLocation = "Hamstring"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Hamstring", for: .normal)
+                RImageSetLocation = "Hamstring"
+            }else{
+                data.btnLocationLeft.setTitle("Hamstring", for: .normal)
+                data.btnLocationRight.setTitle("Hamstring", for: .normal)
+                LImageSetLocation = "Hamstring"
+                RImageSetLocation = "Hamstring"
+            }
+        }
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
     @IBAction func btnLegDow(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnLegDow")
+        self.FrontAndBackImage = "B"
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Glutiusmaximus", currentIndex: intCurrentIndex)
+        
+        let data = arrRoutines[self.IndexData]
+
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Glutiusmaximus", for: .normal)
+                LImageSetLocation = "Glutiusmaximus"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Glutiusmaximus", for: .normal)
+                data.btnLocationRight.setTitle("Glutiusmaximus", for: .normal)
+                LImageSetLocation = "Glutiusmaximus"
+                RImageSetLocation = "Glutiusmaximus"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Glutiusmaximus", for: .normal)
+                RImageSetLocation = "Glutiusmaximus"
+            }else{
+                data.btnLocationLeft.setTitle("Glutiusmaximus", for: .normal)
+                data.btnLocationRight.setTitle("Glutiusmaximus", for: .normal)
+                LImageSetLocation = "Glutiusmaximus"
+                RImageSetLocation = "Glutiusmaximus"
+            }
+        }
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
     
     //Back Body Action LeftSide
     @IBAction func btnBLShoulder(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnBLShoulder")
+        self.FrontAndBackImage = "B"
+        
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Deltoid", currentIndex: intCurrentIndex)
+        
+        let data = arrRoutines[self.IndexData]
+        
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Deltoid", for: .normal)
+                LImageSetLocation = "Deltoid"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Deltoid", for: .normal)
+                data.btnLocationRight.setTitle("Deltoid", for: .normal)
+                LImageSetLocation = "Deltoid"
+                RImageSetLocation = "Deltoid"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Deltoid", for: .normal)
+                RImageSetLocation = "Deltoid"
+            }else{
+                data.btnLocationLeft.setTitle("Deltoid", for: .normal)
+                data.btnLocationRight.setTitle("Deltoid", for: .normal)
+                LImageSetLocation = "Deltoid"
+                RImageSetLocation = "Deltoid"
+            }
+        }
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
     @IBAction func btnBLWaistUp(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnBLWaistUp")
+        self.FrontAndBackImage = "B"
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Upperback", currentIndex: intCurrentIndex)
+        
+        let data = arrRoutines[self.IndexData]
+        
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Upperback", for: .normal)
+                LImageSetLocation = "Upperback"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Upperback", for: .normal)
+                data.btnLocationRight.setTitle("Upperback", for: .normal)
+                LImageSetLocation = "Upperback"
+                RImageSetLocation = "Upperback"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Upperback", for: .normal)
+                RImageSetLocation = "Upperback"
+            }else{
+                data.btnLocationLeft.setTitle("Upperback", for: .normal)
+                data.btnLocationRight.setTitle("Upperback", for: .normal)
+                LImageSetLocation = "Upperback"
+                RImageSetLocation = "Upperback"
+            }
+        }
+        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
     @IBAction func btnBLWaistDow(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnBLWaistDow")
+        self.FrontAndBackImage = "B"
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Lowerback", currentIndex: intCurrentIndex)
+       
+        let data = arrRoutines[self.IndexData]
+
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Lowerback", for: .normal)
+                LImageSetLocation = "Lowerback"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Lowerback", for: .normal)
+                data.btnLocationRight.setTitle("Lowerback", for: .normal)
+                LImageSetLocation = "Lowerback"
+                RImageSetLocation = "Lowerback"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false{
+                data.btnLocationRight.setTitle("Lowerback", for: .normal)
+                RImageSetLocation = "Lowerback"
+            }else{
+                data.btnLocationLeft.setTitle("Lowerback", for: .normal)
+                data.btnLocationRight.setTitle("Lowerback", for: .normal)
+                LImageSetLocation = "Lowerback"
+                RImageSetLocation = "Lowerback"
+            }
+        }
+        
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
     @IBAction func btnBLButtock(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnBLButtock")
+        self.FrontAndBackImage = "B"
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Gastrocnemius", currentIndex: intCurrentIndex)
+        
+        let data = arrRoutines[self.IndexData]
+
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Gastrocnemius", for: .normal)
+                LImageSetLocation = "Gastrocnemius"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Gastrocnemius", for: .normal)
+                data.btnLocationRight.setTitle("Gastrocnemius", for: .normal)
+                LImageSetLocation = "Gastrocnemius"
+                RImageSetLocation = "Gastrocnemius"
+            }
+        }else if strLocationAction == "Right" {
+            
+             if isLink == false {
+                data.btnLocationRight.setTitle("Gastrocnemius", for: .normal)
+                RImageSetLocation = "Gastrocnemius"
+            }else{
+                data.btnLocationLeft.setTitle("Gastrocnemius", for: .normal)
+                data.btnLocationRight.setTitle("Gastrocnemius", for: .normal)
+                LImageSetLocation = "Gastrocnemius"
+                RImageSetLocation = "Gastrocnemius"
+            }
+        }
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
     }
     @IBAction func btnBLThigh(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnBLThigh")
+        self.FrontAndBackImage = "B"
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Hamstring", currentIndex: intCurrentIndex)
+        
+        let data = arrRoutines[self.IndexData]
+
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Hamstring", for: .normal)
+                LImageSetLocation = "Hamstring"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Hamstring", for: .normal)
+                data.btnLocationRight.setTitle("Hamstring", for: .normal)
+                LImageSetLocation = "Hamstring"
+                RImageSetLocation = "Hamstring"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Hamstring", for: .normal)
+                RImageSetLocation = "Hamstring"
+            }else{
+                data.btnLocationLeft.setTitle("Hamstring", for: .normal)
+                data.btnLocationRight.setTitle("Hamstring", for: .normal)
+                LImageSetLocation = "Hamstring"
+                RImageSetLocation = "Hamstring"
+            }
+        }
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        
     }
     @IBAction func btnBLLegDow(_ sender: Any) {
-        self.selectBodyPartToHiddenView()
         print("btnBLLegDow")
+        self.FrontAndBackImage = "B"
+        isUpdateSegmentData = true
+        delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "Glutiusmaximus", currentIndex: intCurrentIndex)
+        
+        let data = arrRoutines[self.IndexData]
+
+        if strLocationAction == "Left" {
+            
+            if isLink == false {
+                data.btnLocationLeft.setTitle("Glutiusmaximus", for: .normal)
+                LImageSetLocation = "Glutiusmaximus"
+            }
+            else
+            {
+                data.btnLocationLeft.setTitle("Glutiusmaximus", for: .normal)
+                data.btnLocationRight.setTitle("Glutiusmaximus", for: .normal)
+                LImageSetLocation = "Glutiusmaximus"
+                RImageSetLocation = "Glutiusmaximus"
+            }
+        }else if strLocationAction == "Right" {
+            
+            if isLink == false {
+                data.btnLocationRight.setTitle("Glutiusmaximus", for: .normal)
+                RImageSetLocation = "Glutiusmaximus"
+            }else{
+                data.btnLocationLeft.setTitle("Glutiusmaximus", for: .normal)
+                data.btnLocationRight.setTitle("Glutiusmaximus", for: .normal)
+                LImageSetLocation = "Glutiusmaximus"
+                RImageSetLocation = "Glutiusmaximus"
+            }
+        }
+        self.selectBodyPartToHiddenView()
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+    }
+    @IBAction func btnHideclick(_ sender: Any) {
+        self.selectBodyPartToHiddenView()
+    }
+    @IBAction func btnReset(_ sender: Any) {
+        self.ReSetData()
     }
     // **************************************     END      **************************************
     func addRoutineSegmentView() {
@@ -1982,13 +2672,9 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
     }
     
     func selectBodyPartToHiddenView()  {
-        //viewLocation.animHide()
-  
+      //  viewLocation.animHide()
         self.NewBodySelecView.isHidden = true
-        
-       // self.viewLocationPopup.isHidden = true
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-//        }
+      //  self.viewLocationPopup.isHidden = true
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -2060,24 +2746,43 @@ extension CreateSegmentVC: RulerSizeDelegate {
 
 extension CreateSegmentVC: LocationDelegate {
     func locationViewAnimation(strLRLocation: String, strBodyPart: String, currentIndex: Int) {
-       // viewLocationPopup.isHidden = false
+     //   viewLocationPopup.isHidden = false
         //viewLocation.animShow()
+        
+        strLocationAction = strLRLocation
+        
         self.NewBodySelecView.isHidden = false
         
         if strLRLocation == "Left" {
             if strBodyPart == "L. Location"{
                 self.ImgNewBodySelec.image = UIImage(named: "LeftBodyP")
             }else{
-                self.ImgNewBodySelec.image = UIImage(named: "SecondTimeLeft")
+                
+                if FrontAndBackImage == "F" {
+                    self.ImgNewBodySelec.image = UIImage(named: "SecondTimeLeft")
+                } else if FrontAndBackImage == "B"{
+                    self.ImgNewBodySelec.image = UIImage(named: "SecondTimeLeftB")
+                }else {
+                    self.ImgNewBodySelec.image = UIImage(named: "SecondTimeLeft")
+                }
+               
             }
         }else if strLRLocation == "Right"{
             if strBodyPart == "R. Location"{
                 self.ImgNewBodySelec.image = UIImage(named: "RightBodyP")
             }else{
-                self.ImgNewBodySelec.image = UIImage(named: "SecondTimeRight")
+                
+                
+                if FrontAndBackImage == "F" {
+                    self.ImgNewBodySelec.image = UIImage(named: "SecondTimeRight")
+                } else if FrontAndBackImage == "B"{
+                    self.ImgNewBodySelec.image = UIImage(named: "SecondTimeRightB")
+                }else {
+                    self.ImgNewBodySelec.image = UIImage(named: "SecondTimeRight")
+                }
             }
         }
-        strLocationAction = strLRLocation
+        
     }
     
     
@@ -2099,6 +2804,29 @@ extension CreateSegmentVC
 {
     private func SetImagePart(Location_L:String,Location_R:String)
     {
+        if FrontAndBackImage == "F" {
+            if Gender == "F" {
+                self.BodyPartImage.image = UIImage(named: "F-grey female body front")
+            } else {
+                self.BodyPartImage.image = UIImage(named: "grey male body front")
+            }
+        } else if FrontAndBackImage == "B"{
+            if Gender == "F" {
+                self.BodyPartImage.image = UIImage(named: "F-grey female body back")
+            } else {
+                self.BodyPartImage.image = UIImage(named: "grey male body back")
+            }
+        }else{
+            if Gender == "F" {
+                self.BodyPartImage.image = UIImage(named: "F-grey female body front")
+            } else {
+                self.BodyPartImage.image = UIImage(named: "grey male body front")
+            }
+        }
+        
+        
+        
+        
         if Location_L.isEmpty == true && Location_R.isEmpty == true
         {
             self.ImageLeft.image = UIImage(named: "")
@@ -2562,5 +3290,47 @@ extension CreateSegmentVC
                 }
             }
         }
+    }
+    func ReSetData()
+    {
+        let data = arrRoutines[self.IndexData]
+        data.txtTime.text = ""
+        data.txtLeftTool.text = ""
+        data.txtRightTool.text = ""
+        data.btnLocationLeft.setTitle("L. Location", for: .normal)
+        data.btnLocationRight.setTitle("R. Location", for: .normal)
+        data.txtLeftPath.text = ""
+        data.txtRightPath.text = ""
+        
+        data.lblLeftSpeed.text = String(format: "%.f", 0)
+        data.triLeftSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: data.viewLeftSpeed.frame.width, height: 33))
+        data.triLeftSpeed.backgroundColor = .white
+        data.triLeftSpeed.setFillValue(value: CGFloat(0 / 100))
+        data.viewLeftSpeed.addSubview(data.triLeftSpeed)
+        
+        data.lblRightSpeed.text = String(format: "%.f", 0)
+        data.triRightSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: data.viewRightSpeed.frame.width, height: 33))
+        data.triRightSpeed.backgroundColor = .white
+        data.triRightSpeed.setFillValue(value: CGFloat( 0 / 100))
+        data.viewRightSpeed.addSubview(data.triRightSpeed)
+        
+        data.lblLeftForce.text = String(format: "%.f", 0)
+        data.triLeftForce = TriangleView(frame: CGRect(x: 0, y: 0, width: data.viewLeftForce.frame.width, height: 33))
+        data.triLeftForce.backgroundColor = .white
+        data.triLeftForce.setFillValue(value: CGFloat(0 / 100))
+        data.viewLeftForce.addSubview(data.triLeftForce)
+        
+        data.lblRightForce.text = String(format: "%.f", 0)
+        data.triRightForce = TriangleView(frame: CGRect(x: 0, y: 0, width: data.viewRightForce.frame.width, height: 33))
+        data.triRightForce.backgroundColor = .white
+        data.triRightForce.setFillValue(value: CGFloat(0 / 100))
+        data.viewRightForce.addSubview(data.triRightForce)
+        
+        self.FrontAndBackImage = ""
+       
+        LImageSetLocation = ""
+        RImageSetLocation = ""
+        
+        self.SetImagePart(Location_L: "", Location_R: "")
     }
 }

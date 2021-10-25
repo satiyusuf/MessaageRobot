@@ -161,6 +161,10 @@ class RoutineParam: UIView {
         viewTapGesture.isHidden = true
     }
     
+    @IBAction func btnTimePickerOpen(_ sender: Any)
+    {
+        
+    }
     @IBAction func btnLeftSpeedAction(_ sender: UIButton) {
         sliderValue = 0
         delegate?.sliderValueSet(value: Float(triLeftSpeed.fillValue) * 100, strAction: "LeftSpeed", index: 0)
