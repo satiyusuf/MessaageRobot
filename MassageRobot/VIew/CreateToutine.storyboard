@@ -456,7 +456,7 @@
                                                         <rect key="frame" x="0.0" y="48" width="414" height="196"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This routine doesn't  have any segment" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BfL-dm-9Tz">
-                                                                <rect key="frame" x="20" y="88.5" width="374" height="19"/>
+                                                                <rect key="frame" x="20" y="88.5" width="374" height="19.5"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -552,7 +552,7 @@
                                                         <rect key="frame" x="0.0" y="48" width="414" height="196"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This routine doesn't  have any segment" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7b-Fz-ALg">
-                                                                <rect key="frame" x="20" y="88.5" width="374" height="19"/>
+                                                                <rect key="frame" x="20" y="88.5" width="374" height="19.5"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -735,7 +735,7 @@
                                                         <rect key="frame" x="0.0" y="48" width="414" height="196"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This routine doesn't  have any segment" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kiJ-Kr-nk8">
-                                                                <rect key="frame" x="20" y="88.5" width="374" height="19"/>
+                                                                <rect key="frame" x="20" y="88.5" width="374" height="19.5"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -831,7 +831,7 @@
                                                         <rect key="frame" x="0.0" y="48" width="414" height="196"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This routine doesn't  have any segment" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xK1-ky-W6f">
-                                                                <rect key="frame" x="20" y="88.5" width="374" height="19"/>
+                                                                <rect key="frame" x="20" y="88.5" width="374" height="19.5"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -927,7 +927,7 @@
                                                         <rect key="frame" x="0.0" y="48" width="414" height="196"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This routine doesn't  have any segment" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HoW-ML-PGs">
-                                                                <rect key="frame" x="20" y="88.5" width="374" height="19"/>
+                                                                <rect key="frame" x="20" y="88.5" width="374" height="19.5"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -1197,7 +1197,7 @@
                                                         <rect key="frame" x="0.0" y="48" width="414" height="196"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This routine doesn't  have any segment" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="znS-Ur-MpY">
-                                                                <rect key="frame" x="20" y="88.5" width="374" height="19"/>
+                                                                <rect key="frame" x="20" y="88.5" width="374" height="19.5"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -1293,7 +1293,7 @@
                                                         <rect key="frame" x="0.0" y="48" width="414" height="196"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This routine doesn't  have any segment" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NU1-4l-dIm">
-                                                                <rect key="frame" x="20" y="88.5" width="374" height="19"/>
+                                                                <rect key="frame" x="20" y="88.5" width="374" height="19.5"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -1867,7 +1867,7 @@
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data Found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7n-2p-dgr">
-                                <rect key="frame" x="153.5" y="438.5" width="107.5" height="19"/>
+                                <rect key="frame" x="152.5" y="438.5" width="109" height="19"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -3787,7 +3787,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="52"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Routines" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T5M-GS-Qge">
-                                        <rect key="frame" x="167.5" y="14" width="79" height="24"/>
+                                        <rect key="frame" x="167" y="14" width="80" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="ird-ZJ-KAd"/>
                                         </constraints>
@@ -7518,306 +7518,416 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jBf-zb-Gf9">
                                         <rect key="frame" x="0.0" y="156.5" width="414" height="500"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Body_Images" translatesAutoresizingMaskIntoConstraints="NO" id="jGn-RQ-DSn">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SecondTimeRightB" translatesAutoresizingMaskIntoConstraints="NO" id="jGn-RQ-DSn">
                                                 <rect key="frame" x="0.0" y="10" width="414" height="480"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="480" id="G2a-cg-3Mn"/>
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i5o-cz-hny">
-                                                <rect key="frame" x="60" y="140" width="26" height="26"/>
+                                                <rect key="frame" x="64" y="139" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="Oml-bo-pgj"/>
+                                                    <constraint firstAttribute="height" constant="27" id="Oml-bo-pgj"/>
                                                     <constraint firstAttribute="width" secondItem="i5o-cz-hny" secondAttribute="height" multiplier="1:1" id="yns-4s-q4O"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnFRChest:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="ZfG-Lw-D0C"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xsd-9f-szh">
-                                                <rect key="frame" x="97" y="140" width="26" height="26"/>
+                                                <rect key="frame" x="104" y="139" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="ThI-DG-D92"/>
+                                                    <constraint firstAttribute="height" constant="27" id="ThI-DG-D92"/>
                                                     <constraint firstAttribute="width" secondItem="Xsd-9f-szh" secondAttribute="height" multiplier="1:1" id="ZuO-Z5-FT8"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnFLChest:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="3Ta-Re-2ap"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHe-z2-oAm">
-                                                <rect key="frame" x="40" y="255" width="26" height="26"/>
+                                                <rect key="frame" x="45" y="256" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="5Bj-DD-cZQ"/>
+                                                    <constraint firstAttribute="height" constant="27" id="5Bj-DD-cZQ"/>
                                                     <constraint firstAttribute="width" secondItem="HHe-z2-oAm" secondAttribute="height" multiplier="1:1" id="Vud-3M-KIZ"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnFRHip:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="dNb-7m-bCB"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pUD-0S-hIM">
-                                                <rect key="frame" x="116" y="255" width="26" height="26"/>
+                                                <rect key="frame" x="122" y="256" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="XUx-rx-PVB"/>
+                                                    <constraint firstAttribute="height" constant="27" id="XUx-rx-PVB"/>
                                                     <constraint firstAttribute="width" secondItem="pUD-0S-hIM" secondAttribute="height" id="i6u-Cm-Txu"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnFLHip:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="WLv-57-TIj"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Xq-3g-EDP">
-                                                <rect key="frame" x="58" y="289" width="26" height="26"/>
+                                                <rect key="frame" x="63" y="290" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="7Xq-3g-EDP" secondAttribute="height" id="HMU-vh-tTs"/>
-                                                    <constraint firstAttribute="height" constant="26" id="WRJ-I8-Wun"/>
+                                                    <constraint firstAttribute="height" constant="27" id="WRJ-I8-Wun"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnFRThigh:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="Arx-dg-spS"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abu-tJ-4Ur">
-                                                <rect key="frame" x="100" y="289" width="26" height="26"/>
+                                                <rect key="frame" x="105" y="290" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="mMs-VY-bGv"/>
+                                                    <constraint firstAttribute="height" constant="27" id="mMs-VY-bGv"/>
                                                     <constraint firstAttribute="width" secondItem="abu-tJ-4Ur" secondAttribute="height" multiplier="1:1" id="qRc-KG-bLr"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnFLThigh:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="56a-vS-wPL"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6pV-7b-a8n">
-                                                <rect key="frame" x="60" y="333" width="26" height="26"/>
+                                                <rect key="frame" x="66" y="333" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="6pV-7b-a8n" secondAttribute="height" multiplier="1:1" id="0Na-O0-iCj"/>
-                                                    <constraint firstAttribute="height" constant="26" id="xK1-vY-KN1"/>
+                                                    <constraint firstAttribute="height" constant="27" id="xK1-vY-KN1"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnFRKnee:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="WWz-Sw-RO2"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fcr-TT-r5Q">
-                                                <rect key="frame" x="97" y="333" width="26" height="26"/>
+                                                <rect key="frame" x="103" y="333" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Fcr-TT-r5Q" secondAttribute="height" multiplier="1:1" id="ruo-8B-6dJ"/>
-                                                    <constraint firstAttribute="height" constant="26" id="vrE-l5-ZAS"/>
+                                                    <constraint firstAttribute="height" constant="27" id="vrE-l5-ZAS"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnFLKnee:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="twj-gF-E9C"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qm6-2r-x8i">
-                                                <rect key="frame" x="60" y="379" width="26" height="26"/>
+                                                <rect key="frame" x="66" y="379" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="qm6-2r-x8i" secondAttribute="height" multiplier="1:1" id="7PI-H4-gL0"/>
-                                                    <constraint firstAttribute="height" constant="26" id="xDa-vh-BVC"/>
+                                                    <constraint firstAttribute="height" constant="27" id="xDa-vh-BVC"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnFRCalf:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="Ir3-nb-9WA"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5L-Cf-MJZ">
-                                                <rect key="frame" x="97" y="379" width="26" height="26"/>
+                                                <rect key="frame" x="102" y="379" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="Lf3-Of-57M"/>
+                                                    <constraint firstAttribute="height" constant="27" id="Lf3-Of-57M"/>
                                                     <constraint firstAttribute="width" secondItem="O5L-Cf-MJZ" secondAttribute="height" multiplier="1:1" id="OcD-es-ih4"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnFLCalf:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="4Ke-ia-VaI"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLF-uv-dMa">
-                                                <rect key="frame" x="331" y="114" width="26" height="26"/>
+                                                <rect key="frame" x="326" y="113" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="L9B-Vi-HO7"/>
-                                                    <constraint firstAttribute="width" secondItem="eLF-uv-dMa" secondAttribute="height" multiplier="1:1" id="f5r-bO-gkG"/>
+                                                    <constraint firstAttribute="height" constant="27" id="HiH-fC-0nR"/>
+                                                    <constraint firstAttribute="width" secondItem="eLF-uv-dMa" secondAttribute="height" multiplier="1:1" id="ddY-pM-o4p"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnBRShoulder:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="2hs-Tb-kYa"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IZH-YV-2Vq">
-                                                <rect key="frame" x="242" y="114" width="26" height="26"/>
+                                                <rect key="frame" x="234" y="113" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="IZH-YV-2Vq" secondAttribute="height" multiplier="1:1" id="Yz6-HH-TyT"/>
-                                                    <constraint firstAttribute="height" constant="26" id="aff-gu-S4o"/>
+                                                    <constraint firstAttribute="height" constant="27" id="dOd-XR-mZg"/>
+                                                    <constraint firstAttribute="width" secondItem="IZH-YV-2Vq" secondAttribute="height" multiplier="1:1" id="qyL-Br-XTa"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnBLShoulder:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="LAh-FE-2kq"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ch-n0-ITS">
-                                                <rect key="frame" x="303" y="135" width="26" height="26"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="8mz-g9-NxX"/>
-                                                    <constraint firstAttribute="width" secondItem="0ch-n0-ITS" secondAttribute="height" multiplier="1:1" id="eHi-T5-ZIq"/>
-                                                </constraints>
-                                                <connections>
-                                                    <action selector="btnBRWaistUp:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="rVs-jL-2dK"/>
-                                                </connections>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="egn-m2-hzf">
-                                                <rect key="frame" x="270" y="135" width="26" height="26"/>
+                                                <rect key="frame" x="264" y="134" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="Ej0-nu-0fr"/>
-                                                    <constraint firstAttribute="width" secondItem="egn-m2-hzf" secondAttribute="height" multiplier="1:1" id="Nfn-vo-RjG"/>
+                                                    <constraint firstAttribute="height" constant="27" id="Oga-yY-4ZE"/>
+                                                    <constraint firstAttribute="width" secondItem="egn-m2-hzf" secondAttribute="height" multiplier="1:1" id="Xbk-lo-hJz"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnBLWaistUp:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="v6Q-k0-wOJ"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CzI-il-vbY">
-                                                <rect key="frame" x="301" y="191" width="26" height="26"/>
+                                                <rect key="frame" x="296" y="192" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="CzI-il-vbY" secondAttribute="height" multiplier="1:1" id="OC0-qE-hub"/>
-                                                    <constraint firstAttribute="height" constant="26" id="QdT-pz-v5g"/>
+                                                    <constraint firstAttribute="width" secondItem="CzI-il-vbY" secondAttribute="height" multiplier="1:1" id="5ro-Cv-cej"/>
+                                                    <constraint firstAttribute="height" constant="27" id="uwE-JV-Kqv"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnBRWaistDow:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="var-d9-tDj"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zFD-jU-zzb">
-                                                <rect key="frame" x="272" y="191" width="26" height="26"/>
+                                                <rect key="frame" x="265" y="192" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="NuE-qx-tYw"/>
-                                                    <constraint firstAttribute="width" secondItem="zFD-jU-zzb" secondAttribute="height" multiplier="1:1" id="aYY-rs-f1Q"/>
+                                                    <constraint firstAttribute="height" constant="27" id="Jk2-LH-fis"/>
+                                                    <constraint firstAttribute="width" secondItem="zFD-jU-zzb" secondAttribute="height" multiplier="1:1" id="yXJ-dg-Y0g"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnBLWaistDow:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="8T0-KW-7IR"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRi-vm-Ofi">
-                                                <rect key="frame" x="306" y="238" width="26" height="26"/>
+                                                <rect key="frame" x="300" y="239" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="eCU-o0-cXo"/>
-                                                    <constraint firstAttribute="width" secondItem="wRi-vm-Ofi" secondAttribute="height" multiplier="1:1" id="yoX-nP-4Eq"/>
+                                                    <constraint firstAttribute="height" constant="27" id="AeN-JQ-iRf"/>
+                                                    <constraint firstAttribute="width" secondItem="wRi-vm-Ofi" secondAttribute="height" multiplier="1:1" id="g5d-hL-NrN"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnBRButtock:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="fO6-dV-Dn7"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HUG-dk-g5c">
-                                                <rect key="frame" x="268" y="238" width="26" height="26"/>
+                                                <rect key="frame" x="261" y="239" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="HUG-dk-g5c" secondAttribute="height" multiplier="1:1" id="Paw-V4-Ihe"/>
-                                                    <constraint firstAttribute="height" constant="26" id="Su9-d0-gOl"/>
+                                                    <constraint firstAttribute="width" secondItem="HUG-dk-g5c" secondAttribute="height" multiplier="1:1" id="CIz-M0-GqT"/>
+                                                    <constraint firstAttribute="height" constant="27" id="uaV-NR-ZPo"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnBLButtock:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="KjZ-tI-vvx"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2bD-4I-2Qi">
-                                                <rect key="frame" x="307" y="289" width="26" height="26"/>
+                                                <rect key="frame" x="302" y="290" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="2bD-4I-2Qi" secondAttribute="height" multiplier="1:1" id="AMB-5d-ogf"/>
-                                                    <constraint firstAttribute="height" constant="26" id="pOf-WH-Lfs"/>
+                                                    <constraint firstAttribute="height" constant="27" id="VuO-tk-XS4"/>
+                                                    <constraint firstAttribute="width" secondItem="2bD-4I-2Qi" secondAttribute="height" multiplier="1:1" id="a3S-eZ-t7c"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnBRThigh:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="d3x-GH-grq"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rP4-tV-wKj">
-                                                <rect key="frame" x="265" y="289" width="26" height="26"/>
+                                                <rect key="frame" x="259" y="290" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="rP4-tV-wKj" secondAttribute="height" multiplier="1:1" id="57b-cy-GdV"/>
-                                                    <constraint firstAttribute="height" constant="26" id="e9h-BV-WHj"/>
+                                                    <constraint firstAttribute="width" secondItem="rP4-tV-wKj" secondAttribute="height" multiplier="1:1" id="4Rh-1h-GOa"/>
+                                                    <constraint firstAttribute="height" constant="27" id="N72-LP-ShO"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnBLThigh:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="njQ-oO-N7j"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cKM-eB-rez">
-                                                <rect key="frame" x="304" y="360" width="26" height="26"/>
+                                                <rect key="frame" x="298" y="361" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="j7h-EM-Az2"/>
-                                                    <constraint firstAttribute="width" secondItem="cKM-eB-rez" secondAttribute="height" id="wqb-2K-kNS"/>
+                                                    <constraint firstAttribute="height" constant="27" id="8tU-nf-UZI"/>
+                                                    <constraint firstAttribute="width" secondItem="cKM-eB-rez" secondAttribute="height" multiplier="1:1" id="BV0-A8-u5y"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnLegDow:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="saC-Vw-GTU"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVL-eb-DcL">
-                                                <rect key="frame" x="268" y="360" width="26" height="26"/>
+                                                <rect key="frame" x="260" y="361" width="27" height="27"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="DVL-eb-DcL" secondAttribute="height" multiplier="1:1" id="MF6-ye-XNw"/>
-                                                    <constraint firstAttribute="height" constant="26" id="eyR-e1-LOq"/>
+                                                    <constraint firstAttribute="width" secondItem="DVL-eb-DcL" secondAttribute="height" multiplier="1:1" id="EgU-dM-9z6"/>
+                                                    <constraint firstAttribute="height" constant="27" id="feu-gJ-LMI"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btnBLLegDow:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="T04-cm-FTy"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ch-n0-ITS">
+                                                <rect key="frame" x="298" y="134" width="27" height="27"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="27" id="f50-dc-oXE"/>
+                                                    <constraint firstAttribute="width" secondItem="0ch-n0-ITS" secondAttribute="height" multiplier="1:1" id="nES-iW-BLf"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="btnBRWaistUp:" destination="xCG-tJ-SmM" eventType="touchUpInside" id="rVs-jL-2dK"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="i5o-cz-hny" firstAttribute="top" secondItem="jBf-zb-Gf9" secondAttribute="top" constant="140" id="2j4-Df-if2"/>
-                                            <constraint firstItem="HHe-z2-oAm" firstAttribute="leading" secondItem="jBf-zb-Gf9" secondAttribute="leading" constant="40" id="9Fz-fo-QVi"/>
-                                            <constraint firstItem="2bD-4I-2Qi" firstAttribute="top" secondItem="wRi-vm-Ofi" secondAttribute="bottom" constant="25" id="BDN-Eq-XEs"/>
-                                            <constraint firstItem="qm6-2r-x8i" firstAttribute="leading" secondItem="jBf-zb-Gf9" secondAttribute="leading" constant="60" id="BUO-CI-3ke"/>
-                                            <constraint firstItem="CzI-il-vbY" firstAttribute="top" secondItem="0ch-n0-ITS" secondAttribute="bottom" constant="30" id="DKt-JQ-GfK"/>
-                                            <constraint firstAttribute="trailing" secondItem="CzI-il-vbY" secondAttribute="trailing" constant="87" id="ED1-JI-Ulk"/>
-                                            <constraint firstAttribute="trailing" secondItem="wRi-vm-Ofi" secondAttribute="trailing" constant="82" id="Eza-g0-FmS"/>
-                                            <constraint firstItem="rP4-tV-wKj" firstAttribute="top" secondItem="HUG-dk-g5c" secondAttribute="bottom" constant="25" id="Gt3-qj-wag"/>
-                                            <constraint firstItem="2bD-4I-2Qi" firstAttribute="leading" secondItem="rP4-tV-wKj" secondAttribute="trailing" constant="16" id="Hnt-Bc-DnM"/>
-                                            <constraint firstItem="abu-tJ-4Ur" firstAttribute="leading" secondItem="7Xq-3g-EDP" secondAttribute="trailing" constant="16" id="HwE-kO-VbL"/>
-                                            <constraint firstItem="egn-m2-hzf" firstAttribute="leading" secondItem="IZH-YV-2Vq" secondAttribute="trailing" constant="2" id="IKI-C9-iHH"/>
-                                            <constraint firstItem="CzI-il-vbY" firstAttribute="leading" secondItem="zFD-jU-zzb" secondAttribute="trailing" constant="3" id="Io3-18-YbS"/>
+                                            <constraint firstItem="DVL-eb-DcL" firstAttribute="top" secondItem="cKM-eB-rez" secondAttribute="top" id="0oE-go-HZz"/>
+                                            <constraint firstItem="7Xq-3g-EDP" firstAttribute="top" secondItem="HHe-z2-oAm" secondAttribute="bottom" constant="7" id="1PO-5T-eyf"/>
+                                            <constraint firstItem="i5o-cz-hny" firstAttribute="top" secondItem="jBf-zb-Gf9" secondAttribute="top" constant="139" id="2j4-Df-if2"/>
+                                            <constraint firstItem="HHe-z2-oAm" firstAttribute="leading" secondItem="jBf-zb-Gf9" secondAttribute="leading" constant="45" id="9Fz-fo-QVi"/>
+                                            <constraint firstItem="qm6-2r-x8i" firstAttribute="leading" secondItem="jBf-zb-Gf9" secondAttribute="leading" constant="66" id="BUO-CI-3ke"/>
+                                            <constraint firstItem="IZH-YV-2Vq" firstAttribute="top" secondItem="eLF-uv-dMa" secondAttribute="top" id="Bcc-rZ-41Q"/>
+                                            <constraint firstItem="zFD-jU-zzb" firstAttribute="top" secondItem="CzI-il-vbY" secondAttribute="top" id="CsX-8p-c8z"/>
+                                            <constraint firstItem="CzI-il-vbY" firstAttribute="top" secondItem="0ch-n0-ITS" secondAttribute="bottom" constant="31" id="FS5-q3-82M"/>
+                                            <constraint firstAttribute="trailing" secondItem="wRi-vm-Ofi" secondAttribute="trailing" constant="87" id="GeO-K2-HhP"/>
+                                            <constraint firstItem="abu-tJ-4Ur" firstAttribute="leading" secondItem="7Xq-3g-EDP" secondAttribute="trailing" constant="15" id="HwE-kO-VbL"/>
+                                            <constraint firstItem="2bD-4I-2Qi" firstAttribute="top" secondItem="wRi-vm-Ofi" secondAttribute="bottom" constant="24" id="KJ8-cx-f08"/>
                                             <constraint firstItem="jGn-RQ-DSn" firstAttribute="leading" secondItem="jBf-zb-Gf9" secondAttribute="leading" id="KcX-Wo-5f0"/>
                                             <constraint firstAttribute="height" constant="500" id="KjI-W9-qb8"/>
-                                            <constraint firstItem="Fcr-TT-r5Q" firstAttribute="leading" secondItem="6pV-7b-a8n" secondAttribute="trailing" constant="11" id="Kjw-0W-fKb"/>
-                                            <constraint firstItem="IZH-YV-2Vq" firstAttribute="top" secondItem="eLF-uv-dMa" secondAttribute="top" id="MAw-oU-vM8"/>
+                                            <constraint firstItem="Fcr-TT-r5Q" firstAttribute="leading" secondItem="6pV-7b-a8n" secondAttribute="trailing" constant="10" id="Kjw-0W-fKb"/>
                                             <constraint firstItem="Xsd-9f-szh" firstAttribute="top" secondItem="i5o-cz-hny" secondAttribute="top" id="MXg-bB-4Yz"/>
-                                            <constraint firstItem="egn-m2-hzf" firstAttribute="top" secondItem="0ch-n0-ITS" secondAttribute="top" id="Oev-gI-hqT"/>
-                                            <constraint firstItem="7Xq-3g-EDP" firstAttribute="leading" secondItem="jBf-zb-Gf9" secondAttribute="leading" constant="58" id="OoZ-ck-9fs"/>
-                                            <constraint firstAttribute="trailing" secondItem="2bD-4I-2Qi" secondAttribute="trailing" constant="81" id="OsL-3D-4KX"/>
-                                            <constraint firstItem="Xsd-9f-szh" firstAttribute="leading" secondItem="i5o-cz-hny" secondAttribute="trailing" constant="11" id="OtE-cd-qKe"/>
-                                            <constraint firstItem="6pV-7b-a8n" firstAttribute="top" secondItem="7Xq-3g-EDP" secondAttribute="bottom" constant="18" id="P23-RH-9cX"/>
-                                            <constraint firstAttribute="trailing" secondItem="eLF-uv-dMa" secondAttribute="trailing" constant="57" id="QWs-wU-zeW"/>
-                                            <constraint firstItem="7Xq-3g-EDP" firstAttribute="top" secondItem="HHe-z2-oAm" secondAttribute="bottom" constant="8" symbolic="YES" id="RI5-hQ-F3Z"/>
+                                            <constraint firstItem="7Xq-3g-EDP" firstAttribute="leading" secondItem="jBf-zb-Gf9" secondAttribute="leading" constant="63" id="OoZ-ck-9fs"/>
+                                            <constraint firstItem="Xsd-9f-szh" firstAttribute="leading" secondItem="i5o-cz-hny" secondAttribute="trailing" constant="13" id="OtE-cd-qKe"/>
+                                            <constraint firstItem="6pV-7b-a8n" firstAttribute="top" secondItem="7Xq-3g-EDP" secondAttribute="bottom" constant="16" id="P23-RH-9cX"/>
+                                            <constraint firstItem="0ch-n0-ITS" firstAttribute="leading" secondItem="egn-m2-hzf" secondAttribute="trailing" constant="7" id="RKX-mu-CK6"/>
                                             <constraint firstItem="pUD-0S-hIM" firstAttribute="top" secondItem="HHe-z2-oAm" secondAttribute="top" id="TRN-VK-Rvp"/>
-                                            <constraint firstItem="eLF-uv-dMa" firstAttribute="top" secondItem="jBf-zb-Gf9" secondAttribute="top" constant="114" id="Upe-LN-vv5"/>
+                                            <constraint firstItem="cKM-eB-rez" firstAttribute="leading" secondItem="DVL-eb-DcL" secondAttribute="trailing" constant="11" id="UqQ-if-5L5"/>
                                             <constraint firstItem="O5L-Cf-MJZ" firstAttribute="top" secondItem="qm6-2r-x8i" secondAttribute="top" id="V8K-ed-ZUK"/>
-                                            <constraint firstItem="i5o-cz-hny" firstAttribute="leading" secondItem="jBf-zb-Gf9" secondAttribute="leading" constant="60" id="VJy-M1-UCG"/>
-                                            <constraint firstItem="6pV-7b-a8n" firstAttribute="leading" secondItem="jBf-zb-Gf9" secondAttribute="leading" constant="60" id="Zay-Ee-cJw"/>
-                                            <constraint firstItem="DVL-eb-DcL" firstAttribute="top" secondItem="rP4-tV-wKj" secondAttribute="bottom" constant="45" id="Zsi-YQ-jIO"/>
-                                            <constraint firstItem="cKM-eB-rez" firstAttribute="leading" secondItem="DVL-eb-DcL" secondAttribute="trailing" constant="10" id="awg-UD-ZfA"/>
-                                            <constraint firstItem="eLF-uv-dMa" firstAttribute="leading" secondItem="IZH-YV-2Vq" secondAttribute="trailing" constant="63" id="bAJ-rX-fMh"/>
-                                            <constraint firstItem="wRi-vm-Ofi" firstAttribute="leading" secondItem="HUG-dk-g5c" secondAttribute="trailing" constant="12" id="bEv-vE-SQz"/>
-                                            <constraint firstItem="qm6-2r-x8i" firstAttribute="top" secondItem="6pV-7b-a8n" secondAttribute="bottom" constant="20" id="dXr-MA-1Am"/>
-                                            <constraint firstItem="eLF-uv-dMa" firstAttribute="leading" secondItem="0ch-n0-ITS" secondAttribute="trailing" constant="2" id="eQ8-R7-YX1"/>
+                                            <constraint firstItem="i5o-cz-hny" firstAttribute="leading" secondItem="jBf-zb-Gf9" secondAttribute="leading" constant="64" id="VJy-M1-UCG"/>
+                                            <constraint firstItem="cKM-eB-rez" firstAttribute="top" secondItem="2bD-4I-2Qi" secondAttribute="bottom" constant="44" id="WLo-tl-6hr"/>
+                                            <constraint firstItem="egn-m2-hzf" firstAttribute="top" secondItem="0ch-n0-ITS" secondAttribute="top" id="YAo-mW-WiH"/>
+                                            <constraint firstItem="CzI-il-vbY" firstAttribute="leading" secondItem="zFD-jU-zzb" secondAttribute="trailing" constant="4" id="YJY-K2-CYQ"/>
+                                            <constraint firstAttribute="trailing" secondItem="CzI-il-vbY" secondAttribute="trailing" constant="91" id="Za0-Te-qQk"/>
+                                            <constraint firstItem="6pV-7b-a8n" firstAttribute="leading" secondItem="jBf-zb-Gf9" secondAttribute="leading" constant="66" id="Zay-Ee-cJw"/>
+                                            <constraint firstItem="qm6-2r-x8i" firstAttribute="top" secondItem="6pV-7b-a8n" secondAttribute="bottom" constant="19" id="dXr-MA-1Am"/>
+                                            <constraint firstItem="eLF-uv-dMa" firstAttribute="top" secondItem="jBf-zb-Gf9" secondAttribute="top" constant="113" id="dfR-ph-Mqk"/>
                                             <constraint firstItem="jGn-RQ-DSn" firstAttribute="centerX" secondItem="jBf-zb-Gf9" secondAttribute="centerX" id="efX-jS-lyT"/>
-                                            <constraint firstItem="HHe-z2-oAm" firstAttribute="top" secondItem="i5o-cz-hny" secondAttribute="bottom" constant="89" id="es5-FJ-fWo"/>
-                                            <constraint firstItem="cKM-eB-rez" firstAttribute="top" secondItem="2bD-4I-2Qi" secondAttribute="bottom" constant="45" id="iGF-qs-KaG"/>
-                                            <constraint firstItem="wRi-vm-Ofi" firstAttribute="top" secondItem="CzI-il-vbY" secondAttribute="bottom" constant="21" id="iNk-9z-99C"/>
-                                            <constraint firstAttribute="trailing" secondItem="cKM-eB-rez" secondAttribute="trailing" constant="84" id="iR5-g4-pK9"/>
-                                            <constraint firstItem="HUG-dk-g5c" firstAttribute="top" secondItem="wRi-vm-Ofi" secondAttribute="top" id="joX-Kf-CWi"/>
+                                            <constraint firstItem="HHe-z2-oAm" firstAttribute="top" secondItem="i5o-cz-hny" secondAttribute="bottom" constant="90" id="es5-FJ-fWo"/>
+                                            <constraint firstItem="wRi-vm-Ofi" firstAttribute="top" secondItem="CzI-il-vbY" secondAttribute="bottom" constant="20" id="iCr-QT-e5B"/>
+                                            <constraint firstItem="wRi-vm-Ofi" firstAttribute="leading" secondItem="HUG-dk-g5c" secondAttribute="trailing" constant="12" id="iby-yv-gCe"/>
+                                            <constraint firstAttribute="trailing" secondItem="cKM-eB-rez" secondAttribute="trailing" constant="89" id="jXv-vS-jl3"/>
+                                            <constraint firstItem="HUG-dk-g5c" firstAttribute="top" secondItem="wRi-vm-Ofi" secondAttribute="top" id="jrG-Ly-TI1"/>
+                                            <constraint firstItem="rP4-tV-wKj" firstAttribute="top" secondItem="2bD-4I-2Qi" secondAttribute="top" id="juC-JS-9s0"/>
                                             <constraint firstItem="Fcr-TT-r5Q" firstAttribute="top" secondItem="6pV-7b-a8n" secondAttribute="top" id="kgv-Bs-lX2"/>
                                             <constraint firstItem="pUD-0S-hIM" firstAttribute="leading" secondItem="HHe-z2-oAm" secondAttribute="trailing" constant="50" id="lVW-4I-SoX"/>
-                                            <constraint firstItem="zFD-jU-zzb" firstAttribute="top" secondItem="CzI-il-vbY" secondAttribute="top" id="pBB-oe-ksQ"/>
+                                            <constraint firstAttribute="trailing" secondItem="2bD-4I-2Qi" secondAttribute="trailing" constant="85" id="lkX-BI-z00"/>
+                                            <constraint firstItem="2bD-4I-2Qi" firstAttribute="leading" secondItem="rP4-tV-wKj" secondAttribute="trailing" constant="16" id="pte-bQ-ha2"/>
                                             <constraint firstItem="abu-tJ-4Ur" firstAttribute="top" secondItem="7Xq-3g-EDP" secondAttribute="top" id="qc4-6Y-jGt"/>
-                                            <constraint firstItem="0ch-n0-ITS" firstAttribute="top" secondItem="jBf-zb-Gf9" secondAttribute="top" constant="135" id="qjx-NL-ezr"/>
+                                            <constraint firstItem="eLF-uv-dMa" firstAttribute="leading" secondItem="IZH-YV-2Vq" secondAttribute="trailing" constant="65" id="ro7-Dk-WXw"/>
                                             <constraint firstItem="jGn-RQ-DSn" firstAttribute="centerY" secondItem="jBf-zb-Gf9" secondAttribute="centerY" id="tD8-mn-bCn"/>
                                             <constraint firstAttribute="trailing" secondItem="jGn-RQ-DSn" secondAttribute="trailing" id="taf-4y-Jvr"/>
-                                            <constraint firstItem="O5L-Cf-MJZ" firstAttribute="leading" secondItem="qm6-2r-x8i" secondAttribute="trailing" constant="11" id="xmo-1E-ATX"/>
+                                            <constraint firstAttribute="trailing" secondItem="0ch-n0-ITS" secondAttribute="trailing" constant="89" id="v3A-sO-EzJ"/>
+                                            <constraint firstItem="O5L-Cf-MJZ" firstAttribute="leading" secondItem="qm6-2r-x8i" secondAttribute="trailing" constant="9" id="xmo-1E-ATX"/>
+                                            <constraint firstItem="0ch-n0-ITS" firstAttribute="top" secondItem="jBf-zb-Gf9" secondAttribute="top" constant="134" id="zMi-hY-Idr"/>
+                                            <constraint firstAttribute="trailing" secondItem="eLF-uv-dMa" secondAttribute="trailing" constant="61" id="ztV-RK-gD0"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -9059,54 +9169,9 @@
             <point key="canvasLocation" x="-810.14492753623199" y="93.75"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="0iu-xL-Jrz">
-            <size key="intrinsicContentSize" width="45" height="18.5"/>
-        </designable>
-        <designable name="3mM-RR-deH">
-            <size key="intrinsicContentSize" width="4" height="18.5"/>
-        </designable>
-        <designable name="DqE-YD-Pw0">
-            <size key="intrinsicContentSize" width="71" height="18.5"/>
-        </designable>
-        <designable name="KOg-Rg-P04">
-            <size key="intrinsicContentSize" width="72.5" height="18.5"/>
-        </designable>
-        <designable name="NXi-zC-Xox">
-            <size key="intrinsicContentSize" width="3" height="18.5"/>
-        </designable>
-        <designable name="OJk-P8-5bK">
-            <size key="intrinsicContentSize" width="42" height="18.5"/>
-        </designable>
-        <designable name="RLs-gd-6sd">
-            <size key="intrinsicContentSize" width="44" height="18.5"/>
-        </designable>
-        <designable name="VQA-8y-bj8">
-            <size key="intrinsicContentSize" width="43" height="18.5"/>
-        </designable>
-        <designable name="Z9H-tN-Phe">
-            <size key="intrinsicContentSize" width="69.5" height="18.5"/>
-        </designable>
-        <designable name="g2a-7u-uUQ">
-            <size key="intrinsicContentSize" width="122" height="18.5"/>
-        </designable>
-        <designable name="sXD-QM-o7w">
-            <size key="intrinsicContentSize" width="3" height="18.5"/>
-        </designable>
-        <designable name="vk4-6r-XlN">
-            <size key="intrinsicContentSize" width="46" height="18.5"/>
-        </designable>
-        <designable name="xwv-Sm-Vbn">
-            <size key="intrinsicContentSize" width="97.5" height="18.5"/>
-        </designable>
-        <designable name="yLm-op-5Rc">
-            <size key="intrinsicContentSize" width="69.5" height="18.5"/>
-        </designable>
-    </designables>
     <resources>
         <image name="AnimalIcon" width="43" height="55.5"/>
         <image name="BackIcon" width="12" height="20.5"/>
-        <image name="Body_Images" width="369" height="326"/>
         <image name="ClockIcon" width="49" height="49"/>
         <image name="CloseIcon" width="25.5" height="25.5"/>
         <image name="Connect" width="19" height="41"/>
@@ -9135,6 +9200,7 @@
         <image name="RightSideR" width="46" height="84"/>
         <image name="Routine_Time" width="18" height="18"/>
         <image name="Search_Icon" width="24.5" height="25"/>
+        <image name="SecondTimeRightB" width="369" height="326"/>
         <image name="SelectIcon" width="22" height="22"/>
         <image name="Sort_Icon" width="35.5" height="29"/>
         <image name="SpeedIcon" width="114" height="99"/>

@@ -2765,13 +2765,11 @@ extension CreateSegmentVC: LocationDelegate {
                 }else {
                     self.ImgNewBodySelec.image = UIImage(named: "SecondTimeLeft")
                 }
-               
             }
         }else if strLRLocation == "Right"{
             if strBodyPart == "R. Location"{
                 self.ImgNewBodySelec.image = UIImage(named: "RightBodyP")
             }else{
-                
                 
                 if FrontAndBackImage == "F" {
                     self.ImgNewBodySelec.image = UIImage(named: "SecondTimeRight")
