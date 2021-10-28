@@ -36,6 +36,7 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
     @IBOutlet var btnSPath: [UIButton]!
     @IBOutlet var btnDiseases: [UIButton]!
     
+    @IBOutlet weak var ScrollView: UIScrollView!
     @IBOutlet var lblRoutineName: UILabel!
     @IBOutlet var lblAutherName: UILabel!
     @IBOutlet var lblCategory: UILabel!
@@ -56,7 +57,14 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
     
     @IBOutlet var bottomBarView: UIView!
     @IBOutlet var routineDetailView: UIView!
+    @IBOutlet weak var ImageCreateAndRemove: UIView!
+    @IBOutlet weak var SubCateGoryHeight: UIView!
     
+    @IBOutlet weak var Title1: UILabel!
+    @IBOutlet weak var Title2: UILabel!
+    @IBOutlet weak var Title3: UILabel!
+    @IBOutlet weak var Title4: UILabel!
+    @IBOutlet weak var Height: NSLayoutConstraint!
     var arrRoutingData = [[String: Any]]()
     var arrSegmentList = [[String: Any]]()
     var arrUserDetail = [[String: Any]]()
@@ -69,11 +77,23 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
     
     var strRoutingID: String!
     var totalSegCount: Int = 0
+    var Gender = String()
+    var arrFrontBodyData = [[String:Any]]()
+    var arrBackBodyData = [[String:Any]]()
     
+    
+    let scrollView = UIScrollView(frame: CGRect(x:0, y:0, width:340,height: 460))
+    var colors:[UIColor] = [UIColor.red, UIColor.yellow]
+    var frame: CGRect = CGRect(x:0, y:0, width:0, height:0)
+    var pageControl : UIPageControl = UIPageControl(frame: CGRect(x:70,y: 440, width:200, height:50))
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.getUserDetailAPICall()
         // Do any additional setup after loading the view.
+        
+       //       pageControl.addTarget(self, action: #selector(self.changePage(sender:)), for: UIControl.Event.valueChanged)
         
         viewTagList.delegate = self
         
@@ -89,7 +109,7 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
         
         self.getRoutineDetailHeight()
         self.setRoutingDataServiceCall()
-        self.getUserDetailAPICall()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,7 +145,8 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                             
                             UserDefaults.standard.set(lblAutherName.text, forKey: RoutineUName)
                             
-//                            let Gender = routingData.getString(key: "gender")
+                            self.Gender = routingData.getString(key: "gender")
+                            
 //                            if Gender == "F"
 //                            {
 //                                self.ImgBody.image = UIImage(named: "F-grey female body back")
@@ -172,6 +193,14 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                             lblType.text = routingData.getString(key: "routine_type")
                             lblUser.text = routingData.getString(key: "user_type")
                             lblCategory.text = routingData.getString(key: "routine_category")
+                            
+                            if lblCategory.text == "therapy" {
+                                self.Height.constant = 0
+                            }
+                            //else {
+                            //    self.Height.constant = 40
+                           // }
+                            
                             lblSubCategory.text = routingData.getString(key: "routine_subcategory")
                             txvDescription.text = routingData.getString(key: "description")
                             
@@ -295,233 +324,347 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                         
                         arrSegmentList.append(contentsOf: jsonArray)
                         print("SegmentCount:-\(arrSegmentList.count),SegmentData:-\(arrSegmentList)")
-
                         
-                        var arrHumanBodyNameLeft = [String]()
-                        var arrHumanBodyNameRight = [String]()
+                        if arrSegmentList.count >= 4
+                        {
+                            let data1 = arrSegmentList[0]
+                            let location_r1 = data1["location_r"] as? String ?? ""
+                            Title1.text = location_r1
+                            
+                            let data2 = arrSegmentList[1]
+                            let location_r2 = data2["location_r"] as? String ?? ""
+                            Title2.text = location_r2
+                            
+                            let data3 = arrSegmentList[2]
+                            let location_r3 = data3["location_r"] as? String ?? ""
+                            Title3.text = location_r3
+                            
+                            let data4 = arrSegmentList[3]
+                            let location_r4 = data4["location_r"] as? String ?? ""
+                            Title4.text = location_r4
+                        }
+                        else if arrSegmentList.count == 3
+                        {
+                            let data1 = arrSegmentList[0]
+                            let location_r1 = data1["location_r"] as? String ?? ""
+                            Title1.text = location_r1
+                            
+                            let data2 = arrSegmentList[1]
+                            let location_r2 = data2["location_r"] as? String ?? ""
+                            Title2.text = location_r2
+                            
+                            let data3 = arrSegmentList[2]
+                            let location_r3 = data3["location_r"] as? String ?? ""
+                            Title3.text = location_r3
+                        }
+                        else if arrSegmentList.count == 2
+                        {
+                            let data1 = arrSegmentList[0]
+                            let location_r1 = data1["location_r"] as? String ?? ""
+                            Title1.text = location_r1
+                            
+                            let data2 = arrSegmentList[1]
+                            let location_r2 = data2["location_r"] as? String ?? ""
+                            Title2.text = location_r2
+                        }
+                        else if arrSegmentList.count == 1
+                        {
+                            let data1 = arrSegmentList[0]
+                            let location_r1 = data1["location_r"] as? String ?? ""
+                            Title1.text = location_r1
+                        }
+                        
+                        
+                        
+                        
                         for Data in arrSegmentList
                         {
+                            let FrontAndBack = Data["body_location"] as? String ?? ""
                             let location_r = Data["location_r"] as? String ?? ""
                             let location_l = Data["location_l"] as? String ?? ""
-                            arrHumanBodyNameLeft.append(location_l)
-                            arrHumanBodyNameRight.append(location_r)
-                        }
-                        
-                        if arrHumanBodyNameLeft.count > 0  && arrHumanBodyNameRight.count  > 0 {
-                        if arrUserDetail.count > 0 {
-                            let routingData = arrUserDetail[0]
-                            let Gender = routingData.getString(key: "gender")
-                            if Gender == "F"
-                            {
-                                self.ImgBody.image = UIImage(named: "F-grey female body back")
-                                for Female in arrHumanBodyNameLeft {
-                                    var BodyPartNameL = String()
-                                    if Female == "upperback"
-                                    {
-                                        BodyPartNameL = "F-L-trap"
-                                    }
-                                    else if Female == "lowerback"
-                                    {
-                                        BodyPartNameL = "F-L-lower back"
-                                    }
-                                    else if Female == "hamstring"
-                                    {
-                                        BodyPartNameL = "F-L-ham"
-                                    }
-                                    else if Female == "gastrocnemius"
-                                    {
-                                        BodyPartNameL = "F-L-calf"
-                                    }
-                                    else if Female == "quadracepts"
-                                    {
-                                        BodyPartNameL = "F-L-quad"
-                                    }
-                                    else if Female == "iliotibal tract"
-                                    {
-                                        BodyPartNameL = "F-L-IT band"
-                                    }
-                                    else if Female == "tibalis anterior"
-                                    {
-                                        BodyPartNameL = "F-L-tibialis"
-                                    }
-                                    else if Female == "deltoid"
-                                    {
-                                        BodyPartNameL = "F-L-shoulder"
-                                    }
-                                    else if Female == "pectoralis"
-                                    {
-                                        BodyPartNameL = "F-L-pect"
-                                    }
-                                    else if Female == "glutiusmaximus"
-                                    {
-                                        BodyPartNameL = "F-L-glut"
-                                    }
-                                    
-                                    for FemaleR in arrHumanBodyNameRight {
-                                        
-                                             var BodyPartNameR = String()
-                                            if FemaleR == "upperback"
-                                            {
-                                                BodyPartNameR = "F-R-trap"
-                                            }
-                                            else if FemaleR == "lowerback"
-                                            {
-                                                BodyPartNameR = "F-R-lower back"
-                                            }
-                                            else if FemaleR == "hamstring"
-                                            {
-                                                BodyPartNameR = "F-R-ham"
-                                            }
-                                            else if FemaleR == "gastrocnemius"
-                                            {
-                                                BodyPartNameR = "F-R-calf"
-                                            }
-                                            else if FemaleR == "quadracepts"
-                                            {
-                                                BodyPartNameR = "F-R-quad"
-                                            }
-                                            else if FemaleR == "iliotibal tract"
-                                            {
-                                                BodyPartNameR = "F-R-IT band"
-                                            }
-                                            else if FemaleR == "tibalis anterior"
-                                            {
-                                                BodyPartNameR = "F-R-tibialis"
-                                            }
-                                            else if FemaleR == "deltoid"
-                                            {
-                                                BodyPartNameR = "F-R-shoulder"
-                                            }
-                                            else if FemaleR == "pectoralis"
-                                            {
-                                                BodyPartNameR = "F-R-pect"
-                                            }
-                                            else if FemaleR == "glutiusmaximus"
-                                            {
-                                                BodyPartNameR = "F-R-glut"
-                                            }
-                                            let image = UIImage(named: BodyPartNameR)
-                                            let imageView = UIImageView(image: image)
-                                            imageView.frame = CGRect(x:ImgBody.frame.origin.x, y:ImgBody.frame.origin.y, width: self.ImgBody.bounds.width, height: self.ImgBody.bounds.height)
-                                            self.ImageAddView.addSubview(imageView)
-                                           
-                                    }
-                                    let image = UIImage(named: BodyPartNameL)
-                                    let imageView = UIImageView(image: image)
-                                    imageView.frame = CGRect(x:ImgBody.frame.origin.x, y:ImgBody.frame.origin.y, width: self.ImgBody.bounds.width, height: self.ImgBody.bounds.height)
-                                    self.ImageAddView.addSubview(imageView)
-                                    
-                                    
-                                }
-                            }else{
-                                self.ImgBody.image = UIImage(named: "grey male body back")
-                                for MaleL in arrHumanBodyNameLeft {
-                                    var BodyPartNameL = String()
-                                    if MaleL == "upperback"
-                                    {
-                                        BodyPartNameL = "L-trap"
-                                    }
-                                    else if MaleL == "lowerback"
-                                    {
-                                        BodyPartNameL = "L-lower back"
-                                    }
-                                    else if MaleL == "hamstring"
-                                    {
-                                        BodyPartNameL = "L-ham"
-                                    }
-                                    else if MaleL == "gastrocnemius"
-                                    {
-                                        BodyPartNameL = "L-calf"
-                                    }
-                                    else if MaleL == "quadracepts"
-                                    {
-                                        BodyPartNameL = "L-quad"
-                                    }
-                                    else if MaleL == "iliotibal tract"
-                                    {
-                                        BodyPartNameL = "L-IT band"
-                                    }
-                                    else if MaleL == "tibalis anterior"
-                                    {
-                                        BodyPartNameL = "L-tibialis"
-                                    }
-                                    else if MaleL == "deltoid"
-                                    {
-                                        BodyPartNameL = "L-shoulder"
-                                    }
-                                    else if MaleL == "pectoralis"
-                                    {
-                                        BodyPartNameL = "L-pect"
-                                    }
-                                    else if MaleL == "glutiusmaximus"
-                                    {
-                                        BodyPartNameL = "L-glut"
-                                    }
-                                    
-                                    for MaleR in arrHumanBodyNameRight {
-                                        
-                                             var BodyPartNameR = String()
-                                            if MaleR == "upperback"
-                                            {
-                                                BodyPartNameR = "R-trap"
-                                            }
-                                            else if MaleR == "lowerback"
-                                            {
-                                                BodyPartNameR = "R-lower back"
-                                            }
-                                            else if MaleR == "hamstring"
-                                            {
-                                                BodyPartNameR = "R-ham"
-                                            }
-                                            else if MaleR == "gastrocnemius"
-                                            {
-                                                BodyPartNameR = "R-calf"
-                                            }
-                                            else if MaleR == "quadracepts"
-                                            {
-                                                BodyPartNameR = "R-quad"
-                                            }
-                                            else if MaleR == "iliotibal tract"
-                                            {
-                                                BodyPartNameR = "R-IT band"
-                                            }
-                                            else if MaleR == "tibalis anterior"
-                                            {
-                                                BodyPartNameR = "R-tibialis"
-                                            }
-                                            else if MaleR == "deltoid"
-                                            {
-                                                BodyPartNameR = "R-shoulder"
-                                            }
-                                            else if MaleR == "pectoralis"
-                                            {
-                                                BodyPartNameR = "R-pect"
-                                            }
-                                            else if MaleR == "glutiusmaximus"
-                                            {
-                                                BodyPartNameR = "R-glut"
-                                            }
-                                            let image = UIImage(named: BodyPartNameR)
-                                            let imageView = UIImageView(image: image)
-                                            imageView.frame = CGRect(x:ImgBody.frame.origin.x, y:ImgBody.frame.origin.y, width: self.ImgBody.bounds.width, height: self.ImgBody.bounds.height)
-                                            self.ImageAddView.addSubview(imageView)
-                                           
-                                    }
-                                    let image = UIImage(named: BodyPartNameL)
-                                    let imageView = UIImageView(image: image)
-                                    imageView.frame = CGRect(x:ImgBody.frame.origin.x, y:ImgBody.frame.origin.y, width: self.ImgBody.bounds.width, height: self.ImgBody.bounds.height)
-                                    self.ImageAddView.addSubview(imageView)
-                                }
+                            
+                            if FrontAndBack == "F" {
+                                let Dict = ["location_r":location_r,"location_l":location_l,"body_location":FrontAndBack]
+                                self.arrFrontBodyData.append(Dict)
+                            } else if FrontAndBack == "B"{
+                                let Dict = ["location_r":location_r,"location_l":location_l,"body_location":FrontAndBack]
+                                self.arrBackBodyData.append(Dict)
+                            }else {
+                                let Dict = ["location_r":location_r,"location_l":location_l,"body_location":FrontAndBack]
+                                self.arrFrontBodyData.append(Dict)
                             }
                         }
-                        else
+                        
+                        
+                        if arrFrontBodyData.count > 0 && arrBackBodyData.count > 0
                         {
-                            self.ImgBody.image = UIImage(named: "grey male body back")
+                            self.ConfigurePageControl(Count: 2)
+                            scrollView.delegate = self
+                            scrollView.isPagingEnabled = true
+                            self.ImageAddView.addSubview(scrollView)
+                            
+//                            for index in 0..<2 {
+//                              print("ImageBodyPartIndex:-\(index)")
+//                              self.scrollView .addSubview(ImgBody)
+//                            }
+                            self.scrollView.contentSize = CGSize(width:self.scrollView.frame.size.width * 2,height: self.scrollView.frame.size.height)
+                            
+                            for Data in arrFrontBodyData
+                            {
+                                let location_r = Data["location_r"] as? String ?? ""
+                                let location_l = Data["location_l"] as? String ?? ""
+                                let FrontAndBack = Data["body_location"] as? String ?? ""
+                                self.ImageBodyPartSetAndFrontBack(LLocation: location_l, RLocation: location_r, Body: FrontAndBack, Gender: self.Gender)
+                            }
                         }
-                     }
+                        else if arrFrontBodyData.count > 0
+                        {
+                            self.ConfigurePageControl(Count: 1)
+                            scrollView.delegate = self
+                            scrollView.isPagingEnabled = true
+                            self.ImageAddView.addSubview(scrollView)
+                            self.scrollView.contentSize = CGSize(width:self.scrollView.frame.size.width * 1,height: self.scrollView.frame.size.height)
+                            
+                            for Data in arrFrontBodyData
+                            {
+                                let location_r = Data["location_r"] as? String ?? ""
+                                let location_l = Data["location_l"] as? String ?? ""
+                                let FrontAndBack = Data["body_location"] as? String ?? ""
+                                self.ImageBodyPartSetAndFrontBack(LLocation: location_l, RLocation: location_r, Body: FrontAndBack, Gender: self.Gender)
+                            }
+                        }
+                        else if arrBackBodyData.count > 0
+                        {
+                            self.ConfigurePageControl(Count: 1)
+                            scrollView.delegate = self
+                            scrollView.isPagingEnabled = true
+                            self.ImageAddView.addSubview(scrollView)
+                            self.scrollView.contentSize = CGSize(width:self.scrollView.frame.size.width * 1,height: self.scrollView.frame.size.height)
+                            
+                            for Data in arrBackBodyData
+                            {
+                                let location_r = Data["location_r"] as? String ?? ""
+                                let location_l = Data["location_l"] as? String ?? ""
+                                let FrontAndBack = Data["body_location"] as? String ?? ""
+                                self.ImageBodyPartSetAndFrontBack(LLocation: location_l, RLocation: location_r, Body: FrontAndBack, Gender: self.Gender)
+                            }
+                        }
                         
-                        
-                        
+//                        if arrHumanBodyNameLeft.count > 0  && arrHumanBodyNameRight.count  > 0 {
+//                        if arrUserDetail.count > 0 {
+//                            let routingData = arrUserDetail[0]
+//                            let Gender = routingData.getString(key: "gender")
+//                            if Gender == "F"
+//                            {
+//                                self.ImgBody.image = UIImage(named: "F-grey female body back")
+//                                for Female in arrHumanBodyNameLeft {
+//                                    var BodyPartNameL = String()
+//                                    if Female == "upperback"
+//                                    {
+//                                        BodyPartNameL = "F-L-trap"
+//                                    }
+//                                    else if Female == "lowerback"
+//                                    {
+//                                        BodyPartNameL = "F-L-lower back"
+//                                    }
+//                                    else if Female == "hamstring"
+//                                    {
+//                                        BodyPartNameL = "F-L-ham"
+//                                    }
+//                                    else if Female == "gastrocnemius"
+//                                    {
+//                                        BodyPartNameL = "F-L-calf"
+//                                    }
+//                                    else if Female == "quadracepts"
+//                                    {
+//                                        BodyPartNameL = "F-L-quad"
+//                                    }
+//                                    else if Female == "iliotibal tract"
+//                                    {
+//                                        BodyPartNameL = "F-L-IT band"
+//                                    }
+//                                    else if Female == "tibalis anterior"
+//                                    {
+//                                        BodyPartNameL = "F-L-tibialis"
+//                                    }
+//                                    else if Female == "deltoid"
+//                                    {
+//                                        BodyPartNameL = "F-L-shoulder"
+//                                    }
+//                                    else if Female == "pectoralis"
+//                                    {
+//                                        BodyPartNameL = "F-L-pect"
+//                                    }
+//                                    else if Female == "glutiusmaximus"
+//                                    {
+//                                        BodyPartNameL = "F-L-glut"
+//                                    }
+//
+//                                    for FemaleR in arrHumanBodyNameRight {
+//
+//                                             var BodyPartNameR = String()
+//                                            if FemaleR == "upperback"
+//                                            {
+//                                                BodyPartNameR = "F-R-trap"
+//                                            }
+//                                            else if FemaleR == "lowerback"
+//                                            {
+//                                                BodyPartNameR = "F-R-lower back"
+//                                            }
+//                                            else if FemaleR == "hamstring"
+//                                            {
+//                                                BodyPartNameR = "F-R-ham"
+//                                            }
+//                                            else if FemaleR == "gastrocnemius"
+//                                            {
+//                                                BodyPartNameR = "F-R-calf"
+//                                            }
+//                                            else if FemaleR == "quadracepts"
+//                                            {
+//                                                BodyPartNameR = "F-R-quad"
+//                                            }
+//                                            else if FemaleR == "iliotibal tract"
+//                                            {
+//                                                BodyPartNameR = "F-R-IT band"
+//                                            }
+//                                            else if FemaleR == "tibalis anterior"
+//                                            {
+//                                                BodyPartNameR = "F-R-tibialis"
+//                                            }
+//                                            else if FemaleR == "deltoid"
+//                                            {
+//                                                BodyPartNameR = "F-R-shoulder"
+//                                            }
+//                                            else if FemaleR == "pectoralis"
+//                                            {
+//                                                BodyPartNameR = "F-R-pect"
+//                                            }
+//                                            else if FemaleR == "glutiusmaximus"
+//                                            {
+//                                                BodyPartNameR = "F-R-glut"
+//                                            }
+//                                            let image = UIImage(named: BodyPartNameR)
+//                                            let imageView = UIImageView(image: image)
+//                                            imageView.frame = CGRect(x:ImgBody.frame.origin.x, y:ImgBody.frame.origin.y, width: self.ImgBody.bounds.width, height: self.ImgBody.bounds.height)
+//                                            self.ImageAddView.addSubview(imageView)
+//
+//                                    }
+//                                    let image = UIImage(named: BodyPartNameL)
+//                                    let imageView = UIImageView(image: image)
+//                                    imageView.frame = CGRect(x:ImgBody.frame.origin.x, y:ImgBody.frame.origin.y, width: self.ImgBody.bounds.width, height: self.ImgBody.bounds.height)
+//                                    self.ImageAddView.addSubview(imageView)
+//
+//
+//                                }
+//                            }else{
+//                               // self.ImgBody.image = UIImage(named: "grey male body back")
+//                                for MaleL in arrHumanBodyNameLeft {
+//                                    var BodyPartNameL = String()
+//                                    if MaleL == "upperback"
+//                                    {
+//                                        BodyPartNameL = "L-trap"
+//                                    }
+//                                    else if MaleL == "lowerback"
+//                                    {
+//                                        BodyPartNameL = "L-lower back"
+//                                    }
+//                                    else if MaleL == "hamstring"
+//                                    {
+//                                        BodyPartNameL = "L-ham"
+//                                    }
+//                                    else if MaleL == "gastrocnemius"
+//                                    {
+//                                        BodyPartNameL = "L-calf"
+//                                    }
+//                                    else if MaleL == "quadracepts"
+//                                    {
+//                                        BodyPartNameL = "L-quad"
+//                                    }
+//                                    else if MaleL == "iliotibal tract"
+//                                    {
+//                                        BodyPartNameL = "L-IT band"
+//                                    }
+//                                    else if MaleL == "tibalis anterior"
+//                                    {
+//                                        BodyPartNameL = "L-tibialis"
+//                                    }
+//                                    else if MaleL == "deltoid"
+//                                    {
+//                                        BodyPartNameL = "L-shoulder"
+//                                    }
+//                                    else if MaleL == "pectoralis"
+//                                    {
+//                                        BodyPartNameL = "L-pect"
+//                                    }
+//                                    else if MaleL == "glutiusmaximus"
+//                                    {
+//                                        BodyPartNameL = "L-glut"
+//                                    }
+//
+//                                    for MaleR in arrHumanBodyNameRight {
+//
+//                                             var BodyPartNameR = String()
+//                                            if MaleR == "upperback"
+//                                            {
+//                                                BodyPartNameR = "R-trap"
+//                                            }
+//                                            else if MaleR == "lowerback"
+//                                            {
+//                                                BodyPartNameR = "R-lower back"
+//                                            }
+//                                            else if MaleR == "hamstring"
+//                                            {
+//                                                BodyPartNameR = "R-ham"
+//                                            }
+//                                            else if MaleR == "gastrocnemius"
+//                                            {
+//                                                BodyPartNameR = "R-calf"
+//                                            }
+//                                            else if MaleR == "quadracepts"
+//                                            {
+//                                                BodyPartNameR = "R-quad"
+//                                            }
+//                                            else if MaleR == "iliotibal tract"
+//                                            {
+//                                                BodyPartNameR = "R-IT band"
+//                                            }
+//                                            else if MaleR == "tibalis anterior"
+//                                            {
+//                                                BodyPartNameR = "R-tibialis"
+//                                            }
+//                                            else if MaleR == "deltoid"
+//                                            {
+//                                                BodyPartNameR = "R-shoulder"
+//                                            }
+//                                            else if MaleR == "pectoralis"
+//                                            {
+//                                                BodyPartNameR = "R-pect"
+//                                            }
+//                                            else if MaleR == "glutiusmaximus"
+//                                            {
+//                                                BodyPartNameR = "R-glut"
+//                                            }
+//                                            let image = UIImage(named: BodyPartNameR)
+//                                            let imageView = UIImageView(image: image)
+//                                            imageView.frame = CGRect(x:ImgBody.frame.origin.x, y:ImgBody.frame.origin.y, width: self.ImgBody.bounds.width, height: self.ImgBody.bounds.height)
+//                                            self.ImageAddView.addSubview(imageView)
+//
+//                                    }
+//                                    let image = UIImage(named: BodyPartNameL)
+//                                    let imageView = UIImageView(image: image)
+//                                    imageView.frame = CGRect(x:ImgBody.frame.origin.x, y:ImgBody.frame.origin.y, width: self.ImgBody.bounds.width, height: self.ImgBody.bounds.height)
+//                                    self.ImageAddView.addSubview(imageView)
+//                                }
+//                            }
+//                        }
+//                        else
+//                        {
+//                          //  self.ImgBody.image = UIImage(named: "grey male body back")
+//                        }
+//                     }
+//
+//
+//
                         
                         
                         
@@ -886,6 +1029,46 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
         
         self.getRoutineDetailHeight()
     }
+    
+      func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+
+        let index: Int = Int(scrollView.contentOffset.x / scrollView.bounds.size.width)
+        print("Index Count:::\(index)")
+        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
+        pageControl.currentPage = Int(pageNumber)
+        
+        if arrFrontBodyData.count > 0 && arrBackBodyData.count > 0
+        {
+//            guard let sublayers = ImageAddView.layer.sublayers else { return }
+//            for layer in sublayers {
+//            layer.removeFromSuperlayer()
+//            }
+            self.ImageCreateAndRemove.layer.sublayers = nil;
+
+
+                
+                
+            if index == 0 {
+                for Data in arrFrontBodyData
+                {
+                    let location_r = Data["location_r"] as? String ?? ""
+                    let location_l = Data["location_l"] as? String ?? ""
+                    let FrontAndBack = Data["body_location"] as? String ?? ""
+                    self.ImageBodyPartSetAndFrontBack(LLocation: location_l, RLocation: location_r, Body: FrontAndBack, Gender: self.Gender)
+                }
+            } else if index == 1 {
+                for Data in arrBackBodyData
+                {
+                    let location_r = Data["location_r"] as? String ?? ""
+                    let location_l = Data["location_l"] as? String ?? ""
+                    let FrontAndBack = Data["body_location"] as? String ?? ""
+                    self.ImageBodyPartSetAndFrontBack(LLocation: location_l, RLocation: location_r, Body: FrontAndBack, Gender: self.Gender)
+                }
+            }
+           
+        }
+        
+      }
 }
 
 extension RoutineDetailDisplayVC: TagListViewDelegate
@@ -904,20 +1087,239 @@ extension RoutineDetailDisplayVC: TagListViewDelegate
     }
 }
 
+extension RoutineDetailDisplayVC
+{
+    func ConfigurePageControl(Count:Int) {
+          // The total number of pages that are available is based on how many available colors we have.
+          self.pageControl.numberOfPages = Count
+          self.pageControl.currentPage = 0
+          self.pageControl.tintColor = UIColor.red
+          self.pageControl.pageIndicatorTintColor = UIColor.black
+          self.pageControl.currentPageIndicatorTintColor = UIColor.blue
+          self.ImageAddView.addSubview(pageControl)
+      }
+    
+    func ImageBodyPartSetAndFrontBack(LLocation: String,RLocation:String,Body:String,Gender:String)
+    {
+        if Gender == "F" {
+            if Body == "B" {
+                self.ImgBody.image = UIImage(named: "F-grey female body back")
+                self.SetBodyPartFemale(R: RLocation, L: LLocation)
+            }else{
+                self.ImgBody.image = UIImage(named: "F-grey female body front")
+                self.SetBodyPartFemale(R: RLocation, L: LLocation)
+            }
+        } else {
+            if Body == "B" {
+                self.ImgBody.image = UIImage(named: "grey male body back")
+                self.SetBodyPartMale(R: RLocation, L: LLocation)
+            }else{
+                self.ImgBody.image = UIImage(named: "grey male body front")
+                self.SetBodyPartMale(R: RLocation, L: LLocation)
+            }
+        }
+    }
+    func SetBodyPartMale(R:String,L:String)
+    {
+        var LName = String()
+        var RName = String()
+        
+        if L == "upperback"
+        {
+            LName = "L-trap"
+        }
+        else if L == "lowerback"
+        {
+            LName = "L-lower back"
+        }
+        else if L == "hamstring"
+        {
+            LName = "L-ham"
+        }
+        else if L == "gastrocnemius"
+        {
+            LName = "L-calf"
+        }
+        else if L == "quadracepts"
+        {
+            LName = "L-quad"
+        }
+        else if L == "iliotibal tract"
+        {
+            LName = "L-IT band"
+        }
+        else if L == "tibalis anterior"
+        {
+            LName = "L-tibialis"
+        }
+        else if L == "deltoid"
+        {
+            LName = "L-shoulder"
+        }
+        else if L == "pectoralis"
+        {
+            LName = "L-pect"
+        }
+        else if L == "glutiusmaximus"
+        {
+            LName = "L-glut"
+        }
+        
+        if R == "upperback"
+        {
+            RName = "R-trap"
+        }
+        else if R == "lowerback"
+        {
+            RName = "R-lower back"
+        }
+        else if R == "hamstring"
+        {
+            RName = "R-ham"
+        }
+        else if R == "gastrocnemius"
+        {
+            RName = "R-calf"
+        }
+        else if R == "quadracepts"
+        {
+            RName = "R-quad"
+        }
+        else if R == "iliotibal tract"
+        {
+            RName = "R-IT band"
+        }
+        else if R == "tibalis anterior"
+        {
+            RName = "R-tibialis"
+        }
+        else if R == "deltoid"
+        {
+            RName = "R-shoulder"
+        }
+        else if R == "pectoralis"
+        {
+            RName = "R-pect"
+        }
+        else if R == "glutiusmaximus"
+        {
+            RName = "R-glut"
+        }
+        
+        let imageR = UIImage(named: RName)
+        let imageViewR = UIImageView(image: imageR)
+        imageViewR.frame = CGRect(x:ImgBody.frame.origin.x, y:ImgBody.frame.origin.y, width: self.ImgBody.bounds.width, height: self.ImgBody.bounds.height)
+        self.ImageCreateAndRemove.addSubview(imageViewR)
+        
+        
+        let imageL = UIImage(named: LName)
+        let imageViewL = UIImageView(image: imageL)
+        imageViewL.frame = CGRect(x:ImgBody.frame.origin.x, y:ImgBody.frame.origin.y, width: self.ImgBody.bounds.width, height: self.ImgBody.bounds.height)
+        self.ImageCreateAndRemove.addSubview(imageViewL)
+    }
+    func SetBodyPartFemale(R:String,L:String)
+    {
+        var LName = String()
+        var RName = String()
+        
+        if L == "upperback"
+        {
+            LName = "F-L-trap"
+        }
+        else if L == "lowerback"
+        {
+            LName = "F-L-lower back"
+        }
+        else if L == "hamstring"
+        {
+            LName = "F-L-ham"
+        }
+        else if L == "gastrocnemius"
+        {
+            LName = "F-L-calf"
+        }
+        else if L == "quadracepts"
+        {
+            LName = "F-L-quad"
+        }
+        else if L == "iliotibal tract"
+        {
+            LName = "F-L-IT band"
+        }
+        else if L == "tibalis anterior"
+        {
+            LName = "F-L-tibialis"
+        }
+        else if L == "deltoid"
+        {
+            LName = "F-L-shoulder"
+        }
+        else if L == "pectoralis"
+        {
+            LName = "F-L-pect"
+        }
+        else if L == "glutiusmaximus"
+        {
+            LName = "F-L-glut"
+        }
+        
+        
+        if R == "upperback"
+        {
+            RName = "F-R-trap"
+        }
+        else if R == "lowerback"
+        {
+            RName = "F-R-lower back"
+        }
+        else if R == "hamstring"
+        {
+            RName = "F-R-ham"
+        }
+        else if R == "gastrocnemius"
+        {
+            RName = "F-R-calf"
+        }
+        else if R == "quadracepts"
+        {
+            RName = "F-R-quad"
+        }
+        else if R == "iliotibal tract"
+        {
+            RName = "F-R-IT band"
+        }
+        else if R == "tibalis anterior"
+        {
+            RName = "F-R-tibialis"
+        }
+        else if R == "deltoid"
+        {
+            RName = "F-R-shoulder"
+        }
+        else if R == "pectoralis"
+        {
+            RName = "F-R-pect"
+        }
+        else if R == "glutiusmaximus"
+        {
+            RName = "F-R-glut"
+        }
+        
+        let imageR = UIImage(named: RName)
+        let imageViewR = UIImageView(image: imageR)
+        imageViewR.frame = CGRect(x:ImgBody.frame.origin.x, y:ImgBody.frame.origin.y, width: self.ImgBody.bounds.width, height: self.ImgBody.bounds.height)
+        self.ImageCreateAndRemove.addSubview(imageViewR)
+        
+        let imageL = UIImage(named: LName)
+        let imageViewL = UIImageView(image: imageL)
+        imageViewL.frame = CGRect(x:ImgBody.frame.origin.x, y:ImgBody.frame.origin.y, width: self.ImgBody.bounds.width, height: self.ImgBody.bounds.height)
+        self.ImageCreateAndRemove.addSubview(imageViewL)
+    }
+}
 
-//{0,  "Head"},
-//{1,  "Neck"},
-//{2,  "RShoulder"},
-//{3,  "RElbow"},
-//{4,  "RWrist"},
-//{5,  "LShoulder"},
-//{6,  "LElbow"},
-//{7,  "LWrist"},
-//{8,  "RHip"},
-//{9,  "RKnee"},
-//{10, "RAnkle"},
-//{11, "LHip"},
-//{12, "LKnee"},
-//{13, "LAnkle"},
-//{14, "Chest"},
-//{15, "Background"}
+
+extension UIResponder {
+    public var parentViewController: UIViewController? {
+        return next as? UIViewController ?? next?.parentViewController
+    }
+}

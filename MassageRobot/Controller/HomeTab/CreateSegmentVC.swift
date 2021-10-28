@@ -380,7 +380,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
 
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
     }
     @IBAction func btnFRHip(_ sender: Any) {
         print("btnFRHip")
@@ -418,7 +418,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
         
     }
     @IBAction func btnFRThigh(_ sender: Any) {
@@ -456,7 +456,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
     }
     @IBAction func btnFRKnee(_ sender: Any) {
         print("btnFRKnee")
@@ -494,7 +494,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: "", Location_R: "")
+        self.SetImagePart(Location_L: "", Location_R: "", ImageSide: FrontAndBackImage)
     }
     @IBAction func btnFRCalf(_ sender: Any) {
         print("btnFRCalf")
@@ -532,7 +532,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
     }
     
     //Front Body Action LeftSide
@@ -571,7 +571,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
 
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
     }
     @IBAction func btnFLHip(_ sender: Any) {
         print("btnFLHip")
@@ -608,7 +608,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
         
     }
     @IBAction func btnFLThigh(_ sender: Any) {
@@ -645,7 +645,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
     }
     @IBAction func btnFLKnee(_ sender: Any) {
         print("btnFLKnee")
@@ -682,7 +682,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: "", Location_R: "")
+        self.SetImagePart(Location_L: "", Location_R: "", ImageSide: FrontAndBackImage)
     }
     @IBAction func btnFLCalf(_ sender: Any) {
         print("btnFLCalf")
@@ -719,7 +719,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
     }
     
     //Back Body Action RightSide
@@ -757,7 +757,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
             }
         }
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
         print("btnBRShoulder")
     }
     @IBAction func btnBRWaistUp(_ sender: Any) {
@@ -795,7 +795,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
     }
     @IBAction func btnBRWaistDow(_ sender: Any) {
         print("btnBRWaistDow")
@@ -832,7 +832,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
     }
     @IBAction func btnBRButtock(_ sender: Any) {
         isUpdateSegmentData = true
@@ -866,7 +866,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
             }
         }
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
         print("btnBRButtock")
     }
     @IBAction func btnBRThigh(_ sender: Any) {
@@ -903,7 +903,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
             }
         }
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
     }
     @IBAction func btnLegDow(_ sender: Any) {
         print("btnLegDow")
@@ -939,7 +939,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
             }
         }
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
     }
     
     //Back Body Action LeftSide
@@ -978,7 +978,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
             }
         }
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
     }
     @IBAction func btnBLWaistUp(_ sender: Any) {
         print("btnBLWaistUp")
@@ -1015,7 +1015,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
     }
     @IBAction func btnBLWaistDow(_ sender: Any) {
         print("btnBLWaistDow")
@@ -1052,7 +1052,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
     }
     @IBAction func btnBLButtock(_ sender: Any) {
         print("btnBLButtock")
@@ -1088,7 +1088,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
             }
         }
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
     }
     @IBAction func btnBLThigh(_ sender: Any) {
         print("btnBLThigh")
@@ -1124,7 +1124,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
             }
         }
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
         
     }
     @IBAction func btnBLLegDow(_ sender: Any) {
@@ -1161,7 +1161,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
             }
         }
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: FrontAndBackImage)
     }
     @IBAction func btnHideclick(_ sender: Any) {
         self.selectBodyPartToHiddenView()
@@ -1246,7 +1246,8 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
                             let FirstIndex = arrSegmentList[0] as NSDictionary
                             let Location_R = FirstIndex["location_r"] as? String ?? ""
                             let Location_L = FirstIndex["location_l"] as? String ?? ""
-                            self.SetImagePart(Location_L: Location_L, Location_R: Location_R)
+                            let location = FirstIndex["body_location"] as? String ?? ""
+                            self.SetImagePart(Location_L: Location_L, Location_R: Location_R, ImageSide: location)
                         }
                       
                         self.svContainer.setContentOffset(.zero, animated: false)
@@ -1334,7 +1335,8 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
             
             let Location_R = arrSegmentList[index]["location_r"] as? String ?? ""
             let Location_L = arrSegmentList[index]["location_l"] as? String ?? ""
-            self.SetImagePart(Location_L: Location_L, Location_R: Location_R)
+            let location = arrSegmentList[index]["body_location"] as? String ?? ""
+            self.SetImagePart(Location_L: Location_L, Location_R: Location_R, ImageSide: location)
             
            
         }
@@ -1344,7 +1346,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
 //            {
                 let Location_R = arrSaveLocation[index]["location_r"] as? String ?? ""
                 let Location_L = arrSaveLocation[index]["location_l"] as? String ?? ""
-                self.SetImagePart(Location_L: Location_L, Location_R: Location_R)
+                self.SetImagePart(Location_L: Location_L, Location_R: Location_R, ImageSide: "")
 //            }
             
         }
@@ -1707,13 +1709,13 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
             let Countindex = arrRoutines.count - 1
             if arrRoutines.count > 0 && IndexData == Countindex
             {
-                url = "https://massage-robotics-website.uc.r.appspot.com/wt?tablename=RoutineEntity&row=[('sagmet\(randomSegmentId())','\(strExTime)','\(strLeftForce)','\(strRightForce)','\(strLeftLoction.lowercased())','\(strRightLocation.lowercased())','\(strLeftPath)','\(strRightPath)','\(strLeftSpeed)','\(strRightSpeed)','\(strDate),\(strTime)','\(strLeftTool)','\(strRightTool)','\(strSegCount)','\(strRoutingID!)')]"
+                url = "https://massage-robotics-website.uc.r.appspot.com/wt?tablename=RoutineEntity&row=[('sagmet\(randomSegmentId())','\(strExTime)','\(strLeftForce)','\(strRightForce)','\(strLeftLoction.lowercased())','\(strRightLocation.lowercased())','\(strLeftPath)','\(strRightPath)','\(strLeftSpeed)','\(strRightSpeed)','\(strDate),\(strTime)','\(strLeftTool)','\(strRightTool)','\(strSegCount)','\(strRoutingID!)','\(FrontAndBackImage)')]"
             }
             else
             {
                 let segmentData = arrSegmentList[self.IndexData]//arrSegmentList[intCurrentIndex]
                 
-                url = "https://massage-robotics-website.uc.r.appspot.com/rd?query='UPDATE Routineentity SET duration= '\(strExTime)',force_l= '\(strLeftForce)',force_r= '\(strRightForce)',location_l= '\(strLeftLoction.lowercased())',location_r= '\(strRightLocation.lowercased())',path_l= '\(strLeftPath)',path_r= '\(strRightPath) ',speed_l= '\(strLeftSpeed)',speed_r= '\(strRightSpeed)',tool_l= '\(strLeftTool)',tool_r= '\(strRightTool)' WHERE segmentid= '\(segmentData.getString(key: "segmentid"))''"
+                url = "https://massage-robotics-website.uc.r.appspot.com/rd?query='UPDATE Routineentity SET duration= '\(strExTime)',force_l= '\(strLeftForce)',force_r= '\(strRightForce)',location_l= '\(strLeftLoction.lowercased())',location_r= '\(strRightLocation.lowercased())',path_l= '\(strLeftPath)',path_r= '\(strRightPath) ',speed_l= '\(strLeftSpeed)',speed_r= '\(strRightSpeed)',tool_l= '\(strLeftTool)',tool_r= '\(strRightTool)',body_location= '\(FrontAndBackImage)' WHERE segmentid= '\(segmentData.getString(key: "segmentid"))''"
                 
                 arrSegmentList[self.IndexData]["duration"] = data.txtTime.text!
                 arrSegmentList[self.IndexData]["force_l"] = strLeftForce
@@ -1726,6 +1728,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
                 arrSegmentList[self.IndexData]["speed_r"] = strRightSpeed
                 arrSegmentList[self.IndexData]["tool_l"] = strLeftTool
                 arrSegmentList[self.IndexData]["tool_r"] = strRightTool
+                arrSegmentList[self.IndexData]["body_location"] = FrontAndBackImage
             }
            // let url = "https://massage-robotics-website.uc.r.appspot.com/wt?tablename=RoutineEntity&row=[('sagmet\(randomSegmentId())','\(strExTime)','\(strLeftForce)','\(strRightForce)','\(strLeftLoction.lowercased())','\(strRightLocation.lowercased())','\(strLeftPath)','\(strRightPath)','\(strLeftSpeed)','\(strRightSpeed)','\(strDate),\(strTime)','\(strLeftTool)','\(strRightTool)','\(strSegCount)','\(strRoutingID!)')]"
 
@@ -1740,7 +1743,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
             else{
                 let Location_L = strLeftLoction.lowercased()
                 let Location_R = strRightLocation.lowercased()
-                self.SetImagePart(Location_L: Location_L, Location_R: Location_R)
+                self.SetImagePart(Location_L: Location_L, Location_R: Location_R, ImageSide: FrontAndBackImage)
             }
            
             
@@ -1964,7 +1967,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
             var segmentData = arrSegmentList[self.IndexData]//arrSegmentList[intCurrentIndex]
 
             
-            let url = "https://massage-robotics-website.uc.r.appspot.com/rd?query='UPDATE Routineentity SET duration= '\(ViewCurrentData.txtTime.text!)',force_l= '\(ViewCurrentData.lblLeftForce.text!)',force_r= '\(ViewCurrentData.lblRightForce.text!)',location_l= '\(strLeftLoction.lowercased())',location_r= '\(strRightLocation.lowercased())',path_l= '\(strLeftPath)',path_r= '\(strRightPath) ',speed_l= '\(ViewCurrentData.lblLeftSpeed.text!)',speed_r= '\(ViewCurrentData.lblRightSpeed.text!)',tool_l= '\(strLeftTool)',tool_r= '\(strRightTool)' WHERE segmentid= '\(segmentData.getString(key: "segmentid"))''"
+            let url = "https://massage-robotics-website.uc.r.appspot.com/rd?query='UPDATE Routineentity SET duration= '\(ViewCurrentData.txtTime.text!)',force_l= '\(ViewCurrentData.lblLeftForce.text!)',force_r= '\(ViewCurrentData.lblRightForce.text!)',location_l= '\(strLeftLoction.lowercased())',location_r= '\(strRightLocation.lowercased())',path_l= '\(strLeftPath)',path_r= '\(strRightPath) ',speed_l= '\(ViewCurrentData.lblLeftSpeed.text!)',speed_r= '\(ViewCurrentData.lblRightSpeed.text!)',tool_l= '\(strLeftTool)',tool_r= '\(strRightTool)',body_location = '\(FrontAndBackImage)' WHERE segmentid= '\(segmentData.getString(key: "segmentid"))''"
 
                 print(url)
 
@@ -1990,6 +1993,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
                         arrSegmentList[self.IndexData]["speed_r"] = strRightSpeed
                         arrSegmentList[self.IndexData]["tool_l"] = strLeftTool
                         arrSegmentList[self.IndexData]["tool_r"] = strRightTool
+                        arrSegmentList[self.IndexData]["body_location"] = FrontAndBackImage
                         
 
                         //getRoutinSegmentDataListUpdate(index: self.IndexData)
@@ -2214,7 +2218,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: "")
     }
 
     @IBAction func btnBodyPartQuadraceptsAction(_ sender: UIButton) {
@@ -2249,7 +2253,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: "")
     }
 
     @IBAction func btnBodyPartIliotibalTractAction(_ sender: UIButton) {
@@ -2285,7 +2289,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: "")
         
     }
 
@@ -2322,7 +2326,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: "")
     }
 
     @IBAction func btnBodyPartBodyparamAction(_ sender: UIButton) {
@@ -2358,7 +2362,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: "", Location_R: "")
+        self.SetImagePart(Location_L: "", Location_R: "", ImageSide: "")
     }
 
     @IBAction func btnBodyPartDeltoidAction(_ sender: UIButton) {
@@ -2394,7 +2398,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
             }
         }
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: "")
     }
 
     @IBAction func btnBodyPartUpperbackAction(_ sender: UIButton) {
@@ -2430,7 +2434,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: "")
     }
 
     @IBAction func btnBodyPartLowerbackAction(_ sender: UIButton) {
@@ -2466,7 +2470,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         }
         
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: "")
     }
 
     @IBAction func btnBodyPartGlutiusmaximusAction(_ sender: UIButton) {
@@ -2501,7 +2505,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
             }
         }
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: "")
     }
 
     @IBAction func btnBodyPartHamstringAction(_ sender: UIButton) {
@@ -2536,7 +2540,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
             }
         }
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: "")
     }
 
     @IBAction func btnBodyPartGastrocnemiusAction(_ sender: UIButton) {
@@ -2571,7 +2575,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
             }
         }
         self.selectBodyPartToHiddenView()
-        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased())
+        self.SetImagePart(Location_L: LImageSetLocation.lowercased(), Location_R: RImageSetLocation.lowercased(), ImageSide: "")
     }
 
     @IBAction func btnFirstSegmentAction(_ sender: UIButton)
@@ -2800,15 +2804,15 @@ extension CreateSegmentVC: isSegmentDataCopy {
 
 extension CreateSegmentVC
 {
-    private func SetImagePart(Location_L:String,Location_R:String)
+    private func SetImagePart(Location_L:String,Location_R:String,ImageSide:String)
     {
-        if FrontAndBackImage == "F" {
+        if ImageSide == "F" {
             if Gender == "F" {
                 self.BodyPartImage.image = UIImage(named: "F-grey female body front")
             } else {
                 self.BodyPartImage.image = UIImage(named: "grey male body front")
             }
-        } else if FrontAndBackImage == "B"{
+        } else if ImageSide == "B"{
             if Gender == "F" {
                 self.BodyPartImage.image = UIImage(named: "F-grey female body back")
             } else {
@@ -3043,7 +3047,8 @@ extension CreateSegmentVC
                             let FirstIndex = arrSegmentList[0] as NSDictionary
                             let Location_R = FirstIndex["location_r"] as? String ?? ""
                             let Location_L = FirstIndex["location_l"] as? String ?? ""
-                            self.SetImagePart(Location_L: Location_L, Location_R: Location_R)
+                            let ImageSide = FirstIndex["body_location"] as? String ?? ""
+                            self.SetImagePart(Location_L: Location_L, Location_R: Location_R, ImageSide: ImageSide)
                         }
                     } else {
                         showToast(message: "Bad Json")
@@ -3159,7 +3164,8 @@ extension CreateSegmentVC
                             let FirstIndex = arrSegmentList[IndexData ] as NSDictionary
                             let Location_R = FirstIndex["location_r"] as? String ?? ""
                             let Location_L = FirstIndex["location_l"] as? String ?? ""
-                            self.SetImagePart(Location_L: Location_L, Location_R: Location_R)
+                            let imageside = FirstIndex["location_l"] as? String ?? ""
+                            self.SetImagePart(Location_L: Location_L, Location_R: Location_R, ImageSide: imageside)
                         }
                        // self.changeColorOfRuler(index: IndexData)
                     } else {
@@ -3329,6 +3335,6 @@ extension CreateSegmentVC
         LImageSetLocation = ""
         RImageSetLocation = ""
         
-        self.SetImagePart(Location_L: "", Location_R: "")
+        self.SetImagePart(Location_L: "", Location_R: "", ImageSide: "")
     }
 }
