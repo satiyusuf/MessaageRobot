@@ -1365,8 +1365,8 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         
          
 //        self.setAddRoutineServiceCall()
-//        let vc = UIStoryboard.init(name: "CreateToutine", bundle: Bundle.main).instantiateViewController(withIdentifier: "TestVC") as? TestVC
-//        self.navigationController?.pushViewController(vc!, animated: true)
+        let vc = UIStoryboard.init(name: "CreateToutine", bundle: Bundle.main).instantiateViewController(withIdentifier: "NewCreateSegmentVC") as? NewCreateSegmentVC
+        self.navigationController?.pushViewController(vc!, animated: true)
         
         if btnLinkUnLink.isSelected == false {
             btnLinkUnLink.isSelected = true
