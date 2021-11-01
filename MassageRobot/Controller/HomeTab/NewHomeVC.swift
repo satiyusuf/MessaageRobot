@@ -437,7 +437,10 @@ class NewHomeVC: UIViewController {
     }
     func callAllServiceAtOnce(strCategory: String) {
         
-        let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='Featured' or r.routine_category='New Releases' or r.routine_category='Performance' or   r.routine_category='Relaxation' or   r.routine_category='Therapeutic' or r.routine_category='therapy' or r.routine_category='Trending' ORDER BY creation DESC LIMIT 1000 OFFSET 0'"
+//        let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='Featured' or r.routine_category='New Releases' or r.routine_category='Performance' or   r.routine_category='Relaxation' or   r.routine_category='Therapeutic' or r.routine_category='therapy' or r.routine_category='Trending' ORDER BY creation DESC LIMIT 1000 OFFSET 0'"
+        
+        
+        let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query=' (SELECT r.*, u.*, p.thumbnail AS userprofile, (SELECT Count(f.favoriteid) FROM favoriteroutines AS f WHERE f.userid = u.userid AND f.routineid = r.routineid) AS is_favourite FROM routine AS r LEFT JOIN userdata AS u ON r.userid = u.userid LEFT JOIN userprofile AS p ON r.userid = p.userid WHERE r.routine_category = 'Featured' ORDER BY creation DESC LIMIT 10) union  (SELECT r.*, u.*, p.thumbnail AS userprofile, (SELECT Count(f.favoriteid) FROM favoriteroutines AS f WHERE f.userid = u.userid AND f.routineid = r.routineid) AS is_favourite FROM routine AS r LEFT JOIN userdata AS u ON r.userid = u.userid LEFT JOIN userprofile AS p ON r.userid = p.userid WHERE r.routine_category = 'New Releases' ORDER BY creation DESC LIMIT 10) union  (SELECT r.*, u.*, p.thumbnail AS userprofile, (SELECT Count(f.favoriteid) FROM favoriteroutines AS f WHERE f.userid = u.userid AND f.routineid = r.routineid) AS is_favourite FROM routine AS r LEFT JOIN userdata AS u ON r.userid = u.userid LEFT JOIN userprofile AS p ON r.userid = p.userid WHERE r.routine_category = 'Performance' ORDER BY creation DESC LIMIT 10) union  (SELECT r.*, u.*, p.thumbnail AS userprofile, (SELECT Count(f.favoriteid) FROM favoriteroutines AS f WHERE f.userid = u.userid AND f.routineid = r.routineid) AS is_favourite FROM routine AS r LEFT JOIN userdata AS u ON r.userid = u.userid LEFT JOIN userprofile AS p ON r.userid = p.userid WHERE r.routine_category = 'Relaxation' ORDER BY creation DESC LIMIT 10) union  (SELECT r.*, u.*, p.thumbnail AS userprofile, (SELECT Count(f.favoriteid) FROM favoriteroutines AS f WHERE f.userid = u.userid AND f.routineid = r.routineid) AS is_favourite FROM routine AS r LEFT JOIN userdata AS u ON r.userid = u.userid LEFT JOIN userprofile AS p ON r.userid = p.userid WHERE r.routine_category = 'Therapeutic' ORDER BY creation DESC LIMIT 10) union  (SELECT r.*, u.*, p.thumbnail AS userprofile, (SELECT Count(f.favoriteid) FROM favoriteroutines AS f WHERE f.userid = u.userid AND f.routineid = r.routineid) AS is_favourite FROM routine AS r LEFT JOIN userdata AS u ON r.userid = u.userid LEFT JOIN userprofile AS p ON r.userid = p.userid WHERE r.routine_category = 'therapy' ORDER BY creation DESC LIMIT 10) union  (SELECT r.*, u.*, p.thumbnail AS userprofile, (SELECT Count(f.favoriteid) FROM favoriteroutines AS f WHERE f.userid = u.userid AND f.routineid = r.routineid) AS is_favourite FROM routine AS r LEFT JOIN userdata AS u ON r.userid = u.userid LEFT JOIN userprofile AS p ON r.userid = p.userid WHERE r.routine_category = 'Trending' ORDER BY creation DESC LIMIT 10)'"
         
         print(strURL)
         
@@ -892,7 +895,7 @@ class NewHomeVC: UIViewController {
                     }
                 } catch let error as NSError {
                     print(error)
-                    showToast(message: json.getString(key: "response_message"))
+                  //  showToast(message: json.getString(key: "response_message"))
                 }
                 
                 
@@ -1024,7 +1027,7 @@ class NewHomeVC: UIViewController {
                     }
                 } catch let error as NSError {
                     print(error)
-                    showToast(message: json.getString(key: "response_message"))
+                   // showToast(message: json.getString(key: "response_message"))
                 }
                 
                 

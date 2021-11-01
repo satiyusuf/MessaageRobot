@@ -1362,19 +1362,23 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
     
 
     @IBAction func btnCopyRoutineAction(_ sender: UIButton) {
+        
+         
 //        self.setAddRoutineServiceCall()
+//        let vc = UIStoryboard.init(name: "CreateToutine", bundle: Bundle.main).instantiateViewController(withIdentifier: "TestVC") as? TestVC
+//        self.navigationController?.pushViewController(vc!, animated: true)
         
         if btnLinkUnLink.isSelected == false {
             btnLinkUnLink.isSelected = true
             isLink = false
             isCopy = true
-            UserDefaults.standard.set("false", forKey: SEGMENTCOPY)
+            //UserDefaults.standard.set("false", forKey: SEGMENTCOPY)
             delegateCopyData?.setSegmentDataCopy(isLink: isLink, iscopy: isCopy)
         }else {
             btnLinkUnLink.isSelected = false
             isLink = true
             isCopy = false
-            UserDefaults.standard.set("true", forKey: SEGMENTCOPY)
+           // UserDefaults.standard.set("true", forKey: SEGMENTCOPY)
             delegateCopyData?.setSegmentDataCopy(isLink: isLink, iscopy: isCopy)
         }
     }

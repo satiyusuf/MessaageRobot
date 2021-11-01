@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		18E7BFBA26A866BD0025D514 /* RoutineParam.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E7BFB926A866BD0025D514 /* RoutineParam.xib */; };
+		763068E6272D24A300218182 /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763068E5272D24A300218182 /* TestVC.swift */; };
+		763068EB272D3ECD00218182 /* newtest.xib in Resources */ = {isa = PBXBuildFile; fileRef = 763068EA272D3ECD00218182 /* newtest.xib */; };
+		763068EE272D3EF700218182 /* newtestvc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763068ED272D3EF700218182 /* newtestvc.swift */; };
 		765B021026FC5F7600EFF7AB /* NewHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765B020F26FC5F7600EFF7AB /* NewHomeVC.swift */; };
 		768F9B0E26FD929100381894 /* PDFViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768F9B0D26FD929100381894 /* PDFViewVC.swift */; };
 		86F3322C3FD2C35421C5D74B /* Pods_MassageRobot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE5EC1757D44B6A666C3E760 /* Pods_MassageRobot.framework */; };
@@ -91,6 +94,9 @@
 /* Begin PBXFileReference section */
 		18E7BFB926A866BD0025D514 /* RoutineParam.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RoutineParam.xib; sourceTree = "<group>"; };
 		4FE5770241B38B4D6DD47EA6 /* Pods-MassageRobot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MassageRobot.debug.xcconfig"; path = "Target Support Files/Pods-MassageRobot/Pods-MassageRobot.debug.xcconfig"; sourceTree = "<group>"; };
+		763068E5272D24A300218182 /* TestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
+		763068EA272D3ECD00218182 /* newtest.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = newtest.xib; sourceTree = "<group>"; };
+		763068ED272D3EF700218182 /* newtestvc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newtestvc.swift; sourceTree = "<group>"; };
 		765B020F26FC5F7600EFF7AB /* NewHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHomeVC.swift; sourceTree = "<group>"; };
 		768F9B0D26FD929100381894 /* PDFViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFViewVC.swift; sourceTree = "<group>"; };
 		BE5EC1757D44B6A666C3E760 /* Pods_MassageRobot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MassageRobot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,6 +228,9 @@
 				18E7BFB926A866BD0025D514 /* RoutineParam.xib */,
 				FF15635A2681005B008BB56E /* Notification.storyboard */,
 				FF15635C26810064008BB56E /* Menu.storyboard */,
+				763068E5272D24A300218182 /* TestVC.swift */,
+				763068EA272D3ECD00218182 /* newtest.xib */,
+				763068ED272D3EF700218182 /* newtestvc.swift */,
 			);
 			path = VIew;
 			sourceTree = "<group>";
@@ -568,6 +577,7 @@
 				FF1563B5268109C0008BB56E /* Lato-Thin.ttf in Resources */,
 				FFC76AB726859E4400A76C59 /* ForYouCell.xib in Resources */,
 				FF15635D26810064008BB56E /* Menu.storyboard in Resources */,
+				763068EB272D3ECD00218182 /* newtest.xib in Resources */,
 				18E7BFBA26A866BD0025D514 /* RoutineParam.xib in Resources */,
 				FF1563B6268109C0008BB56E /* OFL.txt in Resources */,
 				FFD830AF26B983BD00EA1AA3 /* AnsQueCell.xib in Resources */,
@@ -631,6 +641,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				763068EE272D3EF700218182 /* newtestvc.swift in Sources */,
 				FF15639C26810707008BB56E /* SharedFunctions.swift in Sources */,
 				FFC76AB426859E4400A76C59 /* ForYouCell.swift in Sources */,
 				FF156363268102DC008BB56E /* TabViewController.swift in Sources */,
@@ -640,6 +651,7 @@
 				FF15639F26810707008BB56E /* LoginModel.swift in Sources */,
 				FF15639A26810707008BB56E /* JSONParser.swift in Sources */,
 				FF1563A726810707008BB56E /* FilledColorView.swift in Sources */,
+				763068E6272D24A300218182 /* TestVC.swift in Sources */,
 				FF15639B26810707008BB56E /* UIApplication+extention.swift in Sources */,
 				FFC76AA726859D7400A76C59 /* HomeViewController.swift in Sources */,
 				FFD830B226B983BD00EA1AA3 /* AnsQueListViewController.swift in Sources */,
