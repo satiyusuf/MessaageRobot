@@ -18,7 +18,7 @@ protocol SliderValueSetDelegate {
 }
 
 protocol RulerSizeDelegate {
-    func rulerSize(size: Int, index: Int)
+    func  rulerSize(size: Int, index: Int)
 }
 
 protocol LocationDelegate {
@@ -32,4 +32,5 @@ protocol isChangeDataDelegate {
 protocol isSegmentDataCopy {
     func setSegmentDataCopy(isLink: Bool, iscopy: Bool)
 }
+
 

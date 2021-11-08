@@ -94,6 +94,8 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.getUserDetailAPICall()
+        
         // Do any additional setup after loading the view.
         let userID: String = UserDefaults.standard.object(forKey: USERID) as? String ?? "9ccx8ms5pc0000000000"
         
@@ -128,7 +130,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.getUserDetailAPICall()
+        
         
        // self.BodyPartImage.image = UIImage(named: "grey male body back")
      //   self.getRoutinSegmentDataListServiceCall()
@@ -1167,7 +1169,11 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         self.selectBodyPartToHiddenView()
     }
     @IBAction func btnReset(_ sender: Any) {
-        self.ReSetData()
+        
+        let vc = UIStoryboard.init(name: "CreateToutine", bundle: Bundle.main).instantiateViewController(withIdentifier: "NewCreateSegmentVC") as? NewCreateSegmentVC
+        vc?.StrRoutingID = self.strRoutingID
+        self.navigationController?.pushViewController(vc!, animated: true)
+       // self.ReSetData()
     }
     // **************************************     END      **************************************
     func addRoutineSegmentView() {
@@ -1363,10 +1369,7 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
 
     @IBAction func btnCopyRoutineAction(_ sender: UIButton) {
         
-         
-//        self.setAddRoutineServiceCall()
-        let vc = UIStoryboard.init(name: "CreateToutine", bundle: Bundle.main).instantiateViewController(withIdentifier: "NewCreateSegmentVC") as? NewCreateSegmentVC
-        self.navigationController?.pushViewController(vc!, animated: true)
+    
         
         if btnLinkUnLink.isSelected == false {
             btnLinkUnLink.isSelected = true
@@ -3342,3 +3345,5 @@ extension CreateSegmentVC
         self.SetImagePart(Location_L: "", Location_R: "", ImageSide: "")
     }
 }
+
+

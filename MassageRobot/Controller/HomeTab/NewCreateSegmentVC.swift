@@ -7,14 +7,15 @@
 
 import UIKit
 
-class NewCreateSegmentVC: UIViewController {
+class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
 
     //MARK:- Outlet
-    @IBOutlet weak var RoutinDataView: NewRoutinView!
     @IBOutlet weak var btnIsLink: UIButton!
     @IBOutlet weak var ImgImage: UIImageView!
     @IBOutlet weak var ImgLeft: UIImageView!
     @IBOutlet weak var ImgRight: UIImageView!
+    @IBOutlet weak var RuleView: UIView!
+    @IBOutlet weak var RoutinScroll: UIScrollView!
     
     //SegmentCreateViewOutlet
     @IBOutlet weak var SegmentCreateView: UIView!
@@ -25,21 +26,61 @@ class NewCreateSegmentVC: UIViewController {
     @IBOutlet weak var btnBodyPartSelectionView: UIView!
     @IBOutlet weak var ImgBodyPartImage: UIImageView!
     
+    //Slider Value Change Outlet
+    @IBOutlet weak var SliderView: UIView!
+    @IBOutlet weak var lblSliderValue: UILabel!
+    @IBOutlet weak var SliderValue: UISlider!
+    
+    @IBOutlet weak var Collection: UICollectionView!
+    
+    var arrUserDetail = [[String: Any]]()
+    
+    var StrGender = String()
+    var StrRoutingID = String()
+    let picker = UIPickerView()
+    
+   
+    
+   
+    
+    @IBOutlet weak var ViewAdd: UIView!
+    
+    let scrollView = UIScrollView(frame: CGRect(x:0, y:0, width:340,height: 460))
     
     
     //MARK:- Variable
-    let arrPath = ["none", "Linear", "Circular", "Random", "Point"]
-    let arrTool = ["none", "Omni", "Inline", "Point", "Kneading","Sport","Precussion","Calibration"]
+    
+    var arrRuler = [UIView]()
     var arrSegmentList = [[String: Any]]()
-    let picker = UIPickerView()
+    var numberOfRoutine = 0
+    var CurrentIndex:Int = 0
+       
+    var FrontAndBackImage = String()
+    var StrLeftRightLocation = String()
+    var StrLeftImagePart = String()
+    var StrRightImagePart = String()
+    var SliderValueSet = String()
+    var SliderLeftRight = String()
     
-    var IsLink:Bool = false
-    
+    var strPath: String!
     //MARK:- ViewDidLoad
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        self.SetUpVC()
+        
+        self.getUserDetailAPICall()
+        let nib = UINib(nibName: "SegmentCreate", bundle: nil)
+        Collection.register(nib, forCellWithReuseIdentifier: "SegmentCreate")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.TimeReceivedNotification(notification:)), name: Notification.Name("Time"), object: nil)
+        
+   //     self.GetAllSegmentListApiCall()
+        if strPath == "NoCreateRoutine" {
+            self.GetAllSegmentListApiCall()
+        }else {
+            let Dict = ["segment":"Emty"]
+            arrSegmentList.append(Dict)
+            self.Collection.reloadData()
+        }
     }
     
     //MARK:- Action
@@ -53,75 +94,706 @@ class NewCreateSegmentVC: UIViewController {
         
         if btnIsLink.isSelected == false {
             self.btnIsLink.isSelected = true
+            NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier"), object: nil, userInfo: ["Islink":"true"])
             print("isSelected true")
         } else if btnIsLink.isSelected == true {
             self.btnIsLink.isSelected = false
+            NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier"), object: nil, userInfo: ["Islink":"false"])
             print("isSelected false")
         }
     }
     @IBAction func btnFirstSegment(_ sender: Any) {
+        
     }
     @IBAction func btnPreviSegment(_ sender: Any) {
     }
     @IBAction func btnMinesh(_ sender: Any) {
     }
-    @IBAction func btnPlush(_ sender: Any) {
+    @IBAction func btnPlush(_ sender: Any)
+    {
+        if strPath == "NoCreateRoutine" {
+            self.GetAllSegmentListApiCall()
+        }else {
+            self.SegmentCreateDataEmty()
+        }
     }
     @IBAction func btnNextSegment(_ sender: Any) {
     }
     @IBAction func btnLastSegment(_ sender: Any) {
     }
+    //MARK:- Slider Value Change Action
     
+    @IBAction func SliderValue(_ sender: UISlider) {
+        
+        sender.value = roundf(sender.value)
+        let trackRect = sender.trackRect(forBounds: sender.frame)
+        let thumbRect = sender.thumbRect(forBounds: sender.bounds, trackRect: trackRect, value: sender.value)
+        lblSliderValue.center = CGPoint(x: thumbRect.midX, y: lblSliderValue.center.y)
+        lblSliderValue.text = "\(Int(sender.value))"
+    }
+    @IBAction func btnSliderViewHide(_ sender: Any) {
+        
+        let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+        let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+        
+        if SliderValueSet == "speed" {
+
+            if self.btnIsLink.isSelected == true {
+                if SliderLeftRight == "Left" {
+                   
+                    cell.LeftSpeedTree.layer.sublayers = nil;
+                    cell.LeftSpeedText.text = String(format: "%.f", SliderValue.value)
+                    let triLeftSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: 140, height: 33))
+                    triLeftSpeed.backgroundColor = .white
+                    triLeftSpeed.setFillValue(value: CGFloat(SliderValue.value / 100))
+                    cell.LeftSpeedTree.addSubview(triLeftSpeed)
+                } else if SliderLeftRight == "Right" {
+                    cell.RightSpeedTree.layer.sublayers = nil;
+                    cell.RightSpeedText.text = String(format: "%.f", SliderValue.value)
+                    let triRightSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
+                    triRightSpeed.backgroundColor = .white
+                    triRightSpeed.setFillValue(value: CGFloat( SliderValue.value / 100))
+                    cell.RightSpeedTree.addSubview(triRightSpeed)
+                }
+            } else {
+
+                cell.RightSpeedTree.layer.sublayers = nil;
+                cell.LeftSpeedTree.layer.sublayers = nil;
+                
+                cell.LeftSpeedText.text = String(format: "%.f", SliderValue.value)
+                let triLeftSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: 140, height: 33))
+                triLeftSpeed.backgroundColor = .white
+                triLeftSpeed.setFillValue(value: CGFloat(SliderValue.value / 100))
+                cell.LeftSpeedTree.addSubview(triLeftSpeed)
+
+                cell.RightSpeedText.text = String(format: "%.f", SliderValue.value)
+                let triRightSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
+                triRightSpeed.backgroundColor = .white
+                triRightSpeed.setFillValue(value: CGFloat( SliderValue.value / 100))
+                cell.RightSpeedTree.addSubview(triRightSpeed)
+            }
+
+        } else if SliderValueSet == "force" {
+
+            if self.btnIsLink.isSelected == true {
+                if SliderLeftRight == "Left" {
+                    cell.LeftForceTree.layer.sublayers = nil;
+                    cell.LeftForceText.text = String(format: "%.f", SliderValue.value)
+                    let triLeftForce = TriangleView(frame: CGRect(x: 0, y: 0, width: 140 , height: 33))
+                    triLeftForce.backgroundColor = .white
+                    triLeftForce.setFillValue(value: CGFloat(SliderValue.value / 100))
+                    cell.LeftForceTree.addSubview(triLeftForce)
+                } else if SliderLeftRight == "Right" {
+                    cell.RightForceTree.layer.sublayers = nil;
+                    cell.RightForceText.text = String(format: "%.f", SliderValue.value)
+                    let triRightForce = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
+                    triRightForce.backgroundColor = .white
+                    triRightForce.setFillValue(value: CGFloat( SliderValue.value / 100))
+                    cell.RightForceTree.addSubview(triRightForce)
+                }
+            } else {
+                cell.LeftForceTree.layer.sublayers = nil;
+                cell.RightForceTree.layer.sublayers = nil;
+                
+                cell.LeftForceText.text = String(format: "%.f", SliderValue.value)
+                let triLeftForce = TriangleView(frame: CGRect(x: 0, y: 0, width: 140 , height: 33))
+                triLeftForce.backgroundColor = .white
+                triLeftForce.setFillValue(value: CGFloat(SliderValue.value / 100))
+                cell.LeftForceTree.addSubview(triLeftForce)
+
+                cell.RightForceText.text = String(format: "%.f", SliderValue.value)
+                let triRightForce = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
+                triRightForce.backgroundColor = .white
+                triRightForce.setFillValue(value: CGFloat( SliderValue.value / 100))
+                cell.RightForceTree.addSubview(triRightForce)
+            }
+        }
+
+        self.SliderView.isHidden = true
+    }
     //MARK:- Action
     // **************************************  Action Body Part Select  **************************************
     //FrontRightSide
     @IBAction func btnFrontRightPectoralis(_ sender: Any) {
+        self.FrontAndBackImage = "F"
+        
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Pectoralis", for: .normal)
+                self.StrLeftImagePart = "pectoralis"
+            } else if StrLeftRightLocation == "Right" {
+                
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Pectoralis", for: .normal)
+                self.StrRightImagePart = "pectoralis"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnRightLocation.setTitle("Pectoralis", for: .normal)
+            cell.btnLeftLocation.setTitle("Pectoralis", for: .normal)
+            self.StrRightImagePart = "pectoralis"
+            self.StrLeftImagePart = "pectoralis"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     @IBAction func btnFrontRightIliotibalTract(_ sender: Any) {
+        self.FrontAndBackImage = "F"
+
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("iliotibal Tract", for: .normal)
+                self.StrLeftImagePart = "iliotibal tract"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("iliotibal Tract", for: .normal)
+                self.StrRightImagePart = "iliotibal tract"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("iliotibal Tract", for: .normal)
+            cell.btnRightLocation.setTitle("iliotibal Tract", for: .normal)
+            self.StrLeftImagePart = "iliotibal tract"
+            self.StrRightImagePart = "iliotibal tract"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     @IBAction func btnFrontRightQuadracepts(_ sender: Any) {
+        self.FrontAndBackImage = "F"
+
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Quadracepts", for: .normal)
+                self.StrLeftImagePart = "quadracepts"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Quadracepts", for: .normal)
+                self.StrRightImagePart = "quadracepts"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Quadracepts", for: .normal)
+            cell.btnRightLocation.setTitle("Quadracepts", for: .normal)
+            self.StrRightImagePart = "quadracepts"
+            self.StrLeftImagePart = "quadracepts"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     @IBAction func btnFrontRightBodyparam(_ sender: Any) {
+        self.FrontAndBackImage = "F"
+        
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("bodyparam", for: .normal)
+                self.StrLeftImagePart = "bodyparam"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("bodyparam", for: .normal)
+                self.StrRightImagePart = "bodyparam"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("bodyparam", for: .normal)
+            cell.btnRightLocation.setTitle("bodyparam", for: .normal)
+            self.StrRightImagePart = "bodyparam"
+            self.StrLeftImagePart = "bodyparam"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     @IBAction func btnFrontRightTibalisAnterior(_ sender: Any) {
+        self.FrontAndBackImage = "F"
+        
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Tibalis Anterior", for: .normal)
+                self.StrLeftImagePart = "tibalis anterior"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Tibalis Anterior", for: .normal)
+                self.StrRightImagePart = "tibalis anterior"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Tibalis Anterior", for: .normal)
+            cell.btnRightLocation.setTitle("Tibalis Anterior", for: .normal)
+            self.StrLeftImagePart = "tibalis anterior"
+            self.StrRightImagePart = "tibalis anterior"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     //FrontLeftSide
     @IBAction func btnFrontLeftPectoralis(_ sender: Any) {
+        self.FrontAndBackImage = "F"
+        
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Pectoralis", for: .normal)
+                self.StrLeftImagePart = "tibalis anterior"
+                self.StrLeftImagePart = "pectoralis"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Pectoralis", for: .normal)
+                self.StrRightImagePart = "pectoralis"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Pectoralis", for: .normal)
+            cell.btnRightLocation.setTitle("Pectoralis", for: .normal)
+            self.StrLeftImagePart = "pectoralis"
+            self.StrRightImagePart = "pectoralis"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     @IBAction func btnFrontLeftIliotibalTract(_ sender: Any) {
+        self.FrontAndBackImage = "F"
+       
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("iliotibal Tract", for: .normal)
+                self.StrLeftImagePart = "iliotibal tract"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("iliotibal Tract", for: .normal)
+                self.StrRightImagePart = "iliotibal tract"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("iliotibal Tract", for: .normal)
+            cell.btnRightLocation.setTitle("iliotibal Tract", for: .normal)
+            self.StrLeftImagePart = "iliotibal tract"
+            self.StrRightImagePart = "iliotibal tract"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     @IBAction func btnFrontLeftQuadracepts(_ sender: Any) {
+        self.FrontAndBackImage = "F"
+
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Quadracepts", for: .normal)
+                self.StrLeftImagePart = "quadracepts"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Quadracepts", for: .normal)
+                self.StrRightImagePart = "quadracepts"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnRightLocation.setTitle("Quadracepts", for: .normal)
+            cell.btnLeftLocation.setTitle("Quadracepts", for: .normal)
+            self.StrRightImagePart = "quadracepts"
+            self.StrLeftImagePart = "quadracepts"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     @IBAction func btnFrontLeftBodyparam(_ sender: Any) {
+        self.FrontAndBackImage = "F"
+        
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Bodyparam", for: .normal)
+                self.StrLeftImagePart = "bodyparam"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Bodyparam", for: .normal)
+                self.StrRightImagePart = "bodyparam"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnRightLocation.setTitle("Bodyparam", for: .normal)
+            cell.btnLeftLocation.setTitle("Bodyparam", for: .normal)
+            self.StrLeftImagePart = "bodyparam"
+            self.StrRightImagePart = "bodyparam"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     @IBAction func btnFrontLeftTibalisAnterior(_ sender: Any) {
+        self.FrontAndBackImage = "F"
+        
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Tibalis Anterior", for: .normal)
+                self.StrLeftImagePart = "tibalis anterior"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Tibalis Anterior", for: .normal)
+                self.StrRightImagePart = "tibalis anterior"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Tibalis Anterior", for: .normal)
+            cell.btnRightLocation.setTitle("Tibalis Anterior", for: .normal)
+            self.StrLeftImagePart = "tibalis anterior"
+            self.StrRightImagePart = "tibalis anterior"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     //BackRightSide
     @IBAction func btnBackRightDeltoid(_ sender: Any) {
+        self.FrontAndBackImage = "B"
+        
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Deltoid", for: .normal)
+                self.StrLeftImagePart = "deltoid"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Deltoid", for: .normal)
+                self.StrRightImagePart = "deltoid"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Deltoid", for: .normal)
+            cell.btnRightLocation.setTitle("Deltoid", for: .normal)
+            self.StrLeftImagePart = "deltoid"
+            self.StrRightImagePart = "deltoid"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     @IBAction func btnBackRightUpperback(_ sender: Any) {
+        self.FrontAndBackImage = "B"
+       
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Upperback", for: .normal)
+                self.StrLeftImagePart = "upperback"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Upperback", for: .normal)
+                self.StrRightImagePart = "upperback"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Upperback", for: .normal)
+            cell.btnRightLocation.setTitle("Upperback", for: .normal)
+            self.StrLeftImagePart = "upperback"
+            self.StrRightImagePart = "upperback"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     @IBAction func btnBackRightLowerback(_ sender: Any) {
+        self.FrontAndBackImage = "B"
+
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Lowerback", for: .normal)
+                self.StrLeftImagePart = "lowerback"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Lowerback", for: .normal)
+                self.StrRightImagePart = "lowerback"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Lowerback", for: .normal)
+            cell.btnRightLocation.setTitle("Lowerback", for: .normal)
+            self.StrRightImagePart = "lowerback"
+            self.StrLeftImagePart = "lowerback"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
+        
     }
     @IBAction func btnBackRIghtGastrocnemius(_ sender: Any) {
+        self.FrontAndBackImage = "B"
+    
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Gastrocnemius", for: .normal)
+                self.StrLeftImagePart = "gastrocnemius"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Gastrocnemius", for: .normal)
+                self.StrRightImagePart = "gastrocnemius"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Gastrocnemius", for: .normal)
+            cell.btnRightLocation.setTitle("Gastrocnemius", for: .normal)
+            self.StrLeftImagePart = "gastrocnemius"
+            self.StrRightImagePart = "gastrocnemius"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     @IBAction func btnBackRightHamstring(_ sender: Any) {
+        self.FrontAndBackImage = "B"
+       if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Hamstring", for: .normal)
+                self.StrLeftImagePart = "hamstring"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Hamstring", for: .normal)
+                self.StrRightImagePart = "hamstring"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Hamstring", for: .normal)
+            cell.btnRightLocation.setTitle("Hamstring", for: .normal)
+            self.StrLeftImagePart = "hamstring"
+            self.StrRightImagePart = "hamstring"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     @IBAction func btnBackRightGlutiusmaximus(_ sender: Any) {
+        self.FrontAndBackImage = "B"
+
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Glutiusmaximus", for: .normal)
+                self.StrLeftImagePart = "glutiusmaximus"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Glutiusmaximus", for: .normal)
+                self.StrRightImagePart = "glutiusmaximus"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Glutiusmaximus", for: .normal)
+            cell.btnRightLocation.setTitle("Glutiusmaximus", for: .normal)
+            self.StrLeftImagePart = "glutiusmaximus"
+            self.StrRightImagePart = "glutiusmaximus"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     
     //BackLeftSide
     @IBAction func btnBackLeftDeltoid(_ sender: Any) {
+        self.FrontAndBackImage = "B"
+
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Deltoid", for: .normal)
+                self.StrLeftImagePart = "deltoid"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Deltoid", for: .normal)
+                self.StrRightImagePart = "deltoid"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Deltoid", for: .normal)
+            cell.btnRightLocation.setTitle("Deltoid", for: .normal)
+            self.StrLeftImagePart = "deltoid"
+            self.StrRightImagePart = "deltoid"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     @IBAction func btnBackLeftUpperback(_ sender: Any) {
+        self.FrontAndBackImage = "B"
+
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Upperback", for: .normal)
+                self.StrLeftImagePart = "upperback"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Upperback", for: .normal)
+                self.StrRightImagePart = "upperback"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Upperback", for: .normal)
+            cell.btnRightLocation.setTitle("Upperback", for: .normal)
+            self.StrLeftImagePart = "upperback"
+            self.StrRightImagePart = "upperback"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     @IBAction func btnBackLeftLowerback(_ sender: Any) {
+        self.FrontAndBackImage = "B"
+    
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Lowerback", for: .normal)
+                self.StrLeftImagePart = "lowerback"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Lowerback", for: .normal)
+                self.StrRightImagePart = "lowerback"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Lowerback", for: .normal)
+            cell.btnRightLocation.setTitle("Lowerback", for: .normal)
+            self.StrLeftImagePart = "lowerback"
+            self.StrRightImagePart = "lowerback"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     @IBAction func btnBackLeftGastrocnemius(_ sender: Any) {
+        self.FrontAndBackImage = "B"
+        
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Gastrocnemius", for: .normal)
+                self.StrLeftImagePart = "gastrocnemius"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Gastrocnemius", for: .normal)
+                self.StrRightImagePart = "gastrocnemius"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Gastrocnemius", for: .normal)
+            cell.btnRightLocation.setTitle("Gastrocnemius", for: .normal)
+            self.StrLeftImagePart = "gastrocnemius"
+            self.StrRightImagePart = "gastrocnemius"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     @IBAction func btnBackLeftHamstring(_ sender: Any) {
+        self.FrontAndBackImage = "B"
+        
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Hamstring", for: .normal)
+                self.StrLeftImagePart = "hamstring"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Hamstring", for: .normal)
+                self.StrRightImagePart = "hamstring"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Hamstring", for: .normal)
+            cell.btnRightLocation.setTitle("Hamstring", for: .normal)
+            self.StrLeftImagePart = "hamstring"
+            self.StrRightImagePart = "hamstring"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     @IBAction func btnBackLeftGlutiusmaximus(_ sender: Any) {
+        self.FrontAndBackImage = "B"
+        
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Glutiusmaximus", for: .normal)
+                self.StrLeftImagePart = "glutiusmaximus"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Glutiusmaximus", for: .normal)
+                self.StrRightImagePart = "glutiusmaximus"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Glutiusmaximus", for: .normal)
+            cell.btnRightLocation.setTitle("Glutiusmaximus", for: .normal)
+            self.StrLeftImagePart = "glutiusmaximus"
+            self.StrRightImagePart = "glutiusmaximus"
+
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.btnBodyPartSelectionView.isHidden = true
     }
     
     @IBAction func btnBodyLocationSectionHide(_ sender: Any) {
@@ -129,193 +801,718 @@ class NewCreateSegmentVC: UIViewController {
     }
     
     
-    
-    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+
+      let index: Int = Int(Collection.contentOffset.x / Collection.bounds.size.width)
+      print("CurrentIndex::\(index)")
+      self.CurrentIndex = index
+      self.DataFill(Index: index)
+        
+    }
 }
 //MARK:- Call Api Function
 extension NewCreateSegmentVC
 {
-   private func NewSegmentCreateApiCAll()
-   {
-     let Time = RoutinDataView.txtTimePicker.text!
-     let LeftTool = RoutinDataView.txtLeftToolPicker.text!
-     let RightTool = RoutinDataView.txtRightToolPicker.text!
-     let LeftLocation = RoutinDataView.btnLeftLocation.titleLabel?.text!.lowercased()
-     let RightLocation = RoutinDataView.btnRightLocation.titleLabel?.text!.lowercased()
-     let LeftPath = RoutinDataView.txtLeftPath.text!
-     let RightPath = RoutinDataView.txtRightPath.text!
-     let LeftSpeed = RoutinDataView.lblLeftSpeedText.text!
-     let RightSpeed = RoutinDataView.lblRightSpeedText.text!
-     let LeftForce = RoutinDataView.lblLeftForceText.text!
-     let RightForce = RoutinDataView.lblRightForceText.text!
+
+    private func getUserDetailAPICall() {
+        
+        let url = "https://massage-robotics-website.uc.r.appspot.com/rd?query='select r.userid, us.gender,u.firstname, u.lastname, u.email from routine r left join userdata u on r.userid=u.userid left join Userprofile us on  us.userid=u.userid where r.routineid ='\(StrRoutingID ?? "")''"
+
+        print(url)
+        
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        
+        callAPI(url: encodedUrl!) { [self] (json, data1) in
+            print(json)
+            self.hideLoading()
+            if json.getString(key: "status") == "false"
+            {
+                let string = json.getString(key: "response_message")
+                let data = string.data(using: .utf8)!
+                do {
+                    if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
+                        
+                        arrUserDetail.append(contentsOf: jsonArray)
+                        if arrUserDetail.count > 0 {
+                            let routingData = arrUserDetail[0]
+                            let Gender = routingData.getString(key: "gender")
+                            self.StrGender = Gender
+                            if Gender == "F"
+                            {
+                                self.ImgImage.image = UIImage(named: "F-grey female body front")
+                            }else{
+                                self.ImgImage.image = UIImage(named: "grey male body front")
+                            }
+                        }
+                    } else {
+                        showToast(message: "Bad Json")
+                    }
+                } catch let error as NSError {
+                    print(error)
+                }
+            }
+        }
+    }
     
-     let now = Date()
-
-     let formatter = DateFormatter()
-     formatter.dateFormat = "yyyy-MM-dd HH:mm"
-
-     let datetime = formatter.string(from: now)
-     print(datetime)
-
-     let timeAndDate = datetime.components(separatedBy: " ")
-
-     let strDate: String = String(format: "%@", timeAndDate[0])
-     let strTime: String = String(format: "%@", timeAndDate[1])
-   }
-}
-//MARK:- SetUpVC Private Function
-extension NewCreateSegmentVC
-{
-    private func NewSegmentCreate()
+    private func CreateSegmentApiCAll()
     {
-        if RoutinDataView.txtLeftToolPicker.text?.isEmpty == true {
+        let now = Date()
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+
+        let datetime = formatter.string(from: now)
+        print(datetime)
+
+        let timeAndDate = datetime.components(separatedBy: " ")
+
+        let strDateC: String = String(format: "%@", timeAndDate[0])
+        let strTimeC: String = String(format: "%@", timeAndDate[1])
+        
+        let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+        let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+        let strTime = cell.txtTime.text!
+        let strLeftForce = cell.LeftForceText.text!
+        let strRightForce = cell.RightForceText.text!
+        let strLeftLoction = cell.btnLeftLocation.titleLabel?.text!.lowercased()
+        let strRightLocation = cell.btnRightLocation.titleLabel?.text!.lowercased()
+        let strLeftPath = cell.txtLeftPath.text!
+        let strRightPath = cell.txtRightPath.text!
+        let strLeftSpeed = cell.LeftSpeedText.text!
+        let strRightSpeed = cell.RightSpeedText.text!
+        let strLeftTool = cell.txtLeftTool.text!
+        let strRightTool = cell.txtRightTool.text!
+        let strSegCount = cell.SegmentCount.text!
+        
+        let url = "https://massage-robotics-website.uc.r.appspot.com/wt?tablename=RoutineEntity&row=[('sagmet\(randomSegmentId())','\(strTime)','\(strLeftForce)','\(strRightForce)','\(String(describing: strLeftLoction))','\(String(describing: strRightLocation))','\(strLeftPath)','\(strRightPath)','\(strLeftSpeed)','\(strRightSpeed)','\(strDateC),\(strTimeC)','\(strLeftTool)','\(strRightTool)','\(strSegCount)','\(StrRoutingID)','\(FrontAndBackImage)')]"
+        
+        print(url)
+        
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        callAPI(url: encodedUrl!) { [self] (json, data1) in
+            print(json)
+            self.hideLoading()
+            if json.getString(key: "Response") == "Success"
+            {
+                self.GetAllSegmentListApiCall()
+            }
+        }
+    }
+    
+    func GetAllSegmentListApiCall() {
+
+        let url = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select * from Routineentity where routineID = '\(StrRoutingID)''"
+        print(url)
+
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        callAPI(url: encodedUrl!) { [self] (json, data1) in
+            print(json)
+            self.hideLoading()
+            if json.getString(key: "status") == "false"
+            {
+                let string = json.getString(key: "response_message")
+                let data = string.data(using: .utf8)!
+                do {
+                    self.arrSegmentList.removeAll()
+                    if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
+                        arrSegmentList.append(contentsOf: jsonArray)
+                        let Dict = ["segment":"Emty"]
+                        arrSegmentList.append(Dict)
+                        
+//                        for (index, element) in arrSegmentList.enumerated() {
+//                            self.DataFill(Index: index)
+//                        }
+    
+                        self.Collection.reloadData()
+                    } else {
+                        showToast(message: "Bad Json")
+                    }
+                } catch let error as NSError {
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    func SegmentUpdateApiCall()
+    {
+        let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+        let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+        let strTime = cell.txtTime.text!
+        let strLeftForce = cell.LeftForceText.text!
+        let strRightForce = cell.RightForceText.text!
+        let strLeftLoction = cell.btnLeftLocation.titleLabel?.text!.lowercased()
+        let strRightLocation = cell.btnRightLocation.titleLabel?.text!.lowercased()
+        let strLeftPath = cell.txtLeftPath.text!
+        let strRightPath = cell.txtRightPath.text!
+        let strLeftSpeed = cell.LeftSpeedText.text!
+        let strRightSpeed = cell.RightSpeedText.text!
+        let strLeftTool = cell.txtLeftTool.text!
+        let strRightTool = cell.txtRightTool.text!
+        
+        let segmentData = arrSegmentList[CurrentIndex]
+        
+       let url = "https://massage-robotics-website.uc.r.appspot.com/rd?query='UPDATE Routineentity SET duration= '\(strTime)',force_l= '\(strLeftForce)',force_r= '\(strRightForce)',location_l= '\(strLeftLoction)',location_r= '\(strRightLocation)',path_l= '\(strLeftPath)',path_r= '\(strRightPath) ',speed_l= '\(strLeftSpeed)',speed_r= '\(strRightSpeed)',tool_l= '\(strLeftTool)',tool_r= '\(strRightTool)',body_location= '\(FrontAndBackImage)' WHERE segmentid= '\(segmentData.getString(key: "segmentid"))''"
+        
+        print(url)
+        
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        callAPI(url: encodedUrl!) { [self] (json, data1) in
+            print(json)
+            self.hideLoading()
+            if json.getString(key: "Response") == "Success"
+            {
+                self.GetAllSegmentListApiCall()
+            }
+        }
+    }
+    
+    private func SegmentCreateDataEmty()
+    {
+        let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+        let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+        
+        if cell.txtLeftTool.text?.isEmpty == true {
             showToast(message: "Please insert left tool.")
             return
-        } else if RoutinDataView.txtRightToolPicker.text?.isEmpty == true {
+        } else if cell.txtRightTool.text?.isEmpty == true {
             showToast(message: "Please insert right tool.")
             return
-        } else if RoutinDataView.btnLeftLocation.titleLabel?.text == "L. Location" {
+        } else if cell.btnLeftLocation.titleLabel?.text! == "L. Location" {
             showToast(message: "Please insert left loction.")
             return
-        } else if RoutinDataView.btnRightLocation.titleLabel?.text == "R. Location" {
+        } else if cell.btnRightLocation.titleLabel?.text! == "R. Location" {
             showToast(message: "Please insert right loction.")
             return
-        } else if RoutinDataView.txtLeftPath.text?.isEmpty == true {
+        } else if cell.txtLeftPath.text?.isEmpty == true {
             showToast(message: "Please insert left path.")
             return
-        } else if RoutinDataView.txtRightPath.text?.isEmpty == true {
+        } else if cell.txtRightPath.text?.isEmpty == true {
             showToast(message: "Please insert right path.")
             return
-        } else if RoutinDataView.lblLeftSpeedText.text?.isEmpty == true {
+        } else if cell.LeftSpeedText.text?.isEmpty == true {
             showToast(message: "Please insert left Speed.")
             return
-        } else if RoutinDataView.lblRightSpeedText.text?.isEmpty == true {
+        } else if cell.RightSpeedText.text?.isEmpty == true {
             showToast(message: "Please insert right Speed.")
             return
-        } else if RoutinDataView.lblLeftForceText.text?.isEmpty == true {
+        } else if cell.LeftForceText.text?.isEmpty == true {
             showToast(message: "Please insert left Force.")
             return
-        } else if RoutinDataView.lblRightForceText.text?.isEmpty == true {
+        } else if cell.RightForceText.text?.isEmpty == true {
             showToast(message: "Please insert right Force.")
             return
         } else {
-            
+            self.CreateSegmentApiCAll()
         }
     }
-   private func SetUpVC()
-   {
-     picker.delegate = self
-     picker.dataSource = self
-    
-    RoutinDataView.btnLeftLocation.addTarget(self, action: #selector(LeftLocationSelection(sender:)), for: .touchUpInside)
-    RoutinDataView.btnLeftLocation.addTarget(self, action: #selector(RightLocationSelection(sender:)), for: .touchUpInside)
-    
-     RoutinDataView.txtTimePicker.inputView = picker
-     RoutinDataView.txtLeftPath.inputView = picker
-     RoutinDataView.txtRightPath.inputView = picker
-     RoutinDataView.txtLeftToolPicker.inputView = picker
-     RoutinDataView.txtRightToolPicker.inputView = picker
-    
-    RoutinDataView.txtTimePicker.delegate = self
-    RoutinDataView.txtLeftPath.delegate = self
-    RoutinDataView.txtRightPath.delegate = self
-    RoutinDataView.txtLeftToolPicker.delegate = self
-    RoutinDataView.txtRightToolPicker.delegate = self
-   }
-    
-    @objc func LeftLocationSelection(sender: UIButton){
-        let buttonTag = sender.tag
+    private func SegmentUpdateDataEmty()
+    {
+        let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+        let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+        
+        if cell.txtLeftTool.text?.isEmpty == true {
+            showToast(message: "Please insert left tool.")
+            return
+        } else if cell.txtRightTool.text?.isEmpty == true {
+            showToast(message: "Please insert right tool.")
+            return
+        } else if cell.btnLeftLocation.titleLabel?.text! == "L. Location" {
+            showToast(message: "Please insert left loction.")
+            return
+        } else if cell.btnRightLocation.titleLabel?.text! == "R. Location" {
+            showToast(message: "Please insert right loction.")
+            return
+        } else if cell.txtLeftPath.text?.isEmpty == true {
+            showToast(message: "Please insert left path.")
+            return
+        } else if cell.txtRightPath.text?.isEmpty == true {
+            showToast(message: "Please insert right path.")
+            return
+        } else if cell.LeftSpeedText.text?.isEmpty == true {
+            showToast(message: "Please insert left Speed.")
+            return
+        } else if cell.RightSpeedText.text?.isEmpty == true {
+            showToast(message: "Please insert right Speed.")
+            return
+        } else if cell.LeftForceText.text?.isEmpty == true {
+            showToast(message: "Please insert left Force.")
+            return
+        } else if cell.RightForceText.text?.isEmpty == true {
+            showToast(message: "Please insert right Force.")
+            return
+        } else {
+            self.SegmentUpdateApiCall()
+        }
     }
-    @objc func RightLocationSelection(sender: UIButton){
-        let buttonTag = sender.tag
+    
+    func DataFill(Index:Int)
+    {
+            
+            let indexPath = IndexPath.init(row: Index, section: 0)
+            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            
+            let Data = arrSegmentList[Index]
+            
+            cell.SegmentCount.text = "\(Index + 1)"
+            cell.txtTime.text = Data.getString(key: "duration")
+            cell.txtLeftTool.text = Data.getString(key: "tool_l")
+            cell.txtRightTool.text = Data.getString(key: "tool_r")
+            cell.txtLeftPath.text = Data.getString(key: "path_l")
+            cell.txtRightPath.text = Data.getString(key: "path_r")
+            
+        
+//            cell.LeftSpeedText.text = Data["speed_l"] as? String ?? "0" //.getString(key: "")
+//            cell.RightSpeedText.text = Data["speed_r"] as? String ?? "0" //getString(key: "speed_r")
+//            cell.LeftForceText.text = Data["force_l"] as? String ?? "0" //.getString(key: "force_l")
+//            cell.RightForceText.text = Data["force_r"] as? String ?? "0" //.getString(key: "force_r")
+            
+            
+             let speed_l = (Data.getString(key: "speed_l") as NSString).floatValue
+            let speed_r = (Data.getString(key: "speed_r") as NSString).floatValue
+            let force_l = (Data.getString(key: "force_l") as NSString).floatValue
+            let force_r = (Data.getString(key: "force_r") as NSString).floatValue
+            
+          cell.LeftSpeedText.text = "\(speed_l)%"
+          cell.RightSpeedText.text = "\(speed_r)%"
+          cell.LeftForceText.text = "\(force_l)%"
+          cell.RightForceText.text = "\(force_r)%"
+        
+            cell.RightSpeedTree.layer.sublayers = nil;
+            cell.LeftSpeedTree.layer.sublayers = nil;
+            
+            let triLeftSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: 140, height: 33))
+            triLeftSpeed.backgroundColor = .white
+            triLeftSpeed.setFillValue(value: CGFloat(speed_l / 100))
+            cell.LeftSpeedTree.addSubview(triLeftSpeed)
+
+            let triRightSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
+            triRightSpeed.backgroundColor = .white
+            triRightSpeed.setFillValue(value: CGFloat( speed_r / 100))
+            cell.RightSpeedTree.addSubview(triRightSpeed)
+            
+            let triLeftForce = TriangleView(frame: CGRect(x: 0, y: 0, width: 140 , height: 33))
+            triLeftForce.backgroundColor = .white
+            triLeftForce.setFillValue(value: CGFloat(force_l / 100))
+            cell.LeftForceTree.addSubview(triLeftForce)
+
+            let triRightForce = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
+            triRightForce.backgroundColor = .white
+            triRightForce.setFillValue(value: CGFloat( force_r / 100))
+            cell.RightForceTree.addSubview(triRightForce)
+            
+            let LeftLocation = Data["location_l"] as? String ?? "L. Location"//Data.getString(key: "")
+            let RightLocation = Data["location_r"] as? String ?? "R. Location" //Data.getString(key: "location_r")
+            let BodyLocation = Data.getString(key: "body_location")
+            self.FrontAndBackImage = BodyLocation
+            cell.btnLeftLocation.setTitle(LeftLocation, for: .normal)
+            cell.btnRightLocation.setTitle(RightLocation, for: .normal)
+            self.SetImagePart(LeftLocation: LeftLocation, RightLocation: RightLocation)
     }
 }
+    
 
 
-//MARK:- PickerView Method
-extension NewCreateSegmentVC: UIPickerViewDelegate, UIPickerViewDataSource
-{
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        
-        if RoutinDataView.txtTimePicker.isEditing {
-            return 60
-        }else if RoutinDataView.txtLeftToolPicker.isEditing {
-            return arrTool.count
-        }else if RoutinDataView.txtRightToolPicker.isEditing {
-            return arrTool.count
-        }else if RoutinDataView.txtLeftPath.isEditing {
-            return arrPath.count
-        }else if RoutinDataView.txtRightPath.isEditing {
-            return arrPath.count
-        }else {
-            return 0
-        }
-    }
+
+
+
+//MARK:- BodyPart Selection Image Set Private Function
+extension NewCreateSegmentVC {
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
-        if RoutinDataView.txtTimePicker.isEditing {
-            return "\(row + 1)"
-        }else if RoutinDataView.txtLeftToolPicker.isEditing {
-            return arrTool[row]
-        }else if RoutinDataView.txtRightToolPicker.isEditing {
-            return arrTool[row]
-        }else if RoutinDataView.txtLeftPath.isEditing {
-            return arrPath[row]
-        }else if RoutinDataView.txtRightPath.isEditing {
-            return arrPath[row]
-        }else {
-            return ""
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        if btnIsLink.isSelected == true {
-            
-            if RoutinDataView.txtTimePicker.isEditing {
-                RoutinDataView.txtTimePicker.text = "\(row + 1)"
-            }else if RoutinDataView.txtLeftToolPicker.isEditing {
-                RoutinDataView.txtLeftToolPicker.text = arrTool[row]
-            }else if RoutinDataView.txtRightToolPicker.isEditing {
-                RoutinDataView.txtRightToolPicker.text = arrTool[row]
-            }else if RoutinDataView.txtLeftPath.isEditing {
-                RoutinDataView.txtLeftPath.text = arrPath[row]
-            }else if RoutinDataView.txtRightPath.isEditing {
-                RoutinDataView.txtRightPath.text = arrPath[row]
+    private func SetImagePart(LeftLocation:String,RightLocation:String)
+    {
+        if FrontAndBackImage == "F" {
+            if StrGender == "F" {
+                self.ImgImage.image = UIImage(named: "F-grey female body front")
+            } else {
+                self.ImgImage.image = UIImage(named: "grey male body front")
+            }
+        } else if FrontAndBackImage == "B" {
+            if StrGender == "F" {
+                self.ImgImage.image = UIImage(named: "F-grey female body back")
+            } else {
+                self.ImgImage.image = UIImage(named: "grey male body back")
             }
         } else {
-            
-            if RoutinDataView.txtTimePicker.isEditing {
-                RoutinDataView.txtTimePicker.text = "\(row + 1)"
-            }else if RoutinDataView.txtLeftToolPicker.isEditing {
-                RoutinDataView.txtLeftToolPicker.text = arrTool[row]
-                RoutinDataView.txtRightToolPicker.text = arrTool[row]
-            }else if RoutinDataView.txtRightToolPicker.isEditing {
-                RoutinDataView.txtRightToolPicker.text = arrTool[row]
-                RoutinDataView.txtLeftToolPicker.text = arrTool[row]
-            }else if RoutinDataView.txtLeftPath.isEditing {
-                RoutinDataView.txtLeftPath.text = arrPath[row]
-                RoutinDataView.txtRightPath.text = arrPath[row]
-            }else if RoutinDataView.txtRightPath.isEditing {
-                RoutinDataView.txtRightPath.text = arrPath[row]
-                RoutinDataView.txtLeftPath.text = arrPath[row]
+            if StrGender == "F" {
+                self.ImgImage.image = UIImage(named: "F-grey female body front")
+            } else {
+                self.ImgImage.image = UIImage(named: "grey male body front")
             }
         }
-       
-    }
-}
-//MARK:- UITextFieldDelegate Method
-extension NewCreateSegmentVC: UITextFieldDelegate
-{
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-    
-        if textField == RoutinDataView.txtTimePicker || textField == RoutinDataView.txtLeftToolPicker || textField == RoutinDataView.txtRightToolPicker || textField == RoutinDataView.txtLeftPath || textField == RoutinDataView.txtRightPath  {
-            picker.selectRow(textField.tag, inComponent: 0, animated: true)
-            picker.reloadAllComponents()
+        
+        if StrGender == "F"
+        {
+            var ImageL = String()
+            var ImageR = String()
+            if LeftLocation == "upperback"
+            {
+                ImageL = "F-L-trap"
+            }
+            else if LeftLocation == "lowerback"
+            {
+                ImageL = "F-L-lower back"
+            }
+            else if LeftLocation == "hamstring"
+            {
+                ImageL = "F-L-ham"
+            }
+            else if LeftLocation == "gastrocnemius"
+            {
+                ImageL = "F-L-calf"
+            }
+            else if LeftLocation == "quadracepts"
+            {
+                ImageL = "F-L-quad"
+            }
+            else if LeftLocation == "iliotibal tract"
+            {
+                ImageL = "F-L-IT band"
+            }
+            else if LeftLocation == "tibalis anterior"
+            {
+                ImageL = "F-L-tibialis"
+            }
+            else if LeftLocation == "deltoid"
+            {
+                ImageL = "F-L-shoulder"
+            }
+            else if LeftLocation == "pectoralis"
+            {
+                ImageL = "F-L-pect"
+            }
+            else if LeftLocation == "glutiusmaximus"
+            {
+                ImageL = "F-L-glut"
+            }
+            
+            if RightLocation == "upperback"
+            {
+                ImageR = "F-R-trap"
+            }
+            else if RightLocation == "lowerback"
+            {
+                ImageR = "F-R-lower back"
+            }
+            else if RightLocation == "hamstring"
+            {
+                ImageR = "F-R-ham"
+            }
+            else if RightLocation == "gastrocnemius"
+            {
+                ImageR = "F-R-calf"
+            }
+            else if RightLocation == "quadracepts"
+            {
+                ImageR = "F-R-quad"
+            }
+            else if RightLocation == "iliotibal tract"
+            {
+                ImageR = "F-R-IT band"
+            }
+            else if RightLocation == "tibalis anterior"
+            {
+                ImageR = "F-R-tibialis"
+            }
+            else if RightLocation == "deltoid"
+            {
+                ImageR = "F-R-shoulder"
+            }
+            else if RightLocation == "pectoralis"
+            {
+                ImageR = "F-R-pect"
+            }
+            else if RightLocation == "glutiusmaximus"
+            {
+                ImageR = "F-R-glut"
+            }
+            self.ImgLeft.image = UIImage(named: ImageL)
+            self.ImgRight.image = UIImage(named: ImageR)
+        } else {
+            
+            var ImageL = String()
+            var ImageR = String()
+            if LeftLocation == "upperback"
+            {
+                ImageL = "L-trap"
+            }
+            else if LeftLocation == "lowerback"
+            {
+                ImageL = "L-lower back"
+            }
+            else if LeftLocation == "hamstring"
+            {
+                ImageL = "L-ham"
+            }
+            else if LeftLocation == "gastrocnemius"
+            {
+                ImageL = "L-calf"
+            }
+            else if LeftLocation == "quadracepts"
+            {
+                ImageL = "L-quad"
+            }
+            else if LeftLocation == "iliotibal tract"
+            {
+                ImageL = "L-IT band"
+            }
+            else if LeftLocation == "tibalis anterior"
+            {
+                ImageL = "L-tibialis"
+            }
+            else if LeftLocation == "deltoid"
+            {
+                ImageL = "L-shoulder"
+            }
+            else if LeftLocation == "pectoralis"
+            {
+                ImageL = "L-pect"
+            }
+            else if LeftLocation == "glutiusmaximus"
+            {
+                ImageL = "L-glut"
+            }
+            
+            
+            
+            if RightLocation == "upperback"
+            {
+                ImageR = "R-trap"
+            }
+            else if RightLocation == "lowerback"
+            {
+                ImageR = "R-lower back"
+            }
+            else if RightLocation == "hamstring"
+            {
+                ImageR = "R-ham"
+            }
+            else if RightLocation == "gastrocnemius"
+            {
+                ImageR = "R-calf"
+            }
+            else if RightLocation == "quadracepts"
+            {
+                ImageR = "R-quad"
+            }
+            else if RightLocation == "iliotibal tract"
+            {
+                ImageR = "R-IT band"
+            }
+            else if RightLocation == "tibalis anterior"
+            {
+                ImageR = "R-tibialis"
+            }
+            else if RightLocation == "deltoid"
+            {
+                ImageR = "R-shoulder"
+            }
+            else if RightLocation == "pectoralis"
+            {
+                ImageR = "R-pect"
+            }
+            else if RightLocation == "glutiusmaximus"
+            {
+                ImageR = "R-glut"
+            }
+            self.ImgLeft.image = UIImage(named: ImageL)
+            self.ImgRight.image = UIImage(named: ImageR)
         }
     }
+}
+
+//MARK:- UICollectionViewDelegate And UICollectionViewDataSource
+extension NewCreateSegmentVC : UICollectionViewDelegate,UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        //let count = arrSegmentList.count + 1
+        return arrSegmentList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SegmentCreate", for: indexPath) as! SegmentCreate
+ 
+        cell.btnLeftLocation.tag = indexPath.row
+        cell.btnLeftLocation.addTarget(self, action: #selector(LeftLocationSelection(sender:)), for: .touchUpInside)
+        cell.btnRightLocation.tag = indexPath.row
+        cell.btnRightLocation.addTarget(self, action: #selector(RightLocationSelection(sender:)), for: .touchUpInside)
+        
+        cell.btnLeftSpeed.tag = indexPath.row
+        cell.btnLeftSpeed.addTarget(self, action: #selector(LeftSpeed(sender:)), for: .touchUpInside)
+        cell.btnRightSpeed.tag = indexPath.row
+        cell.btnRightSpeed.addTarget(self, action: #selector(RightSpeed(sender:)), for: .touchUpInside)
+        
+        cell.btnLeftForce.tag = indexPath.row
+        cell.btnLeftForce.addTarget(self, action: #selector(LeftForce(sender:)), for: .touchUpInside)
+        cell.btnRightForce.tag = indexPath.row
+        cell.btnRightForce.addTarget(self, action: #selector(RightForce(sender:)), for: .touchUpInside)
+        
+        
+        let Data = arrSegmentList[indexPath.row]
+        
+        cell.SegmentCount.text = "\(indexPath.row + 1)"
+        cell.txtTime.text = Data.getString(key: "duration")
+        cell.txtLeftTool.text = Data.getString(key: "tool_l")
+        cell.txtRightTool.text = Data.getString(key: "tool_r")
+        cell.txtLeftPath.text = Data.getString(key: "path_l")
+        cell.txtRightPath.text = Data.getString(key: "path_r")
+                
+        let speed_l = (Data.getString(key: "speed_l") as NSString).floatValue
+        let speed_r = (Data.getString(key: "speed_r") as NSString).floatValue
+        let force_l = (Data.getString(key: "force_l") as NSString).floatValue
+        let force_r = (Data.getString(key: "force_r") as NSString).floatValue
+        
+        cell.LeftSpeedText.text = "\(speed_l)%"
+        cell.RightSpeedText.text = "\(speed_r)%"
+        cell.LeftForceText.text = "\(force_l)%"
+        cell.RightForceText.text = "\(force_r)%"
+        
+        cell.RightSpeedTree.layer.sublayers = nil;
+        cell.LeftSpeedTree.layer.sublayers = nil;
+        
+        let triLeftSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: 140, height: 33))
+        triLeftSpeed.backgroundColor = .white
+        triLeftSpeed.setFillValue(value: CGFloat(speed_l / 100))
+        cell.LeftSpeedTree.addSubview(triLeftSpeed)
+
+        let triRightSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
+        triRightSpeed.backgroundColor = .white
+        triRightSpeed.setFillValue(value: CGFloat( speed_r / 100))
+        cell.RightSpeedTree.addSubview(triRightSpeed)
+        
+        let triLeftForce = TriangleView(frame: CGRect(x: 0, y: 0, width: 140 , height: 33))
+        triLeftForce.backgroundColor = .white
+        triLeftForce.setFillValue(value: CGFloat(force_l / 100))
+        cell.LeftForceTree.addSubview(triLeftForce)
+
+        let triRightForce = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
+        triRightForce.backgroundColor = .white
+        triRightForce.setFillValue(value: CGFloat( force_r / 100))
+        cell.RightForceTree.addSubview(triRightForce)
+        
+        let LeftLocation = Data["location_l"] as? String ?? "L. Location"//Data.getString(key: "")
+        let RightLocation = Data["location_r"] as? String ?? "R. Location" //Data.getString(key: "location_r")
+        let BodyLocation = Data.getString(key: "body_location")
+        self.FrontAndBackImage = BodyLocation
+        cell.btnLeftLocation.setTitle(LeftLocation, for: .normal)
+        cell.btnRightLocation.setTitle(RightLocation, for: .normal)
+        self.SetImagePart(LeftLocation: LeftLocation, RightLocation: RightLocation)
+        
+
+        return cell
+    }
+}
+
+//MARK:- UICollectionViewDelegateFlowLayout
+extension NewCreateSegmentVC: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let collectionWidth = view.bounds.width
+        return CGSize(width: collectionWidth, height: 440)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+}
+
+
+//MARK:- UICollectionView Selection Call Button Action
+extension  NewCreateSegmentVC {
+    
+    @objc func LeftLocationSelection(sender: UIButton)
+    {
+        self.StrLeftRightLocation = "Left"
+        self.btnBodyPartSelectionView.isHidden = false
+        let strBodyPart = sender.title(for: .normal)
+        if strBodyPart == "L. Location"{
+            self.ImgBodyPartImage.image = UIImage(named: "LeftBodyP")
+        }else{
+            
+            if FrontAndBackImage == "F" {
+                self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeft")
+            } else if FrontAndBackImage == "B"{
+                self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftB")
+            }else {
+                self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeft")
+            }
+        }
+    }
+    @objc func RightLocationSelection(sender: UIButton)
+    {
+        self.StrLeftRightLocation = "Right"
+        self.btnBodyPartSelectionView.isHidden = false
+        let strBodyPart = sender.title(for: .normal)
+        if strBodyPart == "R. Location"{
+            self.ImgBodyPartImage.image = UIImage(named: "RightBodyP")
+        }else{
+            
+            if FrontAndBackImage == "F" {
+                self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRight")
+            } else if FrontAndBackImage == "B"{
+                self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightB")
+            }else {
+                self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRight")
+            }
+        }
+    }
+    
+    @objc func LeftSpeed(sender: UIButton)
+    {
+        self.SliderView.isHidden = false
+        self.SliderValueSet = "speed"
+        self.SliderLeftRight = "Left"
+    }
+    @objc func RightSpeed(sender: UIButton)
+    {
+        self.SliderView.isHidden = false
+        self.SliderValueSet = "speed"
+        self.SliderLeftRight = "Right"
+    }
+    @objc func LeftForce(sender: UIButton)
+    {
+        self.SliderView.isHidden = false
+        self.SliderValueSet = "force"
+        self.SliderLeftRight = "Left"
+    }
+    @objc func RightForce(sender: UIButton)
+    {
+        self.SliderView.isHidden = false
+        self.SliderValueSet = "force"
+        self.SliderLeftRight = "Right"
+    }
+    
+    @objc func TimeReceivedNotification(notification: Notification) {
+        
+        let Data = notification.userInfo! as NSDictionary
+        let Time = Data["Time"] as? String ?? ""
+       // self.rulerSize(size: Int(Time) ?? 0, index: CurrentIndex)
+    }
+    
+//    func rulerSize(size: Int, index: Int) {
+//        let view = arrRuler[0]
+//        view.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: CGFloat(28 * size), height: view.frame.height)
+//        arrRuler[index] = view
+//    }
+//
+//    func changeColorOfRuler(index: Int) {
+//        RuleView.subviews.map({  if !$0.isKind(of: UIImageView.self ) { $0.backgroundColor = UIColor.btnBGColor } })
+//
+//        if let viewLast = RuleView.subviews[index] as? UIView {
+//            viewLast.backgroundColor = UIColor.SegmentCountBGColor
+//        }
+//    }
 }

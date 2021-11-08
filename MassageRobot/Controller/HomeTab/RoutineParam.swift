@@ -32,10 +32,8 @@ class RoutineParam: UIView {
     @IBOutlet weak var txtRightPath: UnderlineTextField!
     @IBOutlet weak var txtLeftLocation: UnderlineTextField!
     @IBOutlet weak var txtRightLocation: UnderlineTextField!
-    
     @IBOutlet weak var btnLocationLeft: UIButton!
     @IBOutlet weak var btnLocationRight: UIButton!
-    
     @IBOutlet weak var viewTapGesture: UIView!
     
     var triLeftSpeed: TriangleView!
@@ -51,7 +49,6 @@ class RoutineParam: UIView {
     var delegateCopyData: isSegmentDataCopy?
     
     let picker = UIPickerView()
-    
     var currentViewTag = -1
     
     var intStart: Int!
@@ -68,6 +65,12 @@ class RoutineParam: UIView {
     
     let arrLRLocation = ["none", "Linear", "Circular", "Random", "Point"]
     let arrLRTool = ["none", "Omni", "Inline", "Point", "Kneading","Sport","Precussion","Calibration"]
+    
+    
+    //MARK:- New Screen Data Pass
+    var ToolDataPass : ToolDataPassDeleGate?
+  //  var IsLinkDelaGate: IsLink?
+    var IsLink:Bool = false
     
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -132,19 +135,17 @@ class RoutineParam: UIView {
         picker.delegate = self
         picker.dataSource = self
         
-        txtTime.delegate = self
-        txtLeftTool.delegate = self
-        txtRightTool.delegate = self
-        txtLeftPath.delegate = self
-        txtRightPath.delegate = self
-        txtLeftLocation.delegate = self
-        txtRightLocation.delegate = self
-        
         txtTime.inputView = picker
         txtLeftTool.inputView = picker
         txtRightTool.inputView = picker
         txtLeftPath.inputView = picker
         txtRightPath.inputView = picker
+        
+        txtTime.delegate = self
+        txtLeftTool.delegate = self
+        txtRightTool.delegate = self
+        txtLeftPath.delegate = self
+        txtRightPath.delegate = self
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
@@ -410,6 +411,7 @@ extension RoutineParam: SliderValueSetDelegate
 }
 
 
+//MARK:- UIPickerViewDelegate And UIPickerViewDataSource Method
 extension RoutineParam: UIPickerViewDelegate, UIPickerViewDataSource
 {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -451,109 +453,130 @@ extension RoutineParam: UIPickerViewDelegate, UIPickerViewDataSource
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if txtTime.isEditing {
-            txtTime.text = "\(row + 1)"
-                    
-            let segEnd: String = UserDefaults.standard.object(forKey: SEGMENTEND) as? String ?? "1"
-
-            let intCE = Int(segEnd)
-            
-            intEnd = intCE! + (row)
-            
-            let intDuration = txtTime.text!
-            intDurationMin = Int(intDuration)! * 60
-            
-            intStoreValue = row
-            //UserDefaults.standard.set("\(intEnd! - 1)", forKey: SEGMENTSTART)
-            UserDefaults.standard.set("\(intEnd!)", forKey: SEGMENTEND)
-            
-            lblSegmentEnd.text = String(intDurationMin)
-            
-            UserDefaults.standard.set(lblSegmentEnd.text, forKey: EXTIME)
-            delegateRuler?.rulerSize(size: row + 1, index: tag - 1)
-        }else if txtLeftTool.isEditing {
-            txtLeftTool.text = arrLRTool[row]
-            txtLeftTool.tag = row
-            let strLeftTool = txtLeftTool.text?.lowercased()
-            UserDefaults.standard.set(strLeftTool, forKey: LTOOL)
-        }else if txtRightTool.isEditing {
-            txtRightTool.text = arrLRTool[row]
-            txtRightTool.tag = row
-            let strRightTool = txtRightTool.text?.lowercased()
-            UserDefaults.standard.set(strRightTool, forKey: RTOOL)
-        }else if txtLeftPath.isEditing {
-            txtLeftPath.text = arrLRLocation[row]
-            txtLeftPath.tag = row
-            let strLeftPath = txtLeftPath.text?.lowercased()
-            UserDefaults.standard.set(strLeftPath, forKey: LPATH)
-        }else if txtRightPath.isEditing {
-            txtRightPath.text = arrLRLocation[row]
-            txtRightPath.tag = row
-            let strRightPath = txtRightPath.text?.lowercased()
-            UserDefaults.standard.set(strRightPath, forKey: RPATH)
-        }
         
-        if isLinkData == true {
-            self.setSegmentDataCopy(isLink: isLinkData, iscopy: false)
+        if IsLink == true {
+            if txtTime.isEditing {
+                txtTime.text = "\(row + 1)"
+                delegateRuler?.rulerSize(size: row + 1, index: tag - 1)
+            } else if txtLeftTool.isEditing {
+                txtLeftTool.text = arrLRTool[row]
+                ToolDataPass?.ToolData(Left: arrLRTool[row], Right: txtLeftTool.text!)
+            } else if txtRightTool.isEditing {
+                txtRightTool.text = arrLRTool[row]
+                ToolDataPass?.ToolData(Left: "", Right: arrLRTool[row])
+            } else if txtLeftPath.isEditing {
+                txtLeftPath.text = arrLRLocation[row]
+            } else if txtRightPath.isEditing {
+                txtRightPath.text = arrLRLocation[row]
+            }
+        } else {
+            if txtTime.isEditing {
+                txtTime.text = "\(row + 1)"
+                delegateRuler?.rulerSize(size: row + 1, index: tag - 1)
+            } else if txtLeftTool.isEditing {
+                txtLeftTool.text = arrLRTool[row]
+                txtRightTool.text = arrLRTool[row]
+                ToolDataPass?.ToolData(Left: arrLRTool[row], Right: arrLRTool[row])
+            } else if txtRightTool.isEditing {
+                txtLeftTool.text = arrLRTool[row]
+                txtRightTool.text = arrLRTool[row]
+                ToolDataPass?.ToolData(Left: arrLRTool[row], Right: arrLRTool[row])
+            } else if txtLeftPath.isEditing {
+                txtLeftPath.text = arrLRLocation[row]
+                txtRightPath.text = arrLRLocation[row]
+            } else if txtRightPath.isEditing {
+                txtLeftPath.text = arrLRLocation[row]
+                txtRightPath.text = arrLRLocation[row]
+            }
         }
-        
-        delegateChangeData?.setChangeSegmentData()
-    }
+//        if txtTime.isEditing {
+//            txtTime.text = "\(row + 1)"
+//
+//            let segEnd: String = UserDefaults.standard.object(forKey: SEGMENTEND) as? String ?? "1"
+//
+//            let intCE = Int(segEnd)
+//
+//            intEnd = intCE! + (row)
+//
+//            let intDuration = txtTime.text!
+//            intDurationMin = Int(intDuration)! * 60
+//
+//            intStoreValue = row
+//            //UserDefaults.standard.set("\(intEnd! - 1)", forKey: SEGMENTSTART)
+//            UserDefaults.standard.set("\(intEnd!)", forKey: SEGMENTEND)
+//
+//            lblSegmentEnd.text = String(intDurationMin)
+//
+//            UserDefaults.standard.set(lblSegmentEnd.text, forKey: EXTIME)
+//            delegateRuler?.rulerSize(size: row + 1, index: tag - 1)
+//        }else if txtLeftTool.isEditing {
+////             txtLeftTool.text = arrLRTool[row]
+////             txtLeftTool.tag = row
+////             let strLeftTool = txtLeftTool.text?.lowercased()
+////             UserDefaults.standard.set(strLeftTool, forKey: LTOOL)
+//
+//            if IsLink == true {
+//                txtLeftTool.text = arrLRTool[row]
+//                ToolDataPass?.ToolData(Left: arrLRTool[row], Right: txtLeftTool.text!)
+//            } else {
+//                txtLeftTool.text = arrLRTool[row]
+//                txtRightTool.text = arrLRTool[row]
+//                ToolDataPass?.ToolData(Left: arrLRTool[row], Right: arrLRTool[row])
+//            }
+//
+//
+//        }else if txtRightTool.isEditing {
+////             txtRightTool.text = arrLRTool[row]
+////             txtRightTool.tag = row
+////             let strRightTool = txtRightTool.text?.lowercased()
+////             UserDefaults.standard.set(strRightTool, forKey: RTOOL)
+//
+//
+//            if IsLink == true {
+//                txtRightTool.text = arrLRTool[row]
+//                ToolDataPass?.ToolData(Left: "", Right: arrLRTool[row])
+//            } else {
+//                txtLeftTool.text = arrLRTool[row]
+//                txtRightTool.text = arrLRTool[row]
+//                ToolDataPass?.ToolData(Left: arrLRTool[row], Right: arrLRTool[row])
+//            }
+//
+//        }else if txtLeftPath.isEditing {
+//            txtLeftPath.text = arrLRLocation[row]
+//            txtLeftPath.tag = row
+//            let strLeftPath = txtLeftPath.text?.lowercased()
+//            UserDefaults.standard.set(strLeftPath, forKey: LPATH)
+//        }else if txtRightPath.isEditing {
+//            txtRightPath.text = arrLRLocation[row]
+//            txtRightPath.tag = row
+//            let strRightPath = txtRightPath.text?.lowercased()
+//            UserDefaults.standard.set(strRightPath, forKey: RPATH)
+//        }
+//
+//        if isLinkData == true {
+//            self.setSegmentDataCopy(isLink: isLinkData, iscopy: false)
+//        }
+//
+//        delegateChangeData?.setChangeSegmentData()
+     }
 }
 
-extension RoutineParam: UITextFieldDelegate
+//MARK:- UITextFieldDelegate Method
+extension RoutineParam : UITextFieldDelegate
 {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
-        let strSegCopyValue: String = UserDefaults.standard.object(forKey: SEGMENTCOPY) as? String ?? "true"
-        
-        if strSegCopyValue == "false" {
-            isLinkData = false
-        }else {
-            isLinkData = true
-        }
-        
-        viewTapGesture.isHidden = false
-    
-        if txtTime.isEditing {
-            txtTime.text = "\(1)"
-            //lblSegmentEnd.text = "\(1)"
-            
-            if intStoreValue != 0 {
-                intEnd = intEnd - intStoreValue
-                
-                if intEnd == 0 {
-                    intEnd = 1
-                }
-            }
-//            let segEnd: String = UserDefaults.standard.object(forKey: SEGMENTEND) as? String ?? ""
-//
-//            let intCE = Int(segEnd)! - intEnd
-//
-//            intEnd = intCE + 1
-
-            UserDefaults.standard.set("\(intEnd!)", forKey: SEGMENTEND)
-        }else if txtLeftTool.isEditing {
-            txtLeftTool.text = arrLRTool[textField.tag]
-            picker.selectRow(txtLeftTool.tag, inComponent: 0, animated: true)
-        }else if txtRightTool.isEditing {
-            txtRightTool.text = arrLRTool[textField.tag]
-            picker.selectRow(txtRightTool.tag, inComponent: 0, animated: true)
-        }else if txtLeftPath.isEditing {
-            txtLeftPath.text = arrLRLocation[textField.tag]
-            picker.selectRow(txtLeftPath.tag, inComponent: 0, animated: true)
-        }else if txtRightPath.isEditing {
-            txtRightPath.text = arrLRLocation[textField.tag]
-            picker.selectRow(txtRightPath.tag, inComponent: 0, animated: true)
-        }
-        
-        if textField == txtLeftTool || textField == txtRightTool || textField == txtLeftLocation || textField == txtRightLocation || textField == txtLeftPath || textField == txtRightPath {
+        if textField ==  txtTime || textField == self.txtLeftTool || textField == self.txtRightTool || textField == self.txtLeftPath || textField == self.txtRightPath  {
             picker.reloadAllComponents()
         }
     }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
-        viewTapGesture.isHidden = true
-    }
 }
+
+
+//MARK:- ************************************************************** Protocol And DeleGate Method  **************************************************************
+
+
+protocol ToolDataPassDeleGate {
+    func ToolData(Left:String,Right:String)
+}
+
