@@ -110,8 +110,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3110"
-            endingLineNumber = "3110"
+            startingLineNumber = "3106"
+            endingLineNumber = "3106"
             landmarkName = "IndexDataSwapDataSet(index:segmentData:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -126,8 +126,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3109"
-            endingLineNumber = "3109"
+            startingLineNumber = "3105"
+            endingLineNumber = "3105"
             landmarkName = "IndexDataSwapDataSet(index:segmentData:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -269,8 +269,8 @@
             filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3162"
-            endingLineNumber = "3162"
+            startingLineNumber = "3158"
+            endingLineNumber = "3158"
             landmarkName = "getRoutinSegmentDataListUpdate(index:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -630,144 +630,128 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8BE5D938-CF33-4B63-8ECD-5B0BEF48A0CD"
+            uuid = "863C2639-D5DD-4A99-84D4-8B457BF915B8"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MassageRobot/Controller/HomeTab/NewCreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
-            landmarkName = "btnSliderViewHide(_:)"
+            startingLineNumber = "1115"
+            endingLineNumber = "1115"
+            landmarkName = "SegmentUpdateApiCall()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E713DD2E-21B5-47CC-8B80-92664BD4114B"
+            uuid = "0DB44D9C-CE74-4EBC-AC0B-28A8BF90D24F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MassageRobot/Controller/HomeTab/NewCreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
-            landmarkName = "btnSliderViewHide(_:)"
+            startingLineNumber = "1103"
+            endingLineNumber = "1103"
+            landmarkName = "SegmentUpdateApiCall()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "85D25F5C-455E-4AD6-8FA6-D6159104CD50"
+            uuid = "61B8808D-80E1-4569-82A5-3E797A12DA03"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MassageRobot/Controller/HomeTab/NewCreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
-            landmarkName = "btnSliderViewHide(_:)"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "btnFirstSegment(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7FEDCFCD-06E9-407E-AA3E-3BC98D6D0589"
+            uuid = "47BD4A55-2E27-4A35-9586-D300973B3DC0"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MassageRobot/Controller/HomeTab/NewCreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "btnSliderViewHide(_:)"
+            startingLineNumber = "1060"
+            endingLineNumber = "1060"
+            landmarkName = "GetAllSegmentListApiCall(Type:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "360C030F-2DAE-41DC-8DCD-FEBC2F14676A"
+            uuid = "9020F2B8-791F-4BBB-BBE9-63839252A993"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MassageRobot/Controller/HomeTab/NewCreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
-            landmarkName = "btnSliderViewHide(_:)"
+            startingLineNumber = "1083"
+            endingLineNumber = "1083"
+            landmarkName = "GetAllSegmentListApiCall(Type:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9BE8C60B-9074-4104-B6ED-FC083658FAFF"
+            uuid = "AC16F2D2-5375-4D2B-BDC7-DBAE45151CF1"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MassageRobot/Controller/HomeTab/NewCreateSegmentVC.swift"
+            filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
-            landmarkName = "btnSliderViewHide(_:)"
+            startingLineNumber = "1824"
+            endingLineNumber = "1824"
+            landmarkName = "addNewSegmentIntoRoutine()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BCE93614-A2D1-40E4-99C8-7DF7BA44285A"
+            uuid = "590440FC-C803-4096-AB6A-B7835B5729B0"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MassageRobot/Controller/HomeTab/NewCreateSegmentVC.swift"
+            filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1342"
-            endingLineNumber = "1342"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "1826"
+            endingLineNumber = "1826"
+            landmarkName = "addNewSegmentIntoRoutine()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DC0A0D2B-0CD8-4641-8B55-82451B0C1408"
+            uuid = "B1D18A03-CE2C-4F26-9BC5-7F39CC005AE1"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MassageRobot/Controller/HomeTab/NewCreateSegmentVC.swift"
+            filePath = "MassageRobot/Controller/HomeTab/CreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1069"
-            endingLineNumber = "1069"
-            landmarkName = "DataFill(Index:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A1201B0F-6761-4B89-B811-1498AD41E397"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MassageRobot/Controller/HomeTab/NewCreateSegmentVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1369"
-            endingLineNumber = "1369"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "1830"
+            endingLineNumber = "1830"
+            landmarkName = "addNewSegmentIntoRoutine()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

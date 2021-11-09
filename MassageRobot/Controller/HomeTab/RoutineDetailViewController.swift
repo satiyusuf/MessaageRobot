@@ -536,8 +536,8 @@ class RoutineDetailViewController: UIViewController {
                         viewTagList.removeAllTags()
 
                         let sb = UIStoryboard(name: "CreateToutine", bundle: nil)
-                        let vc = sb.instantiateViewController(withIdentifier: "CreateSegmentVC") as! CreateSegmentVC
-                        vc.strRoutingID = strRoutingID!
+                        let vc = sb.instantiateViewController(withIdentifier: "NewCreateSegmentVC") as! NewCreateSegmentVC
+                        vc.StrRoutingID = strRoutingID!
                         vc.strPath = "CreateRoutine"
                         navigationController?.pushViewController(vc, animated: false)
                     }

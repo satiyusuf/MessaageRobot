@@ -49,7 +49,6 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
     
     
     //MARK:- Variable
-    
     var arrRuler = [UIView]()
     var arrSegmentList = [[String: Any]]()
     var numberOfRoutine = 0
@@ -63,6 +62,11 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
     var SliderLeftRight = String()
     
     var strPath: String!
+    
+    var strRoutingUID: String!
+    
+    var arrNewRule = [UILabel]()
+    
     //MARK:- ViewDidLoad
     override func viewDidLoad()
     {
@@ -73,13 +77,42 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         Collection.register(nib, forCellWithReuseIdentifier: "SegmentCreate")
         NotificationCenter.default.addObserver(self, selector: #selector(self.TimeReceivedNotification(notification:)), name: Notification.Name("Time"), object: nil)
         
-   //     self.GetAllSegmentListApiCall()
-        if strPath == "NoCreateRoutine" {
-            self.GetAllSegmentListApiCall()
+        let userID: String = UserDefaults.standard.object(forKey: USERID) as? String ?? "9ccx8ms5pc0000000000"
+        
+        if strPath == "CreateRoutine" {
+            SegmentCreateView.isHidden = false
+        }else {
+            if userID == strRoutingUID {
+                SegmentCreateView.isHidden = false
+            }else {
+                SegmentCreateView.isHidden = true
+            }
+        }
+            
+            
+        if strPath == "NotCreateRoutine" {
+            self.GetAllSegmentListApiCall(Type: "Fetch")
         }else {
             let Dict = ["segment":"Emty"]
             arrSegmentList.append(Dict)
             self.Collection.reloadData()
+            
+//            let view = UIView(frame: CGRect(x: 12, y: 32, width: 28, height: 36))
+//            view.backgroundColor = UIColor.SegmentCountBGColor
+//
+//            let lblSegCount = UILabel(frame: CGRect(x: 12, y: 32, width: 28, height: 36))
+//            lblSegCount.font = lblSegCount.font.withSize(10)
+//            lblSegCount.textAlignment = .center
+//            lblSegCount.text = "01"
+//            lblSegCount.textColor = UIColor.black
+//            lblSegCount.backgroundColor = UIColor.red
+//            lblSegCount.layer.masksToBounds = true
+//            lblSegCount.layer.cornerRadius = 10.0
+//
+//            //view.addSubview(lblSegCount)
+//            RuleView.addSubview(lblSegCount)
+//            arrRuler.append(view)
+           // changeColorOfRuler(index: CurrentIndex)
         }
     }
     
@@ -89,6 +122,7 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func btnReset(_ sender: Any) {
+        self.ReSetData()
     }
     @IBAction func btnIsLink(_ sender: Any) {
         
@@ -104,22 +138,77 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
     }
     @IBAction func btnFirstSegment(_ sender: Any) {
         
+        CurrentIndex = 0
+        let indexPath = IndexPath(item: CurrentIndex , section: 0)
+        Collection.scrollToItem(at: indexPath, at: .left, animated: true)
     }
-    @IBAction func btnPreviSegment(_ sender: Any) {
-    }
+   
     @IBAction func btnMinesh(_ sender: Any) {
+        
+        if arrSegmentList.count > 1 {
+            let last = arrSegmentList.count - 1
+            if last == CurrentIndex {
+                
+            } else {
+                
+                self.SegmentDelete(Index: CurrentIndex)
+            }
+        }
     }
     @IBAction func btnPlush(_ sender: Any)
     {
-        if strPath == "NoCreateRoutine" {
-            self.GetAllSegmentListApiCall()
+        
+        
+        if strPath == "NotCreateRoutine" {
+            if arrSegmentList.count > 1 {
+                let LastIndex = arrSegmentList.count - 1
+                if LastIndex == CurrentIndex{
+                self.SegmentCreateDataEmty()
+                } else {
+                    self.SegmentUpdateDataEmty()
+                }
+            }
+            else {
+                self.SegmentUpdateDataEmty()
+            }
+           
         }else {
-            self.SegmentCreateDataEmty()
+            
+            if arrSegmentList.count > 1 {
+                let LastIndex = arrSegmentList.count - 1
+                if LastIndex == CurrentIndex{
+                    self.SegmentCreateDataEmty()
+                } else {
+                    self.SegmentUpdateDataEmty()
+                }
+            } else {
+                self.SegmentCreateDataEmty()
+            }
         }
     }
-    @IBAction func btnNextSegment(_ sender: Any) {
-    }
+   
     @IBAction func btnLastSegment(_ sender: Any) {
+        
+        CurrentIndex = arrSegmentList.count - 1
+        let indexPath = IndexPath(item: CurrentIndex , section: 0)
+        Collection.scrollToItem(at: indexPath, at: .right, animated: true)
+    }
+    @IBAction func btnPrevi(_ sender: Any) {
+        
+        if Collection.contentOffset.x > 0 {
+            CurrentIndex -= 1
+            let indexPath = IndexPath(item: CurrentIndex , section: 0)
+            Collection.scrollToItem(at: indexPath, at: .left, animated: true)
+        }
+    }
+    @IBAction func btnNext(_ sender: Any) {
+        
+        if Collection.contentOffset.x < self.view.bounds.width * CGFloat(arrSegmentList.count - 1)
+        {
+            CurrentIndex += 1
+            let indexPath = IndexPath(item: CurrentIndex , section: 0)
+            Collection.scrollToItem(at: indexPath, at: .right, animated: true)
+        }
     }
     //MARK:- Slider Value Change Action
     
@@ -142,14 +231,14 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
                 if SliderLeftRight == "Left" {
                    
                     cell.LeftSpeedTree.layer.sublayers = nil;
-                    cell.LeftSpeedText.text = String(format: "%.f", SliderValue.value)
+                    cell.LeftSpeedText.text = "\(Int(SliderValue.value))%"
                     let triLeftSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: 140, height: 33))
                     triLeftSpeed.backgroundColor = .white
                     triLeftSpeed.setFillValue(value: CGFloat(SliderValue.value / 100))
                     cell.LeftSpeedTree.addSubview(triLeftSpeed)
                 } else if SliderLeftRight == "Right" {
                     cell.RightSpeedTree.layer.sublayers = nil;
-                    cell.RightSpeedText.text = String(format: "%.f", SliderValue.value)
+                    cell.RightSpeedText.text = "\(Int(SliderValue.value))%"
                     let triRightSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
                     triRightSpeed.backgroundColor = .white
                     triRightSpeed.setFillValue(value: CGFloat( SliderValue.value / 100))
@@ -160,13 +249,13 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
                 cell.RightSpeedTree.layer.sublayers = nil;
                 cell.LeftSpeedTree.layer.sublayers = nil;
                 
-                cell.LeftSpeedText.text = String(format: "%.f", SliderValue.value)
+                cell.LeftSpeedText.text = "\(Int(SliderValue.value))%"
                 let triLeftSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: 140, height: 33))
                 triLeftSpeed.backgroundColor = .white
                 triLeftSpeed.setFillValue(value: CGFloat(SliderValue.value / 100))
                 cell.LeftSpeedTree.addSubview(triLeftSpeed)
 
-                cell.RightSpeedText.text = String(format: "%.f", SliderValue.value)
+                cell.RightSpeedText.text = "\(Int(SliderValue.value))%"
                 let triRightSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
                 triRightSpeed.backgroundColor = .white
                 triRightSpeed.setFillValue(value: CGFloat( SliderValue.value / 100))
@@ -178,14 +267,14 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             if self.btnIsLink.isSelected == true {
                 if SliderLeftRight == "Left" {
                     cell.LeftForceTree.layer.sublayers = nil;
-                    cell.LeftForceText.text = String(format: "%.f", SliderValue.value)
+                    cell.LeftForceText.text = "\(Int(SliderValue.value))%"
                     let triLeftForce = TriangleView(frame: CGRect(x: 0, y: 0, width: 140 , height: 33))
                     triLeftForce.backgroundColor = .white
                     triLeftForce.setFillValue(value: CGFloat(SliderValue.value / 100))
                     cell.LeftForceTree.addSubview(triLeftForce)
                 } else if SliderLeftRight == "Right" {
                     cell.RightForceTree.layer.sublayers = nil;
-                    cell.RightForceText.text = String(format: "%.f", SliderValue.value)
+                    cell.RightForceText.text = "\(Int(SliderValue.value))%"
                     let triRightForce = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
                     triRightForce.backgroundColor = .white
                     triRightForce.setFillValue(value: CGFloat( SliderValue.value / 100))
@@ -195,13 +284,13 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
                 cell.LeftForceTree.layer.sublayers = nil;
                 cell.RightForceTree.layer.sublayers = nil;
                 
-                cell.LeftForceText.text = String(format: "%.f", SliderValue.value)
+                cell.LeftForceText.text = "\(Int(SliderValue.value))%"
                 let triLeftForce = TriangleView(frame: CGRect(x: 0, y: 0, width: 140 , height: 33))
                 triLeftForce.backgroundColor = .white
                 triLeftForce.setFillValue(value: CGFloat(SliderValue.value / 100))
                 cell.LeftForceTree.addSubview(triLeftForce)
 
-                cell.RightForceText.text = String(format: "%.f", SliderValue.value)
+                cell.RightForceText.text = "\(Int(SliderValue.value))%"
                 let triRightForce = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
                 triRightForce.backgroundColor = .white
                 triRightForce.setFillValue(value: CGFloat( SliderValue.value / 100))
@@ -209,6 +298,8 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             }
         }
 
+        SliderValue.reloadInputViews()
+        
         self.SliderView.isHidden = true
     }
     //MARK:- Action
@@ -807,7 +898,7 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
       print("CurrentIndex::\(index)")
       self.CurrentIndex = index
       self.DataFill(Index: index)
-        
+        changeColorOfRuler(index: CurrentIndex)
     }
 }
 //MARK:- Call Api Function
@@ -854,6 +945,30 @@ extension NewCreateSegmentVC
         }
     }
     
+    func SegmentDelete(Index:Int) {
+        
+        let segmentData = arrSegmentList[Index]
+
+        let strSegmentID: String = String(format: "%@", segmentData.getString(key: "segmentid"))
+
+        if strSegmentID != "" {
+            let url = "https://massage-robotics-website.uc.r.appspot.com/rd?query='DELETE FROM Routineentity WHERE segmentid='\(strSegmentID)''"
+
+            print(url)
+
+            let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+            callAPI(url: encodedUrl!) { [self] (json, data1) in
+                print(json)
+                self.hideLoading()
+                if json.getString(key: "Response") == "DELETE query executed Successfully"
+                {
+                    showToast(message: "Segment delete successfully")
+                    self.GetAllSegmentListApiCall(Type: "Delete")
+                }
+            }
+        }
+    }
     private func CreateSegmentApiCAll()
     {
         let now = Date()
@@ -872,14 +987,14 @@ extension NewCreateSegmentVC
         let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
         let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
         let strTime = cell.txtTime.text!
-        let strLeftForce = cell.LeftForceText.text!
-        let strRightForce = cell.RightForceText.text!
-        let strLeftLoction = cell.btnLeftLocation.titleLabel?.text!.lowercased()
-        let strRightLocation = cell.btnRightLocation.titleLabel?.text!.lowercased()
+        let strLeftForce = cell.LeftForceText.text!.stripped
+        let strRightForce = cell.RightForceText.text!.stripped
+        let strLeftLoction = cell.btnLeftLocation.titleLabel!.text!.lowercased()
+        let strRightLocation = cell.btnRightLocation.titleLabel!.text!.lowercased()
         let strLeftPath = cell.txtLeftPath.text!
         let strRightPath = cell.txtRightPath.text!
-        let strLeftSpeed = cell.LeftSpeedText.text!
-        let strRightSpeed = cell.RightSpeedText.text!
+        let strLeftSpeed = cell.LeftSpeedText.text!.stripped
+        let strRightSpeed = cell.RightSpeedText.text!.stripped
         let strLeftTool = cell.txtLeftTool.text!
         let strRightTool = cell.txtRightTool.text!
         let strSegCount = cell.SegmentCount.text!
@@ -895,12 +1010,13 @@ extension NewCreateSegmentVC
             self.hideLoading()
             if json.getString(key: "Response") == "Success"
             {
-                self.GetAllSegmentListApiCall()
+                showToast(message: json.getString(key: "response_message"))
+                self.GetAllSegmentListApiCall(Type: "Create")
             }
         }
     }
     
-    func GetAllSegmentListApiCall() {
+    func GetAllSegmentListApiCall(Type:String) {
 
         let url = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select * from Routineentity where routineID = '\(StrRoutingID)''"
         print(url)
@@ -918,14 +1034,54 @@ extension NewCreateSegmentVC
                     self.arrSegmentList.removeAll()
                     if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
                         arrSegmentList.append(contentsOf: jsonArray)
-                        let Dict = ["segment":"Emty"]
-                        arrSegmentList.append(Dict)
+                        
+                        self.CurrentIndex = 0
+                        
+                        
+                        if Type == "Update" {
+                            self.Collection.reloadData()
+                        } else if Type == "Delete" {
+                            self.Collection.reloadData()
+                        } else {
+                            let Dict = ["segment":"Emty"]
+                            arrSegmentList.append(Dict)
+                            
+                            self.Collection.reloadData()
+                            
+                            CurrentIndex = arrSegmentList.count - 1
+                            let indexPath = IndexPath(item: CurrentIndex , section: 0)
+                            Collection.scrollToItem(at: indexPath, at: .right, animated: true)
+                        }
+                        
+                        arrRuler.removeAll()
                         
 //                        for (index, element) in arrSegmentList.enumerated() {
-//                            self.DataFill(Index: index)
+//
+//                            let size_du = (element.getString(key: "duration") as NSString).integerValue
+//
+//                            let view = UIView(frame: CGRect(x: 12 + size_du, y: 32, width: size_du, height: 36))
+//
+//                            view.backgroundColor = UIColor.SegmentCountBGColor
+//
+//                            let lblSegCount = UILabel(frame: CGRect(x: 4, y: 8, width: 20, height: 20))
+//                            lblSegCount.font = lblSegCount.font.withSize(10)
+//                            lblSegCount.textAlignment = .center
+//
+//                            lblSegCount.text = "\(index)"
+//
+//                            lblSegCount.textColor = UIColor.black
+//                            lblSegCount.backgroundColor = UIColor.white
+//                            lblSegCount.layer.masksToBounds = true
+//                            lblSegCount.layer.cornerRadius = 10.0
+//
+//                            view.addSubview(lblSegCount)
+//
+//                            RuleView.addSubview(view)
+//                            arrRuler.append(view)
 //                        }
-    
-                        self.Collection.reloadData()
+                        
+                        //changeColorOfRuler(index: CurrentIndex)
+                       
                     } else {
                         showToast(message: "Bad Json")
                     }
@@ -941,14 +1097,14 @@ extension NewCreateSegmentVC
         let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
         let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
         let strTime = cell.txtTime.text!
-        let strLeftForce = cell.LeftForceText.text!
-        let strRightForce = cell.RightForceText.text!
-        let strLeftLoction = cell.btnLeftLocation.titleLabel?.text!.lowercased()
-        let strRightLocation = cell.btnRightLocation.titleLabel?.text!.lowercased()
+        let strLeftForce = cell.LeftForceText.text!.stripped
+        let strRightForce = cell.RightForceText.text!.stripped
+        let strLeftLoction = cell.btnLeftLocation.titleLabel!.text!.lowercased()
+        let strRightLocation = cell.btnRightLocation.titleLabel!.text!.lowercased()
         let strLeftPath = cell.txtLeftPath.text!
         let strRightPath = cell.txtRightPath.text!
-        let strLeftSpeed = cell.LeftSpeedText.text!
-        let strRightSpeed = cell.RightSpeedText.text!
+        let strLeftSpeed = cell.LeftSpeedText.text!.stripped
+        let strRightSpeed = cell.RightSpeedText.text!.stripped
         let strLeftTool = cell.txtLeftTool.text!
         let strRightTool = cell.txtRightTool.text!
         
@@ -965,7 +1121,8 @@ extension NewCreateSegmentVC
             self.hideLoading()
             if json.getString(key: "Response") == "Success"
             {
-                self.GetAllSegmentListApiCall()
+                showToast(message: json.getString(key: "response_message"))
+                self.GetAllSegmentListApiCall(Type: "Update")
             }
         }
     }
@@ -1076,10 +1233,10 @@ extension NewCreateSegmentVC
             let force_l = (Data.getString(key: "force_l") as NSString).floatValue
             let force_r = (Data.getString(key: "force_r") as NSString).floatValue
             
-          cell.LeftSpeedText.text = "\(speed_l)%"
-          cell.RightSpeedText.text = "\(speed_r)%"
-          cell.LeftForceText.text = "\(force_l)%"
-          cell.RightForceText.text = "\(force_r)%"
+        cell.LeftSpeedText.text = "\(Int(speed_l))%"
+        cell.RightSpeedText.text = "\(Int(speed_r))%"
+        cell.LeftForceText.text = "\(Int(force_l))%"
+        cell.RightForceText.text = "\(Int(force_r))%"
         
             cell.RightSpeedTree.layer.sublayers = nil;
             cell.LeftSpeedTree.layer.sublayers = nil;
@@ -1111,6 +1268,62 @@ extension NewCreateSegmentVC
             cell.btnLeftLocation.setTitle(LeftLocation, for: .normal)
             cell.btnRightLocation.setTitle(RightLocation, for: .normal)
             self.SetImagePart(LeftLocation: LeftLocation, RightLocation: RightLocation)
+    }
+    
+    func ReSetData()
+    {
+        
+        let indexPath = IndexPath.init(row: self.CurrentIndex, section: 0)
+        let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+        
+        cell.txtTime.text = ""
+        cell.txtLeftTool.text = ""
+        cell.txtRightTool.text = ""
+        cell.btnLeftLocation.setTitle("L. Location", for: .normal)
+        cell.btnRightLocation.setTitle("R. Location", for: .normal)
+        cell.txtLeftPath.text = ""
+        cell.txtRightPath.text = ""
+        
+        cell.LeftSpeedText.text = "0%"
+        cell.RightSpeedText.text = "0%"
+        
+        cell.RightSpeedTree.layer.sublayers = nil;
+        cell.LeftSpeedTree.layer.sublayers = nil;
+        
+        let triLeftSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: 140, height: 33))
+        triLeftSpeed.backgroundColor = .white
+        triLeftSpeed.setFillValue(value: CGFloat( 0 / 100))
+        cell.LeftSpeedTree.addSubview(triLeftSpeed)
+
+        let triRightSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
+        triRightSpeed.backgroundColor = .white
+        triRightSpeed.setFillValue(value: CGFloat( 0 / 100))
+        cell.RightSpeedTree.addSubview(triRightSpeed)
+        
+        cell.LeftForceText.text = "0%"
+        cell.RightForceText.text = "0%"
+        
+        cell.LeftForceTree.layer.sublayers = nil;
+        cell.RightForceTree.layer.sublayers = nil;
+        
+        let triLeftForce = TriangleView(frame: CGRect(x: 0, y: 0, width: 140 , height: 33))
+        triLeftForce.backgroundColor = .white
+        triLeftForce.setFillValue(value: CGFloat( 0 / 100))
+        cell.LeftForceTree.addSubview(triLeftForce)
+
+        let triRightForce = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
+        triRightForce.backgroundColor = .white
+        triRightForce.setFillValue(value: CGFloat( 0 / 100))
+        cell.RightForceTree.addSubview(triRightForce)
+        
+        self.FrontAndBackImage = ""
+       
+        self.StrLeftRightLocation = ""
+        self.StrLeftImagePart = ""
+        self.StrRightImagePart = ""
+        self.SliderValueSet = ""
+        self.SliderLeftRight = ""
+        self.SetImagePart(LeftLocation: "", RightLocation: "")
     }
 }
     
@@ -1370,10 +1583,10 @@ extension NewCreateSegmentVC : UICollectionViewDelegate,UICollectionViewDataSour
         let force_l = (Data.getString(key: "force_l") as NSString).floatValue
         let force_r = (Data.getString(key: "force_r") as NSString).floatValue
         
-        cell.LeftSpeedText.text = "\(speed_l)%"
-        cell.RightSpeedText.text = "\(speed_r)%"
-        cell.LeftForceText.text = "\(force_l)%"
-        cell.RightForceText.text = "\(force_r)%"
+        cell.LeftSpeedText.text = "\(Int(speed_l))%"
+        cell.RightSpeedText.text = "\(Int(speed_r))%"
+        cell.LeftForceText.text = "\(Int(force_l))%"
+        cell.RightForceText.text = "\(Int(force_r))%"
         
         cell.RightSpeedTree.layer.sublayers = nil;
         cell.LeftSpeedTree.layer.sublayers = nil;
@@ -1435,49 +1648,123 @@ extension  NewCreateSegmentVC {
     
     @objc func LeftLocationSelection(sender: UIButton)
     {
+        let indexPath = IndexPath.init(row: self.CurrentIndex, section: 0)
+        let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+        
         self.StrLeftRightLocation = "Left"
         self.btnBodyPartSelectionView.isHidden = false
         let strBodyPart = sender.title(for: .normal)
-        if strBodyPart == "L. Location"{
-            self.ImgBodyPartImage.image = UIImage(named: "LeftBodyP")
-        }else{
+        
+        if btnIsLink.isSelected == true {
             
-            if FrontAndBackImage == "F" {
-                self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeft")
-            } else if FrontAndBackImage == "B"{
-                self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftB")
-            }else {
-                self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeft")
+            if cell.btnRightLocation.titleLabel?.text == "R. Location" {
+                
+                if strBodyPart == "L. Location"{
+                    self.ImgBodyPartImage.image = UIImage(named: "LeftBodyP")
+                }else{
+                    
+                    if FrontAndBackImage == "F" {
+                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                    } else if FrontAndBackImage == "B"{
+                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftB")
+                    }else {
+                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                    }
+                }
+            } else {
+                
+                    
+                    if FrontAndBackImage == "F" {
+                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                    } else if FrontAndBackImage == "B"{
+                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftB")
+                    }else {
+                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                    }
             }
         }
+        else {
+          
+            if strBodyPart == "L. Location"{
+                self.ImgBodyPartImage.image = UIImage(named: "LeftBodyP")
+            }else{
+                
+                if FrontAndBackImage == "F" {
+                    self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                } else if FrontAndBackImage == "B"{
+                    self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftB")
+                }else {
+                    self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                }
+            }
+        }
+        
+        
     }
     @objc func RightLocationSelection(sender: UIButton)
     {
+        let indexPath = IndexPath.init(row: self.CurrentIndex, section: 0)
+        let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+        
         self.StrLeftRightLocation = "Right"
         self.btnBodyPartSelectionView.isHidden = false
         let strBodyPart = sender.title(for: .normal)
-        if strBodyPart == "R. Location"{
-            self.ImgBodyPartImage.image = UIImage(named: "RightBodyP")
-        }else{
+        
+        if btnIsLink.isSelected == true {
+
             
-            if FrontAndBackImage == "F" {
-                self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRight")
-            } else if FrontAndBackImage == "B"{
-                self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightB")
-            }else {
-                self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRight")
+            
+            if cell.btnLeftLocation.titleLabel?.text == "L. Location" {
+             
+                if strBodyPart == "R. Location"{
+                    self.ImgBodyPartImage.image = UIImage(named: "RightBodyP")
+                }else{
+                    
+                    if FrontAndBackImage == "F" {
+                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightF")
+                    } else if FrontAndBackImage == "B"{
+                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightB")
+                    }
+                }
+            } else {
+                    
+                    if FrontAndBackImage == "F" {
+                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightF")
+                    } else if FrontAndBackImage == "B"{
+                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightB")
+                    }
             }
-        }
+            
+        } else {
+           
+            if strBodyPart == "R. Location"{
+                self.ImgBodyPartImage.image = UIImage(named: "RightBodyP")
+            }else{
+                
+                if FrontAndBackImage == "F" {
+                    self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightF")
+                } else if FrontAndBackImage == "B"{
+                    self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightB")
+                }else {
+                    self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightF")
+                }
+            }
+       }
+        
     }
     
     @objc func LeftSpeed(sender: UIButton)
     {
+        self.SliderValue.value = 0
+        self.lblSliderValue.text = "0"
         self.SliderView.isHidden = false
         self.SliderValueSet = "speed"
         self.SliderLeftRight = "Left"
     }
     @objc func RightSpeed(sender: UIButton)
     {
+        self.SliderValue.value = 0
+        self.lblSliderValue.text = "0"
         self.SliderView.isHidden = false
         self.SliderValueSet = "speed"
         self.SliderLeftRight = "Right"
@@ -1485,11 +1772,15 @@ extension  NewCreateSegmentVC {
     @objc func LeftForce(sender: UIButton)
     {
         self.SliderView.isHidden = false
+        self.SliderValue.value = 0
+        self.lblSliderValue.text = "0"
         self.SliderValueSet = "force"
         self.SliderLeftRight = "Left"
     }
     @objc func RightForce(sender: UIButton)
     {
+        self.SliderValue.value = 0
+        self.lblSliderValue.text = "0"
         self.SliderView.isHidden = false
         self.SliderValueSet = "force"
         self.SliderLeftRight = "Right"
@@ -1499,20 +1790,30 @@ extension  NewCreateSegmentVC {
         
         let Data = notification.userInfo! as NSDictionary
         let Time = Data["Time"] as? String ?? ""
-       // self.rulerSize(size: Int(Time) ?? 0, index: CurrentIndex)
+        self.rulerSize(size: Int(Time) ?? 0, index: CurrentIndex)
     }
     
-//    func rulerSize(size: Int, index: Int) {
-//        let view = arrRuler[0]
-//        view.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: CGFloat(28 * size), height: view.frame.height)
-//        arrRuler[index] = view
-//    }
-//
-//    func changeColorOfRuler(index: Int) {
-//        RuleView.subviews.map({  if !$0.isKind(of: UIImageView.self ) { $0.backgroundColor = UIColor.btnBGColor } })
-//
-//        if let viewLast = RuleView.subviews[index] as? UIView {
-//            viewLast.backgroundColor = UIColor.SegmentCountBGColor
-//        }
-//    }
+    
+    func rulerSize(size: Int, index: Int) {
+        let view = arrRuler[index]
+        view.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: CGFloat(28 * size), height: view.frame.height)
+        arrRuler[index] = view
+       // self.changeColorOfRuler(index: index)
+    }
+
+    func changeColorOfRuler(index: Int) {
+        RuleView.subviews.map({  if !$0.isKind(of: UIImageView.self ) { $0.backgroundColor = UIColor.btnBGColor } })
+
+        if let viewLast = RuleView.subviews[index] as? UIView {
+            viewLast.backgroundColor = UIColor.SegmentCountBGColor
+        }
+    }
+}
+
+extension String {
+
+    var stripped: String {
+        let okayChars = Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890+-=().!_")
+        return self.filter {okayChars.contains($0) }
+    }
 }

@@ -3088,11 +3088,7 @@ extension CreateSegmentVC
 
             let size_Cal = size_du/60
 
-            let view = arrRuler[index]
-            view.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: CGFloat(28 * size_Cal), height: view.frame.height)
-            intRuler = 28 * size_Cal
-            isRulerAdd = true
-            arrRuler[index] = view
+           
 
             view1!.txtTime.text = String(format: "%d", size_Cal)
         }else {

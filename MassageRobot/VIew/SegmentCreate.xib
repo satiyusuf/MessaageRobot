@@ -679,6 +679,23 @@
             <point key="canvasLocation" x="347.82608695652175" y="198.88392857142856"/>
         </collectionViewCell>
     </objects>
+    <designables>
+        <designable name="683-US-5gd">
+            <size key="intrinsicContentSize" width="55" height="18.5"/>
+        </designable>
+        <designable name="NXm-R4-yig">
+            <size key="intrinsicContentSize" width="18" height="22.5"/>
+        </designable>
+        <designable name="OEq-0l-cyA">
+            <size key="intrinsicContentSize" width="56" height="18.5"/>
+        </designable>
+        <designable name="cQf-Qx-iof">
+            <size key="intrinsicContentSize" width="53" height="18.5"/>
+        </designable>
+        <designable name="wsY-a7-bg6">
+            <size key="intrinsicContentSize" width="54" height="18.5"/>
+        </designable>
+    </designables>
     <resources>
         <image name="AnimalIcon" width="43" height="55.5"/>
         <image name="ClockIcon" width="49" height="49"/>

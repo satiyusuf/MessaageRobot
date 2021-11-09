@@ -859,8 +859,8 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
     
     @IBAction func btnSettingAction(_ sender: UIButton) {
         let sb = UIStoryboard(name: "CreateToutine", bundle: nil)
-        let vc = sb.instantiateViewController(withIdentifier: "CreateSegmentVC") as! CreateSegmentVC
-        vc.strRoutingID = strRoutingID!
+        let vc = sb.instantiateViewController(withIdentifier: "NewCreateSegmentVC") as! NewCreateSegmentVC
+        vc.StrRoutingID = strRoutingID!
         vc.strPath = "NotCreateRoutine"
         vc.strRoutingUID = strRoutineUID
         navigationController?.pushViewController(vc, animated: false)

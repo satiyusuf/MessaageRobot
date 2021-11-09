@@ -176,6 +176,22 @@ extension SegmentCreate: UITextFieldDelegate
 {
     func textFieldDidBeginEditing(_ textField: UITextField) {
 
+    if txtTime.isEditing {
+        txtTime.text = "\(1)"
+    }else if txtLeftTool.isEditing {
+        txtLeftTool.text = arrTool[textField.tag]
+        picker.selectRow(txtLeftTool.tag, inComponent: 0, animated: true)
+    }else if txtRightTool.isEditing {
+        txtRightTool.text = arrTool[textField.tag]
+        picker.selectRow(txtRightTool.tag, inComponent: 0, animated: true)
+    }else if txtLeftPath.isEditing {
+        txtLeftPath.text = arrPath[textField.tag]
+        picker.selectRow(txtLeftPath.tag, inComponent: 0, animated: true)
+    }else if txtRightPath.isEditing {
+        txtRightPath.text = arrPath[textField.tag]
+        picker.selectRow(txtRightPath.tag, inComponent: 0, animated: true)
+    }
+        
         if textField == self.txtTime || textField == self.txtLeftTool || textField == self.txtRightTool || textField == self.txtLeftPath || textField == self.txtRightPath  {
             picker.reloadAllComponents()
         }
