@@ -31,7 +31,11 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var lblSliderValue: UILabel!
     @IBOutlet weak var SliderValue: UISlider!
     
-    @IBOutlet weak var Collection: UICollectionView!
+    @IBOutlet weak var ColleData: UICollectionView!
+    
+    @IBOutlet weak var ColleRuler: UICollectionView!
+    var arrRulerCount = [[String: Any]]()
+    var CellWidth = 28
     
     var arrUserDetail = [[String: Any]]()
     
@@ -72,9 +76,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
     {
         super.viewDidLoad()
         
+        self.ColleRuler.delegate = self
+        self.ColleRuler.dataSource = self
+        
         self.getUserDetailAPICall()
         let nib = UINib(nibName: "SegmentCreate", bundle: nil)
-        Collection.register(nib, forCellWithReuseIdentifier: "SegmentCreate")
+        ColleData.register(nib, forCellWithReuseIdentifier: "SegmentCreate")
         NotificationCenter.default.addObserver(self, selector: #selector(self.TimeReceivedNotification(notification:)), name: Notification.Name("Time"), object: nil)
         
         let userID: String = UserDefaults.standard.object(forKey: USERID) as? String ?? "9ccx8ms5pc0000000000"
@@ -93,26 +100,28 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if strPath == "NotCreateRoutine" {
             self.GetAllSegmentListApiCall(Type: "Fetch")
         }else {
-            let Dict = ["segment":"Emty"]
+            let Dict = ["segment":"false"]
+            let Dict1 = ["segment":"false","duration":"28"]
             arrSegmentList.append(Dict)
-            self.Collection.reloadData()
+            arrRulerCount.append(Dict1)
+            self.ColleData.reloadData()
+            self.ColleRuler.reloadData()
             
-//            let view = UIView(frame: CGRect(x: 12, y: 32, width: 28, height: 36))
-//            view.backgroundColor = UIColor.SegmentCountBGColor
-//
-//            let lblSegCount = UILabel(frame: CGRect(x: 12, y: 32, width: 28, height: 36))
-//            lblSegCount.font = lblSegCount.font.withSize(10)
-//            lblSegCount.textAlignment = .center
-//            lblSegCount.text = "01"
-//            lblSegCount.textColor = UIColor.black
-//            lblSegCount.backgroundColor = UIColor.red
-//            lblSegCount.layer.masksToBounds = true
-//            lblSegCount.layer.cornerRadius = 10.0
-//
-//            //view.addSubview(lblSegCount)
-//            RuleView.addSubview(lblSegCount)
-//            arrRuler.append(view)
-           // changeColorOfRuler(index: CurrentIndex)
+           /* let view = UIView(frame: CGRect(x: 12, y: 32, width: 28, height: 36))
+            view.backgroundColor = UIColor.SegmentCountBGColor
+
+            let lblSegCount = UILabel(frame: CGRect(x: 4, y: 8, width: 20, height: 20))
+            lblSegCount.font = lblSegCount.font.withSize(10)
+            lblSegCount.textAlignment = .center
+            lblSegCount.text = "01"
+            lblSegCount.textColor = UIColor.black
+            lblSegCount.backgroundColor = UIColor.white
+            lblSegCount.layer.masksToBounds = true
+            lblSegCount.layer.cornerRadius = 10.0
+
+            view.addSubview(lblSegCount)
+            RuleView.addSubview(view)
+            arrRuler.append(view)*/
         }
     }
     
@@ -140,7 +149,11 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         
         CurrentIndex = 0
         let indexPath = IndexPath(item: CurrentIndex , section: 0)
-        Collection.scrollToItem(at: indexPath, at: .left, animated: true)
+        ColleData.scrollToItem(at: indexPath, at: .left, animated: true)
+        defer {
+            self.DataFill(Index: CurrentIndex)
+        }
+        self.ColleRuler.reloadData()
     }
    
     @IBAction func btnMinesh(_ sender: Any) {
@@ -191,23 +204,35 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         
         CurrentIndex = arrSegmentList.count - 1
         let indexPath = IndexPath(item: CurrentIndex , section: 0)
-        Collection.scrollToItem(at: indexPath, at: .right, animated: true)
+        ColleData.scrollToItem(at: indexPath, at: .right, animated: true)
+        defer {
+            self.DataFill(Index: CurrentIndex)
+        }
+        self.ColleRuler.reloadData()
     }
     @IBAction func btnPrevi(_ sender: Any) {
         
-        if Collection.contentOffset.x > 0 {
+        if ColleData.contentOffset.x > 0 {
             CurrentIndex -= 1
             let indexPath = IndexPath(item: CurrentIndex , section: 0)
-            Collection.scrollToItem(at: indexPath, at: .left, animated: true)
+            ColleData.scrollToItem(at: indexPath, at: .left, animated: true)
+            defer {
+                self.DataFill(Index: CurrentIndex)
+            }
+            self.ColleRuler.reloadData()
         }
     }
     @IBAction func btnNext(_ sender: Any) {
         
-        if Collection.contentOffset.x < self.view.bounds.width * CGFloat(arrSegmentList.count - 1)
+        if ColleData.contentOffset.x < self.view.bounds.width * CGFloat(arrSegmentList.count - 1)
         {
             CurrentIndex += 1
             let indexPath = IndexPath(item: CurrentIndex , section: 0)
-            Collection.scrollToItem(at: indexPath, at: .right, animated: true)
+            ColleData.scrollToItem(at: indexPath, at: .right, animated: true)
+            defer {
+                self.DataFill(Index: CurrentIndex)
+            }
+            self.ColleRuler.reloadData()
         }
     }
     //MARK:- Slider Value Change Action
@@ -223,7 +248,7 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
     @IBAction func btnSliderViewHide(_ sender: Any) {
         
         let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-        let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+        let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
         
         if SliderValueSet == "speed" {
 
@@ -312,19 +337,19 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             if StrLeftRightLocation == "Left" {
                 
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Pectoralis", for: .normal)
                 self.StrLeftImagePart = "pectoralis"
             } else if StrLeftRightLocation == "Right" {
                 
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Pectoralis", for: .normal)
                 self.StrRightImagePart = "pectoralis"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnRightLocation.setTitle("Pectoralis", for: .normal)
             cell.btnLeftLocation.setTitle("Pectoralis", for: .normal)
             self.StrRightImagePart = "pectoralis"
@@ -340,18 +365,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             if StrLeftRightLocation == "Left" {
                 
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("iliotibal Tract", for: .normal)
                 self.StrLeftImagePart = "iliotibal tract"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("iliotibal Tract", for: .normal)
                 self.StrRightImagePart = "iliotibal tract"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("iliotibal Tract", for: .normal)
             cell.btnRightLocation.setTitle("iliotibal Tract", for: .normal)
             self.StrLeftImagePart = "iliotibal tract"
@@ -366,18 +391,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Quadracepts", for: .normal)
                 self.StrLeftImagePart = "quadracepts"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Quadracepts", for: .normal)
                 self.StrRightImagePart = "quadracepts"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("Quadracepts", for: .normal)
             cell.btnRightLocation.setTitle("Quadracepts", for: .normal)
             self.StrRightImagePart = "quadracepts"
@@ -392,18 +417,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("bodyparam", for: .normal)
                 self.StrLeftImagePart = "bodyparam"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("bodyparam", for: .normal)
                 self.StrRightImagePart = "bodyparam"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("bodyparam", for: .normal)
             cell.btnRightLocation.setTitle("bodyparam", for: .normal)
             self.StrRightImagePart = "bodyparam"
@@ -418,18 +443,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Tibalis Anterior", for: .normal)
                 self.StrLeftImagePart = "tibalis anterior"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Tibalis Anterior", for: .normal)
                 self.StrRightImagePart = "tibalis anterior"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("Tibalis Anterior", for: .normal)
             cell.btnRightLocation.setTitle("Tibalis Anterior", for: .normal)
             self.StrLeftImagePart = "tibalis anterior"
@@ -445,19 +470,19 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Pectoralis", for: .normal)
                 self.StrLeftImagePart = "tibalis anterior"
                 self.StrLeftImagePart = "pectoralis"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Pectoralis", for: .normal)
                 self.StrRightImagePart = "pectoralis"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("Pectoralis", for: .normal)
             cell.btnRightLocation.setTitle("Pectoralis", for: .normal)
             self.StrLeftImagePart = "pectoralis"
@@ -472,18 +497,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("iliotibal Tract", for: .normal)
                 self.StrLeftImagePart = "iliotibal tract"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("iliotibal Tract", for: .normal)
                 self.StrRightImagePart = "iliotibal tract"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("iliotibal Tract", for: .normal)
             cell.btnRightLocation.setTitle("iliotibal Tract", for: .normal)
             self.StrLeftImagePart = "iliotibal tract"
@@ -498,18 +523,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Quadracepts", for: .normal)
                 self.StrLeftImagePart = "quadracepts"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Quadracepts", for: .normal)
                 self.StrRightImagePart = "quadracepts"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnRightLocation.setTitle("Quadracepts", for: .normal)
             cell.btnLeftLocation.setTitle("Quadracepts", for: .normal)
             self.StrRightImagePart = "quadracepts"
@@ -524,18 +549,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Bodyparam", for: .normal)
                 self.StrLeftImagePart = "bodyparam"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Bodyparam", for: .normal)
                 self.StrRightImagePart = "bodyparam"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnRightLocation.setTitle("Bodyparam", for: .normal)
             cell.btnLeftLocation.setTitle("Bodyparam", for: .normal)
             self.StrLeftImagePart = "bodyparam"
@@ -550,18 +575,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Tibalis Anterior", for: .normal)
                 self.StrLeftImagePart = "tibalis anterior"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Tibalis Anterior", for: .normal)
                 self.StrRightImagePart = "tibalis anterior"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("Tibalis Anterior", for: .normal)
             cell.btnRightLocation.setTitle("Tibalis Anterior", for: .normal)
             self.StrLeftImagePart = "tibalis anterior"
@@ -577,18 +602,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Deltoid", for: .normal)
                 self.StrLeftImagePart = "deltoid"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Deltoid", for: .normal)
                 self.StrRightImagePart = "deltoid"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("Deltoid", for: .normal)
             cell.btnRightLocation.setTitle("Deltoid", for: .normal)
             self.StrLeftImagePart = "deltoid"
@@ -603,18 +628,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Upperback", for: .normal)
                 self.StrLeftImagePart = "upperback"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Upperback", for: .normal)
                 self.StrRightImagePart = "upperback"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("Upperback", for: .normal)
             cell.btnRightLocation.setTitle("Upperback", for: .normal)
             self.StrLeftImagePart = "upperback"
@@ -629,18 +654,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Lowerback", for: .normal)
                 self.StrLeftImagePart = "lowerback"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Lowerback", for: .normal)
                 self.StrRightImagePart = "lowerback"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("Lowerback", for: .normal)
             cell.btnRightLocation.setTitle("Lowerback", for: .normal)
             self.StrRightImagePart = "lowerback"
@@ -656,18 +681,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Gastrocnemius", for: .normal)
                 self.StrLeftImagePart = "gastrocnemius"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Gastrocnemius", for: .normal)
                 self.StrRightImagePart = "gastrocnemius"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("Gastrocnemius", for: .normal)
             cell.btnRightLocation.setTitle("Gastrocnemius", for: .normal)
             self.StrLeftImagePart = "gastrocnemius"
@@ -681,18 +706,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
        if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Hamstring", for: .normal)
                 self.StrLeftImagePart = "hamstring"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Hamstring", for: .normal)
                 self.StrRightImagePart = "hamstring"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("Hamstring", for: .normal)
             cell.btnRightLocation.setTitle("Hamstring", for: .normal)
             self.StrLeftImagePart = "hamstring"
@@ -707,18 +732,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Glutiusmaximus", for: .normal)
                 self.StrLeftImagePart = "glutiusmaximus"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Glutiusmaximus", for: .normal)
                 self.StrRightImagePart = "glutiusmaximus"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("Glutiusmaximus", for: .normal)
             cell.btnRightLocation.setTitle("Glutiusmaximus", for: .normal)
             self.StrLeftImagePart = "glutiusmaximus"
@@ -735,18 +760,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Deltoid", for: .normal)
                 self.StrLeftImagePart = "deltoid"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Deltoid", for: .normal)
                 self.StrRightImagePart = "deltoid"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("Deltoid", for: .normal)
             cell.btnRightLocation.setTitle("Deltoid", for: .normal)
             self.StrLeftImagePart = "deltoid"
@@ -761,18 +786,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Upperback", for: .normal)
                 self.StrLeftImagePart = "upperback"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Upperback", for: .normal)
                 self.StrRightImagePart = "upperback"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("Upperback", for: .normal)
             cell.btnRightLocation.setTitle("Upperback", for: .normal)
             self.StrLeftImagePart = "upperback"
@@ -787,18 +812,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Lowerback", for: .normal)
                 self.StrLeftImagePart = "lowerback"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Lowerback", for: .normal)
                 self.StrRightImagePart = "lowerback"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("Lowerback", for: .normal)
             cell.btnRightLocation.setTitle("Lowerback", for: .normal)
             self.StrLeftImagePart = "lowerback"
@@ -813,18 +838,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Gastrocnemius", for: .normal)
                 self.StrLeftImagePart = "gastrocnemius"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Gastrocnemius", for: .normal)
                 self.StrRightImagePart = "gastrocnemius"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("Gastrocnemius", for: .normal)
             cell.btnRightLocation.setTitle("Gastrocnemius", for: .normal)
             self.StrLeftImagePart = "gastrocnemius"
@@ -839,18 +864,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Hamstring", for: .normal)
                 self.StrLeftImagePart = "hamstring"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Hamstring", for: .normal)
                 self.StrRightImagePart = "hamstring"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("Hamstring", for: .normal)
             cell.btnRightLocation.setTitle("Hamstring", for: .normal)
             self.StrLeftImagePart = "hamstring"
@@ -865,18 +890,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnLeftLocation.setTitle("Glutiusmaximus", for: .normal)
                 self.StrLeftImagePart = "glutiusmaximus"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-                let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
                 cell.btnRightLocation.setTitle("Glutiusmaximus", for: .normal)
                 self.StrRightImagePart = "glutiusmaximus"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             cell.btnLeftLocation.setTitle("Glutiusmaximus", for: .normal)
             cell.btnRightLocation.setTitle("Glutiusmaximus", for: .normal)
             self.StrLeftImagePart = "glutiusmaximus"
@@ -894,11 +919,11 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 
-      let index: Int = Int(Collection.contentOffset.x / Collection.bounds.size.width)
+      let index: Int = Int(ColleData.contentOffset.x / ColleData.bounds.size.width)
       print("CurrentIndex::\(index)")
       self.CurrentIndex = index
       self.DataFill(Index: index)
-        changeColorOfRuler(index: CurrentIndex)
+      self.ColleRuler.reloadData()
     }
 }
 //MARK:- Call Api Function
@@ -985,7 +1010,7 @@ extension NewCreateSegmentVC
         let strTimeC: String = String(format: "%@", timeAndDate[1])
         
         let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-        let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+        let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
         let strTime = cell.txtTime.text!
         let strLeftForce = cell.LeftForceText.text!.stripped
         let strRightForce = cell.RightForceText.text!.stripped
@@ -1010,6 +1035,10 @@ extension NewCreateSegmentVC
             self.hideLoading()
             if json.getString(key: "Response") == "Success"
             {
+                self.StrLeftRightLocation = ""
+                self.StrLeftImagePart = ""
+                self.StrRightImagePart = ""
+                
                 showToast(message: json.getString(key: "response_message"))
                 self.GetAllSegmentListApiCall(Type: "Create")
             }
@@ -1034,53 +1063,89 @@ extension NewCreateSegmentVC
                     self.arrSegmentList.removeAll()
                     if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
                         arrSegmentList.append(contentsOf: jsonArray)
-                        
+                        arrRulerCount.append(contentsOf: jsonArray)
                         self.CurrentIndex = 0
                         
                         
                         if Type == "Update" {
-                            self.Collection.reloadData()
+                            self.ColleData.reloadData()
                         } else if Type == "Delete" {
-                            self.Collection.reloadData()
-                        } else {
-                            let Dict = ["segment":"Emty"]
+                            self.ColleData.reloadData()
+                        } else if Type == "Fetch" {
+                            let Dict = ["segment":"false"]
                             arrSegmentList.append(Dict)
-                            
-                            self.Collection.reloadData()
+                            self.ColleData.reloadData()
+                        }
+                        else {
+                            let Dict = ["segment":"false"]
+                            arrSegmentList.append(Dict)
+                            self.ColleData.reloadData()
                             
                             CurrentIndex = arrSegmentList.count - 1
                             let indexPath = IndexPath(item: CurrentIndex , section: 0)
-                            Collection.scrollToItem(at: indexPath, at: .right, animated: true)
+                            ColleData.scrollToItem(at: indexPath, at: .right, animated: true)
+                        }
+                        self.ColleRuler.reloadData()
+                        self.arrRulerCount.removeAll()
+                        
+                        
+                        for (index, element) in arrSegmentList.enumerated() {
+                            var Size = element.getString(key: "duration")
+                            var isCount = element.getString(key: "segment")
+                            if isCount == "false" {
+                                Size = "28"
+                            } else if isCount.isEmpty == true {
+                                isCount = "true"
+                            }
+                            let Dict = ["duration":Size,"segment":isCount]
+                            self.arrRulerCount.append(Dict)
                         }
                         
-                        arrRuler.removeAll()
+                        self.ColleRuler.reloadData()
                         
-//                        for (index, element) in arrSegmentList.enumerated() {
-//
-//                            let size_du = (element.getString(key: "duration") as NSString).integerValue
-//
-//                            let view = UIView(frame: CGRect(x: 12 + size_du, y: 32, width: size_du, height: 36))
-//
-//                            view.backgroundColor = UIColor.SegmentCountBGColor
-//
-//                            let lblSegCount = UILabel(frame: CGRect(x: 4, y: 8, width: 20, height: 20))
-//                            lblSegCount.font = lblSegCount.font.withSize(10)
-//                            lblSegCount.textAlignment = .center
-//
-//                            lblSegCount.text = "\(index)"
-//
-//                            lblSegCount.textColor = UIColor.black
-//                            lblSegCount.backgroundColor = UIColor.white
-//                            lblSegCount.layer.masksToBounds = true
-//                            lblSegCount.layer.cornerRadius = 10.0
-//
-//                            view.addSubview(lblSegCount)
-//
-//                            RuleView.addSubview(view)
-//                            arrRuler.append(view)
-//                        }
+                        //arrRuler.removeAll()
                         
-                        //changeColorOfRuler(index: CurrentIndex)
+                        /*
+                        var xPos = 12;
+                        
+                        for (index, element) in arrSegmentList.enumerated() {
+
+                            let size_du = (element.getString(key: "duration") as NSString).integerValue
+                            
+                           
+                            var view = UIView()
+                         
+                            if(index != 0){
+                                let oldView = arrRuler[index - 1]
+                                xPos = Int(oldView.frame.origin.x) + size_du
+                                view = UIView(frame: CGRect(x: xPos, y: 32, width: size_du == 0 ? 28 : size_du, height: 36))
+                            } else {
+                                view = UIView(frame: CGRect(x: xPos, y: 32, width: size_du == 0 ? 28 : size_du, height: 36))
+                            }
+                         
+                            //xPos = xPos + size_du == 0 ? 28 : size_du
+                         
+                            
+                            view.backgroundColor = UIColor.SegmentCountBGColor
+
+                            let lblSegCount = UILabel(frame: CGRect(x: 4, y: 8, width: 20, height: 20))
+                            lblSegCount.font = lblSegCount.font.withSize(10)
+                            lblSegCount.textAlignment = .center
+
+                            lblSegCount.text = "\(index)"
+
+                            lblSegCount.textColor = UIColor.black
+                            lblSegCount.backgroundColor = UIColor.white
+                            lblSegCount.layer.masksToBounds = true
+                            lblSegCount.layer.cornerRadius = 10.0
+
+                            view.addSubview(lblSegCount)
+
+                            RuleView.addSubview(view)
+                            arrRuler.append(view)
+                        }
+                        
+                        changeColorOfRuler(index: CurrentIndex)*/
                        
                     } else {
                         showToast(message: "Bad Json")
@@ -1095,7 +1160,7 @@ extension NewCreateSegmentVC
     func SegmentUpdateApiCall()
     {
         let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-        let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+        let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
         let strTime = cell.txtTime.text!
         let strLeftForce = cell.LeftForceText.text!.stripped
         let strRightForce = cell.RightForceText.text!.stripped
@@ -1130,7 +1195,7 @@ extension NewCreateSegmentVC
     private func SegmentCreateDataEmty()
     {
         let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-        let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+        let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
         
         if cell.txtLeftTool.text?.isEmpty == true {
             showToast(message: "Please insert left tool.")
@@ -1169,7 +1234,7 @@ extension NewCreateSegmentVC
     private func SegmentUpdateDataEmty()
     {
         let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
-        let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+        let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
         
         if cell.txtLeftTool.text?.isEmpty == true {
             showToast(message: "Please insert left tool.")
@@ -1210,7 +1275,7 @@ extension NewCreateSegmentVC
     {
             
             let indexPath = IndexPath.init(row: Index, section: 0)
-            let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
             
             let Data = arrSegmentList[Index]
             
@@ -1261,6 +1326,8 @@ extension NewCreateSegmentVC
             triRightForce.setFillValue(value: CGFloat( force_r / 100))
             cell.RightForceTree.addSubview(triRightForce)
             
+        if arrSegmentList.count - 1 == CurrentIndex {
+            
             let LeftLocation = Data["location_l"] as? String ?? "L. Location"//Data.getString(key: "")
             let RightLocation = Data["location_r"] as? String ?? "R. Location" //Data.getString(key: "location_r")
             let BodyLocation = Data.getString(key: "body_location")
@@ -1268,13 +1335,25 @@ extension NewCreateSegmentVC
             cell.btnLeftLocation.setTitle(LeftLocation, for: .normal)
             cell.btnRightLocation.setTitle(RightLocation, for: .normal)
             self.SetImagePart(LeftLocation: LeftLocation, RightLocation: RightLocation)
+            
+        } else {
+            let LeftLocation = Data.getString(key: "location_l")
+            let RightLocation = Data.getString(key: "location_r")
+            let BodyLocation = Data.getString(key: "body_location")
+            self.FrontAndBackImage = BodyLocation
+            cell.btnLeftLocation.setTitle(LeftLocation, for: .normal)
+            cell.btnRightLocation.setTitle(RightLocation, for: .normal)
+            self.SetImagePart(LeftLocation: LeftLocation, RightLocation: RightLocation)
+        }
+        
+            
     }
     
     func ReSetData()
     {
         
         let indexPath = IndexPath.init(row: self.CurrentIndex, section: 0)
-        let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+        let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
         
         cell.txtTime.text = ""
         cell.txtLeftTool.text = ""
@@ -1375,7 +1454,7 @@ extension NewCreateSegmentVC {
             }
             else if LeftLocation == "gastrocnemius"
             {
-                ImageL = "F-L-calf"
+                ImageL = "F-L-glut"
             }
             else if LeftLocation == "quadracepts"
             {
@@ -1399,7 +1478,7 @@ extension NewCreateSegmentVC {
             }
             else if LeftLocation == "glutiusmaximus"
             {
-                ImageL = "F-L-glut"
+                ImageL = "F-L-calf"
             }
             
             if RightLocation == "upperback"
@@ -1416,7 +1495,7 @@ extension NewCreateSegmentVC {
             }
             else if RightLocation == "gastrocnemius"
             {
-                ImageR = "F-R-calf"
+                ImageR = "F-R-glut"
             }
             else if RightLocation == "quadracepts"
             {
@@ -1440,8 +1519,9 @@ extension NewCreateSegmentVC {
             }
             else if RightLocation == "glutiusmaximus"
             {
-                ImageR = "F-R-glut"
+                ImageR = "F-R-calf"
             }
+            
             self.ImgLeft.image = UIImage(named: ImageL)
             self.ImgRight.image = UIImage(named: ImageR)
         } else {
@@ -1462,7 +1542,7 @@ extension NewCreateSegmentVC {
             }
             else if LeftLocation == "gastrocnemius"
             {
-                ImageL = "L-calf"
+                ImageL = "L-glut"
             }
             else if LeftLocation == "quadracepts"
             {
@@ -1486,7 +1566,7 @@ extension NewCreateSegmentVC {
             }
             else if LeftLocation == "glutiusmaximus"
             {
-                ImageL = "L-glut"
+                ImageL = "L-calf"
             }
             
             
@@ -1505,7 +1585,7 @@ extension NewCreateSegmentVC {
             }
             else if RightLocation == "gastrocnemius"
             {
-                ImageR = "R-calf"
+                ImageR = "R-glut"
             }
             else if RightLocation == "quadracepts"
             {
@@ -1529,7 +1609,7 @@ extension NewCreateSegmentVC {
             }
             else if RightLocation == "glutiusmaximus"
             {
-                ImageR = "R-glut"
+                ImageR = "R-calf"
             }
             self.ImgLeft.image = UIImage(named: ImageL)
             self.ImgRight.image = UIImage(named: ImageR)
@@ -1541,86 +1621,117 @@ extension NewCreateSegmentVC {
 extension NewCreateSegmentVC : UICollectionViewDelegate,UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        if collectionView == ColleRuler {
+            return 1
+        } else {
+            return 1
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //let count = arrSegmentList.count + 1
-        return arrSegmentList.count
+        
+        if collectionView == ColleRuler {
+            return arrRulerCount.count
+        } else {
+            return arrSegmentList.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SegmentCreate", for: indexPath) as! SegmentCreate
- 
-        cell.btnLeftLocation.tag = indexPath.row
-        cell.btnLeftLocation.addTarget(self, action: #selector(LeftLocationSelection(sender:)), for: .touchUpInside)
-        cell.btnRightLocation.tag = indexPath.row
-        cell.btnRightLocation.addTarget(self, action: #selector(RightLocationSelection(sender:)), for: .touchUpInside)
-        
-        cell.btnLeftSpeed.tag = indexPath.row
-        cell.btnLeftSpeed.addTarget(self, action: #selector(LeftSpeed(sender:)), for: .touchUpInside)
-        cell.btnRightSpeed.tag = indexPath.row
-        cell.btnRightSpeed.addTarget(self, action: #selector(RightSpeed(sender:)), for: .touchUpInside)
-        
-        cell.btnLeftForce.tag = indexPath.row
-        cell.btnLeftForce.addTarget(self, action: #selector(LeftForce(sender:)), for: .touchUpInside)
-        cell.btnRightForce.tag = indexPath.row
-        cell.btnRightForce.addTarget(self, action: #selector(RightForce(sender:)), for: .touchUpInside)
-        
-        
-        let Data = arrSegmentList[indexPath.row]
-        
-        cell.SegmentCount.text = "\(indexPath.row + 1)"
-        cell.txtTime.text = Data.getString(key: "duration")
-        cell.txtLeftTool.text = Data.getString(key: "tool_l")
-        cell.txtRightTool.text = Data.getString(key: "tool_r")
-        cell.txtLeftPath.text = Data.getString(key: "path_l")
-        cell.txtRightPath.text = Data.getString(key: "path_r")
-                
-        let speed_l = (Data.getString(key: "speed_l") as NSString).floatValue
-        let speed_r = (Data.getString(key: "speed_r") as NSString).floatValue
-        let force_l = (Data.getString(key: "force_l") as NSString).floatValue
-        let force_r = (Data.getString(key: "force_r") as NSString).floatValue
-        
-        cell.LeftSpeedText.text = "\(Int(speed_l))%"
-        cell.RightSpeedText.text = "\(Int(speed_r))%"
-        cell.LeftForceText.text = "\(Int(force_l))%"
-        cell.RightForceText.text = "\(Int(force_r))%"
-        
-        cell.RightSpeedTree.layer.sublayers = nil;
-        cell.LeftSpeedTree.layer.sublayers = nil;
-        
-        let triLeftSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: 140, height: 33))
-        triLeftSpeed.backgroundColor = .white
-        triLeftSpeed.setFillValue(value: CGFloat(speed_l / 100))
-        cell.LeftSpeedTree.addSubview(triLeftSpeed)
+        if collectionView == ColleRuler {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RulerCell", for: indexPath) as! RulerCell
+            cell.lblCount.text = "\(indexPath.row + 1)"
+          //  cell.backgroundColor = UIColor.red
+            
+            if CurrentIndex == indexPath.row {
+                cell.backgroundColor = UIColor.SegmentCountBGColor
+            } else {
+                cell.backgroundColor = UIColor.btnBGColor
+            }
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SegmentCreate", for: indexPath) as! SegmentCreate
+     
+            cell.btnLeftLocation.tag = indexPath.row
+            cell.btnLeftLocation.addTarget(self, action: #selector(LeftLocationSelection(sender:)), for: .touchUpInside)
+            cell.btnRightLocation.tag = indexPath.row
+            cell.btnRightLocation.addTarget(self, action: #selector(RightLocationSelection(sender:)), for: .touchUpInside)
+            
+            cell.btnLeftSpeed.tag = indexPath.row
+            cell.btnLeftSpeed.addTarget(self, action: #selector(LeftSpeed(sender:)), for: .touchUpInside)
+            cell.btnRightSpeed.tag = indexPath.row
+            cell.btnRightSpeed.addTarget(self, action: #selector(RightSpeed(sender:)), for: .touchUpInside)
+            
+            cell.btnLeftForce.tag = indexPath.row
+            cell.btnLeftForce.addTarget(self, action: #selector(LeftForce(sender:)), for: .touchUpInside)
+            cell.btnRightForce.tag = indexPath.row
+            cell.btnRightForce.addTarget(self, action: #selector(RightForce(sender:)), for: .touchUpInside)
+            
+            
+            let Data = arrSegmentList[indexPath.row]
+            
+            cell.SegmentCount.text = "\(indexPath.row + 1)"
+            cell.txtTime.text = Data.getString(key: "duration")
+            cell.txtLeftTool.text = Data.getString(key: "tool_l")
+            cell.txtRightTool.text = Data.getString(key: "tool_r")
+            cell.txtLeftPath.text = Data.getString(key: "path_l")
+            cell.txtRightPath.text = Data.getString(key: "path_r")
+                    
+            let speed_l = (Data.getString(key: "speed_l") as NSString).floatValue
+            let speed_r = (Data.getString(key: "speed_r") as NSString).floatValue
+            let force_l = (Data.getString(key: "force_l") as NSString).floatValue
+            let force_r = (Data.getString(key: "force_r") as NSString).floatValue
+            
+            cell.LeftSpeedText.text = "\(Int(speed_l))%"
+            cell.RightSpeedText.text = "\(Int(speed_r))%"
+            cell.LeftForceText.text = "\(Int(force_l))%"
+            cell.RightForceText.text = "\(Int(force_r))%"
+            
+            cell.RightSpeedTree.layer.sublayers = nil;
+            cell.LeftSpeedTree.layer.sublayers = nil;
+            
+            let triLeftSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: 140, height: 33))
+            triLeftSpeed.backgroundColor = .white
+            triLeftSpeed.setFillValue(value: CGFloat(speed_l / 100))
+            cell.LeftSpeedTree.addSubview(triLeftSpeed)
 
-        let triRightSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
-        triRightSpeed.backgroundColor = .white
-        triRightSpeed.setFillValue(value: CGFloat( speed_r / 100))
-        cell.RightSpeedTree.addSubview(triRightSpeed)
-        
-        let triLeftForce = TriangleView(frame: CGRect(x: 0, y: 0, width: 140 , height: 33))
-        triLeftForce.backgroundColor = .white
-        triLeftForce.setFillValue(value: CGFloat(force_l / 100))
-        cell.LeftForceTree.addSubview(triLeftForce)
+            let triRightSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
+            triRightSpeed.backgroundColor = .white
+            triRightSpeed.setFillValue(value: CGFloat( speed_r / 100))
+            cell.RightSpeedTree.addSubview(triRightSpeed)
+            
+            let triLeftForce = TriangleView(frame: CGRect(x: 0, y: 0, width: 140 , height: 33))
+            triLeftForce.backgroundColor = .white
+            triLeftForce.setFillValue(value: CGFloat(force_l / 100))
+            cell.LeftForceTree.addSubview(triLeftForce)
 
-        let triRightForce = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
-        triRightForce.backgroundColor = .white
-        triRightForce.setFillValue(value: CGFloat( force_r / 100))
-        cell.RightForceTree.addSubview(triRightForce)
-        
-        let LeftLocation = Data["location_l"] as? String ?? "L. Location"//Data.getString(key: "")
-        let RightLocation = Data["location_r"] as? String ?? "R. Location" //Data.getString(key: "location_r")
-        let BodyLocation = Data.getString(key: "body_location")
-        self.FrontAndBackImage = BodyLocation
-        cell.btnLeftLocation.setTitle(LeftLocation, for: .normal)
-        cell.btnRightLocation.setTitle(RightLocation, for: .normal)
-        self.SetImagePart(LeftLocation: LeftLocation, RightLocation: RightLocation)
-        
-
-        return cell
+            let triRightForce = TriangleView(frame: CGRect(x: 0, y: 0, width:140 , height: 33))
+            triRightForce.backgroundColor = .white
+            triRightForce.setFillValue(value: CGFloat( force_r / 100))
+            cell.RightForceTree.addSubview(triRightForce)
+            
+            if indexPath.row == arrSegmentList.count - 1 {
+                let LeftLocation = Data["location_l"] as? String ?? "L. Location"//Data.getString(key: "")
+                let RightLocation = Data["location_r"] as? String ?? "R. Location" //Data.getString(key: "location_r")
+                let BodyLocation = Data.getString(key: "body_location")
+                self.FrontAndBackImage = BodyLocation
+                cell.btnLeftLocation.setTitle(LeftLocation, for: .normal)
+                cell.btnRightLocation.setTitle(RightLocation, for: .normal)
+                self.SetImagePart(LeftLocation: LeftLocation, RightLocation: RightLocation)
+            } else {
+                let LeftLocation = Data.getString(key: "location_l")
+                let RightLocation = Data.getString(key: "location_r")
+                let BodyLocation = Data.getString(key: "body_location")
+                self.FrontAndBackImage = BodyLocation
+                cell.btnLeftLocation.setTitle(LeftLocation, for: .normal)
+                cell.btnRightLocation.setTitle(RightLocation, for: .normal)
+                self.SetImagePart(LeftLocation: LeftLocation, RightLocation: RightLocation)
+            }
+            
+            
+            return cell
+        }
     }
 }
 
@@ -1629,8 +1740,30 @@ extension NewCreateSegmentVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let collectionWidth = view.bounds.width
-        return CGSize(width: collectionWidth, height: 440)
+        if collectionView == ColleRuler {
+            
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RulerCell", for: indexPath) as? RulerCell else {
+                return CGSize.zero
+            }
+            //let Dict1 = ["duration":"30","IsCount":"False"]
+            let IsCount = arrRulerCount[indexPath.row]["segment"] as? String ?? ""
+            let Duration = arrRulerCount[indexPath.row]["duration"] as? String ?? ""
+            var Width = Int()
+            
+            if IsCount == "true" {
+                Width = Int(Duration)! * 28
+            } else {
+                Width = Int(Duration)!
+            }
+            cell.setNeedsLayout()
+            cell.layoutIfNeeded()
+            return CGSize(width: Width, height: 40)
+            
+        } else {
+            let collectionWidth = view.bounds.width
+            return CGSize(width: collectionWidth, height: 440)
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -1649,7 +1782,7 @@ extension  NewCreateSegmentVC {
     @objc func LeftLocationSelection(sender: UIButton)
     {
         let indexPath = IndexPath.init(row: self.CurrentIndex, section: 0)
-        let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+        let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
         
         self.StrLeftRightLocation = "Left"
         self.btnBodyPartSelectionView.isHidden = false
@@ -1704,7 +1837,7 @@ extension  NewCreateSegmentVC {
     @objc func RightLocationSelection(sender: UIButton)
     {
         let indexPath = IndexPath.init(row: self.CurrentIndex, section: 0)
-        let cell = Collection.cellForItem(at: indexPath) as! SegmentCreate
+        let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
         
         self.StrLeftRightLocation = "Right"
         self.btnBodyPartSelectionView.isHidden = false
@@ -1790,23 +1923,9 @@ extension  NewCreateSegmentVC {
         
         let Data = notification.userInfo! as NSDictionary
         let Time = Data["Time"] as? String ?? ""
-        self.rulerSize(size: Int(Time) ?? 0, index: CurrentIndex)
-    }
-    
-    
-    func rulerSize(size: Int, index: Int) {
-        let view = arrRuler[index]
-        view.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: CGFloat(28 * size), height: view.frame.height)
-        arrRuler[index] = view
-       // self.changeColorOfRuler(index: index)
-    }
-
-    func changeColorOfRuler(index: Int) {
-        RuleView.subviews.map({  if !$0.isKind(of: UIImageView.self ) { $0.backgroundColor = UIColor.btnBGColor } })
-
-        if let viewLast = RuleView.subviews[index] as? UIView {
-            viewLast.backgroundColor = UIColor.SegmentCountBGColor
-        }
+        let Dict1 = ["duration":Time,"segment":"true"]
+        self.arrRulerCount[CurrentIndex] = Dict1
+        self.ColleRuler.reloadData()        
     }
 }
 
@@ -1817,3 +1936,13 @@ extension String {
         return self.filter {okayChars.contains($0) }
     }
 }
+
+
+//MARK:- UICollectionView Cell Class
+class RulerCell: UICollectionViewCell {
+    @IBOutlet weak var lblCount: UILabel!
+}
+
+
+//glutiusmaximus
+//gastrocnemius
