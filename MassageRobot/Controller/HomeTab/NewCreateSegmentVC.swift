@@ -1479,7 +1479,10 @@ extension NewCreateSegmentVC {
             else if LeftLocation == "glutiusmaximus"
             {
                 ImageL = "F-L-calf"
+            } else if LeftLocation == "bodyparam" {
+                ImageL = "F-L-knee"
             }
+            
             
             if RightLocation == "upperback"
             {
@@ -1520,6 +1523,8 @@ extension NewCreateSegmentVC {
             else if RightLocation == "glutiusmaximus"
             {
                 ImageR = "F-R-calf"
+            } else if RightLocation == "bodyparam" {
+                ImageR = "F-R-knee"
             }
             
             self.ImgLeft.image = UIImage(named: ImageL)
@@ -1567,6 +1572,8 @@ extension NewCreateSegmentVC {
             else if LeftLocation == "glutiusmaximus"
             {
                 ImageL = "L-calf"
+            } else if LeftLocation == "bodyparam" {
+                ImageL = "L-knee"
             }
             
             
@@ -1610,6 +1617,8 @@ extension NewCreateSegmentVC {
             else if RightLocation == "glutiusmaximus"
             {
                 ImageR = "R-calf"
+            } else if RightLocation == "bodyparam" {
+                ImageR = "R-knee"
             }
             self.ImgLeft.image = UIImage(named: ImageL)
             self.ImgRight.image = UIImage(named: ImageR)
@@ -1788,10 +1797,40 @@ extension  NewCreateSegmentVC {
         self.btnBodyPartSelectionView.isHidden = false
         let strBodyPart = sender.title(for: .normal)
         
-        if btnIsLink.isSelected == true {
-            
-            if cell.btnRightLocation.titleLabel?.text == "R. Location" {
+        if StrGender == "F" {
+            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+        } else {
+         
+            if btnIsLink.isSelected == true {
                 
+                if cell.btnRightLocation.titleLabel?.text == "R. Location" {
+                    
+                    if strBodyPart == "L. Location"{
+                        self.ImgBodyPartImage.image = UIImage(named: "LeftBodyP")
+                    }else{
+                        
+                        if FrontAndBackImage == "F" {
+                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                        } else if FrontAndBackImage == "B"{
+                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftB")
+                        }else {
+                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                        }
+                    }
+                } else {
+                    
+                        
+                        if FrontAndBackImage == "F" {
+                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                        } else if FrontAndBackImage == "B"{
+                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftB")
+                        }else {
+                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                        }
+                }
+            }
+            else {
+              
                 if strBodyPart == "L. Location"{
                     self.ImgBodyPartImage.image = UIImage(named: "LeftBodyP")
                 }else{
@@ -1804,35 +1843,8 @@ extension  NewCreateSegmentVC {
                         self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
                     }
                 }
-            } else {
-                
-                    
-                    if FrontAndBackImage == "F" {
-                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
-                    } else if FrontAndBackImage == "B"{
-                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftB")
-                    }else {
-                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
-                    }
             }
         }
-        else {
-          
-            if strBodyPart == "L. Location"{
-                self.ImgBodyPartImage.image = UIImage(named: "LeftBodyP")
-            }else{
-                
-                if FrontAndBackImage == "F" {
-                    self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
-                } else if FrontAndBackImage == "B"{
-                    self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftB")
-                }else {
-                    self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
-                }
-            }
-        }
-        
-        
     }
     @objc func RightLocationSelection(sender: UIButton)
     {
@@ -1843,12 +1855,36 @@ extension  NewCreateSegmentVC {
         self.btnBodyPartSelectionView.isHidden = false
         let strBodyPart = sender.title(for: .normal)
         
-        if btnIsLink.isSelected == true {
+        
+        if StrGender == "F" {
+            self.ImgBodyPartImage.image = UIImage(named: "RightBodyP")
+        } else  {
+            
+            if btnIsLink.isSelected == true {
 
-            
-            
-            if cell.btnLeftLocation.titleLabel?.text == "L. Location" {
-             
+                if cell.btnLeftLocation.titleLabel?.text == "L. Location" {
+                 
+                    if strBodyPart == "R. Location"{
+                        self.ImgBodyPartImage.image = UIImage(named: "RightBodyP")
+                    }else{
+                        
+                        if FrontAndBackImage == "F" {
+                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightF")
+                        } else if FrontAndBackImage == "B"{
+                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightB")
+                        }
+                    }
+                } else {
+                        
+                        if FrontAndBackImage == "F" {
+                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightF")
+                        } else if FrontAndBackImage == "B"{
+                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightB")
+                        }
+                }
+                
+            } else {
+               
                 if strBodyPart == "R. Location"{
                     self.ImgBodyPartImage.image = UIImage(named: "RightBodyP")
                 }else{
@@ -1857,33 +1893,12 @@ extension  NewCreateSegmentVC {
                         self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightF")
                     } else if FrontAndBackImage == "B"{
                         self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightB")
-                    }
-                }
-            } else {
-                    
-                    if FrontAndBackImage == "F" {
+                    }else {
                         self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightF")
-                    } else if FrontAndBackImage == "B"{
-                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightB")
                     }
-            }
-            
-        } else {
-           
-            if strBodyPart == "R. Location"{
-                self.ImgBodyPartImage.image = UIImage(named: "RightBodyP")
-            }else{
-                
-                if FrontAndBackImage == "F" {
-                    self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightF")
-                } else if FrontAndBackImage == "B"{
-                    self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightB")
-                }else {
-                    self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightF")
                 }
-            }
-       }
-        
+           }
+        }
     }
     
     @objc func LeftSpeed(sender: UIButton)

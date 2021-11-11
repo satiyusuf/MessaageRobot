@@ -1867,7 +1867,7 @@
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data Found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7n-2p-dgr">
-                                <rect key="frame" x="152.5" y="438.5" width="109" height="19"/>
+                                <rect key="frame" x="153.5" y="438.5" width="107.5" height="19"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -2042,31 +2042,48 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xIG-vH-HbZ">
                                 <rect key="frame" x="0.0" y="753" width="414" height="60"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Dm-iT-RME">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Dm-iT-RME">
                                         <rect key="frame" x="20" y="10" width="40" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="oU5-0S-OBA"/>
+                                        </constraints>
                                         <state key="normal" image="BackIcon"/>
                                         <connections>
                                             <action selector="btnBackAction" destination="ccz-1f-Kg7" eventType="touchUpInside" id="F9x-ZF-sEY"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dd-05-S6W">
-                                        <rect key="frame" x="187" y="10" width="40" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dd-05-S6W">
+                                        <rect key="frame" x="187" y="0.0" width="40" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="ZBe-vD-gKl"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="15" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="MoreIcon"/>
                                         <connections>
                                             <action selector="onClickMoreDetailBtn:" destination="ccz-1f-Kg7" eventType="touchUpInside" id="jnA-AM-9Ze"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RJN-4w-W9j">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RJN-4w-W9j">
                                         <rect key="frame" x="354" y="10" width="40" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="jGh-3C-fCj"/>
+                                        </constraints>
                                         <state key="normal" image="PlayIcon"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94509803921568625" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="2dd-05-S6W" firstAttribute="centerX" secondItem="xIG-vH-HbZ" secondAttribute="centerX" id="6F9-hv-9Mn"/>
                                     <constraint firstAttribute="height" constant="60" id="77X-Q8-xDk"/>
+                                    <constraint firstAttribute="trailing" secondItem="RJN-4w-W9j" secondAttribute="trailing" constant="20" symbolic="YES" id="7pb-70-d4e"/>
+                                    <constraint firstItem="6Dm-iT-RME" firstAttribute="top" secondItem="xIG-vH-HbZ" secondAttribute="top" constant="10" id="R1B-wc-LiZ"/>
+                                    <constraint firstItem="2dd-05-S6W" firstAttribute="centerY" secondItem="xIG-vH-HbZ" secondAttribute="centerY" id="Vik-Ua-pr7"/>
+                                    <constraint firstItem="RJN-4w-W9j" firstAttribute="top" secondItem="xIG-vH-HbZ" secondAttribute="top" constant="10" id="WqJ-dp-LUY"/>
+                                    <constraint firstItem="6Dm-iT-RME" firstAttribute="leading" secondItem="xIG-vH-HbZ" secondAttribute="leading" constant="20" symbolic="YES" id="aJ7-HK-CPT"/>
+                                    <constraint firstAttribute="bottom" secondItem="RJN-4w-W9j" secondAttribute="bottom" constant="10" id="abY-xb-6DZ"/>
+                                    <constraint firstItem="2dd-05-S6W" firstAttribute="top" secondItem="xIG-vH-HbZ" secondAttribute="top" id="euD-7J-hCt"/>
+                                    <constraint firstAttribute="bottom" secondItem="6Dm-iT-RME" secondAttribute="bottom" constant="10" id="sKv-r0-yo3"/>
+                                    <constraint firstAttribute="bottom" secondItem="2dd-05-S6W" secondAttribute="bottom" id="xId-Hy-iva"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="topRound">
@@ -4285,11 +4302,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qgr-To-iCq">
-                                        <rect key="frame" x="187" y="10" width="40" height="40"/>
+                                        <rect key="frame" x="187" y="0.0" width="40" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="2aE-5t-6pu"/>
-                                            <constraint firstAttribute="height" constant="40" id="XP7-7Y-EYh"/>
                                         </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="15" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="MoreIcon"/>
                                         <connections>
                                             <action selector="onClickMoreDetailBtn:" destination="zRq-6a-Dzg" eventType="touchUpInside" id="R9d-9s-aVh"/>
@@ -4309,10 +4326,11 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.94509803920000002" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="Qgr-To-iCq" firstAttribute="top" secondItem="jOr-Gu-ofn" secondAttribute="top" constant="10" id="3rm-69-L0E"/>
+                                    <constraint firstItem="Qgr-To-iCq" firstAttribute="top" secondItem="jOr-Gu-ofn" secondAttribute="top" id="3rm-69-L0E"/>
                                     <constraint firstItem="Qgr-To-iCq" firstAttribute="centerX" secondItem="jOr-Gu-ofn" secondAttribute="centerX" id="8Ba-4D-chd"/>
                                     <constraint firstAttribute="trailing" secondItem="Fv5-iH-6MC" secondAttribute="trailing" constant="20" symbolic="YES" id="AOi-W5-CaQ"/>
                                     <constraint firstItem="kAL-iY-rG9" firstAttribute="top" secondItem="jOr-Gu-ofn" secondAttribute="top" constant="10" id="JS4-Dn-xjW"/>
+                                    <constraint firstAttribute="bottom" secondItem="Qgr-To-iCq" secondAttribute="bottom" id="Wlk-yG-hYR"/>
                                     <constraint firstItem="kAL-iY-rG9" firstAttribute="leading" secondItem="jOr-Gu-ofn" secondAttribute="leading" constant="20" symbolic="YES" id="fGU-jP-cjL"/>
                                     <constraint firstItem="Fv5-iH-6MC" firstAttribute="top" secondItem="jOr-Gu-ofn" secondAttribute="top" constant="10" id="mWR-yP-Fgu"/>
                                     <constraint firstAttribute="height" constant="60" id="oHp-Np-qWd"/>
@@ -10098,10 +10116,10 @@
             <size key="intrinsicContentSize" width="72.5" height="18.5"/>
         </designable>
         <designable name="NXi-zC-Xox">
-            <size key="intrinsicContentSize" width="4" height="18"/>
+            <size key="intrinsicContentSize" width="3" height="18.5"/>
         </designable>
         <designable name="OJk-P8-5bK">
-            <size key="intrinsicContentSize" width="44" height="18"/>
+            <size key="intrinsicContentSize" width="42" height="18.5"/>
         </designable>
         <designable name="RLs-gd-6sd">
             <size key="intrinsicContentSize" width="44" height="18.5"/>
@@ -10110,22 +10128,22 @@
             <size key="intrinsicContentSize" width="43" height="18.5"/>
         </designable>
         <designable name="Z9H-tN-Phe">
-            <size key="intrinsicContentSize" width="72.5" height="18"/>
+            <size key="intrinsicContentSize" width="69.5" height="18.5"/>
         </designable>
         <designable name="g2a-7u-uUQ">
-            <size key="intrinsicContentSize" width="128.5" height="18"/>
+            <size key="intrinsicContentSize" width="122" height="18.5"/>
         </designable>
         <designable name="sXD-QM-o7w">
-            <size key="intrinsicContentSize" width="4" height="18"/>
+            <size key="intrinsicContentSize" width="3" height="18.5"/>
         </designable>
         <designable name="vk4-6r-XlN">
             <size key="intrinsicContentSize" width="46" height="18.5"/>
         </designable>
         <designable name="xwv-Sm-Vbn">
-            <size key="intrinsicContentSize" width="100.5" height="18"/>
+            <size key="intrinsicContentSize" width="97.5" height="18.5"/>
         </designable>
         <designable name="yLm-op-5Rc">
-            <size key="intrinsicContentSize" width="72.5" height="18"/>
+            <size key="intrinsicContentSize" width="69.5" height="18.5"/>
         </designable>
     </designables>
     <resources>
