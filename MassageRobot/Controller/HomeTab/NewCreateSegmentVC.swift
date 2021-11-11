@@ -1798,7 +1798,7 @@ extension  NewCreateSegmentVC {
         let strBodyPart = sender.title(for: .normal)
         
         if StrGender == "F" {
-            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+            self.ImgBodyPartImage.image = UIImage(named: "LeftBodyP-female")
         } else {
          
             if btnIsLink.isSelected == true {
@@ -1857,7 +1857,7 @@ extension  NewCreateSegmentVC {
         
         
         if StrGender == "F" {
-            self.ImgBodyPartImage.image = UIImage(named: "RightBodyP")
+            self.ImgBodyPartImage.image = UIImage(named: "LeftBodyP-female")
         } else  {
             
             if btnIsLink.isSelected == true {

@@ -9196,7 +9196,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="52"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FIlter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XiR-PX-PGB">
-                                        <rect key="frame" x="184.5" y="14" width="45" height="24"/>
+                                        <rect key="frame" x="182" y="14" width="50" height="24"/>
                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -9596,7 +9596,7 @@
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="spq-vP-i2l">
                                                 <rect key="frame" x="59" y="139" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="27" id="10S-cK-954"/>
                                                     <constraint firstAttribute="width" secondItem="spq-vP-i2l" secondAttribute="height" multiplier="1:1" id="a6r-Ye-tb3"/>
@@ -9613,7 +9613,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRm-Ug-7Yz">
                                                 <rect key="frame" x="99" y="139" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="27" id="0pe-Nj-qab"/>
                                                     <constraint firstAttribute="width" secondItem="bRm-Ug-7Yz" secondAttribute="height" multiplier="1:1" id="xr8-dn-neH"/>
@@ -9630,7 +9630,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T1r-MQ-ki8">
                                                 <rect key="frame" x="40" y="256" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="T1r-MQ-ki8" secondAttribute="height" multiplier="1:1" id="bvR-8O-8z7"/>
                                                     <constraint firstAttribute="height" constant="27" id="qGg-Dy-nSY"/>
@@ -9647,7 +9647,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UyN-eW-3zM">
                                                 <rect key="frame" x="117" y="256" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="UyN-eW-3zM" secondAttribute="height" id="DsA-mo-8d4"/>
                                                     <constraint firstAttribute="height" constant="27" id="vbe-mz-Aek"/>
@@ -9664,7 +9664,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SKO-to-Sl4">
                                                 <rect key="frame" x="59" y="290" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="SKO-to-Sl4" secondAttribute="height" id="ScE-zN-Bjx"/>
                                                     <constraint firstAttribute="height" constant="27" id="bJe-Yc-334"/>
@@ -9681,7 +9681,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FVB-Fx-0Aa">
                                                 <rect key="frame" x="101" y="290" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="27" id="BoL-xx-XIg"/>
                                                     <constraint firstAttribute="width" secondItem="FVB-Fx-0Aa" secondAttribute="height" multiplier="1:1" id="zkP-U7-FNy"/>
@@ -9698,7 +9698,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdb-sd-cpB">
                                                 <rect key="frame" x="62" y="333" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="fdb-sd-cpB" secondAttribute="height" multiplier="1:1" id="Wjc-We-eMU"/>
                                                     <constraint firstAttribute="height" constant="27" id="hks-ZA-DTc"/>
@@ -9715,7 +9715,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cnf-Nj-2sG">
                                                 <rect key="frame" x="99" y="333" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Cnf-Nj-2sG" secondAttribute="height" multiplier="1:1" id="20I-rx-ovt"/>
                                                     <constraint firstAttribute="height" constant="27" id="BbT-Uq-qMQ"/>
@@ -9732,7 +9732,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bta-Bj-mTm">
                                                 <rect key="frame" x="62" y="379" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Bta-Bj-mTm" secondAttribute="height" multiplier="1:1" id="uSj-Lf-ucq"/>
                                                     <constraint firstAttribute="height" constant="27" id="wVE-fb-ml8"/>
@@ -9749,7 +9749,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGa-N4-DCH">
                                                 <rect key="frame" x="98" y="379" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="27" id="BMj-53-ROG"/>
                                                     <constraint firstAttribute="width" secondItem="fGa-N4-DCH" secondAttribute="height" multiplier="1:1" id="Bpt-zS-bVK"/>
@@ -9766,7 +9766,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZwP-td-VKl">
                                                 <rect key="frame" x="330" y="113" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="27" id="MOs-gr-puF"/>
                                                     <constraint firstAttribute="width" secondItem="ZwP-td-VKl" secondAttribute="height" multiplier="1:1" id="URa-Eu-bpI"/>
@@ -9783,7 +9783,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jcK-3P-bns">
                                                 <rect key="frame" x="238" y="113" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="27" id="AJI-Pc-n64"/>
                                                     <constraint firstAttribute="width" secondItem="jcK-3P-bns" secondAttribute="height" multiplier="1:1" id="Clq-oZ-u66"/>
@@ -9800,7 +9800,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jtT-eu-4h5">
                                                 <rect key="frame" x="267" y="134" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="jtT-eu-4h5" secondAttribute="height" multiplier="1:1" id="BeL-XW-cKx"/>
                                                     <constraint firstAttribute="height" constant="27" id="cQu-pn-bBa"/>
@@ -9817,7 +9817,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CBQ-4N-hn9">
                                                 <rect key="frame" x="300" y="192" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="CBQ-4N-hn9" secondAttribute="height" multiplier="1:1" id="57e-X8-oMR"/>
                                                     <constraint firstAttribute="height" constant="27" id="dRl-DA-diA"/>
@@ -9834,7 +9834,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6wn-d3-JcG">
                                                 <rect key="frame" x="269" y="192" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="27" id="EeX-DU-WFh"/>
                                                     <constraint firstAttribute="width" secondItem="6wn-d3-JcG" secondAttribute="height" multiplier="1:1" id="nP1-7P-EL9"/>
@@ -9851,7 +9851,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zsY-Gg-eyF">
                                                 <rect key="frame" x="304" y="239" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="zsY-Gg-eyF" secondAttribute="height" multiplier="1:1" id="6CM-mB-8kM"/>
                                                     <constraint firstAttribute="height" constant="27" id="rTf-Lu-hVf"/>
@@ -9868,7 +9868,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIs-Wu-Qkl">
                                                 <rect key="frame" x="265" y="239" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="HIs-Wu-Qkl" secondAttribute="height" multiplier="1:1" id="f4L-Mb-CRe"/>
                                                     <constraint firstAttribute="height" constant="27" id="qqH-V1-ld3"/>
@@ -9885,7 +9885,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T4e-l9-IRk">
                                                 <rect key="frame" x="306" y="290" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="T4e-l9-IRk" secondAttribute="height" multiplier="1:1" id="TDE-0H-1gN"/>
                                                     <constraint firstAttribute="height" constant="27" id="TRX-cU-2FS"/>
@@ -9902,7 +9902,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gZv-9V-0Dm">
                                                 <rect key="frame" x="263" y="290" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="gZv-9V-0Dm" secondAttribute="height" multiplier="1:1" id="E1V-Ah-SP5"/>
                                                     <constraint firstAttribute="height" constant="27" id="UCR-Uc-2kj"/>
@@ -9919,7 +9919,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m1c-nc-Wn9">
                                                 <rect key="frame" x="303" y="361" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="m1c-nc-Wn9" secondAttribute="height" multiplier="1:1" id="M9x-bK-9Hc"/>
                                                     <constraint firstAttribute="height" constant="27" id="spw-SG-oo0"/>
@@ -9936,7 +9936,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lql-NT-ahz">
                                                 <rect key="frame" x="265" y="361" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Lql-NT-ahz" secondAttribute="height" multiplier="1:1" id="AAP-Ko-5NW"/>
                                                     <constraint firstAttribute="height" constant="27" id="Zqf-qT-gCX"/>
@@ -9953,7 +9953,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMD-ow-fPP">
                                                 <rect key="frame" x="301" y="134" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="27" id="841-Pq-gL9"/>
                                                     <constraint firstAttribute="width" secondItem="TMD-ow-fPP" secondAttribute="height" multiplier="1:1" id="hHV-wg-FLx"/>
@@ -11134,6 +11134,9 @@ SetJ7knwSfJJ9En7Sf1J/8Q5xD7ETcRRxFzEZMRxxH7Ek8SYxJzEnsSgxKLEq8SwxLbEvsTAxMLExMTG
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
