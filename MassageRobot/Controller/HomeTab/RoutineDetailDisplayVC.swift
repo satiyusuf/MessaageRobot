@@ -65,6 +65,11 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
     @IBOutlet weak var Title3: UILabel!
     @IBOutlet weak var Title4: UILabel!
     @IBOutlet weak var Height: NSLayoutConstraint!
+    @IBOutlet weak var lblNewDescri: UILabel!
+    @IBOutlet weak var lblNewLocation: UILabel!
+    @IBOutlet weak var lblNewPath: UILabel!
+    @IBOutlet weak var lblNewTags: UILabel!
+    @IBOutlet weak var lblNewTools: UILabel!
     var arrRoutingData = [[String: Any]]()
     var arrSegmentList = [[String: Any]]()
     var arrUserDetail = [[String: Any]]()
@@ -200,6 +205,9 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                             //else {
                             //    self.Height.constant = 40
                            // }
+                            
+                            self.lblNewDescri.text = routingData.getString(key: "description")
+                            self.lblNewTags.text = routingData.getString(key: "routine_tags")
                             
                             lblSubCategory.text = routingData.getString(key: "routine_subcategory")
                             txvDescription.text = routingData.getString(key: "description")
