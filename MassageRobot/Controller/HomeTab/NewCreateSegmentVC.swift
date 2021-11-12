@@ -23,53 +23,41 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var btnPlush: UIButton!
     
     //BodySelectionOutlet
-    @IBOutlet weak var btnBodyPartSelectionView: UIView!
-    @IBOutlet weak var ImgBodyPartImage: UIImageView!
+    @IBOutlet weak var ImgMaleBodyPartImage: UIImageView!
+    @IBOutlet weak var MaleBodyPartSelectionView: UIView!
+    @IBOutlet weak var FemaleBodyPartSelectionView: UIView!
+    @IBOutlet weak var ImgFemaleBodyPartImage: UIImageView!
     
     //Slider Value Change Outlet
     @IBOutlet weak var SliderView: UIView!
     @IBOutlet weak var lblSliderValue: UILabel!
     @IBOutlet weak var SliderValue: UISlider!
-    
+    //CollectionView
     @IBOutlet weak var ColleData: UICollectionView!
-    
     @IBOutlet weak var ColleRuler: UICollectionView!
-    var arrRulerCount = [[String: Any]]()
-    var CellWidth = 28
-    
-    var arrUserDetail = [[String: Any]]()
-    
-    var StrGender = String()
-    var StrRoutingID = String()
-    let picker = UIPickerView()
-    
-   
-    
-   
-    
+
     @IBOutlet weak var ViewAdd: UIView!
-    
-    let scrollView = UIScrollView(frame: CGRect(x:0, y:0, width:340,height: 460))
-    
+
     
     //MARK:- Variable
-    var arrRuler = [UIView]()
     var arrSegmentList = [[String: Any]]()
-    var numberOfRoutine = 0
+    var arrRulerCount = [[String: Any]]()
+    var CellWidth = 28
+    var arrUserDetail = [[String: Any]]()
     var CurrentIndex:Int = 0
-       
     var FrontAndBackImage = String()
     var StrLeftRightLocation = String()
     var StrLeftImagePart = String()
     var StrRightImagePart = String()
     var SliderValueSet = String()
     var SliderLeftRight = String()
-    
     var strPath: String!
-    
     var strRoutingUID: String!
+    var StrGender = String()
+    var StrRoutingID = String()
+    let picker = UIPickerView()
     
-    var arrNewRule = [UILabel]()
+    
     
     //MARK:- ViewDidLoad
     override func viewDidLoad()
@@ -327,12 +315,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         
         self.SliderView.isHidden = true
     }
-    //MARK:- Action
-    // **************************************  Action Body Part Select  **************************************
-    //FrontRightSide
-    @IBAction func btnFrontRightPectoralis(_ sender: Any) {
-        self.FrontAndBackImage = "F"
-        
+    // **************************************   Female Body   **************************************
+    //FemaleFrontRightSide
+    @IBAction func btnFemaleFrontRightPectoralis(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 
@@ -356,11 +344,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrLeftImagePart = "pectoralis"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnFrontRightIliotibalTract(_ sender: Any) {
-        self.FrontAndBackImage = "F"
-
+    @IBAction func btnFemaleFrontRightIliotibalTract(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 
@@ -383,11 +372,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrRightImagePart = "iliotibal tract"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnFrontRightQuadracepts(_ sender: Any) {
-        self.FrontAndBackImage = "F"
-
+    @IBAction func btnFemaleFrontRightQuadracepts(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -409,11 +399,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrLeftImagePart = "quadracepts"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnFrontRightBodyparam(_ sender: Any) {
-        self.FrontAndBackImage = "F"
-        
+    @IBAction func btnFemaleFrontRightBodyparam(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -435,11 +426,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrLeftImagePart = "bodyparam"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnFrontRightTibalisAnterior(_ sender: Any) {
-        self.FrontAndBackImage = "F"
-        
+    @IBAction func btnFemaleFrontRightTibalisAnterior(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -461,12 +453,13 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrRightImagePart = "tibalis anterior"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    //FrontLeftSide
-    @IBAction func btnFrontLeftPectoralis(_ sender: Any) {
-        self.FrontAndBackImage = "F"
-        
+    //FemaleFrontLeftSide
+    @IBAction func btnFemaleFrontLeftPectoralis(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -489,11 +482,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrRightImagePart = "pectoralis"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnFrontLeftIliotibalTract(_ sender: Any) {
-        self.FrontAndBackImage = "F"
-       
+    @IBAction func btnFemaleFrontLeftIliotibalTract(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -515,11 +509,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrRightImagePart = "iliotibal tract"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnFrontLeftQuadracepts(_ sender: Any) {
-        self.FrontAndBackImage = "F"
-
+    @IBAction func btnFemaleFrontLeftQuadracepts(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -541,11 +536,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrLeftImagePart = "quadracepts"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnFrontLeftBodyparam(_ sender: Any) {
-        self.FrontAndBackImage = "F"
-        
+    @IBAction func btnFemaleFrontLeftBodyparam(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -567,11 +563,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrRightImagePart = "bodyparam"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnFrontLeftTibalisAnterior(_ sender: Any) {
-        self.FrontAndBackImage = "F"
-        
+    @IBAction func btnFemaleFrontLeftTibalisAnterior(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -593,12 +590,13 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrRightImagePart = "tibalis anterior"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    //BackRightSide
-    @IBAction func btnBackRightDeltoid(_ sender: Any) {
-        self.FrontAndBackImage = "B"
-        
+    //FemaleBackRightSide
+    @IBAction func btnFemaleBackRightDeltoid(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -620,11 +618,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrRightImagePart = "deltoid"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnBackRightUpperback(_ sender: Any) {
-        self.FrontAndBackImage = "B"
-       
+    @IBAction func btnFemaleBackRightUpperback(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -646,11 +645,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrRightImagePart = "upperback"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnBackRightLowerback(_ sender: Any) {
-        self.FrontAndBackImage = "B"
-
+    @IBAction func btnFemaleBackRightLowerback(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -672,12 +672,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrLeftImagePart = "lowerback"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
-        
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnBackRIghtGastrocnemius(_ sender: Any) {
-        self.FrontAndBackImage = "B"
-    
+    @IBAction func btnFemaleBackRightGastrocnemius(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -699,10 +699,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrRightImagePart = "gastrocnemius"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnBackRightHamstring(_ sender: Any) {
-        self.FrontAndBackImage = "B"
+    @IBAction func btnFemaleBackRightHamstring(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
        if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -724,11 +726,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrRightImagePart = "hamstring"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnBackRightGlutiusmaximus(_ sender: Any) {
-        self.FrontAndBackImage = "B"
-
+    @IBAction func btnFemaleBackRightGlutiusmaximus(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -750,13 +753,13 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrRightImagePart = "glutiusmaximus"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    
-    //BackLeftSide
-    @IBAction func btnBackLeftDeltoid(_ sender: Any) {
-        self.FrontAndBackImage = "B"
-
+    //FemaleBackLeftSide
+    @IBAction func btnFemaleBackLeftDeltoid(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -778,11 +781,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrRightImagePart = "deltoid"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnBackLeftUpperback(_ sender: Any) {
-        self.FrontAndBackImage = "B"
-
+    @IBAction func btnFemaleBackLeftUpperback(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -804,11 +808,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrRightImagePart = "upperback"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnBackLeftLowerback(_ sender: Any) {
-        self.FrontAndBackImage = "B"
-    
+    @IBAction func btnFemaleBackLeftLowerback(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -830,11 +835,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrRightImagePart = "lowerback"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnBackLeftGastrocnemius(_ sender: Any) {
-        self.FrontAndBackImage = "B"
-        
+    @IBAction func btnFemaleBackLeftGastrocnemius(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -856,11 +862,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrRightImagePart = "gastrocnemius"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnBackLeftHamstring(_ sender: Any) {
-        self.FrontAndBackImage = "B"
-        
+    @IBAction func btnFemaleBackLeftHamstring(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -882,11 +889,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             self.StrRightImagePart = "hamstring"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    @IBAction func btnBackLeftGlutiusmaximus(_ sender: Any) {
-        self.FrontAndBackImage = "B"
-        
+    @IBAction func btnFemaleBackLeftGlutiusmaximus(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
         if btnIsLink.isSelected == true {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
@@ -909,13 +917,615 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
 
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
-        self.btnBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
+    }
+    // **************************************   Male Body   **************************************
+    //MaleFrontRightSide
+    @IBAction func btnFrontRightPectoralis(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Pectoralis", for: .normal)
+                self.StrLeftImagePart = "pectoralis"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Pectoralis", for: .normal)
+                self.StrRightImagePart = "pectoralis"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnRightLocation.setTitle("Pectoralis", for: .normal)
+            cell.btnLeftLocation.setTitle("Pectoralis", for: .normal)
+            self.StrRightImagePart = "pectoralis"
+            self.StrLeftImagePart = "pectoralis"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnFrontRightIliotibalTract(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("iliotibal Tract", for: .normal)
+                self.StrLeftImagePart = "iliotibal tract"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("iliotibal Tract", for: .normal)
+                self.StrRightImagePart = "iliotibal tract"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("iliotibal Tract", for: .normal)
+            cell.btnRightLocation.setTitle("iliotibal Tract", for: .normal)
+            self.StrLeftImagePart = "iliotibal tract"
+            self.StrRightImagePart = "iliotibal tract"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnFrontRightQuadracepts(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Quadracepts", for: .normal)
+                self.StrLeftImagePart = "quadracepts"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Quadracepts", for: .normal)
+                self.StrRightImagePart = "quadracepts"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Quadracepts", for: .normal)
+            cell.btnRightLocation.setTitle("Quadracepts", for: .normal)
+            self.StrRightImagePart = "quadracepts"
+            self.StrLeftImagePart = "quadracepts"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnFrontRightBodyparam(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("bodyparam", for: .normal)
+                self.StrLeftImagePart = "bodyparam"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("bodyparam", for: .normal)
+                self.StrRightImagePart = "bodyparam"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("bodyparam", for: .normal)
+            cell.btnRightLocation.setTitle("bodyparam", for: .normal)
+            self.StrRightImagePart = "bodyparam"
+            self.StrLeftImagePart = "bodyparam"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnFrontRightTibalisAnterior(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Tibalis Anterior", for: .normal)
+                self.StrLeftImagePart = "tibalis anterior"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Tibalis Anterior", for: .normal)
+                self.StrRightImagePart = "tibalis anterior"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Tibalis Anterior", for: .normal)
+            cell.btnRightLocation.setTitle("Tibalis Anterior", for: .normal)
+            self.StrLeftImagePart = "tibalis anterior"
+            self.StrRightImagePart = "tibalis anterior"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    //MaleFrontLeftSide
+    @IBAction func btnFrontLeftPectoralis(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Pectoralis", for: .normal)
+                self.StrLeftImagePart = "tibalis anterior"
+                self.StrLeftImagePart = "pectoralis"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Pectoralis", for: .normal)
+                self.StrRightImagePart = "pectoralis"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Pectoralis", for: .normal)
+            cell.btnRightLocation.setTitle("Pectoralis", for: .normal)
+            self.StrLeftImagePart = "pectoralis"
+            self.StrRightImagePart = "pectoralis"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnFrontLeftIliotibalTract(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("iliotibal Tract", for: .normal)
+                self.StrLeftImagePart = "iliotibal tract"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("iliotibal Tract", for: .normal)
+                self.StrRightImagePart = "iliotibal tract"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("iliotibal Tract", for: .normal)
+            cell.btnRightLocation.setTitle("iliotibal Tract", for: .normal)
+            self.StrLeftImagePart = "iliotibal tract"
+            self.StrRightImagePart = "iliotibal tract"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnFrontLeftQuadracepts(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Quadracepts", for: .normal)
+                self.StrLeftImagePart = "quadracepts"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Quadracepts", for: .normal)
+                self.StrRightImagePart = "quadracepts"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnRightLocation.setTitle("Quadracepts", for: .normal)
+            cell.btnLeftLocation.setTitle("Quadracepts", for: .normal)
+            self.StrRightImagePart = "quadracepts"
+            self.StrLeftImagePart = "quadracepts"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnFrontLeftBodyparam(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Bodyparam", for: .normal)
+                self.StrLeftImagePart = "bodyparam"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Bodyparam", for: .normal)
+                self.StrRightImagePart = "bodyparam"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnRightLocation.setTitle("Bodyparam", for: .normal)
+            cell.btnLeftLocation.setTitle("Bodyparam", for: .normal)
+            self.StrLeftImagePart = "bodyparam"
+            self.StrRightImagePart = "bodyparam"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnFrontLeftTibalisAnterior(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "F"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Tibalis Anterior", for: .normal)
+                self.StrLeftImagePart = "tibalis anterior"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Tibalis Anterior", for: .normal)
+                self.StrRightImagePart = "tibalis anterior"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Tibalis Anterior", for: .normal)
+            cell.btnRightLocation.setTitle("Tibalis Anterior", for: .normal)
+            self.StrLeftImagePart = "tibalis anterior"
+            self.StrRightImagePart = "tibalis anterior"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    //MaleBackRightSide
+    @IBAction func btnBackRightDeltoid(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Deltoid", for: .normal)
+                self.StrLeftImagePart = "deltoid"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Deltoid", for: .normal)
+                self.StrRightImagePart = "deltoid"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Deltoid", for: .normal)
+            cell.btnRightLocation.setTitle("Deltoid", for: .normal)
+            self.StrLeftImagePart = "deltoid"
+            self.StrRightImagePart = "deltoid"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnBackRightUpperback(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Upperback", for: .normal)
+                self.StrLeftImagePart = "upperback"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Upperback", for: .normal)
+                self.StrRightImagePart = "upperback"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Upperback", for: .normal)
+            cell.btnRightLocation.setTitle("Upperback", for: .normal)
+            self.StrLeftImagePart = "upperback"
+            self.StrRightImagePart = "upperback"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnBackRightLowerback(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Lowerback", for: .normal)
+                self.StrLeftImagePart = "lowerback"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Lowerback", for: .normal)
+                self.StrRightImagePart = "lowerback"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Lowerback", for: .normal)
+            cell.btnRightLocation.setTitle("Lowerback", for: .normal)
+            self.StrRightImagePart = "lowerback"
+            self.StrLeftImagePart = "lowerback"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnBackRIghtGastrocnemius(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Gastrocnemius", for: .normal)
+                self.StrLeftImagePart = "gastrocnemius"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Gastrocnemius", for: .normal)
+                self.StrRightImagePart = "gastrocnemius"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Gastrocnemius", for: .normal)
+            cell.btnRightLocation.setTitle("Gastrocnemius", for: .normal)
+            self.StrLeftImagePart = "gastrocnemius"
+            self.StrRightImagePart = "gastrocnemius"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnBackRightHamstring(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
+       if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Hamstring", for: .normal)
+                self.StrLeftImagePart = "hamstring"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Hamstring", for: .normal)
+                self.StrRightImagePart = "hamstring"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Hamstring", for: .normal)
+            cell.btnRightLocation.setTitle("Hamstring", for: .normal)
+            self.StrLeftImagePart = "hamstring"
+            self.StrRightImagePart = "hamstring"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnBackRightGlutiusmaximus(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Glutiusmaximus", for: .normal)
+                self.StrLeftImagePart = "glutiusmaximus"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Glutiusmaximus", for: .normal)
+                self.StrRightImagePart = "glutiusmaximus"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Glutiusmaximus", for: .normal)
+            cell.btnRightLocation.setTitle("Glutiusmaximus", for: .normal)
+            self.StrLeftImagePart = "glutiusmaximus"
+            self.StrRightImagePart = "glutiusmaximus"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    
+    //MaleBackLeftSide
+    @IBAction func btnBackLeftDeltoid(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Deltoid", for: .normal)
+                self.StrLeftImagePart = "deltoid"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Deltoid", for: .normal)
+                self.StrRightImagePart = "deltoid"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Deltoid", for: .normal)
+            cell.btnRightLocation.setTitle("Deltoid", for: .normal)
+            self.StrLeftImagePart = "deltoid"
+            self.StrRightImagePart = "deltoid"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnBackLeftUpperback(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Upperback", for: .normal)
+                self.StrLeftImagePart = "upperback"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Upperback", for: .normal)
+                self.StrRightImagePart = "upperback"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Upperback", for: .normal)
+            cell.btnRightLocation.setTitle("Upperback", for: .normal)
+            self.StrLeftImagePart = "upperback"
+            self.StrRightImagePart = "upperback"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnBackLeftLowerback(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Lowerback", for: .normal)
+                self.StrLeftImagePart = "lowerback"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Lowerback", for: .normal)
+                self.StrRightImagePart = "lowerback"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Lowerback", for: .normal)
+            cell.btnRightLocation.setTitle("Lowerback", for: .normal)
+            self.StrLeftImagePart = "lowerback"
+            self.StrRightImagePart = "lowerback"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnBackLeftGastrocnemius(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Gastrocnemius", for: .normal)
+                self.StrLeftImagePart = "gastrocnemius"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Gastrocnemius", for: .normal)
+                self.StrRightImagePart = "gastrocnemius"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Gastrocnemius", for: .normal)
+            cell.btnRightLocation.setTitle("Gastrocnemius", for: .normal)
+            self.StrLeftImagePart = "gastrocnemius"
+            self.StrRightImagePart = "gastrocnemius"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnBackLeftHamstring(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Hamstring", for: .normal)
+                self.StrLeftImagePart = "hamstring"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Hamstring", for: .normal)
+                self.StrRightImagePart = "hamstring"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Hamstring", for: .normal)
+            cell.btnRightLocation.setTitle("Hamstring", for: .normal)
+            self.StrLeftImagePart = "hamstring"
+            self.StrRightImagePart = "hamstring"
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
+    }
+    @IBAction func btnBackLeftGlutiusmaximus(_ sender: Any) {
+        if self.FrontAndBackImage.isEmpty == true {
+           self.FrontAndBackImage = "B"
+        }
+        if btnIsLink.isSelected == true {
+            if StrLeftRightLocation == "Left" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnLeftLocation.setTitle("Glutiusmaximus", for: .normal)
+                self.StrLeftImagePart = "glutiusmaximus"
+            } else if StrLeftRightLocation == "Right" {
+                let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+                let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+                cell.btnRightLocation.setTitle("Glutiusmaximus", for: .normal)
+                self.StrRightImagePart = "glutiusmaximus"
+            }
+        } else {
+            let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+            let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+            cell.btnLeftLocation.setTitle("Glutiusmaximus", for: .normal)
+            cell.btnRightLocation.setTitle("Glutiusmaximus", for: .normal)
+            self.StrLeftImagePart = "glutiusmaximus"
+            self.StrRightImagePart = "glutiusmaximus"
+
+        }
+        self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
+        self.MaleBodyPartSelectionView.isHidden = true
     }
     
     @IBAction func btnBodyLocationSectionHide(_ sender: Any) {
-        self.btnBodyPartSelectionView.isHidden = true
+        self.MaleBodyPartSelectionView.isHidden = true
+        self.FemaleBodyPartSelectionView.isHidden = true
     }
-    
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 
@@ -1330,8 +1940,8 @@ extension NewCreateSegmentVC
             
             let LeftLocation = Data["location_l"] as? String ?? "L. Location"//Data.getString(key: "")
             let RightLocation = Data["location_r"] as? String ?? "R. Location" //Data.getString(key: "location_r")
-            let BodyLocation = Data.getString(key: "body_location")
-            self.FrontAndBackImage = BodyLocation
+            let BodyLocation = Data["body_location"] as? String ?? "" //Data.getString(key: "body_location")
+            //self.FrontAndBackImage = BodyLocation
             cell.btnLeftLocation.setTitle(LeftLocation, for: .normal)
             cell.btnRightLocation.setTitle(RightLocation, for: .normal)
             self.SetImagePart(LeftLocation: LeftLocation, RightLocation: RightLocation)
@@ -1339,8 +1949,11 @@ extension NewCreateSegmentVC
         } else {
             let LeftLocation = Data.getString(key: "location_l")
             let RightLocation = Data.getString(key: "location_r")
-            let BodyLocation = Data.getString(key: "body_location")
-            self.FrontAndBackImage = BodyLocation
+            let BodyLocation = Data["body_location"] as? String ?? ""
+            if FrontAndBackImage.isEmpty == true {
+                self.FrontAndBackImage = BodyLocation
+            }
+           // self.FrontAndBackImage = BodyLocation
             cell.btnLeftLocation.setTitle(LeftLocation, for: .normal)
             cell.btnRightLocation.setTitle(RightLocation, for: .normal)
             self.SetImagePart(LeftLocation: LeftLocation, RightLocation: RightLocation)
@@ -1416,25 +2029,24 @@ extension NewCreateSegmentVC {
     
     private func SetImagePart(LeftLocation:String,RightLocation:String)
     {
-        if FrontAndBackImage == "F" {
-            if StrGender == "F" {
+        if StrGender == "F" {
+            if FrontAndBackImage == "F" {
                 self.ImgImage.image = UIImage(named: "F-grey female body front")
-            } else {
-                self.ImgImage.image = UIImage(named: "grey male body front")
-            }
-        } else if FrontAndBackImage == "B" {
-            if StrGender == "F" {
+            } else if FrontAndBackImage == "B" {
                 self.ImgImage.image = UIImage(named: "F-grey female body back")
             } else {
-                self.ImgImage.image = UIImage(named: "grey male body back")
+                self.ImgImage.image = UIImage(named: "F-grey female body front")
             }
         } else {
-            if StrGender == "F" {
-                self.ImgImage.image = UIImage(named: "F-grey female body front")
+            if FrontAndBackImage == "F" {
+                self.ImgImage.image = UIImage(named: "grey male body front")
+            } else if FrontAndBackImage == "B" {
+                self.ImgImage.image = UIImage(named: "grey male body back")
             } else {
                 self.ImgImage.image = UIImage(named: "grey male body front")
             }
         }
+        
         
         if StrGender == "F"
         {
@@ -1723,16 +2335,19 @@ extension NewCreateSegmentVC : UICollectionViewDelegate,UICollectionViewDataSour
             if indexPath.row == arrSegmentList.count - 1 {
                 let LeftLocation = Data["location_l"] as? String ?? "L. Location"//Data.getString(key: "")
                 let RightLocation = Data["location_r"] as? String ?? "R. Location" //Data.getString(key: "location_r")
-                let BodyLocation = Data.getString(key: "body_location")
-                self.FrontAndBackImage = BodyLocation
+                let BodyLocation = Data["body_location"] as? String ?? "" //.getString(key: "body_location")
+               // self.FrontAndBackImage = BodyLocation
                 cell.btnLeftLocation.setTitle(LeftLocation, for: .normal)
                 cell.btnRightLocation.setTitle(RightLocation, for: .normal)
                 self.SetImagePart(LeftLocation: LeftLocation, RightLocation: RightLocation)
             } else {
                 let LeftLocation = Data.getString(key: "location_l")
                 let RightLocation = Data.getString(key: "location_r")
-                let BodyLocation = Data.getString(key: "body_location")
-                self.FrontAndBackImage = BodyLocation
+                let BodyLocation = Data["body_location"] as? String ?? ""
+                if FrontAndBackImage.isEmpty == true {
+                    self.FrontAndBackImage = BodyLocation
+                }
+              //  self.FrontAndBackImage = BodyLocation
                 cell.btnLeftLocation.setTitle(LeftLocation, for: .normal)
                 cell.btnRightLocation.setTitle(RightLocation, for: .normal)
                 self.SetImagePart(LeftLocation: LeftLocation, RightLocation: RightLocation)
@@ -1792,55 +2407,119 @@ extension  NewCreateSegmentVC {
     {
         let indexPath = IndexPath.init(row: self.CurrentIndex, section: 0)
         let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
-        
         self.StrLeftRightLocation = "Left"
-        self.btnBodyPartSelectionView.isHidden = false
         let strBodyPart = sender.title(for: .normal)
-        
+                
         if StrGender == "F" {
-            self.ImgBodyPartImage.image = UIImage(named: "LeftBodyP-female")
-        } else {
-         
+            self.FemaleBodyPartSelectionView.isHidden = false
             if btnIsLink.isSelected == true {
                 
                 if cell.btnRightLocation.titleLabel?.text == "R. Location" {
                     
                     if strBodyPart == "L. Location"{
-                        self.ImgBodyPartImage.image = UIImage(named: "LeftBodyP")
+                        if FrontAndBackImage == "F" {
+                            self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeLeftF-female")
+                        } else if FrontAndBackImage == "B"{
+                            self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeLeftB-female")
+                        } else {
+                            self.ImgFemaleBodyPartImage.image = UIImage(named: "LeftBodyP-female")
+                        }
+                       
                     }else{
                         
                         if FrontAndBackImage == "F" {
-                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                            self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeLeftF-female")
                         } else if FrontAndBackImage == "B"{
-                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftB")
+                            self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeLeftB-female")
                         }else {
-                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                            self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeLeftF-female")
                         }
                     }
                 } else {
-                    
-                        
                         if FrontAndBackImage == "F" {
-                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                            self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeLeftF-female")
                         } else if FrontAndBackImage == "B"{
-                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftB")
+                            self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeLeftB-female")
                         }else {
-                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                            self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeLeftF-female")
                         }
                 }
             }
             else {
               
                 if strBodyPart == "L. Location"{
-                    self.ImgBodyPartImage.image = UIImage(named: "LeftBodyP")
+                    
+                    if FrontAndBackImage == "F" {
+                        self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeLeftF-female")
+                    } else if FrontAndBackImage == "B"{
+                        self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeLeftB-female")
+                    }else {
+                        self.ImgFemaleBodyPartImage.image = UIImage(named: "LeftBodyP-female")
+                    }
                 }else{
                     
                     if FrontAndBackImage == "F" {
-                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                        self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeLeftF-female")
                     } else if FrontAndBackImage == "B"{
-                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftB")
+                        self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeLeftB-female")
                     }else {
-                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                        self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeLeftF-female")
+                    }
+                }
+            }
+        } else {
+            self.MaleBodyPartSelectionView.isHidden = false
+            if btnIsLink.isSelected == true {
+                
+                if cell.btnRightLocation.titleLabel?.text == "R. Location" {
+                    
+                    if strBodyPart == "L. Location"{
+                        if FrontAndBackImage == "F" {
+                            self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                        } else if FrontAndBackImage == "B"{
+                            self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeLeftB")
+                        }else {
+                            self.ImgMaleBodyPartImage.image = UIImage(named: "LeftBodyP")
+                        }
+                    }else{
+                        
+                        if FrontAndBackImage == "F" {
+                            self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                        } else if FrontAndBackImage == "B"{
+                            self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeLeftB")
+                        }else {
+                            self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                        }
+                    }
+                } else {
+                        if FrontAndBackImage == "F" {
+                            self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                        } else if FrontAndBackImage == "B"{
+                            self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeLeftB")
+                        }else {
+                            self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                        }
+                }
+            }
+            else {
+              
+                if strBodyPart == "L. Location"{
+                    if FrontAndBackImage == "F" {
+                        self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                    } else if FrontAndBackImage == "B"{
+                        self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeLeftB")
+                    }else {
+                        self.ImgMaleBodyPartImage.image = UIImage(named: "LeftBodyP")
+                    }
+                   
+                }else{
+                    
+                    if FrontAndBackImage == "F" {
+                        self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
+                    } else if FrontAndBackImage == "B"{
+                        self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeLeftB")
+                    }else {
+                        self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeLeftF")
                     }
                 }
             }
@@ -1850,51 +2529,114 @@ extension  NewCreateSegmentVC {
     {
         let indexPath = IndexPath.init(row: self.CurrentIndex, section: 0)
         let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
-        
         self.StrLeftRightLocation = "Right"
-        self.btnBodyPartSelectionView.isHidden = false
         let strBodyPart = sender.title(for: .normal)
         
         
         if StrGender == "F" {
-            self.ImgBodyPartImage.image = UIImage(named: "LeftBodyP-female")
-        } else  {
-            
+            self.FemaleBodyPartSelectionView.isHidden = false
             if btnIsLink.isSelected == true {
 
                 if cell.btnLeftLocation.titleLabel?.text == "L. Location" {
                  
                     if strBodyPart == "R. Location"{
-                        self.ImgBodyPartImage.image = UIImage(named: "RightBodyP")
+                        if FrontAndBackImage == "F" {
+                            self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeRightF-female")
+                        } else if FrontAndBackImage == "B"{
+                            self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeRightB-female")
+                        } else {
+                            self.ImgFemaleBodyPartImage.image = UIImage(named: "RightBodyP-female")
+                        }
+                        
                     }else{
                         
                         if FrontAndBackImage == "F" {
-                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightF")
+                            self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeRightF-female")
                         } else if FrontAndBackImage == "B"{
-                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightB")
+                            self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeRightB-female")
                         }
                     }
                 } else {
                         
                         if FrontAndBackImage == "F" {
-                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightF")
+                            self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeRightF-female")
                         } else if FrontAndBackImage == "B"{
-                            self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightB")
+                            self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeRightB-female")
                         }
                 }
                 
             } else {
                
                 if strBodyPart == "R. Location"{
-                    self.ImgBodyPartImage.image = UIImage(named: "RightBodyP")
+                    if FrontAndBackImage == "F" {
+                        self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeRightF-female")
+                    } else if FrontAndBackImage == "B"{
+                        self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeRightB-female")
+                    }else {
+                        self.ImgFemaleBodyPartImage.image = UIImage(named: "RightBodyP-female")
+                    }
                 }else{
                     
                     if FrontAndBackImage == "F" {
-                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightF")
+                        self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeRightF-female")
                     } else if FrontAndBackImage == "B"{
-                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightB")
+                        self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeRightB-female")
                     }else {
-                        self.ImgBodyPartImage.image = UIImage(named: "SecondTimeRightF")
+                        self.ImgFemaleBodyPartImage.image = UIImage(named: "SecondTimeRightF-female")
+                    }
+                }
+           }
+        } else  {
+            self.MaleBodyPartSelectionView.isHidden = false
+            if btnIsLink.isSelected == true {
+
+                if cell.btnLeftLocation.titleLabel?.text == "L. Location" {
+                 
+                    if strBodyPart == "R. Location"{
+                        if FrontAndBackImage == "F" {
+                            self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeRightF")
+                        } else if FrontAndBackImage == "B"{
+                            self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeRightB")
+                        } else {
+                            self.ImgMaleBodyPartImage.image = UIImage(named: "RightBodyP")
+                        }
+                        
+                    }else{
+                        
+                        if FrontAndBackImage == "F" {
+                            self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeRightF")
+                        } else if FrontAndBackImage == "B"{
+                            self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeRightB")
+                        }
+                    }
+                } else {
+                        
+                        if FrontAndBackImage == "F" {
+                            self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeRightF")
+                        } else if FrontAndBackImage == "B"{
+                            self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeRightB")
+                        }
+                }
+                
+            } else {
+               
+                if strBodyPart == "R. Location"{
+                    if FrontAndBackImage == "F" {
+                        self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeRightF")
+                    } else if FrontAndBackImage == "B"{
+                        self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeRightB")
+                    }else {
+                        self.ImgMaleBodyPartImage.image = UIImage(named: "RightBodyP")
+                    }
+                   
+                }else{
+                    
+                    if FrontAndBackImage == "F" {
+                        self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeRightF")
+                    } else if FrontAndBackImage == "B"{
+                        self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeRightB")
+                    }else {
+                        self.ImgMaleBodyPartImage.image = UIImage(named: "SecondTimeRightF")
                     }
                 }
            }
