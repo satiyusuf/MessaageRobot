@@ -83,34 +83,6 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
                 SegmentCreateView.isHidden = true
             }
         }
-            
-            
-        if strPath == "NotCreateRoutine" {
-            self.GetAllSegmentListApiCall(Type: "Fetch")
-        }else {
-            let Dict = ["segment":"false"]
-            let Dict1 = ["segment":"false","duration":"28"]
-            arrSegmentList.append(Dict)
-            arrRulerCount.append(Dict1)
-            self.ColleData.reloadData()
-            self.ColleRuler.reloadData()
-            
-           /* let view = UIView(frame: CGRect(x: 12, y: 32, width: 28, height: 36))
-            view.backgroundColor = UIColor.SegmentCountBGColor
-
-            let lblSegCount = UILabel(frame: CGRect(x: 4, y: 8, width: 20, height: 20))
-            lblSegCount.font = lblSegCount.font.withSize(10)
-            lblSegCount.textAlignment = .center
-            lblSegCount.text = "01"
-            lblSegCount.textColor = UIColor.black
-            lblSegCount.backgroundColor = UIColor.white
-            lblSegCount.layer.masksToBounds = true
-            lblSegCount.layer.cornerRadius = 10.0
-
-            view.addSubview(lblSegCount)
-            RuleView.addSubview(view)
-            arrRuler.append(view)*/
-        }
     }
     
     //MARK:- Action
@@ -1568,6 +1540,17 @@ extension NewCreateSegmentVC
                                 self.ImgImage.image = UIImage(named: "F-grey female body front")
                             }else{
                                 self.ImgImage.image = UIImage(named: "grey male body front")
+                            }
+                            
+                            if strPath == "NotCreateRoutine" {
+                                self.GetAllSegmentListApiCall(Type: "Fetch")
+                            }else {
+                                let Dict = ["segment":"false"]
+                                let Dict1 = ["segment":"false","duration":"28"]
+                                arrSegmentList.append(Dict)
+                                arrRulerCount.append(Dict1)
+                                self.ColleData.reloadData()
+                                self.ColleRuler.reloadData()
                             }
                         }
                     } else {

@@ -54,7 +54,6 @@ class SegmentCreate: UICollectionViewCell {
         txtLeftPath.delegate = self
         txtRightPath.delegate = self
         
-        
         let triLeftSpeed = TriangleView(frame: CGRect(x: 0, y: 0, width: 140, height: 33))
         triLeftSpeed.backgroundColor = .white
         triLeftSpeed.setFillValue(value: 0)
@@ -75,9 +74,7 @@ class SegmentCreate: UICollectionViewCell {
         triRightForce.setFillValue(value: 0)
         RightForceTree.addSubview(triRightForce)
         
-        
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifier"), object: nil)
-
     }
     
     @objc func methodOfReceivedNotification(notification: Notification) {

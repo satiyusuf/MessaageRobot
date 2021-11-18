@@ -721,7 +721,7 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                                 }
                             }
                             
-                            if selectedPaths.count > 0 {
+                        if selectedPaths.count > 0 {
                                 for i in 0..<selectedPaths.count {
                                     
                                     let selectValue: String = String(format: "%@", selectedPaths[i])
@@ -773,8 +773,8 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                
         self.arrStoreTools.append(strLeftTool.replacingOccurrences(of: " ", with: "").lowercased())
         self.arrStoreTools.append(strRightTool.replacingOccurrences(of: " ", with: "").lowercased())
-        self.arrStoreTools.append(strLeftPath.replacingOccurrences(of: " ", with: "").lowercased())
-        self.arrStoreTools.append(strRightPath.replacingOccurrences(of: " ", with: "").lowercased())
+       // self.arrStoreTools.append(strLeftPath.replacingOccurrences(of: " ", with: "").lowercased())
+       // self.arrStoreTools.append(strRightPath.replacingOccurrences(of: " ", with: "").lowercased())
         
         for i in 0..<arrStoreTools.count {
             let strToolPath = String(format: "%@", arrStoreTools[i])
@@ -851,6 +851,7 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCell", for: indexPath) as! RoutineDetailCell
         
         if self.arrSegmentTools.count > 0  {
+            
             cell.lblToolName.text = self.arrSegmentTools[indexPath.row]
         }
         return cell
@@ -1171,6 +1172,8 @@ extension RoutineDetailDisplayVC
         else if L == "glutiusmaximus"
         {
             LName = "L-glut"
+        }else if L == "bodyparam" {
+            LName = "L-knee"
         }
         
         if R == "upperback"
@@ -1212,6 +1215,8 @@ extension RoutineDetailDisplayVC
         else if R == "glutiusmaximus"
         {
             RName = "R-glut"
+        } else if R == "bodyparam" {
+            RName = "R-knee"
         }
         
         let imageR = UIImage(named: RName)
@@ -1269,8 +1274,9 @@ extension RoutineDetailDisplayVC
         else if L == "glutiusmaximus"
         {
             LName = "F-L-glut"
+        } else if L == "bodyparam" {
+            LName = "F-L-knee"
         }
-        
         
         if R == "upperback"
         {
@@ -1311,6 +1317,8 @@ extension RoutineDetailDisplayVC
         else if R == "glutiusmaximus"
         {
             RName = "F-R-glut"
+        } else if R == "bodyparam" {
+            RName = "F-R-knee"
         }
         
         let imageR = UIImage(named: RName)

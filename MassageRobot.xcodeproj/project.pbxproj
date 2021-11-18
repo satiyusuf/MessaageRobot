@@ -14,6 +14,7 @@
 		764C094C272FDE9B000F540E /* NewRoutinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764C094B272FDE9B000F540E /* NewRoutinView.swift */; };
 		764C0952272FEA09000F540E /* NewCreateSegmentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764C0951272FEA09000F540E /* NewCreateSegmentVC.swift */; };
 		765B021026FC5F7600EFF7AB /* NewHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765B020F26FC5F7600EFF7AB /* NewHomeVC.swift */; };
+		766E7A87274676B700B1D5B7 /* SearchFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766E7A86274676B700B1D5B7 /* SearchFilterVC.swift */; };
 		768F9B0E26FD929100381894 /* PDFViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768F9B0D26FD929100381894 /* PDFViewVC.swift */; };
 		86F3322C3FD2C35421C5D74B /* Pods_MassageRobot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE5EC1757D44B6A666C3E760 /* Pods_MassageRobot.framework */; };
 		FF00D53D26AE730F00B440F4 /* SegmentPlayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00D53B26AE730F00B440F4 /* SegmentPlayCell.swift */; };
@@ -102,6 +103,7 @@
 		764C094B272FDE9B000F540E /* NewRoutinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRoutinView.swift; sourceTree = "<group>"; };
 		764C0951272FEA09000F540E /* NewCreateSegmentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCreateSegmentVC.swift; sourceTree = "<group>"; };
 		765B020F26FC5F7600EFF7AB /* NewHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHomeVC.swift; sourceTree = "<group>"; };
+		766E7A86274676B700B1D5B7 /* SearchFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterVC.swift; sourceTree = "<group>"; };
 		768F9B0D26FD929100381894 /* PDFViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFViewVC.swift; sourceTree = "<group>"; };
 		BE5EC1757D44B6A666C3E760 /* Pods_MassageRobot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MassageRobot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC95C85BD355C123C7E50F99 /* Pods-MassageRobot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MassageRobot.release.xcconfig"; path = "Target Support Files/Pods-MassageRobot/Pods-MassageRobot.release.xcconfig"; sourceTree = "<group>"; };
@@ -196,6 +198,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		766E7A7D2746755D00B1D5B7 /* SearchTab */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SearchTab;
+			sourceTree = "<group>";
+		};
+		766E7A832746767600B1D5B7 /* SearchControllerTAp */ = {
+			isa = PBXGroup;
+			children = (
+				766E7A86274676B700B1D5B7 /* SearchFilterVC.swift */,
+			);
+			path = SearchControllerTAp;
+			sourceTree = "<group>";
+		};
 		8228AFB0E3766E20BE59CAB3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -243,6 +260,8 @@
 		FF15635E2681028D008BB56E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				766E7A832746767600B1D5B7 /* SearchControllerTAp */,
+				766E7A7D2746755D00B1D5B7 /* SearchTab */,
 				FFF1A50C26B0490500A1B8A2 /* LoginRegisterView */,
 				FF156361268102C9008BB56E /* TabBarVIew */,
 				FFC76AA826859D8E00A76C59 /* ViewControllerCell */,
@@ -250,7 +269,6 @@
 				FFC76AA126859D7300A76C59 /* InfoTab */,
 				FFC76AA326859D7400A76C59 /* MoreTab */,
 				FFC76AA426859D7400A76C59 /* NotificationTab */,
-				FFC76AA226859D7400A76C59 /* SearchTab */,
 				FF1563BE26811A6A008BB56E /* CreateRoutineViewController.swift */,
 			);
 			path = Controller;
@@ -370,13 +388,6 @@
 			children = (
 			);
 			path = InfoTab;
-			sourceTree = "<group>";
-		};
-		FFC76AA226859D7400A76C59 /* SearchTab */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SearchTab;
 			sourceTree = "<group>";
 		};
 		FFC76AA326859D7400A76C59 /* MoreTab */ = {
@@ -688,6 +699,7 @@
 				FFD830B126B983BD00EA1AA3 /* MyPreferenceVC.swift in Sources */,
 				FFEC00B52695ABD300097D07 /* MenuListVC.swift in Sources */,
 				FFF1A51126B0490500A1B8A2 /* ForgotPasswordViewController.swift in Sources */,
+				766E7A87274676B700B1D5B7 /* SearchFilterVC.swift in Sources */,
 				FF80202F26AC5A2100F12CC6 /* RoutineParam.swift in Sources */,
 				FF15639D26810707008BB56E /* Extenstion.swift in Sources */,
 				FF15639E26810707008BB56E /* Constant.swift in Sources */,
