@@ -13,7 +13,7 @@ class NewHomeVC: UIViewController {
     
     @IBOutlet weak var tbl_home: UITableView!
     
-    var ArrMainCate = ["Activites","Ailments","Browse","Discover","LifeStyle","Sports","Target Areas","Wellness","Workout"]
+    var ArrMainCate = ["Activities","Ailments","Browse","Discover","LifeStyle","Sports","Target Areas","Wellness","Workout"]
     var isLogin: String = "No"
     
     var arrActivitesImgList = [

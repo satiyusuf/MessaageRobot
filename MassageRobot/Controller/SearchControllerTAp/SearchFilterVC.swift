@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TagListView
 
 class SearchFilterVC: UIViewController {
 
@@ -15,6 +16,10 @@ class SearchFilterVC: UIViewController {
     @IBOutlet weak var SliderValue: UISlider!
     @IBOutlet weak var TopView: UIView!
     @IBOutlet weak var tblData: UITableView!
+    @IBOutlet weak var btnApply: UIButton!
+    @IBOutlet weak var DurationView: UIView!
+    @IBOutlet weak var colleduration: UICollectionView!
+    @IBOutlet weak var btnDurationViewHide: UIButton!
     
     //MARK:- Variable
     private var hiddenSections = Set<Int>()
@@ -39,16 +44,17 @@ class SearchFilterVC: UIViewController {
     private var SpeedOrForceCheck = String()
     private var StrSpeedValue = String()
     private var StrForceValue = String()
-    private var StrDurationValue = String()
     
-    private var toolBar = UIToolbar()
-    private var picker  = UIPickerView()
-    
+    private var StartDuration = Int()
+    private var EndDuration = Int()
+    private var arrDurationSelectedIndex = [Int]()
     //MARK:- ViewDidLoad
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
+        self.btnDurationViewHide.setTitle("", for: .normal)
+        self.DurationView.isHidden = true
         self.TopView.layer.masksToBounds = false
         self.TopView.layer.shadowRadius = 4
         self.TopView.layer.shadowOpacity = 0.5
@@ -58,14 +64,11 @@ class SearchFilterVC: UIViewController {
         if #available(iOS 15.0, *) {
             self.tblData.sectionHeaderTopPadding = 0
         }
-        
-        let numbers = [1, 2, 3,10, 4, 5]
-        let mex = numbers.max()
-        print(mex)
-
     }
     
     //MARK:- Action
+    @IBAction func btnApply(_ sender: Any) {
+    }
     @IBAction func btnReset(_ sender: Any) {
         self.ResetValue()
     }
@@ -92,6 +95,10 @@ class SearchFilterVC: UIViewController {
         self.lblSliderText.text = "0"
         self.SliderValue.value = 0
     }
+    @IBAction func btnDurationViewHide(_ sender: Any) {
+        self.DurationView.isHidden = true
+        self.arrDurationSelectedIndex.removeAll()
+    }
 }
 //MARK:- Private Functio Used For Class
 extension SearchFilterVC {
@@ -109,10 +116,8 @@ extension SearchFilterVC {
         self.SpeedOrForceCheck = ""
         self.StrSpeedValue = ""
         self.StrForceValue = ""
-        self.StrDurationValue = ""
         
         self.tblData.reloadData()
-        self.picker.reloadAllComponents()
         self.SliderValue.reloadInputViews()
         self.lblSliderText.text = "0"
         self.SliderValue.value = 0
@@ -127,7 +132,6 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        
         if self.hiddenSections.contains(section) {
             
             if arrSection[section] == "Ailments" {
@@ -141,7 +145,7 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
             } else if arrSection[section] == "Date" {
                 return 0
             } else if arrSection[section] == "Description" {
-                return 0
+                return 1
             } else if arrSection[section] == "Duration" {
                 return 0
             } else if arrSection[section] == "Location" {
@@ -157,7 +161,7 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
             } else if arrSection[section] == "Speed" {
                 return 0
             } else if arrSection[section] == "Tag" {
-                return 0
+                return 1
             } else if arrSection[section] == "Tools" {
                 return arrTools.count
             } else if arrSection[section] == "Type" {
@@ -177,8 +181,12 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! DataCell
         cell.selectionStyle = .none
-        
+
         if arrSection[indexPath.section] == "Ailments" {
+            cell.MainView.isHidden = false
+            cell.DescView.isHidden = true
+            cell.TagView.isHidden = true
+            
             let Title = arrAilments[indexPath.row]
             cell.lbltitle.text = Title
             if self.arrAilmentsSelected.contains(Title) {
@@ -187,14 +195,19 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
                 cell.ImgRadio.image = UIImage(named: "UnSelectIcon")
             }
         }else if arrSection[indexPath.section] == "All" {
+            
             cell.lbltitle.text = ""
             cell.ImgRadio.image = UIImage(named: "UnSelectIcon")
             
         } else if arrSection[indexPath.section] == "Auther" {
+            
             cell.lbltitle.text = ""
             cell.ImgRadio.image = UIImage(named: "UnSelectIcon")
             
         } else if arrSection[indexPath.section] == "Category" {
+            cell.MainView.isHidden = false
+            cell.DescView.isHidden = true
+            cell.TagView.isHidden = true
             
             let Title = arrCategoryList[indexPath.row]
             cell.lbltitle.text = Title
@@ -209,6 +222,11 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
             cell.ImgRadio.image = UIImage(named: "UnSelectIcon")
 
         } else if arrSection[indexPath.section] == "Description" {
+            
+            cell.MainView.isHidden = true
+            cell.DescView.isHidden = false
+            cell.TagView.isHidden = true
+            
             cell.lbltitle.text = ""
             cell.ImgRadio.image = UIImage(named: "UnSelectIcon")
 
@@ -217,6 +235,10 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
             cell.ImgRadio.image = UIImage(named: "UnSelectIcon")
             
         } else if arrSection[indexPath.section] == "Location" {
+            
+            cell.MainView.isHidden = false
+            cell.DescView.isHidden = true
+            cell.TagView.isHidden = true
             
             let Title = arrLocatin[indexPath.row]
             cell.lbltitle.text = Title
@@ -227,6 +249,9 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
             }
             
         }else if arrSection[indexPath.section] == "Path" {
+            cell.MainView.isHidden = false
+            cell.DescView.isHidden = true
+            cell.TagView.isHidden = true
             
             let Title = arrPath[indexPath.row]
             cell.lbltitle.text = Title
@@ -253,10 +278,19 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
             cell.ImgRadio.image = UIImage(named: "UnSelectIcon")
 
         } else if arrSection[indexPath.section] == "Tag" {
+            
+            cell.MainView.isHidden = true
+            cell.DescView.isHidden = true
+            cell.TagView.isHidden = false
+            
             cell.lbltitle.text = ""
             cell.ImgRadio.image = UIImage(named: "UnSelectIcon")
 
         } else if arrSection[indexPath.section] == "Tools" {
+            
+            cell.MainView.isHidden = false
+            cell.DescView.isHidden = true
+            cell.TagView.isHidden = true
             
             let Title = arrTools[indexPath.row]
             cell.lbltitle.text = Title
@@ -267,6 +301,9 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
             }
             
         } else if arrSection[indexPath.section] == "Type" {
+            cell.MainView.isHidden = false
+            cell.DescView.isHidden = true
+            cell.TagView.isHidden = true
             
             let Title = arrType[indexPath.row]
             cell.lbltitle.text = Title
@@ -277,6 +314,10 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
             }
             
         } else if arrSection[indexPath.section] == "User"{
+            
+            cell.MainView.isHidden = false
+            cell.DescView.isHidden = true
+            cell.TagView.isHidden = true
             
             let Title = arrUser[indexPath.row]
             cell.lbltitle.text = Title
@@ -320,7 +361,13 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        return 30
+        if indexPath.section == 5 {
+            return 100
+        } else if indexPath.section == 13 {
+            return 100
+        } else {
+            return 30
+        }
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
@@ -454,7 +501,7 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
             self.SpeedOrForceCheck = "Speed"
             self.sliderview.isHidden = false
         } else if Name == "Duration" {
-            self.OpenPickerView()
+            self.DurationView.isHidden = false
         } else {
             func indexPathsForSection() -> [IndexPath] {
                 var indexPaths = [IndexPath]()
@@ -477,60 +524,141 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
     }
 }
 
-//MARK:- UITableViewCell Class
-class DataCell: UITableViewCell {
-    @IBOutlet weak var ImgRadio: UIImageView!
-    @IBOutlet weak var lbltitle: UILabel!
-}
-
-//MARK:- PickerView Private Function
-extension SearchFilterVC {
-    
-    private func OpenPickerView(){
-                
-        picker = UIPickerView(frame:CGRect(x: 15, y: self.view.frame.size.height/2 - 125, width: self.view.frame.size.width - 30, height: 250))
-        picker.showsSelectionIndicator = true
-        picker.delegate = self
-        picker.dataSource = self
-        picker.backgroundColor = UIColor.lightGray
-       // picker.layer.cornerRadius = 15
-        
-        toolBar = UIToolbar(frame: CGRect(x: 15, y: self.view.frame.size.height/2 - 125, width: picker.frame.width, height: 44))
-        toolBar.barStyle = UIBarStyle.blackOpaque
-        toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.red
-        toolBar.sizeToFit()
-       // toolBar.layer.cornerRadius = 15
-        
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.donePicker))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.donePicker))
-
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        toolBar.isUserInteractionEnabled = true
-        
-        self.view.addSubview(picker)
-        self.view.addSubview(toolBar)
-    }
-    
-    @objc func donePicker() {
-        picker.removeFromSuperview()
-        toolBar.removeFromSuperview()
-    }
-}
-//MARK:- UIPickerViewDelegate And UIPickerViewDataSource
-extension SearchFilterVC: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//MARK:- UICollectionViewDelegate And UICollectionViewDataSource Method
+extension SearchFilterVC : UICollectionViewDelegate,UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int
+    {
         return 1
     }
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 60
     }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(row + 1)"
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+        let cell = colleduration.dequeueReusableCell(withReuseIdentifier: "DuractionCell", for: indexPath) as! DuractionCell
+        cell.lblDuration.text = "\(indexPath.row + 1)"
+        cell.contentView.backgroundColor = UIColor.white
+                
+        if arrDurationSelectedIndex.count > 2 {
+            let Star = self.arrDurationSelectedIndex.min()!
+            let End = self.arrDurationSelectedIndex.max()!
+            let Last = self.arrDurationSelectedIndex.last!
+
+            let NewEnd = min(End, Last)
+            let StarMex = max(Star, Last)
+            let StarMin = min(Star, Last)
+            let NewStar = min(StarMex, StarMin)
+            
+            self.StartDuration = NewStar
+            self.EndDuration = NewEnd
+            
+            if NewStar <= indexPath.row && NewEnd >= indexPath.row {
+                cell.contentView.backgroundColor = UIColor.yellow
+            } else {
+                cell.contentView.backgroundColor = UIColor.white
+            }
+            
+        } else if arrDurationSelectedIndex.count > 1 {
+            let Star = self.arrDurationSelectedIndex.min()!
+            let End = self.arrDurationSelectedIndex.max()!
+            self.StartDuration = Star
+            self.EndDuration = End
+            if Star <= indexPath.row && End >= indexPath.row {
+                cell.contentView.backgroundColor = UIColor.yellow
+            } else {
+                cell.contentView.backgroundColor = UIColor.white
+            }
+        }
+        
+        return cell
     }
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.StrDurationValue = "\(row + 1)"
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+        self.arrDurationSelectedIndex.append(indexPath.row)
+        self.colleduration.reloadData()
+    }
+}
+//MARK:- UICollectionViewDelegateFlowLayout
+extension SearchFilterVC : UICollectionViewDelegateFlowLayout{
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 40, height: 40)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+}
+//MARK:- UITableViewCell Class
+class DataCell: UITableViewCell, UITextFieldDelegate, TagListViewDelegate, UITextViewDelegate {
+    @IBOutlet weak var MainView: UIView!
+    @IBOutlet weak var ImgRadio: UIImageView!
+    @IBOutlet weak var lbltitle: UILabel!
+    @IBOutlet weak var DescView: UIView!
+    @IBOutlet weak var txtTextArea: UITextView!
+    @IBOutlet weak var TagView: UIView!
+    @IBOutlet weak var txtTag: UITextField!
+    @IBOutlet weak var TagListShow: TagListView!
+    
+    override func awakeFromNib()
+    {
+        self.txtTag.delegate = self
+        self.TagListShow.delegate = self
+        
+        txtTextArea.delegate = self
+        txtTextArea.text = "Placeholder text goes right here..."
+        txtTextArea.textColor = UIColor.lightGray
+    }
+    
+    func tagRemoveButtonPressed(_ title: String, tagView: TagView, sender: TagListView) {
+        
+        sender.removeTagView(tagView)
+        if TagListShow.tagViews.count == 0
+        {
+            txtTag.placeholder = "Enter a new tag"
+        }
+        else
+        {
+            txtTag.placeholder = "+ tag"
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if txtTag == textField && txtTag.text != ""
+        {
+            TagListShow.addTag(textField.text!)
+            textField.text = ""
+            if TagListShow.tagViews.count == 0
+            {
+                textField.placeholder = "Enter a new tag"
+            }
+            else
+            {
+                textField.placeholder = "+ tag"
+            }
+        }
+        return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+
+        if txtTextArea.textColor == UIColor.lightGray {
+            txtTextArea.text = ""
+            txtTextArea.textColor = UIColor.black
+        }
     }
 }
 
+//MARK:- UICollectionViewCell Class
+class DuractionCell: UICollectionViewCell {
+    @IBOutlet weak var lblDuration: UILabel!
+}
