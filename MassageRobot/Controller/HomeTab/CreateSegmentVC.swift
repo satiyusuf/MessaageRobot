@@ -472,26 +472,26 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         if strLocationAction == "Left" {
             
             if isLink == false {
-                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
-                LImageSetLocation = "bodyparam"
+                data.btnLocationLeft.setTitle("knee", for: .normal)
+                LImageSetLocation = "knee"
             }
             else
             {
-                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
-                data.btnLocationRight.setTitle("bodyparam", for: .normal)
-                LImageSetLocation = "bodyparam"
-                RImageSetLocation = "bodyparam"
+                data.btnLocationLeft.setTitle("knee", for: .normal)
+                data.btnLocationRight.setTitle("knee", for: .normal)
+                LImageSetLocation = "knee"
+                RImageSetLocation = "knee"
             }
         }else if strLocationAction == "Right" {
             
             if isLink == false {
-                data.btnLocationRight.setTitle("bodyparam", for: .normal)
-                RImageSetLocation = "bodyparam"
+                data.btnLocationRight.setTitle("knee", for: .normal)
+                RImageSetLocation = "knee"
             }else{
-                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
-                data.btnLocationRight.setTitle("bodyparam", for: .normal)
-                LImageSetLocation = "bodyparam"
-                RImageSetLocation = "bodyparam"
+                data.btnLocationLeft.setTitle("knee", for: .normal)
+                data.btnLocationRight.setTitle("knee", for: .normal)
+                LImageSetLocation = "knee"
+                RImageSetLocation = "knee"
             }
         }
         
@@ -660,26 +660,26 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
         if strLocationAction == "Left" {
             
             if isLink == false {
-                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
-                LImageSetLocation = "bodyparam"
+                data.btnLocationLeft.setTitle("knee", for: .normal)
+                LImageSetLocation = "knee"
             }
             else
             {
-                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
-                data.btnLocationRight.setTitle("bodyparam", for: .normal)
-                LImageSetLocation = "bodyparam"
-                RImageSetLocation = "bodyparam"
+                data.btnLocationLeft.setTitle("knee", for: .normal)
+                data.btnLocationRight.setTitle("knee", for: .normal)
+                LImageSetLocation = "knee"
+                RImageSetLocation = "knee"
             }
         }else if strLocationAction == "Right" {
             
             if isLink == false {
-                data.btnLocationRight.setTitle("bodyparam", for: .normal)
-                RImageSetLocation = "bodyparam"
+                data.btnLocationRight.setTitle("knee", for: .normal)
+                RImageSetLocation = "knee"
             }else{
-                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
-                data.btnLocationRight.setTitle("bodyparam", for: .normal)
-                LImageSetLocation = "bodyparam"
-                RImageSetLocation = "bodyparam"
+                data.btnLocationLeft.setTitle("knee", for: .normal)
+                data.btnLocationRight.setTitle("knee", for: .normal)
+                LImageSetLocation = "knee"
+                RImageSetLocation = "knee"
             }
         }
         
@@ -2338,33 +2338,33 @@ class CreateSegmentVC: UIViewController, UIScrollViewDelegate  {
 
     @IBAction func btnBodyPartBodyparamAction(_ sender: UIButton) {
         isUpdateSegmentData = true
-       delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "bodyparam", currentIndex: intCurrentIndex )
+       delegateLocation?.locationViewAnimation(strLRLocation: strLocationAction, strBodyPart: "knee", currentIndex: intCurrentIndex )
         
         let data = arrRoutines[self.IndexData]
 
         if strLocationAction == "Left" {
             
             if isLink == false {
-                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
-                LImageSetLocation = "bodyparam"
+                data.btnLocationLeft.setTitle("knee", for: .normal)
+                LImageSetLocation = "knee"
             }
             else
             {
-                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
-                data.btnLocationRight.setTitle("bodyparam", for: .normal)
-                LImageSetLocation = "bodyparam"
-                RImageSetLocation = "bodyparam"
+                data.btnLocationLeft.setTitle("knee", for: .normal)
+                data.btnLocationRight.setTitle("knee", for: .normal)
+                LImageSetLocation = "knee"
+                RImageSetLocation = "knee"
             }
         }else if strLocationAction == "Right" {
             
             if isLink == false {
-                data.btnLocationRight.setTitle("bodyparam", for: .normal)
-                RImageSetLocation = "bodyparam"
+                data.btnLocationRight.setTitle("knee", for: .normal)
+                RImageSetLocation = "knee"
             }else{
-                data.btnLocationLeft.setTitle("bodyparam", for: .normal)
-                data.btnLocationRight.setTitle("bodyparam", for: .normal)
-                LImageSetLocation = "bodyparam"
-                RImageSetLocation = "bodyparam"
+                data.btnLocationLeft.setTitle("knee", for: .normal)
+                data.btnLocationRight.setTitle("knee", for: .normal)
+                LImageSetLocation = "knee"
+                RImageSetLocation = "knee"
             }
         }
         

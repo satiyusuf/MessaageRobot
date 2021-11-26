@@ -303,6 +303,7 @@ PODS:
   - Starscream (4.0.4)
   - TagListView (1.4.1)
   - Toast-Swift (5.0.1)
+  - YACalendar (0.0.3)
 
 DEPENDENCIES:
   - Alamofire (~> 5.2)
@@ -316,6 +317,7 @@ DEPENDENCIES:
   - Starscream (~> 4.0.0)
   - TagListView (~> 1.0)
   - Toast-Swift (~> 5.0.1)
+  - YACalendar
 
 SPEC REPOS:
   trunk:
@@ -343,6 +345,7 @@ SPEC REPOS:
     - Starscream
     - TagListView
     - Toast-Swift
+    - YACalendar
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -369,7 +372,8 @@ SPEC CHECKSUMS:
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
+  YACalendar: 4e6fefda3c384c71d71db094bc7335013e3f4561
 
-PODFILE CHECKSUM: 331966c75f3f0324e98cac06dd36297aaae0bbde
+PODFILE CHECKSUM: cf37ac328c6756334b2c15d8af502cf518cdbee3
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2

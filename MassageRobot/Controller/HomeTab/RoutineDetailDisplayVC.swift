@@ -85,7 +85,7 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
     var Gender = String()
     var arrFrontBodyData = [[String:Any]]()
     var arrBackBodyData = [[String:Any]]()
-    
+    var arrForce = [Int]()
     
     let scrollView = UIScrollView(frame: CGRect(x:0, y:0, width:340,height: 460))
     var colors:[UIColor] = [UIColor.red, UIColor.yellow]
@@ -391,6 +391,11 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                             let location_r = Data["location_r"] as? String ?? ""
                             let location_l = Data["location_l"] as? String ?? ""
                             
+                            let force_r = Data["force_r"] as? Int ?? 0
+                            let force_l = Data["force_l"] as? Int ?? 0
+                            self.arrForce.append(force_r)
+                            self.arrForce.append(force_l)
+                            
                             if FrontAndBack == "F" {
                                 let Dict = ["location_r":location_r,"location_l":location_l,"body_location":FrontAndBack]
                                 self.arrFrontBodyData.append(Dict)
@@ -438,6 +443,7 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                                 let location_r = Data["location_r"] as? String ?? ""
                                 let location_l = Data["location_l"] as? String ?? ""
                                 let FrontAndBack = Data["body_location"] as? String ?? ""
+                                
                                 self.ImageBodyPartSetAndFrontBack(LLocation: location_l, RLocation: location_r, Body: FrontAndBack, Gender: self.Gender)
                             }
                         }
@@ -454,10 +460,19 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                                 let location_r = Data["location_r"] as? String ?? ""
                                 let location_l = Data["location_l"] as? String ?? ""
                                 let FrontAndBack = Data["body_location"] as? String ?? ""
+                                
                                 self.ImageBodyPartSetAndFrontBack(LLocation: location_l, RLocation: location_r, Body: FrontAndBack, Gender: self.Gender)
                             }
                         }
                         
+                        let ForceMex = arrForce.max()
+                        let FOr:Float = Float(ForceMex!)
+                        progressSegment.setProgress(FOr/100.0, animated: true)
+                      //  progressDownload.setProgress(5.0/10.0, animated: true)
+
+                        
+                       
+
 //                        if arrHumanBodyNameLeft.count > 0  && arrHumanBodyNameRight.count  > 0 {
 //                        if arrUserDetail.count > 0 {
 //                            let routingData = arrUserDetail[0]
@@ -799,9 +814,10 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
             print("ProVal????>>>>\(durCalculate)")
             print("123456>>>>>>>> \(ProValue)")
             
-            self.progressSegment.progress = ProValue
+           // self.progressSegment.progress = ProValue
             self.collectionTool.reloadData()
         }
+        
         
         if !selectedTools.contains(strLeftTool.lowercased()) {
             selectedTools.append(strLeftTool.lowercased())
@@ -1172,7 +1188,7 @@ extension RoutineDetailDisplayVC
         else if L == "glutiusmaximus"
         {
             LName = "L-glut"
-        }else if L == "bodyparam" {
+        }else if L == "knee" {
             LName = "L-knee"
         }
         
@@ -1215,7 +1231,7 @@ extension RoutineDetailDisplayVC
         else if R == "glutiusmaximus"
         {
             RName = "R-glut"
-        } else if R == "bodyparam" {
+        } else if R == "knee" {
             RName = "R-knee"
         }
         
@@ -1274,7 +1290,7 @@ extension RoutineDetailDisplayVC
         else if L == "glutiusmaximus"
         {
             LName = "F-L-glut"
-        } else if L == "bodyparam" {
+        } else if L == "knee" {
             LName = "F-L-knee"
         }
         
@@ -1317,7 +1333,7 @@ extension RoutineDetailDisplayVC
         else if R == "glutiusmaximus"
         {
             RName = "F-R-glut"
-        } else if R == "bodyparam" {
+        } else if R == "knee" {
             RName = "F-R-knee"
         }
         

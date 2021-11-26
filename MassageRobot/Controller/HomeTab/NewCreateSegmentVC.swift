@@ -381,21 +381,21 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
                 let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
-                cell.btnLeftLocation.setTitle("bodyparam", for: .normal)
-                self.StrLeftImagePart = "bodyparam"
+                cell.btnLeftLocation.setTitle("knee", for: .normal)
+                self.StrLeftImagePart = "knee"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
                 let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
-                cell.btnRightLocation.setTitle("bodyparam", for: .normal)
-                self.StrRightImagePart = "bodyparam"
+                cell.btnRightLocation.setTitle("knee", for: .normal)
+                self.StrRightImagePart = "knee"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
             let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
-            cell.btnLeftLocation.setTitle("bodyparam", for: .normal)
-            cell.btnRightLocation.setTitle("bodyparam", for: .normal)
-            self.StrRightImagePart = "bodyparam"
-            self.StrLeftImagePart = "bodyparam"
+            cell.btnLeftLocation.setTitle("knee", for: .normal)
+            cell.btnRightLocation.setTitle("knee", for: .normal)
+            self.StrRightImagePart = "knee"
+            self.StrLeftImagePart = "knee"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
         self.FemaleBodyPartSelectionView.isHidden = true
@@ -518,21 +518,21 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
                 let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
-                cell.btnLeftLocation.setTitle("Bodyparam", for: .normal)
-                self.StrLeftImagePart = "bodyparam"
+                cell.btnLeftLocation.setTitle("knee", for: .normal)
+                self.StrLeftImagePart = "knee"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
                 let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
-                cell.btnRightLocation.setTitle("Bodyparam", for: .normal)
-                self.StrRightImagePart = "bodyparam"
+                cell.btnRightLocation.setTitle("knee", for: .normal)
+                self.StrRightImagePart = "knee"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
             let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
-            cell.btnRightLocation.setTitle("Bodyparam", for: .normal)
-            cell.btnLeftLocation.setTitle("Bodyparam", for: .normal)
-            self.StrLeftImagePart = "bodyparam"
-            self.StrRightImagePart = "bodyparam"
+            cell.btnRightLocation.setTitle("knee", for: .normal)
+            cell.btnLeftLocation.setTitle("knee", for: .normal)
+            self.StrLeftImagePart = "knee"
+            self.StrRightImagePart = "knee"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
         self.FemaleBodyPartSelectionView.isHidden = true
@@ -982,21 +982,21 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
                 let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
-                cell.btnLeftLocation.setTitle("bodyparam", for: .normal)
-                self.StrLeftImagePart = "bodyparam"
+                cell.btnLeftLocation.setTitle("knee", for: .normal)
+                self.StrLeftImagePart = "knee"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
                 let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
-                cell.btnRightLocation.setTitle("bodyparam", for: .normal)
-                self.StrRightImagePart = "bodyparam"
+                cell.btnRightLocation.setTitle("knee", for: .normal)
+                self.StrRightImagePart = "knee"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
             let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
-            cell.btnLeftLocation.setTitle("bodyparam", for: .normal)
-            cell.btnRightLocation.setTitle("bodyparam", for: .normal)
-            self.StrRightImagePart = "bodyparam"
-            self.StrLeftImagePart = "bodyparam"
+            cell.btnLeftLocation.setTitle("knee", for: .normal)
+            cell.btnRightLocation.setTitle("knee", for: .normal)
+            self.StrRightImagePart = "knee"
+            self.StrLeftImagePart = "knee"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
         self.MaleBodyPartSelectionView.isHidden = true
@@ -1119,21 +1119,21 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
             if StrLeftRightLocation == "Left" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
                 let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
-                cell.btnLeftLocation.setTitle("Bodyparam", for: .normal)
-                self.StrLeftImagePart = "bodyparam"
+                cell.btnLeftLocation.setTitle("knee", for: .normal)
+                self.StrLeftImagePart = "knee"
             } else if StrLeftRightLocation == "Right" {
                 let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
                 let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
-                cell.btnRightLocation.setTitle("Bodyparam", for: .normal)
-                self.StrRightImagePart = "bodyparam"
+                cell.btnRightLocation.setTitle("knee", for: .normal)
+                self.StrRightImagePart = "knee"
             }
         } else {
             let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
             let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
-            cell.btnRightLocation.setTitle("Bodyparam", for: .normal)
-            cell.btnLeftLocation.setTitle("Bodyparam", for: .normal)
-            self.StrLeftImagePart = "bodyparam"
-            self.StrRightImagePart = "bodyparam"
+            cell.btnRightLocation.setTitle("knee", for: .normal)
+            cell.btnLeftLocation.setTitle("knee", for: .normal)
+            self.StrLeftImagePart = "knee"
+            self.StrRightImagePart = "knee"
         }
         self.SetImagePart(LeftLocation: self.StrLeftImagePart, RightLocation: self.StrRightImagePart)
         self.MaleBodyPartSelectionView.isHidden = true
@@ -2074,7 +2074,7 @@ extension NewCreateSegmentVC {
             else if LeftLocation == "glutiusmaximus"
             {
                 ImageL = "F-L-calf"
-            } else if LeftLocation == "bodyparam" {
+            } else if LeftLocation == "knee" {
                 ImageL = "F-L-knee"
             }
             
@@ -2118,7 +2118,7 @@ extension NewCreateSegmentVC {
             else if RightLocation == "glutiusmaximus"
             {
                 ImageR = "F-R-calf"
-            } else if RightLocation == "bodyparam" {
+            } else if RightLocation == "knee" {
                 ImageR = "F-R-knee"
             }
             
@@ -2167,7 +2167,7 @@ extension NewCreateSegmentVC {
             else if LeftLocation == "glutiusmaximus"
             {
                 ImageL = "L-calf"
-            } else if LeftLocation == "bodyparam" {
+            } else if LeftLocation == "knee" {
                 ImageL = "L-knee"
             }
             
@@ -2212,7 +2212,7 @@ extension NewCreateSegmentVC {
             else if RightLocation == "glutiusmaximus"
             {
                 ImageR = "R-calf"
-            } else if RightLocation == "bodyparam" {
+            } else if RightLocation == "knee" {
                 ImageR = "R-knee"
             }
             self.ImgLeft.image = UIImage(named: ImageL)

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rHM-eE-WNo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rHM-eE-WNo">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -2179,14 +2179,14 @@
                                                                         <attributedString key="attributedText">
                                                                             <fragment content="Ailment ">
                                                                                 <attributes>
-                                                                                    <font key="NSFont" size="16" name="Lato-Bold"/>
+                                                                                    <font key="NSFont" metaFont="system" size="16"/>
                                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
                                                                             <fragment content="*">
                                                                                 <attributes>
                                                                                     <color key="NSColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                    <font key="NSFont" size="16" name="Lato-Bold"/>
+                                                                                    <font key="NSFont" metaFont="system" size="16"/>
                                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
@@ -2961,14 +2961,14 @@
                                                                             <fragment content="Author ">
                                                                                 <attributes>
                                                                                     <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                    <font key="NSFont" size="16" name="Lato-Bold"/>
+                                                                                    <font key="NSFont" metaFont="system" size="16"/>
                                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
                                                                             <fragment content="*">
                                                                                 <attributes>
                                                                                     <color key="NSColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                    <font key="NSFont" size="16" name="Lato-Bold"/>
+                                                                                    <font key="NSFont" metaFont="system" size="16"/>
                                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
@@ -3026,14 +3026,14 @@
                                                                             <fragment content="Category ">
                                                                                 <attributes>
                                                                                     <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                    <font key="NSFont" size="16" name="Lato-Bold"/>
+                                                                                    <font key="NSFont" metaFont="system" size="16"/>
                                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
                                                                             <fragment content="*">
                                                                                 <attributes>
                                                                                     <color key="NSColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                    <font key="NSFont" size="16" name="Lato-Bold"/>
+                                                                                    <font key="NSFont" metaFont="system" size="16"/>
                                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
@@ -3090,14 +3090,14 @@
                                                                         <attributedString key="attributedText">
                                                                             <fragment content="Sub-category ">
                                                                                 <attributes>
-                                                                                    <font key="NSFont" size="16" name="Lato-Bold"/>
+                                                                                    <font key="NSFont" metaFont="system" size="16"/>
                                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
                                                                             <fragment content="*">
                                                                                 <attributes>
                                                                                     <color key="NSColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                    <font key="NSFont" size="16" name="Lato-Bold"/>
+                                                                                    <font key="NSFont" metaFont="system" size="16"/>
                                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
@@ -3202,7 +3202,7 @@
                                                                         <attributedString key="attributedText">
                                                                             <fragment content="Description">
                                                                                 <attributes>
-                                                                                    <font key="NSFont" size="16" name="Lato-Bold"/>
+                                                                                    <font key="NSFont" metaFont="system" size="16"/>
                                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
@@ -3297,7 +3297,7 @@
                                                                         <attributedString key="attributedText">
                                                                             <fragment content="Tags">
                                                                                 <attributes>
-                                                                                    <font key="NSFont" size="16" name="Lato-Bold"/>
+                                                                                    <font key="NSFont" metaFont="system" size="16"/>
                                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
@@ -3500,7 +3500,7 @@
                                                                             <fragment content="Type">
                                                                                 <attributes>
                                                                                     <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                                    <font key="NSFont" size="16" name="Lato-Bold"/>
+                                                                                    <font key="NSFont" metaFont="system" size="16"/>
                                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
@@ -3568,14 +3568,14 @@
                                                                         <attributedString key="attributedText">
                                                                             <fragment content="User ">
                                                                                 <attributes>
-                                                                                    <font key="NSFont" size="16" name="Lato-Bold"/>
+                                                                                    <font key="NSFont" metaFont="system" size="16"/>
                                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
                                                                             <fragment content="*">
                                                                                 <attributes>
                                                                                     <color key="NSColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                    <font key="NSFont" size="16" name="Lato-Bold"/>
+                                                                                    <font key="NSFont" metaFont="system" size="16"/>
                                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
@@ -3828,7 +3828,7 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="260" id="S1B-Uu-2no" customClass="NewHomeTblCell" customModule="MassageRobot" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="414" height="260"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="414" height="260"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" autoresizesSubviews="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S1B-Uu-2no" id="DG5-d6-OYe">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="260"/>
@@ -4184,18 +4184,28 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JiU-sx-9wQ">
                                                 <rect key="frame" x="0.0" y="278" width="414" height="52"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="WeightIcon" translatesAutoresizingMaskIntoConstraints="NO" id="8bl-hf-QUE">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WeightIcon" translatesAutoresizingMaskIntoConstraints="NO" id="8bl-hf-QUE">
                                                         <rect key="frame" x="31" y="12" width="23" height="28"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="23" id="E6i-NN-oOW"/>
+                                                            <constraint firstAttribute="height" constant="28" id="H1x-cr-ryF"/>
+                                                        </constraints>
                                                     </imageView>
-                                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="HtF-Ol-777">
-                                                        <rect key="frame" x="80" y="24" width="303" height="4"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="HtF-Ol-777">
+                                                        <rect key="frame" x="74" y="24" width="320" height="4"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="4" id="sTt-cv-L9d"/>
+                                                        </constraints>
                                                     </progressView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstItem="8bl-hf-QUE" firstAttribute="leading" secondItem="JiU-sx-9wQ" secondAttribute="leading" constant="31" id="0Gl-BY-gCb"/>
                                                     <constraint firstAttribute="height" constant="52" id="RPf-bs-9q2"/>
+                                                    <constraint firstItem="HtF-Ol-777" firstAttribute="top" secondItem="JiU-sx-9wQ" secondAttribute="top" constant="24" id="WXu-Ty-p7q"/>
+                                                    <constraint firstItem="8bl-hf-QUE" firstAttribute="top" secondItem="JiU-sx-9wQ" secondAttribute="top" constant="12" id="cxk-NB-0by"/>
+                                                    <constraint firstItem="HtF-Ol-777" firstAttribute="leading" secondItem="8bl-hf-QUE" secondAttribute="trailing" constant="20" id="nZf-HI-tEf"/>
+                                                    <constraint firstAttribute="trailing" secondItem="HtF-Ol-777" secondAttribute="trailing" constant="20" id="ob2-tc-Lnm"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5g7-Jg-7hb">

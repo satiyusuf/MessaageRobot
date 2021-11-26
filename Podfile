@@ -17,4 +17,6 @@ target 'MassageRobot' do
   pod 'SDWebImage'
   pod 'Firebase/Storage'
   pod 'Firebase/Firestore'
+  pod 'YACalendar'
+
 end
