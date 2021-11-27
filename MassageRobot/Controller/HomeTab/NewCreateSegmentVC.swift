@@ -35,7 +35,6 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
     //CollectionView
     @IBOutlet weak var ColleData: UICollectionView!
     @IBOutlet weak var ColleRuler: UICollectionView!
-
     @IBOutlet weak var ViewAdd: UIView!
 
     

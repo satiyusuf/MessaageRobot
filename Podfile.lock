@@ -297,6 +297,7 @@ PODS:
     - NVActivityIndicatorView/Presenter (= 4.5.1)
   - NVActivityIndicatorView/Presenter (4.5.1)
   - PromisesObjC (1.2.12)
+  - RangeSeekSlider (1.8.0)
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
@@ -313,6 +314,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - IQKeyboardManagerSwift
   - NVActivityIndicatorView (~> 4.5.0)
+  - RangeSeekSlider
   - SDWebImage
   - Starscream (~> 4.0.0)
   - TagListView (~> 1.0)
@@ -341,6 +343,7 @@ SPEC REPOS:
     - nanopb
     - NVActivityIndicatorView
     - PromisesObjC
+    - RangeSeekSlider
     - SDWebImage
     - Starscream
     - TagListView
@@ -368,12 +371,13 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   NVActivityIndicatorView: ec34a7b88c51fab270004a1a1f32116e711010cd
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  RangeSeekSlider: 650b11fa1edcb92e1e0ede797669d98622570fb5
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   YACalendar: 4e6fefda3c384c71d71db094bc7335013e3f4561
 
-PODFILE CHECKSUM: cf37ac328c6756334b2c15d8af502cf518cdbee3
+PODFILE CHECKSUM: 4b66974b959957ea7b1b00f42f7a47d3ca21d8e9
 
 COCOAPODS: 1.11.2

@@ -6,7 +6,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -88,7 +87,7 @@
                                 <rect key="frame" x="10" y="98" width="394" height="650"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="52" id="Hqh-HU-4Ll" customClass="DataCell" customModule="MassageRobot" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DataCell" rowHeight="52" id="Hqh-HU-4Ll" customClass="DataCell" customModule="MassageRobot" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="394" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Hqh-HU-4Ll" id="dIz-SV-h7d">
@@ -365,75 +364,63 @@
                                             <action selector="btnDurationViewHide:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="2J8-rc-4jE"/>
                                         </connections>
                                     </button>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JRF-Fc-Vvy">
-                                        <rect key="frame" x="30" y="223" width="354" height="450"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vRh-yM-exV" customClass="RangeSeekSlider" customModule="RangeSeekSlider">
+                                        <rect key="frame" x="20" y="408" width="374" height="80"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="450" id="jX5-Ka-wY7"/>
+                                            <constraint firstAttribute="height" constant="80" id="Tfp-X1-ANG"/>
                                         </constraints>
-                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="AJC-zK-Veg">
-                                            <size key="itemSize" width="70" height="70"/>
-                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        </collectionViewFlowLayout>
-                                        <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DuractionCell" id="A5F-on-Opk" customClass="DuractionCell" customModule="MassageRobot" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Nkl-hT-819">
-                                                    <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RcO-KX-XJw">
-                                                            <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="RcO-KX-XJw" secondAttribute="trailing" id="6fS-JI-hTm"/>
-                                                        <constraint firstAttribute="bottom" secondItem="RcO-KX-XJw" secondAttribute="bottom" id="UnE-3c-FEy"/>
-                                                        <constraint firstItem="RcO-KX-XJw" firstAttribute="leading" secondItem="Nkl-hT-819" secondAttribute="leading" id="lMF-YJ-wH5"/>
-                                                        <constraint firstItem="RcO-KX-XJw" firstAttribute="top" secondItem="Nkl-hT-819" secondAttribute="top" id="mqA-OX-26X"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="20"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                            <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                            <real key="value" value="1"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </collectionViewCellContentView>
-                                                <size key="customSize" width="70" height="70"/>
-                                                <connections>
-                                                    <outlet property="lblDuration" destination="RcO-KX-XJw" id="1MJ-oD-tx0"/>
-                                                </connections>
-                                            </collectionViewCell>
-                                        </cells>
-                                        <connections>
-                                            <outlet property="dataSource" destination="Y6W-OH-hqX" id="yp3-tB-JxI"/>
-                                            <outlet property="delegate" destination="Y6W-OH-hqX" id="tV1-lV-sHW"/>
-                                        </connections>
-                                    </collectionView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="minValue">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
+                                                <real key="value" value="60"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="maxLabelColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="minLabelColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="handleBorderColor">
+                                                <color key="value" systemColor="tintColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="handleColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="colorBetweenHandles">
+                                                <color key="value" systemColor="linkColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="selectedHandleDiameterMultiplier">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="handleBorderWidth">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="initialColor">
+                                                <color key="value" systemColor="linkColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.062745098039215685" green="0.18823529411764706" blue="0.47843137254901957" alpha="0.26000000000000001" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="zeg-Ka-NkA" firstAttribute="top" secondItem="fBf-41-gz5" secondAttribute="top" id="3Pn-qw-zld"/>
+                                    <constraint firstItem="vRh-yM-exV" firstAttribute="centerX" secondItem="fBf-41-gz5" secondAttribute="centerX" id="CkI-6o-hEZ"/>
                                     <constraint firstAttribute="trailing" secondItem="zeg-Ka-NkA" secondAttribute="trailing" id="DVV-Ng-mvv"/>
                                     <constraint firstItem="zeg-Ka-NkA" firstAttribute="leading" secondItem="fBf-41-gz5" secondAttribute="leading" id="DYw-xV-yvc"/>
-                                    <constraint firstItem="JRF-Fc-Vvy" firstAttribute="centerY" secondItem="fBf-41-gz5" secondAttribute="centerY" id="Hmx-Iw-p2u"/>
-                                    <constraint firstItem="JRF-Fc-Vvy" firstAttribute="centerX" secondItem="fBf-41-gz5" secondAttribute="centerX" id="VYq-Yx-oHG"/>
                                     <constraint firstAttribute="bottom" secondItem="zeg-Ka-NkA" secondAttribute="bottom" id="X8b-Iz-xWv"/>
-                                    <constraint firstItem="JRF-Fc-Vvy" firstAttribute="leading" secondItem="fBf-41-gz5" secondAttribute="leading" constant="30" id="h1v-7W-gDz"/>
-                                    <constraint firstAttribute="trailing" secondItem="JRF-Fc-Vvy" secondAttribute="trailing" constant="30" id="jF4-tG-Fa1"/>
+                                    <constraint firstItem="vRh-yM-exV" firstAttribute="leading" secondItem="fBf-41-gz5" secondAttribute="leading" constant="20" id="abi-Ns-c8y"/>
+                                    <constraint firstAttribute="trailing" secondItem="vRh-yM-exV" secondAttribute="trailing" constant="20" id="dD6-mO-wqV"/>
+                                    <constraint firstItem="vRh-yM-exV" firstAttribute="centerY" secondItem="fBf-41-gz5" secondAttribute="centerY" id="j01-RF-hor"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -472,12 +459,12 @@
                     <navigationItem key="navigationItem" id="bio-Lw-ofe"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="DurationRange" destination="vRh-yM-exV" id="Y8N-IL-BGo"/>
                         <outlet property="DurationView" destination="fBf-41-gz5" id="mti-JD-KGX"/>
                         <outlet property="SliderValue" destination="thA-Wb-nhd" id="wgC-CK-4BQ"/>
                         <outlet property="TopView" destination="aMQ-xH-zOl" id="uxa-a0-Emd"/>
                         <outlet property="btnApply" destination="D0t-dk-j4W" id="LzA-5n-xca"/>
                         <outlet property="btnDurationViewHide" destination="zeg-Ka-NkA" id="hGM-bF-gVp"/>
-                        <outlet property="colleduration" destination="JRF-Fc-Vvy" id="boQ-IR-IcW"/>
                         <outlet property="lblSliderText" destination="Cdr-zY-vIh" id="BE8-89-BBa"/>
                         <outlet property="sliderview" destination="Fnq-kB-d6W" id="OHL-MI-9jF"/>
                         <outlet property="tblData" destination="sbP-22-fjo" id="CSJ-zd-r2e"/>
@@ -514,8 +501,14 @@
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

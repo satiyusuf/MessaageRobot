@@ -18,5 +18,6 @@ target 'MassageRobot' do
   pod 'Firebase/Storage'
   pod 'Firebase/Firestore'
   pod 'YACalendar'
+  pod 'RangeSeekSlider'
 
 end

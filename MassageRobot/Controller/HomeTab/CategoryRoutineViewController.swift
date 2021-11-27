@@ -35,6 +35,8 @@ class CategoryRoutineViewController: UIViewController {
     
     var isSearch: Bool = false
         
+    var DictFilterData = [[String: Any]]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -58,9 +60,6 @@ class CategoryRoutineViewController: UIViewController {
                         
         IQKeyboardManager.shared.toolbarDoneBarButtonItemText = "Done"
         txtCategoryRoutine.delegate = self
-        
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -122,6 +121,9 @@ class CategoryRoutineViewController: UIViewController {
         }
         
         let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategory.lowercased())' ORDER BY creation \(strSorting ?? "DESC") LIMIT 10 OFFSET 0'"
+        
+        
+//        let strURL2 = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategory.lowercased())' and ORDER BY creation \(strSorting ?? "DESC") LIMIT 10 OFFSET 0'"
                     
         print(strURL)
                         

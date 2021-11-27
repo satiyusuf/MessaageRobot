@@ -7,6 +7,7 @@
 
 import UIKit
 import TagListView
+import RangeSeekSlider
 
 class SearchFilterVC: UIViewController {
 
@@ -18,8 +19,8 @@ class SearchFilterVC: UIViewController {
     @IBOutlet weak var tblData: UITableView!
     @IBOutlet weak var btnApply: UIButton!
     @IBOutlet weak var DurationView: UIView!
-    @IBOutlet weak var colleduration: UICollectionView!
     @IBOutlet weak var btnDurationViewHide: UIButton!
+    @IBOutlet weak var DurationRange: RangeSeekSlider!
     
     //MARK:- Variable
     private var hiddenSections = Set<Int>()
@@ -47,11 +48,15 @@ class SearchFilterVC: UIViewController {
     
     private var StartDuration = Int()
     private var EndDuration = Int()
-    private var arrDurationSelectedIndex = [Int]()
+    private var tagslist = ""
+    private var DescriptionText = ""
+    private var HeaderViewHeight = Int()
     //MARK:- ViewDidLoad
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        DurationRange.delegate = self
         
         self.btnDurationViewHide.setTitle("", for: .normal)
         self.DurationView.isHidden = true
@@ -68,6 +73,32 @@ class SearchFilterVC: UIViewController {
     
     //MARK:- Action
     @IBAction func btnApply(_ sender: Any) {
+             
+        let AilmentsComa = self.arrAilmentsSelected.joined(separator: ",")
+        let CategoryComa = self.self.arrCategoryListSelected.joined(separator: ",")
+        let LocationComa = self.arrLocatinSelected.joined(separator: ",")
+        let PathComa = self.arrPathSelected.joined(separator: ",")
+        let ToolsComa = self.arrToolsSelected.joined(separator: ",")
+        let TypeComa = self.arrTypeSelected.joined(separator: ",")
+        let UserComa = self.arrUserSelected.joined(separator: ",")
+        
+        let Ailments = ["ailments":AilmentsComa.lowercased()]
+        let Category = ["category":CategoryComa.lowercased()]
+        let Description = ["description":self.DescriptionText]
+        let Duration = ["duration":"\(self.StartDuration) to \(self.EndDuration)"]
+        let Location = ["location":LocationComa.lowercased()]
+        let Path = ["path":PathComa.lowercased()]
+        let Pressure = ["pressure":self.StrForceValue]
+        let Speed = ["speed":self.StrSpeedValue]
+        let Tag = ["tag":tagslist]
+        let Tools = ["tools":ToolsComa.lowercased()]
+        let Type = ["type":TypeComa.lowercased()]
+        let User = ["user":UserComa.lowercased()]
+        
+        let sb = UIStoryboard(name: "CreateToutine", bundle: nil)
+        let vc = sb.instantiateViewController(withIdentifier: "CategoryWiseRoutine") as! CategoryRoutineViewController
+        vc.DictFilterData = [Ailments,Category,Description,Duration,Location,Path,Pressure,Speed,Tag,Tools,Type,User]
+        navigationController?.pushViewController(vc, animated: false)
     }
     @IBAction func btnReset(_ sender: Any) {
         self.ResetValue()
@@ -90,6 +121,7 @@ class SearchFilterVC: UIViewController {
         } else if SpeedOrForceCheck == "Speed" {
             self.StrSpeedValue = "\(Int(SliderValue.value))"
         }
+        self.tblData.reloadData()
         SliderValue.reloadInputViews()
         self.sliderview.isHidden = true
         self.lblSliderText.text = "0"
@@ -97,7 +129,7 @@ class SearchFilterVC: UIViewController {
     }
     @IBAction func btnDurationViewHide(_ sender: Any) {
         self.DurationView.isHidden = true
-        self.arrDurationSelectedIndex.removeAll()
+        self.tblData.reloadData()
     }
 }
 //MARK:- Private Functio Used For Class
@@ -117,15 +149,27 @@ extension SearchFilterVC {
         self.StrSpeedValue = ""
         self.StrForceValue = ""
         
-        self.tblData.reloadData()
+        
         self.SliderValue.reloadInputViews()
         self.lblSliderText.text = "0"
         self.SliderValue.value = 0
+        
+        self.StartDuration = 0
+        self.EndDuration = 0
+        self.tagslist = ""
+        self.DescriptionText = ""
+        self.HeaderViewHeight = 0
+        
+        NotificationCenter.default.post(name: Notification.Name("Reset"), object: nil, userInfo: ["Reset":"true"])
+        
+        self.tblData.reloadData()
     }
 }
 //MARK:- UITableView DataSource And DeleGate Method
 extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
 {
+    
+    
     func numberOfSections(in tableView: UITableView) -> Int
     {
         return arrSection.count
@@ -179,7 +223,7 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! DataCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DataCell") as! DataCell
         cell.selectionStyle = .none
 
         if arrSection[indexPath.section] == "Ailments" {
@@ -223,6 +267,7 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
 
         } else if arrSection[indexPath.section] == "Description" {
             
+            cell.DescData = self
             cell.MainView.isHidden = true
             cell.DescView.isHidden = false
             cell.TagView.isHidden = true
@@ -231,6 +276,7 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
             cell.ImgRadio.image = UIImage(named: "UnSelectIcon")
 
         } else if arrSection[indexPath.section] == "Duration" {
+            
             cell.lbltitle.text = ""
             cell.ImgRadio.image = UIImage(named: "UnSelectIcon")
             
@@ -283,6 +329,7 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
             cell.DescView.isHidden = true
             cell.TagView.isHidden = false
             
+            cell.TagData = self
             cell.lbltitle.text = ""
             cell.ImgRadio.image = UIImage(named: "UnSelectIcon")
 
@@ -336,25 +383,175 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 35))
         
-        let label = UILabel()
-        label.frame = CGRect.init(x:20, y: 5, width: headerView.frame.width-10, height: headerView.frame.height-10)
-        label.text = arrSection[section]
-        label.font = UIFont(name: "futura", size: 18)
-        label.textColor = .black
+        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 35 ))
+       // headerView.layer.backgroundColor = UIColor.yellow.cgColor
+        
+        let Titlelabel = UILabel()
+        Titlelabel.frame = CGRect.init(x:20, y: 5, width: headerView.frame.width-10, height: headerView.frame.height-10)
+        Titlelabel.text = arrSection[section]
+        Titlelabel.font = UIFont(name: "futura", size: 18)
+        Titlelabel.textColor = .black
         
         let Image = UIImageView()
         Image.frame = CGRect(x: headerView.frame.width - 30, y: 10, width: 20, height: 13)
         Image.image = UIImage(named: "DownArrow")
         
         headerView.addSubview(Image)
-        headerView.addSubview(label)
+        headerView.addSubview(Titlelabel)
         
         headerView.tag = section
         let headerTapGesture = UITapGestureRecognizer()
         headerTapGesture.addTarget(self, action: #selector(self.HideSection(_:)))
         headerView.addGestureRecognizer(headerTapGesture)
+        
+        if arrSection[section] == "Ailments" {
+            if arrAilmentsSelected.count > 0 {
+                for (index, element) in arrAilmentsSelected.enumerated() {
+                    let SetTop = index * 20
+                    let label = UILabel()
+                    label.frame = CGRect.init(x:30, y: Titlelabel.frame.height + CGFloat(SetTop) , width: headerView.frame.width-10, height: headerView.frame.height-10)
+                    label.text = element //arrAilmentsSelected[index]
+                    label.font = UIFont(name: "futura", size: 12)
+                    label.textColor = .black
+                    headerView.addSubview(label)
+                }
+            }
+        }else if arrSection[section] == "All" {
+
+        } else if arrSection[section] == "Auther" {
+
+        } else if arrSection[section] == "Category" {
+            if arrCategoryListSelected.count > 0 {
+                for (index, element) in arrCategoryListSelected.enumerated() {
+                    let SetTop = index * 20
+                    let label = UILabel()
+                    label.frame = CGRect.init(x:30, y: Titlelabel.frame.height + CGFloat(SetTop) , width: headerView.frame.width-10, height: headerView.frame.height-10)
+                    label.text = element//arrCategoryListSelected[index]
+                    label.font = UIFont(name: "futura", size: 12)
+                    label.textColor = .black
+                    headerView.addSubview(label)
+                }
+            }
+        } else if arrSection[section] == "Date" {
+
+        } else if arrSection[section] == "Description" {
+            if DescriptionText.isEmpty == false {
+                let label = UILabel()
+                label.frame = CGRect.init(x:30, y: Titlelabel.frame.height + 5 , width: headerView.frame.width-10, height: headerView.frame.height-10)
+                label.text = DescriptionText
+                label.font = UIFont(name: "futura", size: 12)
+                label.textColor = .black
+                headerView.addSubview(label)
+            }
+
+        } else if arrSection[section] == "Duration" {
+            if StartDuration == 0 && EndDuration == 0 {
+            } else {
+                let label = UILabel()
+                label.frame = CGRect.init(x:30, y: Titlelabel.frame.height + 5 , width: headerView.frame.width-10, height: headerView.frame.height-10)
+                label.text = "\(StartDuration) To \(EndDuration)"
+                label.font = UIFont(name: "futura", size: 12)
+                label.textColor = .black
+                headerView.addSubview(label)
+            }
+        } else if arrSection[section] == "Location" {
+            if arrLocatinSelected.count > 0 {
+                for (index, element) in arrLocatinSelected.enumerated() {
+                    let SetTop = index * 20
+                    let label = UILabel()
+                    label.frame = CGRect.init(x:30, y: Titlelabel.frame.height + CGFloat(SetTop) , width: headerView.frame.width-10, height: headerView.frame.height-10)
+                    label.text = element//arrLocatinSelected[index]
+                    label.font = UIFont(name: "futura", size: 12)
+                    label.textColor = .black
+                    headerView.addSubview(label)
+                }
+            }
+        }else if arrSection[section] == "Path" {
+            if arrPathSelected.count > 0 {
+                for (index, element) in arrPathSelected.enumerated() {
+                    let SetTop = index * 20
+                    let label = UILabel()
+                    label.frame = CGRect.init(x:30, y: Titlelabel.frame.height + CGFloat(SetTop) , width: headerView.frame.width-10, height: headerView.frame.height-10)
+                    label.text = element//arrPathSelected[index]
+                    label.font = UIFont(name: "futura", size: 12)
+                    label.textColor = .black
+                    headerView.addSubview(label)
+                }
+            }
+        } else if arrSection[section] == "Pressure" {
+            if StrForceValue.isEmpty == false {
+                let label = UILabel()
+                label.frame = CGRect.init(x:30, y: Titlelabel.frame.height + 5 , width: headerView.frame.width-10, height: headerView.frame.height-10)
+                label.text = "Pressure:\(StrForceValue)"
+                label.font = UIFont(name: "futura", size: 12)
+                label.textColor = .black
+                headerView.addSubview(label)
+            }
+
+        } else if arrSection[section] == "Rating" {
+
+        } else if arrSection[section] == "Segment" {
+
+        } else if arrSection[section] == "Speed" {
+            if StrSpeedValue.isEmpty == false {
+                let label = UILabel()
+                label.frame = CGRect.init(x:30, y: Titlelabel.frame.height + 5 , width: headerView.frame.width-10, height: headerView.frame.height-10)
+                label.text = "Speed:\(StrSpeedValue)"
+                label.font = UIFont(name: "futura", size: 12)
+                label.textColor = .black
+                headerView.addSubview(label)
+            }
+
+        } else if arrSection[section] == "Tag" {
+            
+            if tagslist.count > 0 {
+                let label = UILabel()
+                label.frame = CGRect.init(x:30, y: Titlelabel.frame.height + 5 , width: headerView.frame.width-10, height: headerView.frame.height-10)
+                label.text = tagslist
+                label.font = UIFont(name: "futura", size: 12)
+                label.textColor = .black
+                headerView.addSubview(label)
+            }
+
+        } else if arrSection[section] == "Tools" {
+            if arrToolsSelected.count > 0 {
+                for (index, element) in arrToolsSelected.enumerated() {
+                    let SetTop = index * 20
+                    let label = UILabel()
+                    label.frame = CGRect.init(x:30, y: Titlelabel.frame.height + CGFloat(SetTop) , width: headerView.frame.width-10, height: headerView.frame.height-10)
+                    label.text = element//arrToolsSelected[index]
+                    label.font = UIFont(name: "futura", size: 12)
+                    label.textColor = .black
+                    headerView.addSubview(label)
+                }
+            }
+        } else if arrSection[section] == "Type" {
+            if arrTypeSelected.count > 0 {
+                for (index, element) in arrTypeSelected.enumerated() {
+                    let SetTop = index * 20
+                    let label = UILabel()
+                    label.frame = CGRect.init(x:30, y: Titlelabel.frame.height + CGFloat(SetTop) , width: headerView.frame.width-10, height: headerView.frame.height-10)
+                    label.text = element//arrTypeSelected[index]
+                    label.font = UIFont(name: "futura", size: 12)
+                    label.textColor = .black
+                    headerView.addSubview(label)
+                }
+            }
+        } else if arrSection[section] == "User"{
+            if arrUserSelected.count > 0 {
+                for (index, element) in arrUserSelected.enumerated() {
+                    let SetTop = index * 20
+                    let label = UILabel()
+                    label.frame = CGRect.init(x:30, y: Titlelabel.frame.height + CGFloat(SetTop) , width: headerView.frame.width-10, height: headerView.frame.height-10)
+                    label.text = element //arrUserSelected[index]
+                    label.font = UIFont(name: "futura", size: 12)
+                    label.textColor = .black
+                    headerView.addSubview(label)
+                }
+            }
+        }
+        
         
         return headerView
     }
@@ -371,7 +568,108 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        return 35
+        if arrSection[section] == "Ailments" {
+            if arrAilmentsSelected.count > 0 {
+               let height = self.arrAilmentsSelected.count * 20
+                HeaderViewHeight = height
+                return CGFloat(HeaderViewHeight + 35)
+            } else {
+                return 35
+            }
+        }else if arrSection[section] == "All" {
+            return 35
+        } else if arrSection[section] == "Auther" {
+            return 35
+        } else if arrSection[section] == "Category" {
+            if arrCategoryListSelected.count > 0 {
+               let height = self.arrCategoryListSelected.count * 20
+                HeaderViewHeight = height
+                return CGFloat(HeaderViewHeight + 35)
+            } else {
+                return 35
+            }
+        } else if arrSection[section] == "Date" {
+            return 35
+        } else if arrSection[section] == "Description" {
+            if DescriptionText.isEmpty == false {
+                return 55
+            } else {
+                return 35
+            }
+        } else if arrSection[section] == "Duration" {
+            if StartDuration == 0 && EndDuration == 0 {
+                return 35
+            } else {
+                return 55
+            }
+        } else if arrSection[section] == "Location" {
+            if arrLocatinSelected.count > 0 {
+               let height = self.arrLocatinSelected.count * 20
+                HeaderViewHeight = height
+                return CGFloat(HeaderViewHeight + 35)
+            } else {
+                return 35
+            }
+        }else if arrSection[section] == "Path" {
+            if arrPathSelected.count > 0 {
+               let height = self.arrPathSelected.count * 20
+                HeaderViewHeight = height
+                return CGFloat(HeaderViewHeight + 35)
+            } else {
+                return 35
+            }
+        } else if arrSection[section] == "Pressure" {
+            if StrForceValue.isEmpty == false {
+                return 55
+            } else {
+                return 35
+            }
+           
+        } else if arrSection[section] == "Rating" {
+            return 35
+        } else if arrSection[section] == "Segment" {
+            return 35
+        } else if arrSection[section] == "Speed" {
+            if StrSpeedValue.isEmpty == false {
+                return 55
+            } else {
+                return 35
+            }
+            
+        } else if arrSection[section] == "Tag" {
+            if tagslist.count > 0 {
+                return 55
+            } else {
+                return 35
+            }
+           
+        } else if arrSection[section] == "Tools" {
+            if arrToolsSelected.count > 0 {
+               let height = self.arrToolsSelected.count * 20
+                HeaderViewHeight = height
+                return CGFloat(HeaderViewHeight + 35)
+            } else {
+                return 35
+            }
+        } else if arrSection[section] == "Type" {
+            if arrTypeSelected.count > 0 {
+               let height = self.arrTypeSelected.count * 20
+                HeaderViewHeight = height
+                return CGFloat(HeaderViewHeight + 35)
+            } else {
+                return 35
+            }
+        } else if arrSection[section] == "User"{
+            if arrUserSelected.count > 0 {
+               let height = self.arrUserSelected.count * 20
+                HeaderViewHeight = height
+                return CGFloat(HeaderViewHeight + 35)
+            } else {
+                return 35
+            }
+        } else {
+            return 35
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -524,79 +822,6 @@ extension SearchFilterVC :UITableViewDelegate ,UITableViewDataSource
     }
 }
 
-//MARK:- UICollectionViewDelegate And UICollectionViewDataSource Method
-extension SearchFilterVC : UICollectionViewDelegate,UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int
-    {
-        return 1
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 60
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
-    {
-        let cell = colleduration.dequeueReusableCell(withReuseIdentifier: "DuractionCell", for: indexPath) as! DuractionCell
-        cell.lblDuration.text = "\(indexPath.row + 1)"
-        cell.contentView.backgroundColor = UIColor.white
-                
-        if arrDurationSelectedIndex.count > 2 {
-            let Star = self.arrDurationSelectedIndex.min()!
-            let End = self.arrDurationSelectedIndex.max()!
-            let Last = self.arrDurationSelectedIndex.last!
-
-            let NewEnd = min(End, Last)
-            let StarMex = max(Star, Last)
-            let StarMin = min(Star, Last)
-            let NewStar = min(StarMex, StarMin)
-            
-            self.StartDuration = NewStar
-            self.EndDuration = NewEnd
-            
-            if NewStar <= indexPath.row && NewEnd >= indexPath.row {
-                cell.contentView.backgroundColor = UIColor.yellow
-            } else {
-                cell.contentView.backgroundColor = UIColor.white
-            }
-            
-        } else if arrDurationSelectedIndex.count > 1 {
-            let Star = self.arrDurationSelectedIndex.min()!
-            let End = self.arrDurationSelectedIndex.max()!
-            self.StartDuration = Star
-            self.EndDuration = End
-            if Star <= indexPath.row && End >= indexPath.row {
-                cell.contentView.backgroundColor = UIColor.yellow
-            } else {
-                cell.contentView.backgroundColor = UIColor.white
-            }
-        }
-        
-        return cell
-    }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
-    {
-        self.arrDurationSelectedIndex.append(indexPath.row)
-        self.colleduration.reloadData()
-    }
-}
-//MARK:- UICollectionViewDelegateFlowLayout
-extension SearchFilterVC : UICollectionViewDelegateFlowLayout{
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 40, height: 40)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
-    }
-}
 //MARK:- UITableViewCell Class
 class DataCell: UITableViewCell, UITextFieldDelegate, TagListViewDelegate, UITextViewDelegate {
     @IBOutlet weak var MainView: UIView!
@@ -608,6 +833,9 @@ class DataCell: UITableViewCell, UITextFieldDelegate, TagListViewDelegate, UITex
     @IBOutlet weak var txtTag: UITextField!
     @IBOutlet weak var TagListShow: TagListView!
     
+    var TagData:TagDataPass?
+    var DescData : DescripctiopDataPass?
+    
     override func awakeFromNib()
     {
         self.txtTag.delegate = self
@@ -616,6 +844,19 @@ class DataCell: UITableViewCell, UITextFieldDelegate, TagListViewDelegate, UITex
         txtTextArea.delegate = self
         txtTextArea.text = "Placeholder text goes right here..."
         txtTextArea.textColor = UIColor.lightGray
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.Reset(notification:)), name: Notification.Name("Reset"), object: nil)
+
+    }
+    
+    @objc func Reset(notification: Notification) {
+        
+        let Data = notification.userInfo! as NSDictionary
+        let IsLink = Data["Reset"] as? String ?? ""
+        print(IsLink)
+        if IsLink == "true" {
+            self.TagListShow.removeAllTags()
+        } 
     }
     
     func tagRemoveButtonPressed(_ title: String, tagView: TagView, sender: TagListView) {
@@ -648,6 +889,23 @@ class DataCell: UITableViewCell, UITextFieldDelegate, TagListViewDelegate, UITex
         }
         return true
     }
+    func textFieldDidEndEditing(_ textField: UITextField)
+    {
+        
+        if textField == txtTag {
+            
+            var tags = ""
+            for tag in TagListShow.tagViews {
+                tags += (tag.titleLabel?.text ?? "") + ","
+            }
+
+            if tags.count > 0 {
+                tags.removeLast()
+            }
+            
+            TagData?.TagData(Tag:tags)
+        }
+    }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
 
@@ -656,9 +914,48 @@ class DataCell: UITableViewCell, UITextFieldDelegate, TagListViewDelegate, UITex
             txtTextArea.textColor = UIColor.black
         }
     }
+    func textViewDidEndEditing(_ textView: UITextView)
+    {
+        if textView == txtTextArea {
+            DescData?.DescripctiopDataPass(text: txtTextArea.text)
+        }
+    }
 }
 
-//MARK:- UICollectionViewCell Class
-class DuractionCell: UICollectionViewCell {
-    @IBOutlet weak var lblDuration: UILabel!
+// MARK: - RangeSeekSliderDelegate
+extension SearchFilterVC : RangeSeekSliderDelegate {
+
+    func rangeSeekSlider(_ slider: RangeSeekSlider, didChange minValue: CGFloat, maxValue: CGFloat) {
+        if slider === DurationRange {
+            self.StartDuration = Int(minValue)
+            self.EndDuration = Int(maxValue)
+            print("Standard slider updated. Min Value: \(minValue) Max Value: \(maxValue)")
+        }
+    }
+    func didStartTouches(in slider: RangeSeekSlider) {
+        print("did start touches")
+    }
+    func didEndTouches(in slider: RangeSeekSlider) {
+        print("did end touches")
+    }
+}
+extension SearchFilterVC : TagDataPass {
+    func TagData(Tag: String) {
+        print(Tag)
+        self.tagslist = Tag
+    }
+}
+extension SearchFilterVC : DescripctiopDataPass {
+    func DescripctiopDataPass(text: String) {
+        print(text)
+        self.DescriptionText = text
+    }
+}
+
+
+protocol TagDataPass {
+    func TagData(Tag:String)
+}
+protocol DescripctiopDataPass {
+    func DescripctiopDataPass(text:String)
 }
