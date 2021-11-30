@@ -32,7 +32,7 @@ class SegmentCreate: UICollectionViewCell {
     
     let picker = UIPickerView()
     let arrPath = ["none", "Linear", "Circular", "Random", "Point"]
-    let arrTool = ["none", "Omni", "Inline", "Point", "Kneading","Sport","Precussion","Calibration"]   
+    let arrTool = ["none", "Omni", "Inline", "Point", "Shiatsu","Sport","Precussion","vibration"] //Calibration
     var IsLink:Bool = false
     
     override func awakeFromNib()

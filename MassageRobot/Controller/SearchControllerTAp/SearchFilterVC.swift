@@ -71,6 +71,18 @@ class SearchFilterVC: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        let isLogin = UserDefaults.standard.object(forKey: ISLOGIN) as? String ?? "No"
+        if isLogin == "No" {
+            UserDefaults.standard.set("Yes", forKey: ISHOMEPAGE)
+            let sb = UIStoryboard(name: "Main", bundle: nil)
+            let lc = sb.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            navigationController?.pushViewController(lc, animated: false)
+            return
+        }
+    }
+    
     //MARK:- Action
     @IBAction func btnApply(_ sender: Any) {
              
@@ -95,8 +107,8 @@ class SearchFilterVC: UIViewController {
         let Type = ["type":TypeComa.lowercased()]
         let User = ["user":UserComa.lowercased()]
         
-        let sb = UIStoryboard(name: "CreateToutine", bundle: nil)
-        let vc = sb.instantiateViewController(withIdentifier: "CategoryWiseRoutine") as! CategoryRoutineViewController
+        let sb = UIStoryboard(name: "Search", bundle: nil)
+        let vc = sb.instantiateViewController(withIdentifier: "SearchDataVC") as! SearchDataVC
         vc.DictFilterData = [Ailments,Category,Description,Duration,Location,Path,Pressure,Speed,Tag,Tools,Type,User]
         navigationController?.pushViewController(vc, animated: false)
     }

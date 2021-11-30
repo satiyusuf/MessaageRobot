@@ -9,6 +9,7 @@ import UIKit
 
 class RoutineDetailCell: UICollectionViewCell {
 
+    @IBOutlet weak var ImgToolImage: UIImageView!
     @IBOutlet weak var lblToolName: UILabel!
     
     override func awakeFromNib() {

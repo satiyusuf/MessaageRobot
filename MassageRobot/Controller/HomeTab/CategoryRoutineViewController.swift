@@ -35,7 +35,6 @@ class CategoryRoutineViewController: UIViewController {
     
     var isSearch: Bool = false
         
-    var DictFilterData = [[String: Any]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()

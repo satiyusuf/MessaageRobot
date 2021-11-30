@@ -411,7 +411,7 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                         
                         if arrFrontBodyData.count > 0 && arrBackBodyData.count > 0
                         {
-                            self.ConfigurePageControl(Count: 2)
+                           // self.ConfigurePageControl(Count: 2)
                             scrollView.delegate = self
                             scrollView.isPagingEnabled = true
                             self.ImageAddView.addSubview(scrollView)
@@ -432,7 +432,7 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                         }
                         else if arrFrontBodyData.count > 0
                         {
-                            self.ConfigurePageControl(Count: 1)
+                            //self.ConfigurePageControl(Count: 1)
                             scrollView.delegate = self
                             scrollView.isPagingEnabled = true
                             self.ImageAddView.addSubview(scrollView)
@@ -449,7 +449,7 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                         }
                         else if arrBackBodyData.count > 0
                         {
-                            self.ConfigurePageControl(Count: 1)
+                          //  self.ConfigurePageControl(Count: 1)
                             scrollView.delegate = self
                             scrollView.isPagingEnabled = true
                             self.ImageAddView.addSubview(scrollView)
@@ -867,8 +867,27 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCell", for: indexPath) as! RoutineDetailCell
         
         if self.arrSegmentTools.count > 0  {
+                
+              let Title = self.arrSegmentTools[indexPath.row]
+              cell.lblToolName.text = Title
             
-            cell.lblToolName.text = self.arrSegmentTools[indexPath.row]
+            if Title == "none" {
+                cell.ImgToolImage.image = UIImage(named: "Omni")
+            } else if Title == "omni" {
+                cell.ImgToolImage.image = UIImage(named: "Omni")
+            } else if Title == "inline" {
+                cell.ImgToolImage.image = UIImage(named: "Inline")
+            } else if Title == "point" {
+                cell.ImgToolImage.image = UIImage(named: "Point")
+            } else if Title == "shiatsu" {
+                cell.ImgToolImage.image = UIImage(named: "Shiatsu")
+            } else if Title == "sport" {
+                cell.ImgToolImage.image = UIImage(named: "Sport")
+            } else if Title == "precussion" {
+                cell.ImgToolImage.image = UIImage(named: "Precussion")
+            } else if Title == "vibration" {
+                cell.ImgToolImage.image = UIImage(named: "vibration")
+            }
         }
         return cell
     }
