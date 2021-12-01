@@ -34,7 +34,8 @@ class CategoryRoutineViewController: UIViewController {
     var arrSubCategoryRoutineSearchList = [[String: Any]]()
     
     var isSearch: Bool = false
-        
+    var Count = 0
+    var isMore = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +68,7 @@ class CategoryRoutineViewController: UIViewController {
             constHeightSearch.constant = 52.0
             if txtCategoryRoutine.text == "All" {
                 txtCategoryRoutine.text = "All"
-                self.setListingServiceCall(strCategory: strPath)
+                self.setListingServiceCall(strCategory: strPath, DataCount: String(Count))
             }
             
             if strPath == "Discover" {
@@ -95,7 +96,7 @@ class CategoryRoutineViewController: UIViewController {
             if strPath == "For You" {
                 self.setForYouServiceCall()
             }else {
-                self.setListingServiceCall(strCategory: strPath)
+                self.setListingServiceCall(strCategory: strPath, DataCount: String(Count))
             }
         }else {
             txtCategoryRoutine.text = strSubCatName
@@ -111,7 +112,7 @@ class CategoryRoutineViewController: UIViewController {
         gestureView.isHidden = true
     }
     
-    func setListingServiceCall(strCategory: String) {
+    func setListingServiceCall(strCategory: String,DataCount:String) {
           
         strSorting = UserDefaults.standard.object(forKey: SORTING) as? String ?? ""
         
@@ -119,7 +120,9 @@ class CategoryRoutineViewController: UIViewController {
             strSorting = "DESC"
         }
         
-        let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategory.lowercased())' ORDER BY creation \(strSorting ?? "DESC") LIMIT 10 OFFSET 0'"
+        let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategory.lowercased())' ORDER BY creation \(strSorting ?? "DESC") LIMIT 50 OFFSET \(DataCount)'"
+        
+      //
         
         
 //        let strURL2 = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategory.lowercased())' and ORDER BY creation \(strSorting ?? "DESC") LIMIT 10 OFFSET 0'"
@@ -131,7 +134,7 @@ class CategoryRoutineViewController: UIViewController {
         callHomeAPI(url: encodedUrl!) { [self] (json, data1) in
             print(json)
             
-            arrSubCategoryRoutineList.removeAll()
+         //   arrSubCategoryRoutineList.removeAll()
             tblCategoryList.isHidden = true
             
             self.hideLoader()
@@ -145,12 +148,16 @@ class CategoryRoutineViewController: UIViewController {
                               
                         if arrSubCategoryRoutineList.count > 0
                         {
+                            self.isMore = true
                             for tempDict in arrSubCategoryRoutineList
                             {
                                 let rID = tempDict.getString(key: "routineid")
                                 self.DurationGet(routinngId: rID)
                             }
+                        }else {
+                            self.isMore = false
                         }
+                        
 //                        tblCategoryList.isHidden = false
 //                        tblCategoryList.reloadData()
                     } else {
@@ -355,6 +362,7 @@ extension CategoryRoutineViewController: UITableViewDelegate, UITableViewDataSou
                 }else {
                     cell.imgBannarPic.image = UIImage(named: "DefaultIcon")
                 }
+                
             }
         }else {
             if arrSubCategoryRoutineList.count > 0 {
@@ -390,6 +398,25 @@ extension CategoryRoutineViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
                 
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+
+        if isSearch == true {
+            if isMore == true {
+                if indexPath.row == self.arrSubCategoryRoutineSearchList.count - 1 {
+                    Count += 50
+                    self.setListingServiceCall(strCategory: strPath, DataCount: String(Count))
+                }
+            }
+        } else {
+            if isMore == true {
+                if indexPath.row == self.arrSubCategoryRoutineList.count - 1 {
+                    Count += 50
+                    self.setListingServiceCall(strCategory: strPath, DataCount: String(Count))
+                }
+            }
+        }
     }
     
     func onClickRoutineDetailOpen(index: NSInteger) {
@@ -452,7 +479,7 @@ extension CategoryRoutineViewController: UITextFieldDelegate
         gestureView.isHidden = true
         
         if textField.text == "All" {
-            self.setListingServiceCall(strCategory: strPath)
+            self.setListingServiceCall(strCategory: strPath, DataCount: String(Count))
         }else if textField == txtSearchRoutine {
             print("Search data")
             

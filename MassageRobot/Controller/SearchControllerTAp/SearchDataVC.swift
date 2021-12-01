@@ -22,6 +22,7 @@ class SearchDataVC: UIViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.GetFilterData()
         self.tblList.register(UINib(nibName: "RoutineCatCell", bundle: nil), forCellReuseIdentifier: "RoutineCatCell")
         self.txtSeach.delegate = self
     }
@@ -97,5 +98,63 @@ extension SearchDataVC: UITextFieldDelegate
         }
         self.tblList.reloadData()
         return true
+    }
+}
+
+//MARK:- Private Function Api Call
+
+extension SearchDataVC {
+    
+    func GetFilterData() {
+        
+//        var Ailments = ["ailments":AilmentsComa.lowercased()]
+//        var Category = ["category":CategoryComa.lowercased()]
+//        var Description = ["description":self.DescriptionText]
+//        var Duration = ["duration":"\(self.StartDuration) to \(self.EndDuration)"]
+//        var Location = ["location":LocationComa.lowercased()]
+//        var Path = ["path":PathComa.lowercased()]
+//        var Pressure = ["pressure":self.StrForceValue]
+//        var Speed = ["speed":self.StrSpeedValue]
+//        var Tag = ["tag":tagslist]
+//        var Tools = ["tools":ToolsComa.lowercased()]
+//        var Type = ["type":TypeComa.lowercased()]
+//        var User = ["user":UserComa.lowercased()]
+        
+       
+        for data in DictFilterData {
+            print(data)
+        }
+        let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\()' ORDER BY creation \() LIMIT 50 OFFSET \()'"
+        
+    
+        print(strURL)
+                        
+        let encodedUrl = strURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        
+        callHomeAPI(url: encodedUrl!) { [self] (json, data1) in
+            print(json)
+            
+            self.arrSearchData.removeAll()
+            self.arrData.removeAll()
+            
+            self.hideLoader()
+            
+            if json.getString(key: "status") == "false" {
+                let string = json.getString(key: "response_message")
+                let data = string.data(using: .utf8)!
+                do {
+                    if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
+                        self.arrData.append(contentsOf: jsonArray)
+                        self.arrSearchData.append(contentsOf: jsonArray)
+                        
+                    } else {
+                        showToast(message: "Bad Json")
+                    }
+                } catch let error as NSError {
+                    print(error)
+                    showToast(message: json.getString(key: "response_message"))
+                }
+            }
+        }
     }
 }

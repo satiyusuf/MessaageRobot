@@ -1867,7 +1867,7 @@
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data Found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7n-2p-dgr">
-                                <rect key="frame" x="152.5" y="438.5" width="109" height="19"/>
+                                <rect key="frame" x="153.5" y="438.5" width="107.5" height="19"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -4333,6 +4333,17 @@
                                             <action selector="onClickPlaySegmentBtn:" destination="zRq-6a-Dzg" eventType="touchUpInside" id="LFl-g2-aWe"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QU0-aD-L2I">
+                                        <rect key="frame" x="304" y="10" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="UJx-4L-YGA"/>
+                                            <constraint firstAttribute="width" constant="40" id="o0P-FM-ysd"/>
+                                        </constraints>
+                                        <state key="normal" image="PlayIcon"/>
+                                        <connections>
+                                            <action selector="btnCopy:" destination="zRq-6a-Dzg" eventType="touchUpInside" id="33u-Sc-jpN"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94509803920000002" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -4342,8 +4353,10 @@
                                     <constraint firstItem="kAL-iY-rG9" firstAttribute="top" secondItem="jOr-Gu-ofn" secondAttribute="top" constant="10" id="JS4-Dn-xjW"/>
                                     <constraint firstAttribute="bottom" secondItem="Qgr-To-iCq" secondAttribute="bottom" id="Wlk-yG-hYR"/>
                                     <constraint firstItem="kAL-iY-rG9" firstAttribute="leading" secondItem="jOr-Gu-ofn" secondAttribute="leading" constant="20" symbolic="YES" id="fGU-jP-cjL"/>
+                                    <constraint firstItem="Fv5-iH-6MC" firstAttribute="leading" secondItem="QU0-aD-L2I" secondAttribute="trailing" constant="10" id="kxq-RE-bF6"/>
                                     <constraint firstItem="Fv5-iH-6MC" firstAttribute="top" secondItem="jOr-Gu-ofn" secondAttribute="top" constant="10" id="mWR-yP-Fgu"/>
                                     <constraint firstAttribute="height" constant="60" id="oHp-Np-qWd"/>
+                                    <constraint firstItem="QU0-aD-L2I" firstAttribute="top" secondItem="jOr-Gu-ofn" secondAttribute="top" constant="10" id="xj8-E3-CRc"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="topRound">
@@ -6629,6 +6642,7 @@
                         <outlet property="Title4" destination="9d6-D1-Cvh" id="P4O-Lq-j3V"/>
                         <outlet property="bottomBarView" destination="jOr-Gu-ofn" id="2j4-wk-Qu8"/>
                         <outlet property="btnAilment" destination="Zrl-mx-VcE" id="YhF-qb-vUn"/>
+                        <outlet property="btnCopy" destination="QU0-aD-L2I" id="GLS-4f-gto"/>
                         <outlet property="btnDescription" destination="dNY-bZ-Kqf" id="1Dn-SC-suc"/>
                         <outlet property="btnLocation" destination="z7p-Fy-PeO" id="wUe-8A-VYm"/>
                         <outlet property="btnPath" destination="DJP-qM-N6q" id="9dr-7H-abi"/>
@@ -10711,6 +10725,9 @@
         <designable name="DqE-YD-Pw0">
             <size key="intrinsicContentSize" width="71" height="18.5"/>
         </designable>
+        <designable name="IEX-iv-xDs">
+            <size key="intrinsicContentSize" width="202" height="55"/>
+        </designable>
         <designable name="KOg-Rg-P04">
             <size key="intrinsicContentSize" width="72.5" height="18.5"/>
         </designable>
@@ -10718,7 +10735,10 @@
             <size key="intrinsicContentSize" width="4" height="18"/>
         </designable>
         <designable name="OJk-P8-5bK">
-            <size key="intrinsicContentSize" width="44" height="18"/>
+            <size key="intrinsicContentSize" width="42" height="18.5"/>
+        </designable>
+        <designable name="Qf3-RA-AnV">
+            <size key="intrinsicContentSize" width="327" height="24"/>
         </designable>
         <designable name="RLs-gd-6sd">
             <size key="intrinsicContentSize" width="44" height="18.5"/>
@@ -10729,11 +10749,14 @@
         <designable name="Z9H-tN-Phe">
             <size key="intrinsicContentSize" width="72.5" height="18"/>
         </designable>
+        <designable name="bme-5f-22U">
+            <size key="intrinsicContentSize" width="327" height="24"/>
+        </designable>
         <designable name="g2a-7u-uUQ">
             <size key="intrinsicContentSize" width="128.5" height="18"/>
         </designable>
         <designable name="sXD-QM-o7w">
-            <size key="intrinsicContentSize" width="4" height="18"/>
+            <size key="intrinsicContentSize" width="3" height="18.5"/>
         </designable>
         <designable name="vk4-6r-XlN">
             <size key="intrinsicContentSize" width="46" height="18.5"/>

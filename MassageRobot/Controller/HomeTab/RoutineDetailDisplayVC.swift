@@ -70,6 +70,8 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
     @IBOutlet weak var lblNewPath: UILabel!
     @IBOutlet weak var lblNewTags: UILabel!
     @IBOutlet weak var lblNewTools: UILabel!
+    
+    @IBOutlet weak var btnCopy: UIButton!
     var arrRoutingData = [[String: Any]]()
     var arrSegmentList = [[String: Any]]()
     var arrUserDetail = [[String: Any]]()
@@ -119,6 +121,8 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
+        self.setRoutingDataServiceCall()
+       
     }
     
     func getUserDetailAPICall() {
@@ -191,7 +195,18 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                         
                         if arrRoutingData.count > 0 {
                             let routingData = arrRoutingData[0]
-                                                        
+                                     
+                            let userID: String = UserDefaults.standard.object(forKey: USERID) as? String ?? ""
+                            let SegmentUserID = arrRoutingData[0]["userid"] as? String ?? ""
+                            
+                            if userID == SegmentUserID {
+                                self.btnCopy.isHidden = true
+                            } else{
+                                self.btnCopy.setImage( UIImage(named: "black"), for: .normal)
+                            }
+                            
+                            
+                            
                             strRoutineUID = routingData.getString(key: "userid")
                             
                             lblRoutineName.text = routingData.getString(key: "routinename")
@@ -406,6 +421,10 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                                 let Dict = ["location_r":location_r,"location_l":location_l,"body_location":FrontAndBack]
                                 self.arrFrontBodyData.append(Dict)
                             }
+                            
+                            let ForceMex = arrForce.max()
+                            let FOr:Float = Float(ForceMex!)
+                            progressSegment.setProgress(FOr/100.0, animated: true)
                         }
                         
                         
@@ -465,9 +484,7 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                             }
                         }
                         
-                        let ForceMex = arrForce.max()
-                        let FOr:Float = Float(ForceMex!)
-                        progressSegment.setProgress(FOr/100.0, animated: true)
+                        
                       //  progressDownload.setProgress(5.0/10.0, animated: true)
 
                         
@@ -1074,7 +1091,13 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
         self.getRoutineDetailHeight()
     }
     
-      func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    @IBAction func btnCopy(_ sender: Any) {
+        if self.arrSegmentList.count > 0 {
+            self.CreateRouting()
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 
         let index: Int = Int(scrollView.contentOffset.x / scrollView.bounds.size.width)
         print("Index Count:::\(index)")
@@ -1366,7 +1389,116 @@ extension RoutineDetailDisplayVC
         imageViewL.frame = CGRect(x:ImgBody.frame.origin.x, y:ImgBody.frame.origin.y, width: self.ImgBody.bounds.width, height: self.ImgBody.bounds.height)
         self.ImageCreateAndRemove.addSubview(imageViewL)
     }
+    
+    private func CreateSegmentApiCAll(Index: Int, NewRoutingID: String)
+    {
+        let now = Date()
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let datetime = formatter.string(from: now)
+        print(datetime)
+
+        let timeAndDate = datetime.components(separatedBy: " ")
+
+        let strDateC: String = String(format: "%@", timeAndDate[0])
+        let strTimeC: String = String(format: "%@", timeAndDate[1])
+        
+        let Data = arrSegmentList[Index]
+        
+        let strTime = Data["duration"] as? Int ?? 0
+        let strLeftForce = Data["force_l"] as? Int ?? 0
+        let strRightForce = Data["force_r"] as? Int ?? 0
+        let strLeftLoction = Data["location_l"] as? String ?? ""
+        let strRightLocation = Data["location_r"] as? String ?? ""
+        let strLeftPath = Data["path_l"] as? String ?? ""
+        let strRightPath =  Data["path_r"] as? String ?? ""
+        let strLeftSpeed = Data["speed_l"] as? Int ?? 0
+        let strRightSpeed = Data["speed_r"] as? Int ?? 0
+        let strLeftTool = Data["tool_l"] as? String ?? ""
+        let strRightTool = Data["tool_r"] as? String ?? ""
+        let strSegCount = Data["segmentnum"] as? Int ?? 0
+        
+        let body_location = Data["body_location"] as? String ?? ""
+                
+        //let url = "https://massage-robotics-website.uc.r.appspot.com/wt?tablename=RoutineEntity&row=[('sagmet\(randomSegmentId())','\(strTime)','\(strLeftForce)','\(strRightForce)','\(String(describing: strLeftLoction))','\(String(describing: strRightLocation))','\(strLeftPath)','\(strRightPath)','\(strLeftSpeed)','\(strRightSpeed)','\(strDateC),\(strTimeC)','\(strLeftTool)','\(strRightTool)','\(strSegCount)','\(NewRoutingID)','\(body_location)')]"
+        
+       
+        let url = "https://massage-robotics-website.uc.r.appspot.com/wt?tablename=RoutineEntity&row=[('sagmet\(randomSegmentId())','\(strTime)','\(strLeftForce)','\(strRightForce)','\(String(describing: strLeftLoction))','\(String(describing: strRightLocation))','\(strLeftPath)','\(strRightPath)','\(strLeftSpeed)','\(strRightSpeed)','\(strDateC),\(strTimeC)','\(strLeftTool)','\(strRightTool)','\(strSegCount)','\(NewRoutingID)','\(body_location)')]"
+        
+        
+        print(url)
+        
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        callAPI(url: encodedUrl!) { [self] (json, data1) in
+            print(json)
+            self.hideLoading()
+            if json.getString(key: "Response") == "Success"
+            {
+                showToast(message: "Routine copy successfully")
+            }
+        }
+    }
+    
+    func CreateRouting() {
+        let userID: String = UserDefaults.standard.object(forKey: USERID) as? String ?? ""
+
+        let now = Date()
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let datetime = formatter.string(from: now)
+        print(datetime)
+
+        let timeAndDate = datetime.components(separatedBy: " ")
+
+        let strDateC: String = String(format: "%@", timeAndDate[0])
+        let strTimeC: String = String(format: "%@", timeAndDate[1])
+
+        let RoutingID = randomRoutineId()
+
+        let data = arrRoutingData[0]
+        
+        let url = """
+                https://massage-robotics-website.uc.r.appspot.com/wt?tablename=Routine&row=[('\(RoutingID)',
+                '\(userID)',
+                '\(strDateC)',
+                'public',
+                '\(data["routinename"] as? String ?? "")',
+                '\(data["description"] as? String ?? "")',
+                '\(strDateC)',
+                '5',
+                '2',
+                'best and good',
+                '\(data["thumbnail"] as? String ?? "")',
+                '',
+                '\(data["routine_category"] as? String ?? "")',
+                '\(data["routine_type"] as? String ?? "")',
+                '\(data["user_type"] as? String ?? "")',
+                '\(data["user_details"] as? String ?? "")',
+                '\(data["routine_tags"] as? String ?? "")',
+                '\(data["routine_subcategory"] as? String ?? "")')]
+                """
+        
+        print(url)
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        callAPI(url: encodedUrl!) { [self] (json, data) in
+            print(json)
+            self.hideLoading()
+            if json.getString(key: "Response") == "Success" {
+
+               // showToast(message: "Routine created successfully!")
+
+                for (index, element) in self.arrSegmentList.enumerated() {
+                    self.CreateSegmentApiCAll(Index: index, NewRoutingID: RoutingID)
+                }
+
+            }
+        }
+    }
 }
+
 
 
 extension UIResponder {

@@ -870,3 +870,4 @@ extension RoutineDetailViewController: UINavigationControllerDelegate, UIImagePi
         }
     }
 }
+
