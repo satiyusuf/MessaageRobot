@@ -29,6 +29,8 @@ class SegmentCreate: UICollectionViewCell {
     @IBOutlet weak var RightForceTree: UIView!
     @IBOutlet weak var RightForceText: UILabel!
     @IBOutlet weak var btnRightForce: UIButton!
+    @IBOutlet weak var btnLeftTools: UIButton!
+    @IBOutlet weak var btnRightTools: UIButton!
     
     let picker = UIPickerView()
     let arrPath = ["none", "Linear", "Circular", "Random", "Point"]
@@ -39,11 +41,15 @@ class SegmentCreate: UICollectionViewCell {
     {
         super.awakeFromNib()
         
+        self.btnLeftTools.setTitle("", for: .normal)
+        self.btnRightTools.setTitle("", for: .normal)
+        
         txtTime.inputView = picker
         txtLeftTool.inputView = picker
         txtRightTool.inputView = picker
         txtLeftPath.inputView = picker
         txtRightPath.inputView = picker
+        
         
         picker.delegate = self
         picker.dataSource = self

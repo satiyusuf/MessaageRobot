@@ -14,10 +14,11 @@ class SearchDataVC: UIViewController {
     @IBOutlet weak var tblList: UITableView!
     
     //MARK:- Variable
-    var DictFilterData = [[String: Any]]()
     var arrData = [[String: Any]]()
     var arrSearchData = [[String: Any]]()
-
+    //MARK:- FilterDataPass Variable
+    var QueryUrl = String()
+    
     //MARK:- ViewDidLoad
     override func viewDidLoad()
     {
@@ -106,39 +107,19 @@ extension SearchDataVC: UITextFieldDelegate
 extension SearchDataVC {
     
     func GetFilterData() {
-        
-//        var Ailments = ["ailments":AilmentsComa.lowercased()]
-//        var Category = ["category":CategoryComa.lowercased()]
-//        var Description = ["description":self.DescriptionText]
-//        var Duration = ["duration":"\(self.StartDuration) to \(self.EndDuration)"]
-//        var Location = ["location":LocationComa.lowercased()]
-//        var Path = ["path":PathComa.lowercased()]
-//        var Pressure = ["pressure":self.StrForceValue]
-//        var Speed = ["speed":self.StrSpeedValue]
-//        var Tag = ["tag":tagslist]
-//        var Tools = ["tools":ToolsComa.lowercased()]
-//        var Type = ["type":TypeComa.lowercased()]
-//        var User = ["user":UserComa.lowercased()]
-        
-       
-        for data in DictFilterData {
-            print(data)
-        }
-        let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\()' ORDER BY creation \() LIMIT 50 OFFSET \()'"
-        
-    
-        print(strURL)
-                        
-        let encodedUrl = strURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        
+
+        print(QueryUrl)
+
+        let encodedUrl = QueryUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
         callHomeAPI(url: encodedUrl!) { [self] (json, data1) in
             print(json)
-            
+
             self.arrSearchData.removeAll()
             self.arrData.removeAll()
-            
+
             self.hideLoader()
-            
+
             if json.getString(key: "status") == "false" {
                 let string = json.getString(key: "response_message")
                 let data = string.data(using: .utf8)!
@@ -146,7 +127,7 @@ extension SearchDataVC {
                     if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
                         self.arrData.append(contentsOf: jsonArray)
                         self.arrSearchData.append(contentsOf: jsonArray)
-                        
+
                     } else {
                         showToast(message: "Bad Json")
                     }

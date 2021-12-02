@@ -86,30 +86,68 @@ class SearchFilterVC: UIViewController {
     //MARK:- Action
     @IBAction func btnApply(_ sender: Any) {
              
-        let AilmentsComa = self.arrAilmentsSelected.joined(separator: ",")
-        let CategoryComa = self.self.arrCategoryListSelected.joined(separator: ",")
-        let LocationComa = self.arrLocatinSelected.joined(separator: ",")
-        let PathComa = self.arrPathSelected.joined(separator: ",")
-        let ToolsComa = self.arrToolsSelected.joined(separator: ",")
-        let TypeComa = self.arrTypeSelected.joined(separator: ",")
-        let UserComa = self.arrUserSelected.joined(separator: ",")
+        var strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where "
         
-        let Ailments = ["ailments":AilmentsComa.lowercased()]
-        let Category = ["category":CategoryComa.lowercased()]
-        let Description = ["description":self.DescriptionText]
-        let Duration = ["duration":"\(self.StartDuration) to \(self.EndDuration)"]
-        let Location = ["location":LocationComa.lowercased()]
-        let Path = ["path":PathComa.lowercased()]
-        let Pressure = ["pressure":self.StrForceValue]
-        let Speed = ["speed":self.StrSpeedValue]
-        let Tag = ["tag":tagslist]
-        let Tools = ["tools":ToolsComa.lowercased()]
-        let Type = ["type":TypeComa.lowercased()]
-        let User = ["user":UserComa.lowercased()]
+        if self.arrAilmentsSelected.count > 0 {
+            strURL = strURL + " r.routine_ailments='"
+            let AilmentsComa = self.arrAilmentsSelected.joined(separator: "' or  r.routine_ailments='").lowercased()
+            strURL = strURL + AilmentsComa + "' or "
+
+        }
+        if self.arrToolsSelected.count > 0 {
+            strURL = strURL + " r.routine_tools='"
+            let ToolsComa = self.arrToolsSelected.joined(separator: "' or  r.routine_tools='").lowercased()
+            strURL = strURL + ToolsComa + "' or "
+        }
+        if arrPathSelected.count > 0 {
+            strURL = strURL + " r.routine_path='"
+            let PathComa = self.arrPathSelected.joined(separator: "' or  r.routine_path='").lowercased()
+            strURL = strURL + PathComa + "' or "
+        }
+        if arrUserSelected.count > 0 {
+            strURL = strURL + " r.routine_user='"
+            let UserComa = self.arrUserSelected.joined(separator: "' or  r.routine_user='").lowercased()
+            strURL = strURL + UserComa + "' or "
+        }
+        if arrTypeSelected.count > 0 {
+            strURL = strURL + " r.routine_type='"
+            let TypeComa = self.arrTypeSelected.joined(separator: "' or  r.routine_type='").lowercased()
+            strURL = strURL + TypeComa + "' or "
+        }
+        if self.arrCategoryListSelected.count > 0 {
+            strURL = strURL + " r.routine_category='"
+            let CategoryComa = self.arrCategoryListSelected.joined(separator: "' or  r.routine_category='").lowercased()
+            strURL = strURL + CategoryComa + "' or "
+        }
+        if arrLocatinSelected.count > 0 {
+            strURL = strURL + " r.routine_location='"
+            let LOcationComa = self.arrLocatinSelected.joined(separator: "' or  r.routine_location='").lowercased()
+            strURL = strURL + LOcationComa + "' or "
+        }
+        let Duration = "\(self.StartDuration) to \(self.EndDuration)"
+        if Duration.isEmpty == false {
+            strURL = strURL + " r.routine_duration > '\(self.StartDuration)' and r.routine_duration < '\(self.EndDuration)' or "
+        }
+        if StrForceValue.isEmpty == false {
+            strURL = strURL + " r.routine_force= '\(StrForceValue)' or "
+        }
+        if StrSpeedValue.isEmpty == false {
+            strURL = strURL + " r.routine_speed= '\(StrSpeedValue)' or "
+        }
+        if self.DescriptionText.isEmpty == false {
+            strURL = strURL + " r.routine_description= '\(self.DescriptionText)' or "
+        }
+        if tagslist.isEmpty == false {
+            strURL = strURL + " r.routine_tag='"
+            let TagComa = tagslist.replacingOccurrences(of: ",", with: "' or  r.routine_tag='", options: NSString.CompareOptions.literal, range: nil)
+            strURL = strURL + TagComa + "' or "
+        }
         
+        strURL = strURL + " ORDER BY creation DESC LIMIT 50 OFFSET 0"
+                
         let sb = UIStoryboard(name: "Search", bundle: nil)
         let vc = sb.instantiateViewController(withIdentifier: "SearchDataVC") as! SearchDataVC
-        vc.DictFilterData = [Ailments,Category,Description,Duration,Location,Path,Pressure,Speed,Tag,Tools,Type,User]
+        vc.QueryUrl = strURL
         navigationController?.pushViewController(vc, animated: false)
     }
     @IBAction func btnReset(_ sender: Any) {

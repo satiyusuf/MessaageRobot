@@ -30,8 +30,8 @@
             filePath = "MassageRobot/Controller/HomeTab/NewCreateSegmentVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1621"
-            endingLineNumber = "1621"
+            startingLineNumber = "1733"
+            endingLineNumber = "1733"
             landmarkName = "CreateSegmentApiCAll()"
             landmarkType = "7">
          </BreakpointContent>
@@ -129,6 +129,54 @@
             startingLineNumber = "127"
             endingLineNumber = "127"
             landmarkName = "setListingServiceCall(strCategory:DataCount:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "65795B4D-6339-4392-BDA6-C19FC37C62DE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MassageRobot/Controller/HomeTab/CategoryRoutineViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "setListingServiceCall(strCategory:DataCount:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0FC82C48-958B-4638-9D6B-A4AFEE06AB80"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MassageRobot/Controller/SearchControllerTAp/SearchDataVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "GetFilterData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BBAC91F4-F977-4F26-B153-FEC28A1959D5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MassageRobot/Controller/SearchControllerTAp/SearchFilterVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "btnApply(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

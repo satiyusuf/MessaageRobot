@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -189,6 +189,12 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="needPadding" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ye-KO-SQB">
+                                                <rect key="frame" x="0.0" y="0.0" width="237" height="46"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain"/>
+                                            </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="R. Tool" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wsY-a7-bg6" customClass="UnderlineTextField" customModule="MassageRobot" customModuleProvider="target">
                                                 <rect key="frame" x="247" y="0.0" width="241" height="46"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -201,17 +207,31 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="needPadding" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KaQ-dq-WF9">
+                                                <rect key="frame" x="247" y="0.0" width="241" height="46"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain"/>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="cQf-Qx-iof" firstAttribute="leading" secondItem="JKw-Yg-OHr" secondAttribute="leading" id="2Ff-MP-Pff"/>
                                             <constraint firstItem="wsY-a7-bg6" firstAttribute="leading" secondItem="cQf-Qx-iof" secondAttribute="trailing" constant="10" id="Fmb-B9-jjU"/>
+                                            <constraint firstItem="KaQ-dq-WF9" firstAttribute="top" secondItem="JKw-Yg-OHr" secondAttribute="top" id="GZD-Jj-oNS"/>
                                             <constraint firstItem="wsY-a7-bg6" firstAttribute="leading" secondItem="cQf-Qx-iof" secondAttribute="trailing" constant="10" id="HKB-kS-18W"/>
+                                            <constraint firstItem="2ye-KO-SQB" firstAttribute="width" secondItem="cQf-Qx-iof" secondAttribute="width" id="RcJ-tS-tSb"/>
+                                            <constraint firstItem="2ye-KO-SQB" firstAttribute="top" secondItem="JKw-Yg-OHr" secondAttribute="top" id="Sfr-5I-PmU"/>
+                                            <constraint firstAttribute="bottom" secondItem="2ye-KO-SQB" secondAttribute="bottom" id="V3l-Dh-v4Y"/>
                                             <constraint firstAttribute="trailing" secondItem="wsY-a7-bg6" secondAttribute="trailing" id="ars-PY-4kP"/>
                                             <constraint firstItem="wsY-a7-bg6" firstAttribute="top" secondItem="JKw-Yg-OHr" secondAttribute="top" id="dST-0J-M1t"/>
                                             <constraint firstAttribute="bottom" secondItem="wsY-a7-bg6" secondAttribute="bottom" id="esV-Cf-NFU"/>
                                             <constraint firstAttribute="bottom" secondItem="cQf-Qx-iof" secondAttribute="bottom" id="fJD-e8-lyJ"/>
+                                            <constraint firstItem="2ye-KO-SQB" firstAttribute="leading" secondItem="JKw-Yg-OHr" secondAttribute="leading" id="g1r-IC-VvP"/>
+                                            <constraint firstItem="KaQ-dq-WF9" firstAttribute="width" secondItem="wsY-a7-bg6" secondAttribute="width" id="jWo-4d-0h5"/>
                                             <constraint firstItem="cQf-Qx-iof" firstAttribute="top" secondItem="JKw-Yg-OHr" secondAttribute="top" id="lyf-pC-U51"/>
+                                            <constraint firstAttribute="trailing" secondItem="KaQ-dq-WF9" secondAttribute="trailing" id="qdY-0c-vxj"/>
+                                            <constraint firstAttribute="bottom" secondItem="KaQ-dq-WF9" secondAttribute="bottom" id="vpv-QF-0FY"/>
                                             <constraint firstItem="wsY-a7-bg6" firstAttribute="width" secondItem="cQf-Qx-iof" secondAttribute="width" multiplier="1.01887" id="yNu-fF-3zx"/>
                                         </constraints>
                                     </view>
@@ -667,9 +687,11 @@
                 <outlet property="btnLeftForce" destination="su6-Hb-lgq" id="ka7-bS-aLz"/>
                 <outlet property="btnLeftLocation" destination="D5y-ix-46o" id="Lw3-fJ-RqO"/>
                 <outlet property="btnLeftSpeed" destination="qGd-I3-dxH" id="X5V-mj-yac"/>
+                <outlet property="btnLeftTools" destination="2ye-KO-SQB" id="Y67-qG-WQs"/>
                 <outlet property="btnRightForce" destination="jQz-IA-POf" id="bwv-OD-ipV"/>
                 <outlet property="btnRightLocation" destination="THL-Ka-Ww6" id="flJ-qC-xik"/>
                 <outlet property="btnRightSpeed" destination="XqM-Gp-Xmo" id="IEr-Hw-wXM"/>
+                <outlet property="btnRightTools" destination="KaQ-dq-WF9" id="pUZ-r3-UHQ"/>
                 <outlet property="txtLeftPath" destination="683-US-5gd" id="Ffg-eV-sAf"/>
                 <outlet property="txtLeftTool" destination="cQf-Qx-iof" id="Nt0-ql-WED"/>
                 <outlet property="txtRightPath" destination="OEq-0l-cyA" id="F2i-LG-fGg"/>

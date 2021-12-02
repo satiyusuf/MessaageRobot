@@ -37,6 +37,7 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var ColleRuler: UICollectionView!
     @IBOutlet weak var ViewAdd: UIView!
 
+    @IBOutlet weak var ToolsView: UIView!
     
     //MARK:- Variable
     var arrSegmentList = [[String: Any]]()
@@ -55,7 +56,7 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
     var StrGender = String()
     var StrRoutingID = String()
     let picker = UIPickerView()
-    
+    var ToolsLeftRight = String()
     
     
     //MARK:- ViewDidLoad
@@ -89,6 +90,117 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
     {
         self.navigationController?.popViewController(animated: true)
     }
+    @IBAction func btnToolsHide(_ sender: Any) {
+        self.ToolsView.isHidden = true
+    }
+    @IBAction func btnInline(_ sender: Any) {
+        let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+        let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+        if self.btnIsLink.isSelected == true {
+            if ToolsLeftRight == "RightTools" {
+                cell.txtRightTool.text = "Inline"
+            } else if ToolsLeftRight == "LeftTools" {
+                cell.txtLeftTool.text = "Inline"
+            }
+        }else {
+            cell.txtRightTool.text = "Inline"
+            cell.txtLeftTool.text = "Inline"
+        }
+        self.ToolsView.isHidden = true
+    }
+    
+    @IBAction func btnOmni(_ sender: Any) {
+        let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+        let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+        if self.btnIsLink.isSelected == true {
+            if ToolsLeftRight == "RightTools" {
+                cell.txtRightTool.text = "Omni"
+            } else if ToolsLeftRight == "LeftTools" {
+                cell.txtLeftTool.text = "Omni"
+            }
+        }else {
+            cell.txtRightTool.text = "Omni"
+            cell.txtLeftTool.text = "Omni"
+        }
+        self.ToolsView.isHidden = true
+    }
+    @IBAction func btnPoint(_ sender: Any) {
+        let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+        let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+        if self.btnIsLink.isSelected == true {
+            if ToolsLeftRight == "RightTools" {
+                cell.txtRightTool.text = "Point"
+            } else if ToolsLeftRight == "LeftTools" {
+                cell.txtLeftTool.text = "Point"
+            }
+        }else {
+            cell.txtRightTool.text = "Point"
+            cell.txtLeftTool.text = "Point"
+        }
+        self.ToolsView.isHidden = true
+    }
+    @IBAction func Shiatsu(_ sender: Any) {
+        let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+        let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+        if self.btnIsLink.isSelected == true {
+            if ToolsLeftRight == "RightTools" {
+                cell.txtRightTool.text = "Shiatsu"
+            } else if ToolsLeftRight == "LeftTools" {
+                cell.txtLeftTool.text = "Shiatsu"
+            }
+        }else {
+            cell.txtRightTool.text = "Shiatsu"
+            cell.txtLeftTool.text = "Shiatsu"
+        }
+        self.ToolsView.isHidden = true
+    }
+    @IBAction func btnSport(_ sender: Any) {
+        let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+        let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+        if self.btnIsLink.isSelected == true {
+            if ToolsLeftRight == "RightTools" {
+                cell.txtRightTool.text = "Sport"
+            } else if ToolsLeftRight == "LeftTools" {
+                cell.txtLeftTool.text = "Sport"
+            }
+        }else {
+            cell.txtRightTool.text = "Sport"
+            cell.txtLeftTool.text = "Sport"
+        }
+        self.ToolsView.isHidden = true
+    }
+    @IBAction func Percussion(_ sender: Any) {
+        let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+        let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+        if self.btnIsLink.isSelected == true {
+            if ToolsLeftRight == "RightTools" {
+                cell.txtRightTool.text = "Precussion"
+            } else if ToolsLeftRight == "LeftTools" {
+                cell.txtLeftTool.text = "Precussion"
+            }
+        }else {
+            cell.txtRightTool.text = "Precussion"
+            cell.txtLeftTool.text = "Precussion"
+        }
+        self.ToolsView.isHidden = true
+    }
+    @IBAction func Vibration(_ sender: Any) {
+        let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
+        let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
+        if self.btnIsLink.isSelected == true {
+            if ToolsLeftRight == "RightTools" {
+                cell.txtRightTool.text = "vibration"
+            } else if ToolsLeftRight == "LeftTools" {
+                cell.txtLeftTool.text = "vibration"
+            }
+        }else {
+            cell.txtRightTool.text = "vibration"
+            cell.txtLeftTool.text = "vibration"
+        }
+        self.ToolsView.isHidden = true
+    }
+    
+    
     @IBAction func btnReset(_ sender: Any) {
         self.ReSetData()
     }
@@ -2271,6 +2383,10 @@ extension NewCreateSegmentVC : UICollectionViewDelegate,UICollectionViewDataSour
             cell.btnRightForce.tag = indexPath.row
             cell.btnRightForce.addTarget(self, action: #selector(RightForce(sender:)), for: .touchUpInside)
             
+            cell.btnLeftTools.tag = indexPath.row
+            cell.btnLeftTools.addTarget(self, action: #selector(LeftTools(sender:)), for: .touchUpInside)
+            cell.btnRightTools.tag = indexPath.row
+            cell.btnRightTools.addTarget(self, action: #selector(RightTools(sender:)), for: .touchUpInside)
             
             let Data = arrSegmentList[indexPath.row]
             
@@ -2624,6 +2740,21 @@ extension  NewCreateSegmentVC {
            }
         }
     }
+    
+    
+    @objc func LeftTools(sender: UIButton)
+    {
+        print("LeftTools:-\(sender.tag)")
+        self.ToolsView.isHidden = false
+        self.ToolsLeftRight = "LeftTools"
+    }
+    @objc func RightTools(sender: UIButton)
+    {
+        print("RightTools:-\(sender.tag)")
+        self.ToolsView.isHidden = false
+        self.ToolsLeftRight = "RightTools"
+    }
+    
     
     @objc func LeftSpeed(sender: UIButton)
     {
