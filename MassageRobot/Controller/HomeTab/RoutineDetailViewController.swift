@@ -61,7 +61,7 @@ class RoutineDetailViewController: UIViewController {
     var urlImgPath: NSURL!
     let storage = Storage.storage()
     
-    let arrCategoryList = ["Activites","Ailments", "Browse", "Discover", "Lifestyle", "New Releases", "Performance", "Relaxation", "Sports", "Target Areas", "Therapy", "Wellness", "Workout"]
+    let arrCategoryList = ["Activities","Ailments", "Browse", "Discover", "Lifestyle", "New Releases", "Performance", "Relaxation", "Sports", "Target Areas", "Therapy", "Wellness", "Workout"]
     
     let arrWorkOut = ["Gym", "Recovery", "Studio", "Warm up"]
     let arrWellness = ["Daily Wellness", "Sleep", "Wake"]

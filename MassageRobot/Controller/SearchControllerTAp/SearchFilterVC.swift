@@ -143,7 +143,7 @@ class SearchFilterVC: UIViewController {
             strURL = strURL + TagComa + "' or "
         }
         
-        strURL = strURL + " ORDER BY creation DESC LIMIT 50 OFFSET 0"
+        strURL = strURL + " ORDER BY creation DESC LIMIT 50 OFFSET 0'"
                 
         let sb = UIStoryboard(name: "Search", bundle: nil)
         let vc = sb.instantiateViewController(withIdentifier: "SearchDataVC") as! SearchDataVC

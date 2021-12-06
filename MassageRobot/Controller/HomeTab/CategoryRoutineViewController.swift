@@ -68,6 +68,10 @@ class CategoryRoutineViewController: UIViewController {
             constHeightSearch.constant = 52.0
             if txtCategoryRoutine.text == "All" {
                 txtCategoryRoutine.text = "All"
+                
+//                if strPath == "Activities" {
+//                    strPath = "activites"
+//                }
                 self.setListingServiceCall(strCategory: strPath, DataCount: String(Count))
             }
             
@@ -120,13 +124,9 @@ class CategoryRoutineViewController: UIViewController {
             strSorting = "DESC"
         }
         
+       
         let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategory.lowercased())' ORDER BY creation \(strSorting ?? "DESC") LIMIT 50 OFFSET \(DataCount)'"
         
-      //
-        
-        
-//        let strURL2 = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategory.lowercased())' and ORDER BY creation \(strSorting ?? "DESC") LIMIT 10 OFFSET 0'"
-                    
         print(strURL)
                         
         let encodedUrl = strURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -134,18 +134,17 @@ class CategoryRoutineViewController: UIViewController {
         callHomeAPI(url: encodedUrl!) { [self] (json, data1) in
             print(json)
             
-         //   arrSubCategoryRoutineList.removeAll()
             tblCategoryList.isHidden = true
             
             self.hideLoader()
-            
-            if json.getString(key: "status") == "false" {
+                      
                 let string = json.getString(key: "response_message")
                 let data = string.data(using: .utf8)!
                 do {
                     if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
+                        
+                        
                         arrSubCategoryRoutineList.append(contentsOf: jsonArray)
-                              
                         if arrSubCategoryRoutineList.count > 0
                         {
                             self.isMore = true
@@ -154,12 +153,14 @@ class CategoryRoutineViewController: UIViewController {
                                 let rID = tempDict.getString(key: "routineid")
                                 self.DurationGet(routinngId: rID)
                             }
-                        }else {
+                        } else {
+                            self.DataEmtyLabelAdd()
+                        }
+                        
+                        if jsonArray.isEmpty == true {
                             self.isMore = false
                         }
                         
-//                        tblCategoryList.isHidden = false
-//                        tblCategoryList.reloadData()
                     } else {
                         showToast(message: "Bad Json")
                     }
@@ -167,7 +168,17 @@ class CategoryRoutineViewController: UIViewController {
                     print(error)
                     showToast(message: json.getString(key: "response_message"))
                 }
-            }
+        }
+    }
+    
+    func DataEmtyLabelAdd() {
+        if arrSubCategoryRoutineList.isEmpty == true {
+            let label = UILabel()
+            label.frame = CGRect.init(x: view.frame.width/2 - 75, y: view.frame.height/2, width:150, height: 40)
+            label.text = "Data Not Found"
+            label.font = UIFont(name: "futura", size: 18)
+            label.textColor = .black
+            view.addSubview(label)
         }
     }
     

@@ -37,7 +37,7 @@ class NewHomeVC: UIViewController {
         
         ["Carpal Tunnel":"https://firebasestorage.googleapis.com:443/v0/b/massage-robotics-website.appspot.com/o/sub-category-images%2Fcarpal%20tunnel.png?alt=media&token=81ce3a75-1566-4717-8271-887ff46ad82e"],
         
-        ["Plantar Fascities":"https://firebasestorage.googleapis.com:443/v0/b/massage-robotics-website.appspot.com/o/sub-category-images%2Fplantar%20fascities.png?alt=media&token=049aba9e-4faf-488d-af85-f62b02f44d30"],
+        ["Plantar Fasciitis":"https://firebasestorage.googleapis.com:443/v0/b/massage-robotics-website.appspot.com/o/sub-category-images%2Fplantar%20fascities.png?alt=media&token=049aba9e-4faf-488d-af85-f62b02f44d30"],
         
         ["Knots":"https://firebasestorage.googleapis.com:443/v0/b/massage-robotics-website.appspot.com/o/sub-category-images%2Fknots.png?alt=media&token=cad05fa0-9b4a-4f79-8845-e27d54220836"],
         
