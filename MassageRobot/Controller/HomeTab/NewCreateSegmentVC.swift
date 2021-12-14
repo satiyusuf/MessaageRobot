@@ -1715,17 +1715,17 @@ extension NewCreateSegmentVC
         
         let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
         let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
-        let strTime = cell.txtTime.text!
+        let strTime = Int(cell.txtTime.text!)! * 60
         let strLeftForce = cell.LeftForceText.text!.stripped
         let strRightForce = cell.RightForceText.text!.stripped
         let strLeftLoction = cell.btnLeftLocation.titleLabel!.text!.lowercased()
         let strRightLocation = cell.btnRightLocation.titleLabel!.text!.lowercased()
-        let strLeftPath = cell.txtLeftPath.text!
-        let strRightPath = cell.txtRightPath.text!
+        let strLeftPath = cell.txtLeftPath.text!.lowercased()
+        let strRightPath = cell.txtRightPath.text!.lowercased()
         let strLeftSpeed = cell.LeftSpeedText.text!.stripped
         let strRightSpeed = cell.RightSpeedText.text!.stripped
-        let strLeftTool = cell.txtLeftTool.text!
-        let strRightTool = cell.txtRightTool.text!
+        let strLeftTool = cell.txtLeftTool.text!.lowercased()
+        let strRightTool = cell.txtRightTool.text!.lowercased()
         let strSegCount = cell.SegmentCount.text!
         
         let url = "https://massage-robotics-website.uc.r.appspot.com/wt?tablename=RoutineEntity&row=[('sagmet\(randomSegmentId())','\(strTime)','\(strLeftForce)','\(strRightForce)','\(String(describing: strLeftLoction))','\(String(describing: strRightLocation))','\(strLeftPath)','\(strRightPath)','\(strLeftSpeed)','\(strRightSpeed)','\(strDateC),\(strTimeC)','\(strLeftTool)','\(strRightTool)','\(strSegCount)','\(StrRoutingID)','\(FrontAndBackImage)')]"
@@ -1798,11 +1798,13 @@ extension NewCreateSegmentVC
                             var isCount = element.getString(key: "segment")
                             if isCount == "false" {
                                 Size = "28"
+                                let Dict = ["duration":Size,"segment":isCount]
+                                self.arrRulerCount.append(Dict)
                             } else if isCount.isEmpty == true {
                                 isCount = "true"
+                                let Dict = ["duration":Int(Size)! / 60 ,"segment":isCount] as [String : Any]
+                                self.arrRulerCount.append(Dict)
                             }
-                            let Dict = ["duration":Size,"segment":isCount]
-                            self.arrRulerCount.append(Dict)
                         }
                         
                         self.ColleRuler.reloadData()
@@ -1865,17 +1867,17 @@ extension NewCreateSegmentVC
     {
         let indexPath = IndexPath.init(row: CurrentIndex, section: 0)
         let cell = ColleData.cellForItem(at: indexPath) as! SegmentCreate
-        let strTime = cell.txtTime.text!
+        let strTime = Int(cell.txtTime.text!)! * 60
         let strLeftForce = cell.LeftForceText.text!.stripped
         let strRightForce = cell.RightForceText.text!.stripped
         let strLeftLoction = cell.btnLeftLocation.titleLabel!.text!.lowercased()
         let strRightLocation = cell.btnRightLocation.titleLabel!.text!.lowercased()
-        let strLeftPath = cell.txtLeftPath.text!
-        let strRightPath = cell.txtRightPath.text!
+        let strLeftPath = cell.txtLeftPath.text!.lowercased()
+        let strRightPath = cell.txtRightPath.text!.lowercased()
         let strLeftSpeed = cell.LeftSpeedText.text!.stripped
         let strRightSpeed = cell.RightSpeedText.text!.stripped
-        let strLeftTool = cell.txtLeftTool.text!
-        let strRightTool = cell.txtRightTool.text!
+        let strLeftTool = cell.txtLeftTool.text!.lowercased()
+        let strRightTool = cell.txtRightTool.text!.lowercased()
         
         let segmentData = arrSegmentList[CurrentIndex]
         
@@ -1931,6 +1933,9 @@ extension NewCreateSegmentVC
         } else if cell.RightForceText.text?.isEmpty == true {
             showToast(message: "Please insert right Force.")
             return
+        } else if cell.txtTime.text!.isEmpty == true {
+            showToast(message: "Please insert Duraction.")
+            return
         } else {
             self.CreateSegmentApiCAll()
         }
@@ -1970,6 +1975,9 @@ extension NewCreateSegmentVC
         } else if cell.RightForceText.text?.isEmpty == true {
             showToast(message: "Please insert right Force.")
             return
+        } else if cell.txtTime.text!.isEmpty == true {
+            showToast(message: "Please insert Duraction.")
+            return
         } else {
             self.SegmentUpdateApiCall()
         }
@@ -1984,7 +1992,17 @@ extension NewCreateSegmentVC
             let Data = arrSegmentList[Index]
             
             cell.SegmentCount.text = "\(Index + 1)"
-            cell.txtTime.text = Data.getString(key: "duration")
+        
+        let segment = Data.getString(key: "segment")
+        
+        if segment == "false" {
+            let duraction = Data.getString(key: "duration")
+            cell.txtTime.text = duraction
+        } else {
+            let duraction = Data.getString(key: "duration")
+            cell.txtTime.text = "\(Int(duraction)! / 60 )"
+        }
+           
             cell.txtLeftTool.text = Data.getString(key: "tool_l")
             cell.txtRightTool.text = Data.getString(key: "tool_r")
             cell.txtLeftPath.text = Data.getString(key: "path_l")
@@ -2391,7 +2409,15 @@ extension NewCreateSegmentVC : UICollectionViewDelegate,UICollectionViewDataSour
             let Data = arrSegmentList[indexPath.row]
             
             cell.SegmentCount.text = "\(indexPath.row + 1)"
-            cell.txtTime.text = Data.getString(key: "duration")
+            
+            let duraction = Data.getString(key: "duration")
+            
+            if duraction.isEmpty == false {
+                cell.txtTime.text = "\(Int(duraction)! / 60 )"
+            }else {
+                cell.txtTime.text = duraction
+            }
+           
             cell.txtLeftTool.text = Data.getString(key: "tool_l")
             cell.txtRightTool.text = Data.getString(key: "tool_r")
             cell.txtLeftPath.text = Data.getString(key: "path_l")
@@ -2469,12 +2495,14 @@ extension NewCreateSegmentVC: UICollectionViewDelegateFlowLayout {
             }
             //let Dict1 = ["duration":"30","IsCount":"False"]
             let IsCount = arrRulerCount[indexPath.row]["segment"] as? String ?? ""
-            let Duration = arrRulerCount[indexPath.row]["duration"] as? String ?? ""
+         
             var Width = Int()
             
             if IsCount == "true" {
-                Width = Int(Duration)! * 28
+                let Duration = arrRulerCount[indexPath.row]["duration"] as? Int ?? 0
+                Width = Duration * 28
             } else {
+                let Duration = arrRulerCount[indexPath.row]["duration"] as? String ?? ""
                 Width = Int(Duration)!
             }
             cell.setNeedsLayout()
@@ -2792,8 +2820,8 @@ extension  NewCreateSegmentVC {
     @objc func TimeReceivedNotification(notification: Notification) {
         
         let Data = notification.userInfo! as NSDictionary
-        let Time = Data["Time"] as? String ?? ""
-        let Dict1 = ["duration":Time,"segment":"true"]
+        let Time = Data["Time"] as! String 
+        let Dict1 = ["duration": Int(Time),"segment":"true"] as [String : Any]
         self.arrRulerCount[CurrentIndex] = Dict1
         self.ColleRuler.reloadData()        
     }

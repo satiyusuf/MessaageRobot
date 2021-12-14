@@ -527,9 +527,6 @@
                                             <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="Search_Icon"/>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="needPadding" value="YES"/>
                                         </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="SearchTextAction:" destination="G0q-2x-1Jc" eventType="editingChanged" id="J6V-jv-Vsg"/>
-                                        </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vG4-P3-0DX">
                                         <rect key="frame" x="0.0" y="50" width="414" height="2"/>

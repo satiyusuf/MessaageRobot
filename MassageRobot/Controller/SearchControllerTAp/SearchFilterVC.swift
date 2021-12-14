@@ -91,58 +91,119 @@ class SearchFilterVC: UIViewController {
         if self.arrAilmentsSelected.count > 0 {
             strURL = strURL + " r.routine_ailments='"
             let AilmentsComa = self.arrAilmentsSelected.joined(separator: "' or  r.routine_ailments='").lowercased()
-            strURL = strURL + AilmentsComa + "' or "
-
+            
+            let Duration = "\(self.StartDuration)\(self.EndDuration)"
+            if self.arrToolsSelected.count > 0 || self.arrPathSelected.count > 0 || self.arrUserSelected.count > 0 || self.arrTypeSelected.count > 0 || self.arrCategoryListSelected.count > 0 || self.arrLocatinSelected.count > 0 || Duration != "00" || self.StrForceValue.isEmpty == false || self.StrSpeedValue.isEmpty == false || self.self.DescriptionText.isEmpty == false || self.tagslist.isEmpty == false {
+                strURL = strURL + AilmentsComa + "' or "
+            } else {
+                strURL = strURL + AilmentsComa + "'"
+            }
         }
         if self.arrToolsSelected.count > 0 {
             strURL = strURL + " r.routine_tools='"
             let ToolsComa = self.arrToolsSelected.joined(separator: "' or  r.routine_tools='").lowercased()
-            strURL = strURL + ToolsComa + "' or "
+            
+            let Duration = "\(self.StartDuration)\(self.EndDuration)"
+            if self.arrPathSelected.count > 0 || self.arrUserSelected.count > 0 || self.arrTypeSelected.count > 0 || self.arrCategoryListSelected.count > 0 || self.arrLocatinSelected.count > 0 || Duration != "00" || self.StrForceValue.isEmpty == false || self.StrSpeedValue.isEmpty == false || self.self.DescriptionText.isEmpty == false || self.tagslist.isEmpty == false {
+                strURL = strURL + ToolsComa + "' or "
+            } else {
+                strURL = strURL + ToolsComa + "'"
+            }
         }
         if arrPathSelected.count > 0 {
             strURL = strURL + " r.routine_path='"
             let PathComa = self.arrPathSelected.joined(separator: "' or  r.routine_path='").lowercased()
-            strURL = strURL + PathComa + "' or "
+            
+            let Duration = "\(self.StartDuration)\(self.EndDuration)"
+            if self.arrUserSelected.count > 0 || self.arrTypeSelected.count > 0 || self.arrCategoryListSelected.count > 0 || self.arrLocatinSelected.count > 0 || Duration != "00" || self.StrForceValue.isEmpty == false || self.StrSpeedValue.isEmpty == false || self.self.DescriptionText.isEmpty == false || self.tagslist.isEmpty == false {
+                strURL = strURL + PathComa + "' or "
+            } else {
+                strURL = strURL + PathComa + "'"
+            }
         }
         if arrUserSelected.count > 0 {
-            strURL = strURL + " r.routine_user='"
-            let UserComa = self.arrUserSelected.joined(separator: "' or  r.routine_user='").lowercased()
-            strURL = strURL + UserComa + "' or "
+            strURL = strURL + " r.routine_user_type='"
+            let UserComa = self.arrUserSelected.joined(separator: "' or  r.routine_user_type='").lowercased()
+            
+            let Duration = "\(self.StartDuration)\(self.EndDuration)"
+            if self.arrTypeSelected.count > 0 || self.arrCategoryListSelected.count > 0 || self.arrLocatinSelected.count > 0 || Duration != "00" || self.StrForceValue.isEmpty == false || self.StrSpeedValue.isEmpty == false || self.self.DescriptionText.isEmpty == false || self.tagslist.isEmpty == false {
+                strURL = strURL + UserComa + "' or "
+            } else {
+                strURL = strURL + UserComa + "'"
+            }
         }
         if arrTypeSelected.count > 0 {
             strURL = strURL + " r.routine_type='"
             let TypeComa = self.arrTypeSelected.joined(separator: "' or  r.routine_type='").lowercased()
-            strURL = strURL + TypeComa + "' or "
+            
+            let Duration = "\(self.StartDuration)\(self.EndDuration)"
+            if self.arrCategoryListSelected.count > 0 || self.arrLocatinSelected.count > 0 || Duration != "00" || self.StrForceValue.isEmpty == false || self.StrSpeedValue.isEmpty == false || self.self.DescriptionText.isEmpty == false || self.tagslist.isEmpty == false {
+                strURL = strURL + TypeComa + "' or "
+            } else {
+                strURL = strURL + TypeComa + "'"
+            }
         }
         if self.arrCategoryListSelected.count > 0 {
             strURL = strURL + " r.routine_category='"
             let CategoryComa = self.arrCategoryListSelected.joined(separator: "' or  r.routine_category='").lowercased()
-            strURL = strURL + CategoryComa + "' or "
+            
+            let Duration = "\(self.StartDuration)\(self.EndDuration)"
+            if  self.arrLocatinSelected.count > 0 || Duration != "00" || self.StrForceValue.isEmpty == false || self.StrSpeedValue.isEmpty == false || self.self.DescriptionText.isEmpty == false || self.tagslist.isEmpty == false {
+                strURL = strURL + CategoryComa + "' or "
+            } else {
+                strURL = strURL + CategoryComa + "'"
+            }
         }
         if arrLocatinSelected.count > 0 {
             strURL = strURL + " r.routine_location='"
             let LOcationComa = self.arrLocatinSelected.joined(separator: "' or  r.routine_location='").lowercased()
-            strURL = strURL + LOcationComa + "' or "
+            let Duration = "\(self.StartDuration)\(self.EndDuration)"
+            if  Duration != "00" || self.StrForceValue.isEmpty == false || self.StrSpeedValue.isEmpty == false || self.self.DescriptionText.isEmpty == false || self.tagslist.isEmpty == false {
+                strURL = strURL + LOcationComa + "' or "
+            } else {
+                strURL = strURL + LOcationComa + "'"
+            }
         }
         let Duration = "\(self.StartDuration) to \(self.EndDuration)"
-        if Duration.isEmpty == false {
-            strURL = strURL + " r.routine_duration > '\(self.StartDuration)' and r.routine_duration < '\(self.EndDuration)' or "
+        if Duration == "0 to 0" {
+        } else{
+            
+            if  self.StrForceValue.isEmpty == false || self.StrSpeedValue.isEmpty == false || self.self.DescriptionText.isEmpty == false || self.tagslist.isEmpty == false {
+                strURL = strURL + " r.routine_duration > '\(self.StartDuration)' or r.routine_duration < '\(self.EndDuration)' or "
+            } else {
+                strURL = strURL + " r.routine_duration > '\(self.StartDuration)' or r.routine_duration < '\(self.EndDuration)'"
+            }
         }
         if StrForceValue.isEmpty == false {
-            strURL = strURL + " r.routine_force= '\(StrForceValue)' or "
+            
+            if  self.StrSpeedValue.isEmpty == false || self.self.DescriptionText.isEmpty == false || self.tagslist.isEmpty == false {
+                strURL = strURL + " r.routine_force= '\(StrForceValue)' or "
+            } else {
+                strURL = strURL + " r.routine_force= '\(StrForceValue)'"
+            }
         }
         if StrSpeedValue.isEmpty == false {
-            strURL = strURL + " r.routine_speed= '\(StrSpeedValue)' or "
+            if  self.DescriptionText.isEmpty == false || self.tagslist.isEmpty == false {
+                strURL = strURL + " r.routine_speed= '\(StrSpeedValue)' or "
+            } else {
+                strURL = strURL + " r.routine_speed= '\(StrSpeedValue)'"
+            }
         }
         if self.DescriptionText.isEmpty == false {
-            strURL = strURL + " r.routine_description= '\(self.DescriptionText)' or "
+            
+            if  self.tagslist.isEmpty == false {
+                strURL = strURL + " r.routine_description= '\(self.DescriptionText)' or "
+            } else {
+                strURL = strURL + " r.routine_description= '\(self.DescriptionText)'"
+            }
         }
         if tagslist.isEmpty == false {
-            strURL = strURL + " r.routine_tag='"
+            strURL = strURL + " r.routine_tags='"
             let TagComa = tagslist.replacingOccurrences(of: ",", with: "' or  r.routine_tag='", options: NSString.CompareOptions.literal, range: nil)
-            strURL = strURL + TagComa + "' or "
+            strURL = strURL + TagComa + "'"
         }
         
+        //speed/force/Duration//arrLocatinSelected//Parth//tools//arrAilmentsSelected
         strURL = strURL + " ORDER BY creation DESC LIMIT 50 OFFSET 0'"
                 
         let sb = UIStoryboard(name: "Search", bundle: nil)
