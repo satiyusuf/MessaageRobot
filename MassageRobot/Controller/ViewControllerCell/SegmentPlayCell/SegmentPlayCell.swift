@@ -37,7 +37,7 @@ class SegmentPlayCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        horizontalBar.progress = 0.0
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -53,12 +53,13 @@ class SegmentPlayCell: UITableViewCell {
     @objc func setProgressBar() {
         
         timeRemaining += 1
-        let completionPercentage = Int(((Float(segmentTime) - Float(timeRemaining))/Float(segmentTime)) * 100)
+       // let completionPercentage = Int(((Float(segmentTime) - Float(timeRemaining))/Float(segmentTime)) * 100)
 //         progressView.setProgress(Float(timeRemaining)/Float(totalTime), animated: false)
         
         let fltValue: Float = Float(timeRemaining)/Float(segmentTime)
+        
         horizontalBar.progress = CGFloat(fltValue)
-          print("progressLabel \(completionPercentage)% done")
+   //       print("progressLabel \(completionPercentage)% done")
   //       progressLabel.text = "\(completionPercentage)% done"
          let minutesLeft = Int(timeRemaining) / 60 % 60
          let secondsLeft = Int(timeRemaining) % 60

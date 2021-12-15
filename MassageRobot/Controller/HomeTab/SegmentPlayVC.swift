@@ -10,13 +10,11 @@ import UIKit
 class SegmentPlayVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var btnEqualizer: UIButton!
     @IBOutlet weak var btnReload: UIButton!
     @IBOutlet weak var btnPlayPause: UIButton!
     @IBOutlet weak var btnForword: UIButton!
     @IBOutlet weak var btnDelete: UIButton!
-    
     @IBOutlet weak var lblDucation: UILabel!
     
     @IBOutlet weak var constHeight: NSLayoutConstraint!
@@ -38,6 +36,8 @@ class SegmentPlayVC: UIViewController {
     var indxPath: Int = 0
     
     var arrSegmentList = [[String: Any]]()
+    
+    var ProgeshBarIs = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,7 +91,7 @@ class SegmentPlayVC: UIViewController {
                             totalDuration = totalStoreDu + totalDuration
                         }
                         
-                        totalTime = totalDuration/60
+                        totalTime = totalDuration //60
                         
                         if totalDuration < 10 {
                             lblDucation.text = "0" + String(totalTime) + ":00/00:00"
@@ -175,17 +175,28 @@ class SegmentPlayVC: UIViewController {
     
     @IBAction func btnPlayPauseAction(_ sender: UIButton) {
         print("PlayPause")
-                
+       
         if btnPlayPause.isSelected == true {
             btnPlayPause.isSelected = false
             btnPlayPause.setImage(UIImage(named: "PlaySeg"), for: .normal)
             
+            self.hideLoading()
             self.setPauseMassageRobotServiceCall()
+            
+            timerTest?.invalidate()
+            
+            ProgeshBarIs = false
+            self.tableView.reloadData()
+            
         }else {
             btnPlayPause.isSelected = true
             btnPlayPause.setImage(UIImage(named: "Pause"), for: .normal)
             
+            self.hideLoading()
             self.setStartMassageRobotServiceCall()
+            ProgeshBarIs = true
+            self.tableView.reloadData()
+            timerTest = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(setProgressBar), userInfo: nil, repeats: true)
         }
     }
 
@@ -327,6 +338,7 @@ class SegmentPlayVC: UIViewController {
         
     func setStartMassageRobotServiceCall() {
         
+        self.hideLoading()
         let userID: String = UserDefaults.standard.object(forKey: USERID) as? String ?? ""
         
         let url = "https://robot.massagerobotics.com/run-program?robot_id=MR_001&program_id=\(strRoutingID ?? "jnsercuu9c0000000000")&user_id=\(userID)"
@@ -374,6 +386,7 @@ class SegmentPlayVC: UIViewController {
         
     func setPauseMassageRobotServiceCall() {
         
+        self.hideLoading()
         let userID: String = UserDefaults.standard.object(forKey: USERID) as? String ?? ""
 
         let url = "https://robot.massagerobotics.com/command?user_id=\(userID)&command_id=pause"
@@ -522,7 +535,17 @@ extension SegmentPlayVC: UITableViewDelegate, UITableViewDataSource, SegmentPlay
         }
 
         let strLocationL: String = String(format: "%@", segmentData.getString(key: "location_l").lowercased())
+        print(strLocationL)
 
+        if ProgeshBarIs == true {
+            if indexPath.row == 0 {
+                cell.startTimerForCell()
+                cell.segmentTime = segTimeDuration
+            }
+        }else {
+            cell.setStopTimerForCell()
+        }
+        
 //        if strLocationL == "pectoralis" {
 //            cell.viewLeftLocation_1.isHidden = false
 //            cell.viewLeftLocation_2.isHidden = true
