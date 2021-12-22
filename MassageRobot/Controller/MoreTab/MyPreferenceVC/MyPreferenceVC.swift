@@ -663,7 +663,7 @@ class MyPreferenceCollectioncell : UICollectionViewCell, UITextFieldDelegate  {
         }else if currentIndex == 16 {
             staticpickervalue = ["Yes", "No"]
         }else if currentIndex == 17 {
-            staticpickervalue = ["Minimum", "Midium", "Maximum"]
+            staticpickervalue = ["Minimum", "Medium", "Maximum"]
         }else if currentIndex == 18 {
             staticpickervalue = ["Dressed", "Undressed"]
         }
