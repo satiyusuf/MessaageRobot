@@ -11,11 +11,14 @@ class MenuListVC: UIViewController {
 
     @IBOutlet weak var tblMenuList: UITableView!
     
-    let arrMenuList = ["My Profile", "My Preference", "Add New Routine", "Contact Us", "Gallery", "Investors", "FAQ", "Calibration","Reset", "Logout"]
-    let menuItemIcon = ["MyProfile","MyPreference","AddNewRoutine","ContactUs","Gallery","Investors","FAQ","CalibrationANdReset","CalibrationANdReset","Logout"]
+    let arrMenuList = ["My Profile", "My Preference", "Add New Routine","I'm Feeling Lucky","Contact Us", "Gallery", "Investors", "FAQ", "Calibration","Reset", "Logout"]
+    let menuItemIcon = ["MyProfile","MyPreference","AddNewRoutine","AddNewRoutine","ContactUs","Gallery","Investors","FAQ","CalibrationANdReset","CalibrationANdReset","Logout"]
     
     var MyProfileIs = false
     var MyPreferenceIs = false
+    var Duraction = String()
+    var picker = UIPickerView()
+    var toolBar = UIToolbar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +46,10 @@ class MenuListVC: UIViewController {
         UserDefaults.standard.set("", forKey: strQue19)
                 
         self.tblMenuList.register(UINib(nibName: "MenuListCell", bundle: nil), forCellReuseIdentifier: "MenuListCell")
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -129,7 +136,30 @@ extension MenuListVC : UITableViewDataSource, UITableViewDelegate, MenuListCellD
                 showToast(message: "Please Add My Profile And My Prference First After That You able to Create a Routin")
             }
             
-        }else if index == 7 {
+        } else if index == 3 {
+            
+            
+           
+            picker = UIPickerView(frame: CGRect(x: 0, y: self.view.frame.size.height - 300, width: self.view.frame.size.width, height: 300))
+            picker.delegate = self
+            picker.dataSource = self
+            picker.backgroundColor = UIColor.darkGray
+            picker.setValue(UIColor.white, forKey: "textColor")
+
+            let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.donePicker))
+            let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+            let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.donePicker))
+
+            
+            toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height - 300 - 44, width: picker.frame.width, height: 44))
+            toolBar.barStyle = .default
+            toolBar.isTranslucent = true
+            toolBar.isUserInteractionEnabled = true
+            toolBar.items = [spaceButton,spaceButton,doneButton]
+            self.view.addSubview(toolBar)
+            self.view.addSubview(picker)
+            
+        } else if index == 7 {
             print("Calibration")
             let calibrationView = UIStoryboard(name: "Menu", bundle: nil).instantiateViewController(withIdentifier: "CalibrationView") as! CalibrationViewController
             self.navigationController?.pushViewController(calibrationView, animated: true)
@@ -215,6 +245,88 @@ extension MenuListVC
                         print(error)
                     }
                 }
+            }
+        }
+    }
+}
+
+//MARK:- PickerView Method
+extension MenuListVC: UIPickerViewDelegate, UIPickerViewDataSource
+{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 60
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "\(row + 1)"
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.Duraction = "\(row + 1)"
+    }
+   
+   @objc func donePicker() {
+       toolBar.removeFromSuperview()
+       picker.removeFromSuperview()
+       print("Duraction:-\(Duraction)")
+       self.RoutineCreate()
+    }
+}
+
+//MARK:- Feeling Lucky Some Private Function
+extension MenuListVC {
+
+    private func RoutineCreate(){
+
+        var arrUser = ["adult","athlete","geriatric", "pregnant", "youth"]
+        let UserRondomNumder = Int(arc4random_uniform(5))
+        let User = arrUser[UserRondomNumder]
+        
+        var arrType = ["cranial sacral therapy", "deep tissue massage", "geriatric massage", "prenatal massage", "reflexology", "sports massage", "swedish massage", "percussion massage", "trigger point acupressure"]
+        let TypeRondomNumder = Int(arc4random_uniform(9))
+        let Type = arrType[TypeRondomNumder]
+        
+        let userID: String = UserDefaults.standard.object(forKey: USERID) as? String ?? ""
+
+        let dfPass = DateFormatter()
+        dfPass.dateFormat = "yyyy-MM-dd HH:mm"
+
+        let Count = +1
+
+        let strRoutingID = randomRoutineId()
+
+        let url = """
+        https://massage-robotics-website.uc.r.appspot.com/wt?tablename=Routine&row=[('\(strRoutingID)',
+        '\(userID)',
+        '\(dfPass.string(from: Date()))',
+        'public',
+        'alex\(Count)',
+        '',
+        '\(dfPass.string(from: Date()))',
+        '5',
+        '2',
+        'best and good',
+        '',
+        '',
+        'ailment',
+        '\(Type)',
+        '\(User)',
+        '',
+        '',
+        'muscle cramps')]
+        """
+        print(url)
+
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        callAPI(url: encodedUrl!) { [self] (json, data) in
+            print(json)
+            self.hideLoading()
+            if json.getString(key: "Response") == "Success" {
+
+              showToast(message: "Routine created successfully!")
             }
         }
     }
