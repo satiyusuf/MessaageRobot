@@ -16,10 +16,12 @@ class MenuListVC: UIViewController {
     
     var MyProfileIs = false
     var MyPreferenceIs = false
-    var Duraction = String()
+    var Duraction = Int()
     var picker = UIPickerView()
     var toolBar = UIToolbar()
-    
+    let myGroup = DispatchGroup()
+    let dispatchQueue = DispatchQueue.global(qos: .default)
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -143,8 +145,8 @@ extension MenuListVC : UITableViewDataSource, UITableViewDelegate, MenuListCellD
             picker = UIPickerView(frame: CGRect(x: 0, y: self.view.frame.size.height - 300, width: self.view.frame.size.width, height: 300))
             picker.delegate = self
             picker.dataSource = self
-            picker.backgroundColor = UIColor.darkGray
-            picker.setValue(UIColor.white, forKey: "textColor")
+            picker.backgroundColor = UIColor.lightGray
+            picker.setValue(UIColor.black, forKey: "textColor")
 
             let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.donePicker))
             let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
@@ -257,20 +259,19 @@ extension MenuListVC: UIPickerViewDelegate, UIPickerViewDataSource
         return 1
     }
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 60
+        return 45
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(row + 1)"
+        return "\(row + 15)"
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.Duraction = "\(row + 1)"
+        self.Duraction = row + 15
     }
    
    @objc func donePicker() {
        toolBar.removeFromSuperview()
        picker.removeFromSuperview()
-       print("Duraction:-\(Duraction)")
        self.RoutineCreate()
     }
 }
@@ -325,9 +326,113 @@ extension MenuListVC {
             print(json)
             self.hideLoading()
             if json.getString(key: "Response") == "Success" {
-
-              showToast(message: "Routine created successfully!")
+               
+                let Location = Int(arc4random_uniform(6) + 1)
+                var BodyFrontBack = String()
+                if Location % 2 == 0 {
+                    BodyFrontBack = "f"
+                } else {
+                    BodyFrontBack = "b"
+                }
+                
+                let Minute = Int.random(in: 3..<6)
+                var SegmentCount = Duraction / Minute
+                let Value = Minute * SegmentCount
+                let Makeup = Duraction - Value
+                
+                if Value == Duraction {
+                    print("Minute:- \(Minute) , Makeup:-\(Makeup) , SegmentCount:- \(SegmentCount)")
+                } else {
+                    SegmentCount = SegmentCount + 1
+                    print("Minute:- \(Minute) , Makeup:-\(Makeup) , SegmentCount:- \(SegmentCount)")
+                }
+                
+                for index in 0..<SegmentCount {
+                    
+                    if Makeup == 0 {
+                        myGroup.enter()
+                
+                        self.CreateSegmentApiCAll(BodyFrontBack: BodyFrontBack, Time: Minute, RoutingID: strRoutingID, SegmentCount: SegmentCount, index: index)
+                        
+                       
+                    } else {
+                        if index == 0 {
+                            myGroup.enter()
+                            self.CreateSegmentApiCAll(BodyFrontBack: BodyFrontBack, Time: Makeup, RoutingID: strRoutingID, SegmentCount: SegmentCount, index: index)
+                            
+                        } else {
+                            myGroup.enter()
+                            self.CreateSegmentApiCAll(BodyFrontBack: BodyFrontBack, Time: Minute, RoutingID: strRoutingID, SegmentCount: SegmentCount, index: index)
+                        }
+                    }
+                }
             }
         }
     }
-}
+    
+    private func CreateSegmentApiCAll(BodyFrontBack:String,Time:Int,RoutingID:String,SegmentCount:Int,index:Int)
+    {
+        let now = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+
+        let datetime = formatter.string(from: now)
+        print(datetime)
+        let timeAndDate = datetime.components(separatedBy: " ")
+
+        let strDateC: String = String(format: "%@", timeAndDate[0])
+        let strTimeC: String = String(format: "%@", timeAndDate[1])
+        
+        
+        let arrPath = ["none", "linear", "circular", "random", "point"]
+        let arrTool = ["none", "omni", "inline", "point", "shiatsu","sport","precussion","vibration"]
+        let PathRandom = Int(arc4random_uniform(5))
+        let Path = arrPath[PathRandom]
+        let ToolRandom = Int(arc4random_uniform(8))
+        let Tool = arrTool[ToolRandom]
+        let Speed = Int(arc4random_uniform(100) + 1)
+        let Force = Int(arc4random_uniform(100) + 1)
+       
+        var Location = String()
+        if BodyFrontBack == "f" {
+            let arrFrontLocation = ["pectoralis","iliotibal tract","quadracepts","knee","tibalis anterior"]
+            let FrontRandom = Int(arc4random_uniform(5))
+            Location = arrFrontLocation[FrontRandom]
+        } else {
+            let arrBackLocation  = ["deltoid","upperback","lowerback","gastrocnemius","hamstring","glutiusmaximus"]
+            let BackRandom = Int(arc4random_uniform(6))
+            Location = arrBackLocation[BackRandom]
+        }
+
+       
+        let strTime = Time * 60
+            
+        let url = "https://massage-robotics-website.uc.r.appspot.com/wt?tablename=RoutineEntity&row=[('sagmet\(randomSegmentId())','\(strTime)','\(Force)','\(Force)','\(Location)','\(Location)','\(Path)','\(Path)','\(Speed)','\(Speed)','\(strDateC),\(strTimeC)','\(Tool)','\(Tool)','\(index + 1)','\(RoutingID)','\(BodyFrontBack)')]"
+        
+        print(url)
+        
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        callAPI(url: encodedUrl!) { [self] (json, data1) in
+            print(json)
+            self.hideLoading()
+            if json.getString(key: "Response") == "Success"
+            {
+                print("index:-\(index)")
+                if index + 1 == SegmentCount {
+                    let alert = UIAlertController(title: "Successfully", message: "Your Routine Created Successfully ", preferredStyle: UIAlertController.Style.alert)
+                    let ok = UIAlertAction(title: "OK", style: .default, handler: { action in
+                       
+                        let sb = UIStoryboard(name: "CreateToutine", bundle: nil)
+                        let vc = sb.instantiateViewController(withIdentifier: "RoutineDetailDisplayVC") as! RoutineDetailDisplayVC
+                        vc.strRoutingID = RoutingID
+                        navigationController?.pushViewController(vc, animated: false)
+                    })
+                     alert.addAction(ok)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                myGroup.leave()
+            }
+        }
+    }
+ }

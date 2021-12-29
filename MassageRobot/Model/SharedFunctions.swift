@@ -27,17 +27,18 @@ class SharedFunctions: NSObject {
     
     
     // MARK: Check Device Information
-    func isiPad()->Bool{
-        if(UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad){
-            return true;
-        }else{
-            return false;
-        }
-    }
+//    func isiPad()->Bool{
+//        if(UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad){
+//            return true;
+//        }else{
+//            return false;
+//        }
+//    }
     
-    func isiPhone() -> Bool{
-        return (UIDevice.current.model=="iPhone")
-    }
+//    func isiPhone() -> Bool{
+//        return (UIDevice.current.model=="iPhone")
+//    }
+    
     
     func deviceSystemName() -> String{
         return UIDevice.current.systemName

@@ -125,8 +125,9 @@ class CategoryRoutineViewController: UIViewController {
         }
         
        
-        let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategory.lowercased())' ORDER BY creation \(strSorting ?? "DESC") LIMIT 50 OFFSET \(DataCount)'"
+//        let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategory.lowercased())' ORDER BY creation \(strSorting ?? "DESC") LIMIT 50 OFFSET \(DataCount)'"
         
+         let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategory.lowercased())' ORDER BY creation DESC LIMIT 50 OFFSET \(DataCount)'"
         print(strURL)
                         
         let encodedUrl = strURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -348,6 +349,10 @@ extension CategoryRoutineViewController: UITableViewDelegate, UITableViewDataSou
         cell.intIndex = indexPath.row
         
        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let width = view.frame.width / 2
+            cell.ImageWidth.constant = width
+        }
 //
         
         if isSearch == true {
@@ -404,7 +409,14 @@ extension CategoryRoutineViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 110
+        
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return 110
+        } else {
+            return 170
+        }
+       
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

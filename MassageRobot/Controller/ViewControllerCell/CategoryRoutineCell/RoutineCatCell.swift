@@ -21,6 +21,7 @@ class RoutineCatCell: UITableViewCell {
     @IBOutlet var lblRLocation: UILabel!
     @IBOutlet var lblLLocation: UILabel!
     
+    @IBOutlet weak var ImageWidth: NSLayoutConstraint!
     @IBOutlet weak var imgBannarPic: UIImageView!
     
     var delegate : RoutineCatCellDelegate?

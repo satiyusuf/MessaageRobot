@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -31,23 +31,18 @@
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultIcon" translatesAutoresizingMaskIntoConstraints="NO" id="rJQ-cj-3TV">
                                         <rect key="frame" x="0.0" y="0.0" width="176" height="100"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="iup-h8-Hmd"/>
-                                            <constraint firstAttribute="width" constant="176" id="wpn-hE-USS"/>
-                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="176" id="BQC-Vy-XXW"/>
-                                    <constraint firstAttribute="bottom" secondItem="rJQ-cj-3TV" secondAttribute="bottom" id="BdL-81-kIn"/>
                                     <constraint firstItem="rJQ-cj-3TV" firstAttribute="top" secondItem="0Ox-Ty-sl4" secondAttribute="top" id="aSx-nk-3w9"/>
+                                    <constraint firstAttribute="bottom" secondItem="rJQ-cj-3TV" secondAttribute="bottom" id="kvP-fK-1EB"/>
                                     <constraint firstItem="rJQ-cj-3TV" firstAttribute="leading" secondItem="0Ox-Ty-sl4" secondAttribute="leading" id="qY1-UM-euV"/>
                                     <constraint firstAttribute="trailing" secondItem="rJQ-cj-3TV" secondAttribute="trailing" id="rgo-lf-9nt"/>
-                                    <constraint firstAttribute="height" constant="100" id="uxv-vn-Lqi"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RountineName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7S9-sG-hta">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RountineName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7S9-sG-hta">
                                 <rect key="frame" x="186" y="10" width="184" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="K8e-PZ-nQF"/>
@@ -176,6 +171,7 @@
                             <constraint firstItem="NMf-Us-w33" firstAttribute="top" secondItem="POy-FE-Dof" secondAttribute="top" id="0Vu-4l-NQe"/>
                             <constraint firstItem="NMf-Us-w33" firstAttribute="leading" secondItem="POy-FE-Dof" secondAttribute="leading" id="0uE-gt-RQQ"/>
                             <constraint firstItem="f7W-8v-Kq2" firstAttribute="top" secondItem="2Kf-7K-9ZU" secondAttribute="bottom" constant="10" id="JKG-Rp-3Ww"/>
+                            <constraint firstAttribute="bottom" secondItem="0Ox-Ty-sl4" secondAttribute="bottom" id="KX4-HE-5hw"/>
                             <constraint firstItem="7S9-sG-hta" firstAttribute="leading" secondItem="0Ox-Ty-sl4" secondAttribute="trailing" constant="10" id="LiH-Ag-PT1"/>
                             <constraint firstAttribute="trailing" secondItem="7S9-sG-hta" secondAttribute="trailing" constant="10" id="MJR-m6-kDn"/>
                             <constraint firstItem="2Kf-7K-9ZU" firstAttribute="top" secondItem="7S9-sG-hta" secondAttribute="bottom" constant="8" symbolic="YES" id="Orb-3N-lvM"/>
@@ -206,6 +202,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="ImageWidth" destination="BQC-Vy-XXW" id="M1h-Pz-6uK"/>
                 <outlet property="constWidthImg" destination="BQC-Vy-XXW" id="A9l-98-ltp"/>
                 <outlet property="imgBannarPic" destination="rJQ-cj-3TV" id="8gx-la-gsa"/>
                 <outlet property="lblCategory" destination="ksl-l3-14f" id="RWI-Gs-qPX"/>
@@ -214,7 +211,7 @@
                 <outlet property="lblRoutineName" destination="7S9-sG-hta" id="MhI-Xm-ezO"/>
                 <outlet property="lblRoutineTime" destination="d1N-jX-NGK" id="pEB-Xn-2mj"/>
             </connections>
-            <point key="canvasLocation" x="195.6521739130435" y="129.24107142857142"/>
+            <point key="canvasLocation" x="104" y="120"/>
         </tableViewCell>
     </objects>
     <resources>
