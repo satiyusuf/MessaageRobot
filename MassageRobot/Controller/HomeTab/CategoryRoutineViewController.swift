@@ -125,9 +125,8 @@ class CategoryRoutineViewController: UIViewController {
         }
         
        
-//        let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategory.lowercased())' ORDER BY creation \(strSorting ?? "DESC") LIMIT 50 OFFSET \(DataCount)'"
-        
-         let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategory.lowercased())' ORDER BY creation DESC LIMIT 50 OFFSET \(DataCount)'"
+       let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategory.lowercased())' ORDER BY creation \(strSorting ?? "DESC") LIMIT 50 OFFSET \(DataCount)'"
+         
         print(strURL)
                         
         let encodedUrl = strURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -218,7 +217,17 @@ class CategoryRoutineViewController: UIViewController {
         arrSubCategoryRoutineList.removeAll()
         tblCategoryList.isHidden = true
         
-        let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategoryName.lowercased() )' AND r.routine_subcategory='\(txtCategoryRoutine.text?.lowercased() ?? "")' ORDER BY creation \(strSorting ?? "DESC") LIMIT 10 OFFSET 0'"
+        var strURL = String()
+        
+        if self.txtCategoryRoutine.text == "All" {
+            
+            strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategoryName.lowercased() )' ORDER BY creation \(strSorting ?? "DESC") LIMIT 10 OFFSET 0'"
+            
+        } else {
+            strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategoryName.lowercased() )' AND r.routine_subcategory='\(txtCategoryRoutine.text?.lowercased() ?? "")' ORDER BY creation \(strSorting ?? "DESC") LIMIT 10 OFFSET 0'"
+        }
+        
+        
             
         print(strURL)
         

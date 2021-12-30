@@ -150,14 +150,14 @@ extension MenuListVC : UITableViewDataSource, UITableViewDelegate, MenuListCellD
 
             let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.donePicker))
             let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-            let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.donePicker))
+            let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.cancelButton))
 
             
             toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height - 300 - 44, width: picker.frame.width, height: 44))
             toolBar.barStyle = .default
             toolBar.isTranslucent = true
             toolBar.isUserInteractionEnabled = true
-            toolBar.items = [spaceButton,spaceButton,doneButton]
+            toolBar.items = [cancelButton,spaceButton,doneButton]
             self.view.addSubview(toolBar)
             self.view.addSubview(picker)
             
@@ -274,6 +274,10 @@ extension MenuListVC: UIPickerViewDelegate, UIPickerViewDataSource
        picker.removeFromSuperview()
        self.RoutineCreate()
     }
+    @objc func cancelButton() {
+        toolBar.removeFromSuperview()
+        picker.removeFromSuperview()
+     }
 }
 
 //MARK:- Feeling Lucky Some Private Function
@@ -311,7 +315,7 @@ extension MenuListVC {
         'best and good',
         '',
         '',
-        'ailment',
+        'ailments',
         '\(Type)',
         '\(User)',
         '',
@@ -330,9 +334,9 @@ extension MenuListVC {
                 let Location = Int(arc4random_uniform(6) + 1)
                 var BodyFrontBack = String()
                 if Location % 2 == 0 {
-                    BodyFrontBack = "f"
+                    BodyFrontBack = "F"
                 } else {
-                    BodyFrontBack = "b"
+                    BodyFrontBack = "B"
                 }
                 
                 let Minute = Int.random(in: 3..<6)
@@ -394,7 +398,7 @@ extension MenuListVC {
         let Force = Int(arc4random_uniform(100) + 1)
        
         var Location = String()
-        if BodyFrontBack == "f" {
+        if BodyFrontBack == "F" {
             let arrFrontLocation = ["pectoralis","iliotibal tract","quadracepts","knee","tibalis anterior"]
             let FrontRandom = Int(arc4random_uniform(5))
             Location = arrFrontLocation[FrontRandom]

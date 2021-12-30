@@ -97,6 +97,11 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.bottomBarView.roundCorners(corners: [.topLeft, .topRight], radius: 60)
+            self.routineDetailView.roundCorners(corners: [.topLeft, .topRight], radius: 40)
+        }
+        
         self.getUserDetailAPICall()
         // Do any additional setup after loading the view.
         

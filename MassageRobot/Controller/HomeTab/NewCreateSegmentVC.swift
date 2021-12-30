@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
 
@@ -2488,31 +2489,44 @@ extension NewCreateSegmentVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if collectionView == ColleRuler {
-            
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RulerCell", for: indexPath) as? RulerCell else {
-                return CGSize.zero
-            }
-            //let Dict1 = ["duration":"30","IsCount":"False"]
-            let IsCount = arrRulerCount[indexPath.row]["segment"] as? String ?? ""
-         
-            var Width = Int()
-            
-            if IsCount == "true" {
-                let Duration = arrRulerCount[indexPath.row]["duration"] as? Int ?? 0
-                Width = Duration * 28
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if collectionView == ColleRuler {
+                
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RulerCell", for: indexPath) as? RulerCell else {
+                    return CGSize.zero
+                }
+                //let Dict1 = ["duration":"30","IsCount":"False"]
+                let IsCount = arrRulerCount[indexPath.row]["segment"] as? String ?? ""
+             
+                var Width = Int()
+                
+                if IsCount == "true" {
+                    let Duration = arrRulerCount[indexPath.row]["duration"] as? Int ?? 0
+                    Width = Duration * 28
+                } else {
+                    let Duration = arrRulerCount[indexPath.row]["duration"] as? String ?? ""
+                    Width = Int(Duration)!
+                }
+                cell.setNeedsLayout()
+                cell.layoutIfNeeded()
+                return CGSize(width: Width, height: 40)
+                
             } else {
-                let Duration = arrRulerCount[indexPath.row]["duration"] as? String ?? ""
-                Width = Int(Duration)!
+                let collectionWidth = view.bounds.width
+                return CGSize(width: collectionWidth, height: 440)
             }
-            cell.setNeedsLayout()
-            cell.layoutIfNeeded()
-            return CGSize(width: Width, height: 40)
             
         } else {
-            let collectionWidth = view.bounds.width
-            return CGSize(width: collectionWidth, height: 440)
+            if collectionView == ColleRuler {
+                return CGSize(width: 28, height: 40)
+            } else {
+                let collectionWidth = view.bounds.width
+                return CGSize(width: collectionWidth, height: 440)
+            }
+            
+           
         }
+       
         
     }
     

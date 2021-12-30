@@ -87,6 +87,13 @@ class RoutineDetailViewController: UIViewController {
                 
         // Do any additional setup after loading the view.
         
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.bottomBarView.roundCorners(corners: [.topLeft, .topRight], radius: 60)
+            self.routineDetailView.roundCorners(corners: [.topLeft, .topRight], radius: 40)
+        }
+       
+
+        
         constHeightSafeArea.constant = 44.0
         constHeightAilment.constant = 46.0
         constHeightDescription.constant = 42.0
@@ -871,3 +878,11 @@ extension RoutineDetailViewController: UINavigationControllerDelegate, UIImagePi
     }
 }
 
+extension UIView {
+   func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
+    }
+}
