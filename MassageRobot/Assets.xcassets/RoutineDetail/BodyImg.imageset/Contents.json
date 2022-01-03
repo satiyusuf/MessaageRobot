@@ -2,17 +2,17 @@
   "images" : [
     {
       "filename" : "BodyImg.png",
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "1x"
     },
     {
       "filename" : "BodyImg@2x.png",
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "2x"
     },
     {
       "filename" : "BodyImg@3x.png",
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "3x"
     }
   ],

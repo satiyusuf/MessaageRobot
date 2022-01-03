@@ -2,17 +2,17 @@
   "images" : [
     {
       "filename" : "Connect.png",
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "1x"
     },
     {
       "filename" : "Connect@2x.png",
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "2x"
     },
     {
       "filename" : "Connect@3x.png",
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "3x"
     }
   ],

@@ -2,17 +2,17 @@
   "images" : [
     {
       "filename" : "radio_deselect.png",
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "1x"
     },
     {
       "filename" : "radio_deselect@2x.png",
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "2x"
     },
     {
       "filename" : "radio_deselect@3x.png",
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "3x"
     }
   ],

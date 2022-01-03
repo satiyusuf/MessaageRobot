@@ -2,7 +2,16 @@
   "images" : [
     {
       "filename" : "Ques1.svg",
-      "idiom" : "iphone"
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

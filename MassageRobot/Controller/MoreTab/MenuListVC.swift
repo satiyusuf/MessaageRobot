@@ -82,7 +82,7 @@ class MenuListVC: UIViewController {
 extension MenuListVC : UITableViewDataSource, UITableViewDelegate, MenuListCellDelegate {
     //MARK:- Table View Delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 11
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -161,13 +161,13 @@ extension MenuListVC : UITableViewDataSource, UITableViewDelegate, MenuListCellD
             self.view.addSubview(toolBar)
             self.view.addSubview(picker)
             
-        } else if index == 7 {
+        } else if index == 8 {
             print("Calibration")
             let calibrationView = UIStoryboard(name: "Menu", bundle: nil).instantiateViewController(withIdentifier: "CalibrationView") as! CalibrationViewController
             self.navigationController?.pushViewController(calibrationView, animated: true)
-        }else if index == 8 {
-            self.resetServiceCall()
         }else if index == 9 {
+            self.resetServiceCall()
+        }else if index == 10 {
             UserDefaults.standard.set("No", forKey: ISLOGIN)
             let vc = UIStoryboard.init(name: "CreateToutine", bundle: Bundle.main).instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
             UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
