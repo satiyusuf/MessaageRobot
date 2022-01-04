@@ -30,6 +30,7 @@ class CategoryRoutineViewController: UIViewController {
     var strSorting: String!
     
     var arrSubCategoryList = [String]()
+    var ActivitiSubCateGory = ["Run","Walk","Stairs","Gaming","Driving"]
     var arrSubCategoryRoutineList = [[String: Any]]()
     var arrSubCategoryRoutineSearchList = [[String: Any]]()
     
@@ -54,6 +55,9 @@ class CategoryRoutineViewController: UIViewController {
         
         self.tblCategoryList.register(UINib(nibName: "RoutineCatCell", bundle: nil), forCellReuseIdentifier: "RoutineCatCell")
         
+        if strPath == "Activities" {
+            arrSubCategoryList = ActivitiSubCateGory
+        }
         arrSubCategoryList.insert("All", at: 0)
         
         txtCategoryRoutine.text = arrSubCategoryList.first
@@ -142,8 +146,7 @@ class CategoryRoutineViewController: UIViewController {
                 let data = string.data(using: .utf8)!
                 do {
                     if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
-                        
-                        
+                    
                         arrSubCategoryRoutineList.append(contentsOf: jsonArray)
                         if arrSubCategoryRoutineList.count > 0
                         {
@@ -434,18 +437,24 @@ extension CategoryRoutineViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 
+        
         if isSearch == true {
-            if isMore == true {
-                if indexPath.row == self.arrSubCategoryRoutineSearchList.count - 1 {
-                    Count += 50
-                    self.setListingServiceCall(strCategory: strPath, DataCount: String(Count))
+            if arrSubCategoryRoutineSearchList.count > 49 {
+                if isMore == true {
+                    if indexPath.row == self.arrSubCategoryRoutineSearchList.count - 1 {
+                        Count += 50
+                        self.setListingServiceCall(strCategory: strPath, DataCount: String(Count))
+                    }
                 }
             }
+           
         } else {
             if isMore == true {
-                if indexPath.row == self.arrSubCategoryRoutineList.count - 1 {
-                    Count += 50
-                    self.setListingServiceCall(strCategory: strPath, DataCount: String(Count))
+                if arrSubCategoryRoutineList.count > 49 {
+                    if indexPath.row == self.arrSubCategoryRoutineList.count - 1 {
+                        Count += 50
+                        self.setListingServiceCall(strCategory: strPath, DataCount: String(Count))
+                    }
                 }
             }
         }

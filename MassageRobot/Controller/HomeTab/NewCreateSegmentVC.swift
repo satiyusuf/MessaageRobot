@@ -38,6 +38,8 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var ColleRuler: UICollectionView!
     @IBOutlet weak var ViewAdd: UIView!
 
+    @IBOutlet weak var FemaleLeftSideFirstHe: NSLayoutConstraint!
+    @IBOutlet weak var FemaleLeftSideSecondHe: NSLayoutConstraint!
     @IBOutlet weak var ToolsView: UIView!
     
     //MARK:- Variable
@@ -84,6 +86,11 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
                 SegmentCreateView.isHidden = true
             }
         }
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            self.FemaleLeftSideFirstHe.constant = 120
+            self.FemaleLeftSideSecondHe.constant = 105
+        } 
     }
     
     //MARK:- Action

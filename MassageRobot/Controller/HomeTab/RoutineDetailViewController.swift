@@ -240,36 +240,73 @@ class RoutineDetailViewController: UIViewController {
         
         let imagePicker = UIImagePickerController()
 
-        let actionSheet = UIAlertController(title: "Take image", message: nil, preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action) in
+        if UIDevice.current.userInterfaceIdiom == .pad {
+           
+            let actionSheet = UIAlertController(title: "Take image", message: nil, preferredStyle: .alert)
+            actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action) in
 
-            if UIImagePickerController.isSourceTypeAvailable(.camera)
-            {
-                imagePicker.sourceType = UIImagePickerController.SourceType.camera
+                if UIImagePickerController.isSourceTypeAvailable(.camera)
+                {
+                    imagePicker.sourceType = UIImagePickerController.SourceType.camera
+                    imagePicker.delegate = self
+                    imagePicker.isEditing = true
+                    imagePicker.allowsEditing = true
+                    self.present(imagePicker, animated: true, completion: nil)
+                }
+                else
+                {
+                    print("Camera Not Available")
+                    self.showToast(message: "Camera Not Available")
+                }
+            }))
+            actionSheet.addAction(UIAlertAction(title: "Photos", style: .default, handler: { (action) in
+
+                imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
                 imagePicker.delegate = self
                 imagePicker.isEditing = true
                 imagePicker.allowsEditing = true
                 self.present(imagePicker, animated: true, completion: nil)
-            }
-            else
-            {
-                print("Camera Not Available")
-                self.showToast(message: "Camera Not Available")
-            }
-        }))
-        actionSheet.addAction(UIAlertAction(title: "Photos", style: .default, handler: { (action) in
 
-            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-            imagePicker.delegate = self
-            imagePicker.isEditing = true
-            imagePicker.allowsEditing = true
-            self.present(imagePicker, animated: true, completion: nil)
+            }))
+            actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+            }))
 
-        }))
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
-        }))
+            present(actionSheet, animated: true, completion: nil)
+        } else {
+            let actionSheet = UIAlertController(title: "Take image", message: nil, preferredStyle: .actionSheet)
+            actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action) in
 
-        present(actionSheet, animated: true, completion: nil)
+                if UIImagePickerController.isSourceTypeAvailable(.camera)
+                {
+                    imagePicker.sourceType = UIImagePickerController.SourceType.camera
+                    imagePicker.delegate = self
+                    imagePicker.isEditing = true
+                    imagePicker.allowsEditing = true
+                    self.present(imagePicker, animated: true, completion: nil)
+                }
+                else
+                {
+                    print("Camera Not Available")
+                    self.showToast(message: "Camera Not Available")
+                }
+            }))
+            actionSheet.addAction(UIAlertAction(title: "Photos", style: .default, handler: { (action) in
+
+                imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+                imagePicker.delegate = self
+                imagePicker.isEditing = true
+                imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true, completion: nil)
+
+            }))
+            actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+            }))
+
+            present(actionSheet, animated: true, completion: nil)
+        }
+       
+        
+       
     }
     
     @IBAction func onClickMoreDetailBtn(_ sender: Any) {

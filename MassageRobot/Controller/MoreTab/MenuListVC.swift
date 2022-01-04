@@ -388,11 +388,11 @@ extension MenuListVC {
         let strTimeC: String = String(format: "%@", timeAndDate[1])
         
         
-        let arrPath = ["none", "linear", "circular", "random", "point"]
-        let arrTool = ["none", "omni", "inline", "point", "shiatsu","sport","precussion","vibration"]
-        let PathRandom = Int(arc4random_uniform(5))
+        let arrPath = ["linear", "circular", "random", "point"]
+        let arrTool = ["omni", "inline", "point", "shiatsu","sport","precussion","vibration"]
+        let PathRandom = Int(arc4random_uniform(4))
         let Path = arrPath[PathRandom]
-        let ToolRandom = Int(arc4random_uniform(8))
+        let ToolRandom = Int(arc4random_uniform(7))
         let Tool = arrTool[ToolRandom]
         let Speed = Int(arc4random_uniform(100) + 1)
         let Force = Int(arc4random_uniform(100) + 1)
