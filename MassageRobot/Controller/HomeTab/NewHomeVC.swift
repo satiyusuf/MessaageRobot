@@ -182,8 +182,13 @@ class NewHomeVC: UIViewController {
                 let authData = json.getArrayofDictionary(key: "recommendations")
                 print("Routine Count \(authData)")
                 
-                self.arrForYouList.append(contentsOf: authData)
-                
+                var RoutineID = String()
+                for RoutineData in authData {
+                    let id = RoutineData["routineID"] as? String ?? ""
+                    RoutineID.append("'\(id)',")
+                }
+               
+                self.GetDataForYouId(RoutingID: RoutineID)
                 if self.arrForYouList.count > 0
                 {
                     
@@ -211,6 +216,34 @@ class NewHomeVC: UIViewController {
             
             //  self.setListingServiceCall(strCategory: "Featured")
             self.callAllServiceAtOnce(strCategory: "")
+        }
+    }
+    
+    func GetDataForYouId(RoutingID:String) {
+
+        let QueryUrl = "https://massage-robotics-website.uc.r.appspot.com/rd?query='SELECT *,  (SELECT SUM(routineentity.duration) as dur from routineentity where routineentity.routineid = routine.routineid) FROM routine where routineid in \(RoutingID)"
+
+        let encodedUrl = QueryUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        callHomeAPI(url: encodedUrl!) { [self] (json, data1) in
+            
+                  
+            if json.getString(key: "status") == "false" {
+                let string = json.getString(key: "response_message")
+                let data = string.data(using: .utf8)!
+                do {
+                    if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
+                        self.arrForYouList.append(contentsOf: jsonArray)
+                        self.tbl_home.reloadData()
+                        
+                    } else {
+                        showToast(message: "Bad Json")
+                    }
+                } catch let error as NSError {
+                    print(error)
+                    showToast(message: json.getString(key: "response_message"))
+                }
+            }
         }
     }
     

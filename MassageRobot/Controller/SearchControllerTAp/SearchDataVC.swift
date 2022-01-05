@@ -84,9 +84,9 @@ extension SearchDataVC : UITableViewDelegate,UITableViewDataSource {
         if routingData.getString(key: "thumbnail") != "" {
             let strURLThumb: String = "https://firebasestorage.googleapis.com/v0/b/massage-robotics-website.appspot.com/o/images%2F" + routingData.getString(key: "thumbnail") + "?alt=media&token=665dad6f-91b0-406b-917e-fec2f7f8a0c2"
             let urls = URL.init(string: strURLThumb)
-            cell.imgBannarPic.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon"))
+            cell.imgBannarPic.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon-1"))
         }else {
-            cell.imgBannarPic.image = UIImage(named: "DefaultIcon")
+            cell.imgBannarPic.image = UIImage(named: "DefaultIcon-1")
         }
         
         return cell

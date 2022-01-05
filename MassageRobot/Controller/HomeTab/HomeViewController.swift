@@ -635,7 +635,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
                     
 //                    cell.imgBannarPic.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon"))
                     
-                    cell.imgBannarPic.sd_setImage(with: urls, placeholderImage: UIImage(named: "DefaultIcon"), options: .highPriority, progress: { (receivedSize :Int, ExpectedSize :Int, url:URL?) in
+                    cell.imgBannarPic.sd_setImage(with: urls, placeholderImage: UIImage(named: "DefaultIcon-1"), options: .highPriority, progress: { (receivedSize :Int, ExpectedSize :Int, url:URL?) in
 
                       DispatchQueue.main.async {
                           cell.activityIndicat.isHidden = false;
@@ -652,7 +652,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
                 }else {
                     cell.activityIndicat.isHidden = true;
                     cell.activityIndicat.stopAnimating()
-                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon")
+                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon-1")
                 }
             }
             return cell
@@ -664,7 +664,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             
             if arrDisSubCatImgList.count > 0 {
                 
-                let placeholderImage = UIImage(named: "DefaultIcon")
+                let placeholderImage = UIImage(named: "DefaultIcon-1")
                 var url = ""
                 for img in arrDisSubCatImgList {
                     for (key,value) in img {
@@ -711,9 +711,9 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
                 if subCategoryData.getString(key: "thumbnail") != "" {
                     let strURLThumb: String = "https://firebasestorage.googleapis.com/v0/b/massage-robotics-website.appspot.com/o/images%2F" + subCategoryData.getString(key: "thumbnail") + "?alt=media&token=665dad6f-91b0-406b-917e-fec2f7f8a0c2"
                     let urls = URL.init(string: strURLThumb)
-//                    cell.imgBannarPic.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon"))
+//                    cell.imgBannarPic.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon-1"))
                     
-                    cell.imgBannarPic.sd_setImage(with: urls, placeholderImage: UIImage(named: "DefaultIcon"), options: .highPriority, progress: { (receivedSize :Int, ExpectedSize :Int, url:URL?) in
+                    cell.imgBannarPic.sd_setImage(with: urls, placeholderImage: UIImage(named: "DefaultIcon-1"), options: .highPriority, progress: { (receivedSize :Int, ExpectedSize :Int, url:URL?) in
 
                       DispatchQueue.main.async {
                           cell.activityIndicat.isHidden = false;
@@ -730,7 +730,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
                 }else {
                     cell.activityIndicat.isHidden = true;
                     cell.activityIndicat.stopAnimating()
-                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon")
+                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon-1")
                 }
             }
             return cell
@@ -742,7 +742,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             
             if arrTASubCatImgList.count > 0 {
                 
-                let placeholderImage = UIImage(named: "DefaultIcon")
+                let placeholderImage = UIImage(named: "DefaultIcon-1")
                 var url = ""
                 for img in arrTASubCatImgList {
                     for (key,value) in img {
@@ -789,9 +789,9 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
                 if subCategoryData.getString(key: "thumbnail") != "" {
                     let strURLThumb: String = "https://firebasestorage.googleapis.com/v0/b/massage-robotics-website.appspot.com/o/images%2F" + subCategoryData.getString(key: "thumbnail") + "?alt=media&token=665dad6f-91b0-406b-917e-fec2f7f8a0c2"
                     let urls = URL.init(string: strURLThumb)
-//                    cell.imgBannarPic.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon"))
+//                    cell.imgBannarPic.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon-1"))
                     
-                    cell.imgBannarPic.sd_setImage(with: urls, placeholderImage: UIImage(named: "DefaultIcon"), options: .highPriority, progress: { (receivedSize :Int, ExpectedSize :Int, url:URL?) in
+                    cell.imgBannarPic.sd_setImage(with: urls, placeholderImage: UIImage(named: "DefaultIcon-1"), options: .highPriority, progress: { (receivedSize :Int, ExpectedSize :Int, url:URL?) in
 
                       DispatchQueue.main.async {
                           cell.activityIndicat.isHidden = false;
@@ -808,7 +808,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
                 }else {
                     cell.activityIndicat.isHidden = true;
                     cell.activityIndicat.stopAnimating()
-                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon")
+                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon-1")
                 }
             }
             return cell
@@ -820,7 +820,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             
             if arrWorkOutImgList.count > 0 {
                 
-                let placeholderImage = UIImage(named: "DefaultIcon")
+                let placeholderImage = UIImage(named: "DefaultIcon-1")
                 var url = ""
                 for img in arrWorkOutImgList {
                     for (key,value) in img {
@@ -860,7 +860,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             
             if arrWellnessImgList.count > 0 {
                 
-                let placeholderImage = UIImage(named: "DefaultIcon")
+                let placeholderImage = UIImage(named: "DefaultIcon-1")
                 var url = ""
                 for img in arrWellnessImgList {
                     for (key,value) in img {
@@ -901,7 +901,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             
             if arrLifeStyleImgList.count > 0 {
                 
-                let placeholderImage = UIImage(named: "DefaultIcon")
+                let placeholderImage = UIImage(named: "DefaultIcon-1")
                 var url = ""
                 for img in arrLifeStyleImgList {
                     for (key,value) in img {
@@ -951,7 +951,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
                     let urls = URL.init(string: strURLThumb)
 //                    cell.imgBannarPic.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon"))
                     
-                    cell.imgBannarPic.sd_setImage(with: urls, placeholderImage: UIImage(named: "DefaultIcon"), options: .highPriority, progress: { (receivedSize :Int, ExpectedSize :Int, url:URL?) in
+                    cell.imgBannarPic.sd_setImage(with: urls, placeholderImage: UIImage(named: "DefaultIcon-1"), options: .highPriority, progress: { (receivedSize :Int, ExpectedSize :Int, url:URL?) in
 
                       DispatchQueue.main.async {
                           cell.activityIndicat.isHidden = false;
@@ -968,7 +968,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
                 }else {
                     cell.activityIndicat.isHidden = true;
                     cell.activityIndicat.stopAnimating()
-                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon")
+                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon-1")
                 }
             }
             
@@ -988,9 +988,9 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
                 if subCategoryData.getString(key: "thumbnail") != "" {
                     let strURLThumb: String = "https://firebasestorage.googleapis.com/v0/b/massage-robotics-website.appspot.com/o/images%2F" + subCategoryData.getString(key: "thumbnail") + "?alt=media&token=665dad6f-91b0-406b-917e-fec2f7f8a0c2"
                     let urls = URL.init(string: strURLThumb)
-//                    cell.imgBannarPic.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon"))
+//                    cell.imgBannarPic.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon-1"))
                     
-                    cell.imgBannarPic.sd_setImage(with: urls, placeholderImage: UIImage(named: "DefaultIcon"), options: .highPriority, progress: { (receivedSize :Int, ExpectedSize :Int, url:URL?) in
+                    cell.imgBannarPic.sd_setImage(with: urls, placeholderImage: UIImage(named: "DefaultIcon-1"), options: .highPriority, progress: { (receivedSize :Int, ExpectedSize :Int, url:URL?) in
 
                       DispatchQueue.main.async {
                           cell.activityIndicat.isHidden = false;
@@ -1007,7 +1007,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
                 }else {
                     cell.activityIndicat.isHidden = true;
                     cell.activityIndicat.stopAnimating()
-                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon")
+                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon-1")
                 }
             }
             return cell
@@ -1027,7 +1027,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
                     let urls = URL.init(string: strURLThumb)
 //                    cell.imgBannarPic.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon"))
                     
-                    cell.imgBannarPic.sd_setImage(with: urls, placeholderImage: UIImage(named: "DefaultIcon"), options: .highPriority, progress: { (receivedSize :Int, ExpectedSize :Int, url:URL?) in
+                    cell.imgBannarPic.sd_setImage(with: urls, placeholderImage: UIImage(named: "DefaultIcon-1"), options: .highPriority, progress: { (receivedSize :Int, ExpectedSize :Int, url:URL?) in
 
                       DispatchQueue.main.async {
                           cell.activityIndicat.isHidden = false;
@@ -1044,7 +1044,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
                 }else {
                     cell.activityIndicat.isHidden = true;
                     cell.activityIndicat.stopAnimating()
-                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon")
+                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon-1")
                 }
             }
             return cell
@@ -1064,9 +1064,9 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
                 if subCategoryData.getString(key: "thumbnail") != "" {
                     let strURLThumb: String = "https://firebasestorage.googleapis.com/v0/b/massage-robotics-website.appspot.com/o/images%2F" + subCategoryData.getString(key: "thumbnail") + "?alt=media&token=665dad6f-91b0-406b-917e-fec2f7f8a0c2"
                     let urls = URL.init(string: strURLThumb)
-//                    cell.imgBannarPic.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon"))
+//                    cell.imgBannarPic.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon-1"))
                     
-                    cell.imgBannarPic.sd_setImage(with: urls, placeholderImage: UIImage(named: "DefaultIcon"), options: .highPriority, progress: { (receivedSize :Int, ExpectedSize :Int, url:URL?) in
+                    cell.imgBannarPic.sd_setImage(with: urls, placeholderImage: UIImage(named: "DefaultIcon-1"), options: .highPriority, progress: { (receivedSize :Int, ExpectedSize :Int, url:URL?) in
 
                       DispatchQueue.main.async {
                           cell.activityIndicat.isHidden = false;
@@ -1083,7 +1083,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
                 }else {
                     cell.activityIndicat.isHidden = true;
                     cell.activityIndicat.stopAnimating()
-                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon")
+                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon-1")
                 }
             }
             return cell
@@ -1095,7 +1095,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             
             if arrBrowseImgList.count > 0 {
                 
-                let placeholderImage = UIImage(named: "DefaultIcon")
+                let placeholderImage = UIImage(named: "DefaultIcon-1")
                 var url = ""
                 for img in arrBrowseImgList {
                     for (key,value) in img {
@@ -1134,7 +1134,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             
             if arrAilmentsImgList.count > 0 {
                 
-                let placeholderImage = UIImage(named: "DefaultIcon")
+                let placeholderImage = UIImage(named: "DefaultIcon-1")
                 var url = ""
                 for img in arrAilmentsImgList {
                     for (key,value) in img {
@@ -1173,7 +1173,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             
             if arrActivitesImgList.count > 0 {
                 
-                let placeholderImage = UIImage(named: "DefaultIcon")
+                let placeholderImage = UIImage(named: "DefaultIcon-1")
                 var url = ""
                 for img in arrActivitesImgList {
                     for (key,value) in img {
@@ -1211,7 +1211,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             
             if arrSportsImgList.count > 0 {
                 
-                let placeholderImage = UIImage(named: "DefaultIcon")
+                let placeholderImage = UIImage(named: "DefaultIcon-1")
                 var url = ""
                 for img in arrSportsImgList {
                     for (key,value) in img {

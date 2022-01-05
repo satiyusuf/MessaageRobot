@@ -297,9 +297,9 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                             if routingData.getString(key: "thumbnail") != "" {
                                 let strURLThumb: String = "https://firebasestorage.googleapis.com/v0/b/massage-robotics-website.appspot.com/o/images%2F" + routingData.getString(key: "thumbnail") + "?alt=media"
                                 let urls = URL.init(string: strURLThumb)
-                                imgRoutine.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon"))
+                                imgRoutine.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon-1"))
                             }else {
-                                imgRoutine.image = UIImage(named: "DefaultIcon")
+                                imgRoutine.image = UIImage(named: "DefaultIcon-1")
                             }
                             
                             let strTagList: String = routingData.getString(key: "routine_tags")
