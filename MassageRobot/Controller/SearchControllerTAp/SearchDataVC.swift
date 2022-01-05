@@ -62,6 +62,11 @@ extension SearchDataVC : UITableViewDelegate,UITableViewDataSource {
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RoutineCatCell", for: indexPath) as! RoutineCatCell
 
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let width = view.frame.width / 2
+            cell.ImageWidth.constant = width
+        }
+        
         let routingData = arrSearchData[indexPath.row]
         cell.lblRoutineName.text = routingData.getString(key: "routinename")
         cell.lblCategory.text = routingData.getString(key: "routine_category")

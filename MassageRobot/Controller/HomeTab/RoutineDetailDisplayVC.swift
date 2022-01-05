@@ -350,7 +350,8 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                 do {
                     if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
                         
-                        arrSegmentList.append(contentsOf: jsonArray)
+                       // arrSegmentList.append(contentsOf: jsonArray)
+                        arrSegmentList =  jsonArray
                         print("SegmentCount:-\(arrSegmentList.count),SegmentData:-\(arrSegmentList)")
                         
                         if arrSegmentList.count >= 4
@@ -719,7 +720,7 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                         
                         
                         
-                        lblSegmentCount.text = String(format: "%d Segment", arrSegmentList.count)
+                        lblSegmentCount.text = "\(arrSegmentList.count) Segment"
                         
                         if arrSegmentList.count == 0 {
                             showToast(message: "Segments not available under this routine")
