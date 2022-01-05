@@ -1232,9 +1232,10 @@ extension RoutineDetailDisplayVC
         {
             LName = "L-pect"
         }
-        else if L == "glutiusmaximus"
+        else if L == "calves"
         {
-            LName = "L-glut"
+            LName = "L-calf"
+            
         }else if L == "knee" {
             LName = "L-knee"
         }
@@ -1275,9 +1276,9 @@ extension RoutineDetailDisplayVC
         {
             RName = "R-pect"
         }
-        else if R == "glutiusmaximus"
+        else if R == "calves"
         {
-            RName = "R-glut"
+            RName = "R-calf"
         } else if R == "knee" {
             RName = "R-knee"
         }
@@ -1334,9 +1335,9 @@ extension RoutineDetailDisplayVC
         {
             LName = "F-L-pect"
         }
-        else if L == "glutiusmaximus"
+        else if L == "calves"
         {
-            LName = "F-L-glut"
+            LName = "F-L-calf"
         } else if L == "knee" {
             LName = "F-L-knee"
         }
@@ -1377,9 +1378,9 @@ extension RoutineDetailDisplayVC
         {
             RName = "F-R-pect"
         }
-        else if R == "glutiusmaximus"
+        else if R == "calves"
         {
-            RName = "F-R-glut"
+            RName = "F-R-calf"
         } else if R == "knee" {
             RName = "F-R-knee"
         }

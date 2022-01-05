@@ -200,7 +200,8 @@ class NewHomeVC: UIViewController {
                     }
                     commonQuery = commonQuery.appending("GROUP BY routineid")
                     self.getAllSegmantDetails(strCategory: "Featured", strURL: commonQuery)
-                    self.ArrMainCate.append("For you")
+                    self.ArrMainCate.insert("For you", at: 0)
+                   // self.ArrMainCate.append("For you")
                     print("*********** arrForYouList =  \(self.arrForYouList.count)\n")
                 }
                 
@@ -494,7 +495,7 @@ class NewHomeVC: UIViewController {
                                 }
                                 commonQuery = commonQuery.appending("GROUP BY routineid'")
                                 getAllSegmantDetails(strCategory: "Featured", strURL: commonQuery)
-                                ArrMainCate.append("Featured")
+                             //   ArrMainCate.append("Featured")
                                 
                             }
                             
@@ -515,7 +516,7 @@ class NewHomeVC: UIViewController {
                                 }
                                 commonQuery = commonQuery.appending("GROUP BY routineid'")
                                 getAllSegmantDetails(strCategory:"New Releases", strURL: commonQuery)
-                                ArrMainCate.append("New Releases")
+                           //     ArrMainCate.append("New Releases")
                                 
                             }
                             
@@ -535,7 +536,7 @@ class NewHomeVC: UIViewController {
                                 }
                                 commonQuery = commonQuery.appending("GROUP BY routineid'")
                                 getAllSegmantDetails(strCategory:"Performance", strURL: commonQuery)
-                                ArrMainCate.append("Performance")
+                            //    ArrMainCate.append("Performance")
                                 
                             }
                             
@@ -554,7 +555,7 @@ class NewHomeVC: UIViewController {
                                 }
                                 commonQuery = commonQuery.appending("GROUP BY routineid'")
                                 getAllSegmantDetails(strCategory:"Relaxation", strURL: commonQuery)
-                                ArrMainCate.append("Relaxation")
+                               // ArrMainCate.append("Relaxation")
                                 
                             }
                             
@@ -572,7 +573,7 @@ class NewHomeVC: UIViewController {
                                 }
                                 commonQuery = commonQuery.appending("GROUP BY routineid'")
                                 getAllSegmantDetails(strCategory:"Therapy", strURL: commonQuery)
-                                ArrMainCate.append("Therapy")
+                           //     ArrMainCate.append("Therapy")
                                 
                             }
                             
@@ -591,7 +592,7 @@ class NewHomeVC: UIViewController {
                                 }
                                 commonQuery = commonQuery.appending("GROUP BY routineid'")
                                 getAllSegmantDetails(strCategory:"Trending", strURL: commonQuery)
-                                ArrMainCate.append("Trending")
+                           //     ArrMainCate.append("Trending")
                                 
                             }
                             
@@ -930,7 +931,7 @@ class NewHomeVC: UIViewController {
                                     getSegmantDetails(strCategory: "Featured", routinngId: rID)
                                 }
                                 
-                                ArrMainCate.append("Featured")
+                            //    ArrMainCate.append("Featured")
                                 print("*********** arrFeaturedList =  \(self.arrFeaturedList.count)\n")
                             }
                             
@@ -948,7 +949,7 @@ class NewHomeVC: UIViewController {
                                 }
                                 
                                 
-                                ArrMainCate.append("New Releases")
+                          //      ArrMainCate.append("New Releases")
                                 print("*********** arrNewReleaseList =  \(self.arrNewReleaseList.count)\n")
                             }
                             
@@ -964,7 +965,7 @@ class NewHomeVC: UIViewController {
                                     getSegmantDetails(strCategory: "Performance", routinngId: rID)
                                 }
                                 
-                                ArrMainCate.append("Performance")
+                        //        ArrMainCate.append("Performance")
                                 print("*********** arrPerformanceList =  \(self.arrPerformanceList.count)\n")
                             }
                             
@@ -980,7 +981,7 @@ class NewHomeVC: UIViewController {
                                     getSegmantDetails(strCategory: "Relaxation", routinngId: rID)
                                 }
                                 
-                                ArrMainCate.append("Relaxation")
+                        //        ArrMainCate.append("Relaxation")
                                 print("*********** arrRelexationList =  \(self.arrRelexationList.count)\n")
                             }
                             
@@ -996,7 +997,7 @@ class NewHomeVC: UIViewController {
                                     getSegmantDetails(strCategory: "Therapy", routinngId: rID)
                                 }
                                 
-                                ArrMainCate.append("Therapy")
+                             //   ArrMainCate.append("Therapy")
                                 print("*********** arrTherapyList =  \(self.arrTherapyList.count)\n")
                             }
                             
@@ -1012,7 +1013,7 @@ class NewHomeVC: UIViewController {
                                     getSegmantDetails(strCategory: "Trending", routinngId: rID)
                                 }
                                 
-                                ArrMainCate.append("Trending")
+                          //      ArrMainCate.append("Trending")
                                 print("*********** arrTrendingList =  \(self.arrTrendingList.count)\n")
                             }
                             
@@ -1108,93 +1109,102 @@ extension NewHomeVC : UITableViewDataSource , UITableViewDelegate,CollectionView
         
         if indexPath.row == 0
         {
-            cell.arrCollectionData = arrActivitesImgList
+            cell.arrDynamicCollectionData = arrForYouList
+            cell.isDynamic = true
             cell.lbl_title.text = ArrMainCate[indexPath.row]
             cell.coll_home.reloadData()
         }
         else if indexPath.row == 1
         {
-            cell.arrCollectionData = arrAilmentsImgList
+            cell.arrCollectionData = arrActivitesImgList
             cell.lbl_title.text = ArrMainCate[indexPath.row]
             cell.coll_home.reloadData()
         }
         else if indexPath.row == 2
         {
-            cell.arrCollectionData = arrBrowseImgList
+            cell.arrCollectionData = arrAilmentsImgList
             cell.lbl_title.text = ArrMainCate[indexPath.row]
             cell.coll_home.reloadData()
         }
         else if indexPath.row == 3
         {
-            cell.arrCollectionData = arrDisSubCatImgList
+            cell.arrCollectionData = arrBrowseImgList
             cell.lbl_title.text = ArrMainCate[indexPath.row]
             cell.coll_home.reloadData()
         }
         else if indexPath.row == 4
         {
-            cell.arrCollectionData = arrLifeStyleImgList
+            cell.arrCollectionData = arrDisSubCatImgList
             cell.lbl_title.text = ArrMainCate[indexPath.row]
             cell.coll_home.reloadData()
         }
         else if indexPath.row == 5
         {
-            cell.arrCollectionData = arrSportsImgList
+            cell.arrCollectionData = arrLifeStyleImgList
             cell.lbl_title.text = ArrMainCate[indexPath.row]
             cell.coll_home.reloadData()
         }
         else if indexPath.row == 6
         {
-            cell.arrCollectionData = arrTASubCatImgList
+            cell.arrCollectionData = arrSportsImgList
             cell.lbl_title.text = ArrMainCate[indexPath.row]
             cell.coll_home.reloadData()
         }
         else if indexPath.row == 7
         {
+            cell.arrCollectionData = arrTASubCatImgList
+            cell.lbl_title.text = ArrMainCate[indexPath.row]
+            cell.coll_home.reloadData()
+            
+            
+        }
+        else if indexPath.row == 8
+        {
             cell.arrCollectionData = arrWellnessImgList
             cell.lbl_title.text = ArrMainCate[indexPath.row]
             cell.coll_home.reloadData()
         }
-        else if indexPath.row == 8
+        else if indexPath.row == 9
         {
             cell.arrCollectionData = arrWorkOutImgList
             cell.lbl_title.text = ArrMainCate[indexPath.row]
             cell.coll_home.reloadData()
         }
-        else
-        {
-            if ArrMainCate[indexPath.row] == "For you"
-            {
-                cell.arrDynamicCollectionData = arrForYouList
-            }
-            else if ArrMainCate[indexPath.row] == "Featured"
-            {
-                cell.arrDynamicCollectionData = arrFeaturedList
-            }
-            else if ArrMainCate[indexPath.row] == "New Releases"
-            {
-                cell.arrDynamicCollectionData = arrNewReleaseList
-            }
-            else if ArrMainCate[indexPath.row] == "Performance"
-            {
-                cell.arrDynamicCollectionData = arrPerformanceList
-            }
-            else if ArrMainCate[indexPath.row] == "Relaxation"
-            {
-                cell.arrDynamicCollectionData = arrRelexationList
-            }
-            else if ArrMainCate[indexPath.row] == "Therapy"
-            {
-                cell.arrDynamicCollectionData = arrTherapyList
-            }
-            else if ArrMainCate[indexPath.row] == "Trending"
-            {
-                cell.arrDynamicCollectionData = arrTrendingList
-            }
-            
-            cell.isDynamic = true
-            cell.lbl_title.text = ArrMainCate[indexPath.row]
-            cell.coll_home.reloadData()
-        }
+//        else
+//        {
+//            if ArrMainCate[indexPath.row] == "For you"
+//            {
+//                cell.arrDynamicCollectionData = arrForYouList
+//            }
+//           else if ArrMainCate[indexPath.row] == "Featured"
+//            {
+//                cell.arrDynamicCollectionData = arrFeaturedList
+//            }
+//            else if ArrMainCate[indexPath.row] == "New Releases"
+//            {
+//                cell.arrDynamicCollectionData = arrNewReleaseList
+//            }
+//            else if ArrMainCate[indexPath.row] == "Performance"
+//            {
+//                cell.arrDynamicCollectionData = arrPerformanceList
+//            }
+//            else if ArrMainCate[indexPath.row] == "Relaxation"
+//            {
+//                cell.arrDynamicCollectionData = arrRelexationList
+//            }
+//            else if ArrMainCate[indexPath.row] == "Therapy"
+//            {
+//                cell.arrDynamicCollectionData = arrTherapyList
+//            }
+//            else if ArrMainCate[indexPath.row] == "Trending"
+//            {
+//                cell.arrDynamicCollectionData = arrTrendingList
+//            }
+//
+//            cell.isDynamic = true
+//            cell.lbl_title.text = ArrMainCate[indexPath.row]
+//            cell.coll_home.reloadData()
+//        }
         
         cell.btn_view_all.tag = indexPath.row
         cell.btn_view_all.addTarget(self, action: #selector(connected(sender:)), for: .touchUpInside)
@@ -1396,7 +1406,7 @@ class NewHomeTblCell : UITableViewCell , UICollectionViewDataSource , UICollecti
         if isDynamic
         {
             
-            if collectionView.tag == 9
+            if collectionView.tag == 0
             {
                 let temp = arrDynamicCollectionData[indexPath.row]
                 

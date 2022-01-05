@@ -147,22 +147,30 @@ class CategoryRoutineViewController: UIViewController {
                 do {
                     if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
                     
-                        arrSubCategoryRoutineList.append(contentsOf: jsonArray)
-                        if arrSubCategoryRoutineList.count > 0
-                        {
-                            self.isMore = true
-                            for tempDict in arrSubCategoryRoutineList
-                            {
-                                let rID = tempDict.getString(key: "routineid")
-                                self.DurationGet(routinngId: rID)
-                            }
+                        if self.arrSubCategoryRoutineList.count > 49 {
+                            arrSubCategoryRoutineList.append(contentsOf: jsonArray)
                         } else {
-                            self.DataEmtyLabelAdd()
+                            arrSubCategoryRoutineList = jsonArray
                         }
+                        
+//                        if arrSubCategoryRoutineList.count > 0
+//                        {
+//                            self.isMore = true
+//                            for tempDict in arrSubCategoryRoutineList
+//                            {
+//                                let rID = tempDict.getString(key: "routineid")
+//                                self.DurationGet(routinngId: rID)
+//                            }
+//                        } else {
+//                            self.DataEmtyLabelAdd()
+//                        }
                         
                         if jsonArray.isEmpty == true {
                             self.isMore = false
                         }
+                        
+                        tblCategoryList.isHidden = false
+                        tblCategoryList.reloadData()
                         
                     } else {
                         showToast(message: "Bad Json")
@@ -224,10 +232,10 @@ class CategoryRoutineViewController: UIViewController {
         
         if self.txtCategoryRoutine.text == "All" {
             
-            strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategoryName.lowercased() )' ORDER BY creation \(strSorting ?? "DESC") LIMIT 10 OFFSET 0'"
+            strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategoryName.lowercased() )' ORDER BY creation \(strSorting ?? "DESC") LIMIT 100 OFFSET 0'"
             
         } else {
-            strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategoryName.lowercased() )' AND r.routine_subcategory='\(txtCategoryRoutine.text?.lowercased() ?? "")' ORDER BY creation \(strSorting ?? "DESC") LIMIT 10 OFFSET 0'"
+            strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategoryName.lowercased() )' AND r.routine_subcategory='\(txtCategoryRoutine.text?.lowercased() ?? "")' ORDER BY creation \(strSorting ?? "DESC") LIMIT 100 OFFSET 0'"
         }
         
         
@@ -246,7 +254,7 @@ class CategoryRoutineViewController: UIViewController {
                 let data = string.data(using: .utf8)!
                 do {
                     if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
-                        arrSubCategoryRoutineList.append(contentsOf: jsonArray)
+                        arrSubCategoryRoutineList = jsonArray
                         tblCategoryList.isHidden = false
                     } else {
                         showToast(message: "Bad Json")
@@ -386,9 +394,9 @@ extension CategoryRoutineViewController: UITableViewDelegate, UITableViewDataSou
                 if routingData.getString(key: "thumbnail") != "" {
                     let strURLThumb: String = "https://firebasestorage.googleapis.com/v0/b/massage-robotics-website.appspot.com/o/images%2F" + routingData.getString(key: "thumbnail") + "?alt=media&token=665dad6f-91b0-406b-917e-fec2f7f8a0c2"
                     let urls = URL.init(string: strURLThumb)
-                    cell.imgBannarPic.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon"))
+                    cell.imgBannarPic.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon-1"))
                 }else {
-                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon")
+                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon-1")
                 }
                 
             }
@@ -411,9 +419,9 @@ extension CategoryRoutineViewController: UITableViewDelegate, UITableViewDataSou
                 if routingData.getString(key: "thumbnail") != "" {
                     let strURLThumb: String = "https://firebasestorage.googleapis.com/v0/b/massage-robotics-website.appspot.com/o/images%2F" + routingData.getString(key: "thumbnail") + "?alt=media&token=665dad6f-91b0-406b-917e-fec2f7f8a0c2"
                     let urls = URL.init(string: strURLThumb)
-                    cell.imgBannarPic.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon"))
+                    cell.imgBannarPic.sd_setImage(with: urls , placeholderImage: UIImage(named: "DefaultIcon-1"))
                 }else {
-                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon")
+                    cell.imgBannarPic.image = UIImage(named: "DefaultIcon-1")
                 }
             }
         }
