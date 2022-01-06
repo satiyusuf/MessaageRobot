@@ -70,7 +70,7 @@ class RoutineDetailViewController: UIViewController {
     let arrActivites = ["Driving", "Gaming", "Run", "Stairs", "Walk"]
     let arrLifeStyle = ["Break", "Jet Lag", "Travel", "Work From Home"]
     let arrSports = ["Baseball", "Basketball", "Cycling", "Football", "Golf", "Hockey", "Lacrosse", "Softball", "Surfing", "Swim", "Tennis", "Volleyball"]
-    let arrTASubCat = ["Abs", "Biceps", "Calves", "Chest", "Feet", "Forearms", "Glutes", "Hamstrings", "Hip Flexors", "Lower Back", "Neck", "Quads", "Shins", "Sholders", "Triceps", "Upper Back"]
+    let arrTASubCat = ["Abs", "Biceps", "Calves", "Chest", "Feet", "Forearms", "Glutes", "Hamstrings", "Hip Flexors", "Lower Back", "Neck", "Quads", "Shins", "Shoulders", "Triceps", "Upper Back"]
     let arrDisSubCat = ["Introduction"]
     var arrType = ["Cranial Sacral Therapy", "Deep Tissue Massage", "Geriatric Massage", "Prenatal Massage", "Reflexology", "Sports Massage", "Swedish Massage", "Percussion Massage", "Trigger Point Acupressure"]
     var arrUser = ["Adult","Athlete","Geriatric", "Pregnant", "Youth"]

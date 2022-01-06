@@ -155,15 +155,21 @@ class NewHomeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        isLogin = UserDefaults.standard.object(forKey: ISLOGIN) as? String ?? "No"
+        if isLogin == "No" {
+            
+        } else {
+            setForYouServiceCall()
+        }
+       
         // Do any additional setup after loading the view.
-        setForYouServiceCall()
+       
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
-        
+     
         isLogin = UserDefaults.standard.object(forKey: ISLOGIN) as? String ?? "No"
     }
     
@@ -181,37 +187,37 @@ class NewHomeVC: UIViewController {
             if json.getInt(key: "status_code") == 200 {
                 let authData = json.getArrayofDictionary(key: "recommendations")
                 print("Routine Count \(authData)")
-                
-                var RoutineID = String()
-                for RoutineData in authData {
-                    let id = RoutineData["routineID"] as? String ?? ""
-                    RoutineID.append("'\(id)',")
-                }
-               
-                self.GetDataForYouId(RoutingID: RoutineID)
-                if self.arrForYouList.count > 0
-                {
+           
+                DispatchQueue.main.async {
                     
-                    var commonQuery = "https://massage-robotics-website.uc.r.appspot.com/rd?query='SELECT routineid , SUM(duration) AS tot FROM routineentity where "
-                    
-                    
-                    for tempDict in self.arrForYouList
+                    if authData.count > 0
                     {
-                        commonQuery = commonQuery.appending(" routineid='\(tempDict.getString(key: "routineID"))' or")
+                        var RoutineID = String()
+                        for RoutineData in authData {
+                            let id = RoutineData["routineID"] as? String ?? ""
+                            RoutineID.append("'\(id)',")
+                        }
+                        
+                        self.GetDataForYouId(RoutingID: RoutineID)
+                        
+                        var commonQuery = "https://massage-robotics-website.uc.r.appspot.com/rd?query='SELECT routineid , SUM(duration) AS tot FROM routineentity where "
+                        
+                        
+                        for tempDict in self.arrForYouList
+                        {
+                            commonQuery = commonQuery.appending(" routineid='\(tempDict.getString(key: "routineID"))' or")
+                        }
+                        
+                        if(commonQuery.suffix(2).elementsEqual("or")) {
+                            commonQuery = String(commonQuery.dropLast(2))
+                        }
+                        commonQuery = commonQuery.appending("GROUP BY routineid")
+                        self.getAllSegmantDetails(strCategory: "Featured", strURL: commonQuery)
+                        self.ArrMainCate.insert("For you", at: 0)
+                       // self.ArrMainCate.append("For you")
+                        print("*********** arrForYouList =  \(self.arrForYouList.count)\n")
                     }
-                    
-                    if(commonQuery.suffix(2).elementsEqual("or")) {
-                        commonQuery = String(commonQuery.dropLast(2))
-                    }
-                    commonQuery = commonQuery.appending("GROUP BY routineid")
-                    self.getAllSegmantDetails(strCategory: "Featured", strURL: commonQuery)
-                    self.ArrMainCate.insert("For you", at: 0)
-                   // self.ArrMainCate.append("For you")
-                    print("*********** arrForYouList =  \(self.arrForYouList.count)\n")
                 }
-                
-                
-                
             }
             
             //  self.setListingServiceCall(strCategory: "Featured")
@@ -221,20 +227,22 @@ class NewHomeVC: UIViewController {
     
     func GetDataForYouId(RoutingID:String) {
 
-        let QueryUrl = "https://massage-robotics-website.uc.r.appspot.com/rd?query='SELECT *,  (SELECT SUM(routineentity.duration) as dur from routineentity where routineentity.routineid = routine.routineid) FROM routine where routineid in \(RoutingID)"
+        let choppedString = String(RoutingID.dropLast())
 
+       
+        let QueryUrl = "https://massage-robotics-website.uc.r.appspot.com/rd?query='SELECT *,  (SELECT SUM(routineentity.duration) as dur from routineentity where routineentity.routineid = routine.routineid) FROM routine where routineid in (\(choppedString))'"
+        print(QueryUrl)
         let encodedUrl = QueryUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 
         callHomeAPI(url: encodedUrl!) { [self] (json, data1) in
-            
-                  
+    
             if json.getString(key: "status") == "false" {
                 let string = json.getString(key: "response_message")
                 let data = string.data(using: .utf8)!
                 do {
                     if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
-                        self.arrForYouList.append(contentsOf: jsonArray)
-                        self.tbl_home.reloadData()
+
+                        self.arrForYouList = jsonArray
                         
                     } else {
                         showToast(message: "Bad Json")
@@ -244,6 +252,7 @@ class NewHomeVC: UIViewController {
                     showToast(message: json.getString(key: "response_message"))
                 }
             }
+            
         }
     }
     
@@ -1136,73 +1145,132 @@ extension NewHomeVC : UITableViewDataSource , UITableViewDelegate,CollectionView
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! NewHomeTblCell
         cell.cellDelegate = self
         cell.coll_home.tag = indexPath.row
-        
-        
+
         cell.isDynamic = false
         
-        if indexPath.row == 0
-        {
-            cell.arrDynamicCollectionData = arrForYouList
-            cell.isDynamic = true
-            cell.lbl_title.text = ArrMainCate[indexPath.row]
-            cell.coll_home.reloadData()
+        let ForYou = ArrMainCate[0]
+        
+        if ForYou == "For you" {
+            if indexPath.row == 0
+            {
+                cell.arrDynamicCollectionData = arrForYouList
+                cell.isDynamic = true
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
+            else if indexPath.row == 1
+            {
+                cell.arrCollectionData = arrActivitesImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
+            else if indexPath.row == 2
+            {
+                cell.arrCollectionData = arrAilmentsImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
+            else if indexPath.row == 3
+            {
+                cell.arrCollectionData = arrBrowseImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
+            else if indexPath.row == 4
+            {
+                cell.arrCollectionData = arrDisSubCatImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
+            else if indexPath.row == 5
+            {
+                cell.arrCollectionData = arrLifeStyleImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
+            else if indexPath.row == 6
+            {
+                cell.arrCollectionData = arrSportsImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
+            else if indexPath.row == 7
+            {
+                cell.arrCollectionData = arrTASubCatImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+                
+                
+            }
+            else if indexPath.row == 8
+            {
+                cell.arrCollectionData = arrWellnessImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
+            else if indexPath.row == 9
+            {
+                cell.arrCollectionData = arrWorkOutImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
+        } else {
+            if indexPath.row == 0
+            {
+                cell.arrCollectionData = arrActivitesImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
+            else if indexPath.row == 1
+            {
+                cell.arrCollectionData = arrAilmentsImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
+            else if indexPath.row == 2
+            {
+                cell.arrCollectionData = arrBrowseImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
+            else if indexPath.row == 3
+            {
+                cell.arrCollectionData = arrDisSubCatImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
+            else if indexPath.row == 4
+            {
+                cell.arrCollectionData = arrLifeStyleImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
+            else if indexPath.row == 5
+            {
+                cell.arrCollectionData = arrSportsImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
+            else if indexPath.row == 6
+            {
+                cell.arrCollectionData = arrTASubCatImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
+            else if indexPath.row == 7
+            {
+                cell.arrCollectionData = arrWellnessImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
+            else if indexPath.row == 8
+            {
+                cell.arrCollectionData = arrWorkOutImgList
+                cell.lbl_title.text = ArrMainCate[indexPath.row]
+                cell.coll_home.reloadData()
+            }
         }
-        else if indexPath.row == 1
-        {
-            cell.arrCollectionData = arrActivitesImgList
-            cell.lbl_title.text = ArrMainCate[indexPath.row]
-            cell.coll_home.reloadData()
-        }
-        else if indexPath.row == 2
-        {
-            cell.arrCollectionData = arrAilmentsImgList
-            cell.lbl_title.text = ArrMainCate[indexPath.row]
-            cell.coll_home.reloadData()
-        }
-        else if indexPath.row == 3
-        {
-            cell.arrCollectionData = arrBrowseImgList
-            cell.lbl_title.text = ArrMainCate[indexPath.row]
-            cell.coll_home.reloadData()
-        }
-        else if indexPath.row == 4
-        {
-            cell.arrCollectionData = arrDisSubCatImgList
-            cell.lbl_title.text = ArrMainCate[indexPath.row]
-            cell.coll_home.reloadData()
-        }
-        else if indexPath.row == 5
-        {
-            cell.arrCollectionData = arrLifeStyleImgList
-            cell.lbl_title.text = ArrMainCate[indexPath.row]
-            cell.coll_home.reloadData()
-        }
-        else if indexPath.row == 6
-        {
-            cell.arrCollectionData = arrSportsImgList
-            cell.lbl_title.text = ArrMainCate[indexPath.row]
-            cell.coll_home.reloadData()
-        }
-        else if indexPath.row == 7
-        {
-            cell.arrCollectionData = arrTASubCatImgList
-            cell.lbl_title.text = ArrMainCate[indexPath.row]
-            cell.coll_home.reloadData()
-            
-            
-        }
-        else if indexPath.row == 8
-        {
-            cell.arrCollectionData = arrWellnessImgList
-            cell.lbl_title.text = ArrMainCate[indexPath.row]
-            cell.coll_home.reloadData()
-        }
-        else if indexPath.row == 9
-        {
-            cell.arrCollectionData = arrWorkOutImgList
-            cell.lbl_title.text = ArrMainCate[indexPath.row]
-            cell.coll_home.reloadData()
-        }
+        
 //        else
 //        {
 //            if ArrMainCate[indexPath.row] == "For you"
@@ -1443,8 +1511,8 @@ class NewHomeTblCell : UITableViewCell , UICollectionViewDataSource , UICollecti
             {
                 let temp = arrDynamicCollectionData[indexPath.row]
                 
-                cell.lbl_title.text = temp.getString(key: "routine_name")//routinename
-                let time = temp.getString(key: "duration")
+                cell.lbl_title.text = temp.getString(key: "routinename")//routinename
+                let time = temp.getString(key: "dur")
                 
                 cell.lbl_min.text = "0 Min"
                 

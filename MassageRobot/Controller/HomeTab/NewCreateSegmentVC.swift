@@ -283,7 +283,18 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
                 }
             }
             else {
-                self.SegmentUpdateDataEmty()
+                if arrSegmentList.count == 1 {
+                    let segment = arrSegmentList[0]["segment"] as? String ?? ""
+                    if segment == "false" {
+                        self.SegmentCreateDataEmty()
+                    } else {
+                        self.SegmentUpdateDataEmty()
+                    }
+                   
+                } else {
+                    self.SegmentUpdateDataEmty()
+                }
+                
             }
            
         }else {
@@ -1810,6 +1821,7 @@ extension NewCreateSegmentVC
                         } else if Type == "Delete" {
                             self.ColleData.reloadData()
                         } else if Type == "Fetch" {
+                            
                             let Dict = ["segment":"false"]
                             arrSegmentList.append(Dict)
                             self.ColleData.reloadData()

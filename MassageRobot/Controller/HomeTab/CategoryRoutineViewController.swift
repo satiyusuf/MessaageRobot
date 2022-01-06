@@ -50,6 +50,7 @@ class CategoryRoutineViewController: UIViewController {
         txtCategoryRoutine.inputView = picker
         txtCategoryRoutine.delegate = self
         
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         gestureView.addGestureRecognizer(tap)
         

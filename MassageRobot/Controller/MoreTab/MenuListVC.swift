@@ -169,7 +169,7 @@ extension MenuListVC : UITableViewDataSource, UITableViewDelegate, MenuListCellD
             self.resetServiceCall()
         }else if index == 10 {
             UserDefaults.standard.set("No", forKey: ISLOGIN)
-            let vc = UIStoryboard.init(name: "CreateToutine", bundle: Bundle.main).instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+            let vc = UIStoryboard.init(name: "CreateToutine", bundle: Bundle.main).instantiateViewController(withIdentifier: "NewHomeVC") as! NewHomeVC
             UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
         }
     }
