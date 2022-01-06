@@ -161,10 +161,6 @@ class NewHomeVC: UIViewController {
         } else {
             setForYouServiceCall()
         }
-       
-        // Do any additional setup after loading the view.
-       
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -1511,7 +1507,13 @@ class NewHomeTblCell : UITableViewCell , UICollectionViewDataSource , UICollecti
             {
                 let temp = arrDynamicCollectionData[indexPath.row]
                 
-                cell.lbl_title.text = temp.getString(key: "routinename")//routinename
+                let RoutineName = temp.getString(key: "routinename")
+                var arr = RoutineName.components(separatedBy: " ")
+                print(arr)
+                arr[0] = arr[0].uppercased()
+                print(arr)
+                
+                cell.lbl_title.text = arr.joined(separator: " ") // temp.getString(key: "routinename")
                 let time = temp.getString(key: "dur")
                 
                 cell.lbl_min.text = "0 Min"
@@ -1672,5 +1674,12 @@ extension UIColor {
             blue:  .random(),
             alpha: 1.0
         )
+    }
+}
+
+extension String {
+    func capitalizeFirst() -> String {
+        let firstIndex = self.index(startIndex, offsetBy: 2)
+        return self.substring(to: firstIndex).capitalized + self.substring(from: firstIndex).lowercased()
     }
 }

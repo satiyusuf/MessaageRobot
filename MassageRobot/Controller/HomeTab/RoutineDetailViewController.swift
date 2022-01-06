@@ -388,8 +388,15 @@ class RoutineDetailViewController: UIViewController {
         btnDiseases[sender.tag].isSelected = !btnDiseases[sender.tag].isSelected
         if selectedDiseases.contains(arrDiseases[sender.tag])
         {
-            selectedDiseases.remove(at: selectedDiseases.lastIndex(of: arrDiseases[sender.tag])!)
-            detailSelectOPT.remove(at: detailSelectOPT.lastIndex(of: arrDiseases[sender.tag])!)
+          //  selectedDiseases.remove(at: selectedDiseases.lastIndex(of: arrDiseases[sender.tag])!)
+           // detailSelectOPT.remove(at: detailSelectOPT.lastIndex(of: arrDiseases[sender.tag])!)
+
+            let index = selectedDiseases.firstIndex(of: arrDiseases[sender.tag])!
+            selectedDiseases.remove(at: index)
+            detailSelectOPT.remove(at: index)
+            print("selectedDiseases:-\(selectedDiseases),detailSelectOPT:-\(detailSelectOPT), IndexRemove:-\(index)")
+            
+    
         }
         else
         {
@@ -570,8 +577,7 @@ class RoutineDetailViewController: UIViewController {
                         txtType.text = ""
                         txtUser.text = ""
 
-                        selectedDiseases.removeAll()
-                        detailSelectOPT.removeAll()
+                    
                         
                         for btn in btnDiseases {
                             btn.isSelected = false
@@ -579,6 +585,12 @@ class RoutineDetailViewController: UIViewController {
                         
                         viewTagList.removeAllTags()
 
+                        selectedDiseases.removeAll()
+                        detailSelectOPT.removeAll()
+                        
+                        lblAliment.text = "Select Aliment"
+                        lblAliment.textColor = UIColor.lightGray
+                            
                         let sb = UIStoryboard(name: "CreateToutine", bundle: nil)
                         let vc = sb.instantiateViewController(withIdentifier: "NewCreateSegmentVC") as! NewCreateSegmentVC
                         vc.StrRoutingID = strRoutingID!

@@ -129,6 +129,8 @@ class CategoryRoutineViewController: UIViewController {
             strSorting = "DESC"
         }
         
+        
+        
        
        let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select r.*, u.*, p.thumbnail as userprofile, (SELECT count(f.favoriteid) from favoriteroutines as f where f.userid = u.userid and f.routineid = r.routineid) as is_favourite from Routine as r left join Userdata as u on r.userid = u.userid left join Userprofile as p on r.userid = p.userid where r.routine_category='\(strCategory.lowercased())' ORDER BY creation \(strSorting ?? "DESC") LIMIT 50 OFFSET \(DataCount)'"
          
@@ -154,17 +156,20 @@ class CategoryRoutineViewController: UIViewController {
                             arrSubCategoryRoutineList = jsonArray
                         }
                         
-//                        if arrSubCategoryRoutineList.count > 0
-//                        {
-//                            self.isMore = true
-//                            for tempDict in arrSubCategoryRoutineList
-//                            {
-//                                let rID = tempDict.getString(key: "routineid")
-//                                self.DurationGet(routinngId: rID)
-//                            }
-//                        } else {
-//                            self.DataEmtyLabelAdd()
-//                        }
+                        if arrSubCategoryRoutineList.count > 0
+                        {
+                            self.isMore = true
+                            for tempDict in arrSubCategoryRoutineList
+                            {
+                                let rID = tempDict.getString(key: "routineid")
+                                DispatchQueue.main.async {
+                                    self.DurationGet(routinngId: rID)
+                                }
+                                
+                            }
+                        } else {
+                            self.DataEmtyLabelAdd()
+                        }
                         
                         if jsonArray.isEmpty == true {
                             self.isMore = false
@@ -256,12 +261,27 @@ class CategoryRoutineViewController: UIViewController {
                 do {
                     if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
                         arrSubCategoryRoutineList = jsonArray
-                        tblCategoryList.isHidden = false
+                        if arrSubCategoryRoutineList.count > 0
+                        {
+                            self.isMore = true
+                            for tempDict in arrSubCategoryRoutineList
+                            {
+                                let rID = tempDict.getString(key: "routineid")
+                                
+                                DispatchQueue.main.async {
+                                    self.DurationGet(routinngId: rID)
+                                }
+                            }
+                        } else {
+                            self.DataEmtyLabelAdd()
+                        }
+                      
+                       // tblCategoryList.isHidden = false
                     } else {
                         showToast(message: "Bad Json")
                     }
                     
-                    tblCategoryList.reloadData()
+                   // tblCategoryList.reloadData()
                 } catch let error as NSError {
                     print(error)
                     showToast(message: json.getString(key: "response_message"))
@@ -272,7 +292,10 @@ class CategoryRoutineViewController: UIViewController {
     
     func DurationGet(routinngId:String)
     {
-        let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='SELECT routineid , SUM(duration) AS tot FROM routineentity WHERE routineid='\(routinngId)' GROUP BY routineid'"
+       // let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='SELECT routineid , SUM(duration) AS tot FROM routineentity WHERE routineid='\(routinngId)' GROUP BY routineid'"
+        
+        let strURL = "https://massage-robotics-website.uc.r.appspot.com/rd?query='SELECT routineid , SUM(duration) AS dur FROM routineentity WHERE routineid='\(routinngId)' GROUP BY routineid'"
+
         
         print(strURL)
         
@@ -303,11 +326,13 @@ class CategoryRoutineViewController: UIViewController {
                             if rID == jsonArray[0].getString(key: "routineid")
                             {
                                 var dict = tempDict
-                                dict["duration"] = jsonArray[0].getString(key: "tot")
+                                dict["duration"] = jsonArray[0].getString(key: "dur")
                                 print("For you \(rID) --> \(dict["duration"])" )
                                 arrSubCategoryRoutineList.remove(at: index)
                                 arrSubCategoryRoutineList.insert(dict, at: index)
                                 print(dict)
+                                tblCategoryList.isHidden = false
+                                tblCategoryList.reloadData()
                             }
                         }
                         else
@@ -318,7 +343,10 @@ class CategoryRoutineViewController: UIViewController {
                             arrSubCategoryRoutineList.remove(at: index)
                             arrSubCategoryRoutineList.insert(dict, at: index)
                             print(dict)
+                            tblCategoryList.isHidden = false
+                            tblCategoryList.reloadData()
                         }
+                        
                     }
                   }
                 } catch let error as NSError {
