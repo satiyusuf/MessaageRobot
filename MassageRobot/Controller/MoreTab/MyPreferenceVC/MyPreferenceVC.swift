@@ -600,6 +600,7 @@ class MyPreferenceCollectioncell : UICollectionViewCell, UITextFieldDelegate  {
         pickerview.dataSource = self
         pickerview.delegate = self
         
+        self.txtSelectAns.delegate = self
         txtSelectAns.inputView = pickerview
         
         txtSelectAns.delegate = self

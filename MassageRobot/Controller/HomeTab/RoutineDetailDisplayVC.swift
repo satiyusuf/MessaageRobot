@@ -119,8 +119,11 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
         constHeightTags.constant = 34.0
         constHeightTools.constant = 34.0
         
+        self.GetLoginUserProfile()
+        
         self.getRoutineDetailHeight()
         self.setRoutingDataServiceCall()
+        
         
     }
     
@@ -159,7 +162,7 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                             
                             UserDefaults.standard.set(lblAutherName.text, forKey: RoutineUName)
                             
-                            self.Gender = routingData.getString(key: "gender")
+                          //  self.Gender = routingData.getString(key: "gender")
                             
 //                            if Gender == "F"
 //                            {
@@ -452,7 +455,7 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                                 let location_r = Data["location_r"] as? String ?? ""
                                 let location_l = Data["location_l"] as? String ?? ""
                                 let FrontAndBack = Data["body_location"] as? String ?? ""
-                                self.ImageBodyPartSetAndFrontBack(LLocation: location_l, RLocation: location_r, Body: FrontAndBack, Gender: self.Gender)
+                                self.ImageBodyPartSetAndFrontBack(LLocation: location_l, RLocation: location_r, Body: FrontAndBack)
                             }
                         }
                         else if arrFrontBodyData.count > 0
@@ -469,7 +472,7 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                                 let location_l = Data["location_l"] as? String ?? ""
                                 let FrontAndBack = Data["body_location"] as? String ?? ""
                                 
-                                self.ImageBodyPartSetAndFrontBack(LLocation: location_l, RLocation: location_r, Body: FrontAndBack, Gender: self.Gender)
+                                self.ImageBodyPartSetAndFrontBack(LLocation: location_l, RLocation: location_r, Body: FrontAndBack)
                             }
                         }
                         else if arrBackBodyData.count > 0
@@ -486,7 +489,7 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                                 let location_l = Data["location_l"] as? String ?? ""
                                 let FrontAndBack = Data["body_location"] as? String ?? ""
                                 
-                                self.ImageBodyPartSetAndFrontBack(LLocation: location_l, RLocation: location_r, Body: FrontAndBack, Gender: self.Gender)
+                                self.ImageBodyPartSetAndFrontBack(LLocation: location_l, RLocation: location_r, Body: FrontAndBack)
                             }
                         }
                         
@@ -1127,7 +1130,7 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                     let location_r = Data["location_r"] as? String ?? ""
                     let location_l = Data["location_l"] as? String ?? ""
                     let FrontAndBack = Data["body_location"] as? String ?? ""
-                    self.ImageBodyPartSetAndFrontBack(LLocation: location_l, RLocation: location_r, Body: FrontAndBack, Gender: self.Gender)
+                    self.ImageBodyPartSetAndFrontBack(LLocation: location_l, RLocation: location_r, Body: FrontAndBack)
                 }
             } else if index == 1 {
                 for Data in arrBackBodyData
@@ -1135,14 +1138,13 @@ class RoutineDetailDisplayVC: UIViewController , UICollectionViewDataSource, UIC
                     let location_r = Data["location_r"] as? String ?? ""
                     let location_l = Data["location_l"] as? String ?? ""
                     let FrontAndBack = Data["body_location"] as? String ?? ""
-                    self.ImageBodyPartSetAndFrontBack(LLocation: location_l, RLocation: location_r, Body: FrontAndBack, Gender: self.Gender)
+                    self.ImageBodyPartSetAndFrontBack(LLocation: location_l, RLocation: location_r, Body: FrontAndBack)
                 }
             }
            
         }
-        
       }
-}
+  }
 
 extension RoutineDetailDisplayVC: TagListViewDelegate
 {
@@ -1172,7 +1174,7 @@ extension RoutineDetailDisplayVC
           self.ImageAddView.addSubview(pageControl)
       }
     
-    func ImageBodyPartSetAndFrontBack(LLocation: String,RLocation:String,Body:String,Gender:String)
+    func ImageBodyPartSetAndFrontBack(LLocation: String,RLocation:String,Body:String)
     {
         if Gender == "F" {
             if Body == "B" {
@@ -1511,5 +1513,48 @@ extension RoutineDetailDisplayVC
 extension UIResponder {
     public var parentViewController: UIViewController? {
         return next as? UIViewController ?? next?.parentViewController
+    }
+}
+
+
+extension RoutineDetailDisplayVC
+{
+    func GetLoginUserProfile() {
+        
+        let userID: String = UserDefaults.standard.object(forKey: USERID) as? String ?? ""
+        if userID != "" {
+            let url = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select * from Userprofile where userid='\(userID)''"
+                    
+            print(url)
+            let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            callAPI(url: encodedUrl!) { [self] (json, data1) in
+                print(json)
+                self.hideLoading()
+                if json.getString(key: "status") == "false" {
+                    
+                    let string = json.getString(key: "response_message")
+                    let data = string.data(using: .utf8)!
+                    do {
+                        if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>]
+                        {
+                            if jsonArray.count > 0{
+                               print(jsonArray)
+                                let routingData = jsonArray[0]
+                                self.Gender = routingData.getString(key: "gender")
+                            }else {
+                                print(jsonArray)
+                            }
+                
+                        } else {
+                            showToast(message: "Add You Profile")
+                            showToast(message: "Bad Json")
+                        }
+                    } catch let error as NSError {
+                        showToast(message: "Add You Profile")
+                        print(error)
+                    }
+                }
+            }
+        }
     }
 }

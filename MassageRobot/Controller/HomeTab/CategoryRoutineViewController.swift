@@ -21,6 +21,7 @@ class CategoryRoutineViewController: UIViewController {
     
     @IBOutlet var lblNote: UILabel!
     
+    @IBOutlet weak var lblResultCount: UILabel!
     var picker: UIPickerView!
                        
     var strCategoryName: String!
@@ -43,12 +44,22 @@ class CategoryRoutineViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        picker = UIPickerView()
-        picker.delegate = self
-        picker.dataSource = self
+        if strPath == "For you" {
+            self.txtCategoryRoutine.isHidden = true
+        } else {
+            
+            picker = UIPickerView()
+            picker.delegate = self
+            picker.dataSource = self
+            
+            txtCategoryRoutine.inputView = picker
+            txtCategoryRoutine.delegate = self
+            arrSubCategoryList.insert("All", at: 0)
+            txtCategoryRoutine.text = arrSubCategoryList.first
+            txtCategoryRoutine.delegate = self
+        }
         
-        txtCategoryRoutine.inputView = picker
-        txtCategoryRoutine.delegate = self
+       
         
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
@@ -59,12 +70,8 @@ class CategoryRoutineViewController: UIViewController {
         if strPath == "Activities" {
             arrSubCategoryList = ActivitiSubCateGory
         }
-        arrSubCategoryList.insert("All", at: 0)
         
-        txtCategoryRoutine.text = arrSubCategoryList.first
-                        
         IQKeyboardManager.shared.toolbarDoneBarButtonItemText = "Done"
-        txtCategoryRoutine.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -102,8 +109,9 @@ class CategoryRoutineViewController: UIViewController {
         }else if strSubCat == "No" {
             constHeightSearch.constant = 0.0
             
-            if strPath == "For You" {
-                self.setForYouServiceCall()
+            if strPath == "For you" {
+               // self.setForYouServiceCall()
+                self.ForYouRoutineData()
             }else {
                 self.setListingServiceCall(strCategory: strPath, DataCount: String(Count))
             }
@@ -111,7 +119,12 @@ class CategoryRoutineViewController: UIViewController {
             txtCategoryRoutine.text = strSubCatName
         }
         
-        getSubCategoryListAPI()
+        if  strPath == "For you" {
+            self.ForYouRoutineData()
+        } else {
+            getSubCategoryListAPI()
+        }
+        
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
@@ -385,8 +398,10 @@ extension CategoryRoutineViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSearch == true {
+            self.lblResultCount.text = "(\(self.arrSubCategoryRoutineSearchList.count))"
             return arrSubCategoryRoutineSearchList.count
         }else {
+            self.lblResultCount.text = "(\(self.arrSubCategoryRoutineList.count))"
             return arrSubCategoryRoutineList.count
         }
     }
@@ -590,3 +605,78 @@ extension CategoryRoutineViewController: UITextFieldDelegate
     }
 }
 
+
+extension CategoryRoutineViewController {
+    
+    func ForYouRoutineData() {
+        
+        let userID: String = UserDefaults.standard.object(forKey: USERID) as? String ?? "9ccx8ms5pc0000000000"
+        
+        let param: [String: Any] = [
+            "user_id": userID//"0ZVqUi9LD9"
+        ]
+        
+        callAPIRawDataCall("https://massage-robotics-website.uc.r.appspot.com/get-recommendations", parameter: param, isWithLoading: true, isNeedHeader: false, methods: .post) { (json, data1) in
+            
+            print(json)
+            if json.getInt(key: "status_code") == 200 {
+                let authData = json.getArrayofDictionary(key: "recommendations")
+                print("Routine Count \(authData)")
+           
+                DispatchQueue.main.async {
+                    
+                    if authData.count > 0
+                    {
+                        var RoutineID = String()
+                        for RoutineData in authData {
+                            let id = RoutineData["routineID"] as? String ?? ""
+                            RoutineID.append("'\(id)',")
+                        }
+                        self.GetDataForYouId(RoutingID: RoutineID)
+                    }
+                }
+            }
+        }
+    }
+    
+    func GetDataForYouId(RoutingID:String) {
+
+        let choppedString = String(RoutingID.dropLast())
+
+       
+        let QueryUrl = "https://massage-robotics-website.uc.r.appspot.com/rd?query='SELECT *,  (SELECT SUM(routineentity.duration) as dur from routineentity where routineentity.routineid = routine.routineid) FROM routine where routineid in (\(choppedString))'"
+        print(QueryUrl)
+        let encodedUrl = QueryUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        callHomeAPI(url: encodedUrl!) { [self] (json, data1) in
+    
+            if json.getString(key: "status") == "false" {
+                let string = json.getString(key: "response_message")
+                let data = string.data(using: .utf8)!
+                do {
+                    if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
+                        self.hideLoading()
+                        if jsonArray.count > 0 {
+                            self.arrSubCategoryRoutineList.removeAll()
+                            self.tblCategoryList.isHidden = false
+                            
+                            self.arrSubCategoryRoutineList.append(contentsOf: jsonArray)
+                            self.tblCategoryList.reloadData()
+                        }else {
+                            self.tblCategoryList.isHidden = true
+                            self.DataEmtyLabelAdd()
+                        }
+                       
+                        
+                    } else {
+                        showToast(message: "Bad Json")
+                    }
+                } catch let error as NSError {
+                    print(error)
+                    showToast(message: json.getString(key: "response_message"))
+                }
+            }
+            
+        }
+    }
+}

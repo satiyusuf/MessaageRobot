@@ -228,7 +228,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2xa-Qw-rPv">
                                         <rect key="frame" x="7" y="100" width="400" height="398"/>
                                         <subviews>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Vtv-zv-vWB">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Vtv-zv-vWB">
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="398"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Pve-B8-BBj">
@@ -273,8 +273,16 @@
                                                                             <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="18"/>
                                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         </button>
+                                                                        <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cGE-JD-hno">
+                                                                            <rect key="frame" x="50" y="191" width="150" height="162"/>
+                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="162" id="es8-9k-amt"/>
+                                                                            </constraints>
+                                                                        </pickerView>
                                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FCP-EV-hFJ" customClass="UnderlineTextField" customModule="MassageRobot" customModuleProvider="target">
-                                                                            <rect key="frame" x="50.5" y="253" width="149" height="38"/>
+                                                                            <rect key="frame" x="50.5" y="230.5" width="149" height="38"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="38" id="3T4-Ft-5Oa"/>
@@ -298,16 +306,8 @@
                                                                                 <outlet property="delegate" destination="Vtv-zv-vWB" id="mg6-Uj-2Hf"/>
                                                                             </connections>
                                                                         </textField>
-                                                                        <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cGE-JD-hno">
-                                                                            <rect key="frame" x="50" y="191" width="150" height="162"/>
-                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="height" constant="162" id="es8-9k-amt"/>
-                                                                            </constraints>
-                                                                        </pickerView>
                                                                         <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down" translatesAutoresizingMaskIntoConstraints="NO" id="Fx0-6A-pIK">
-                                                                            <rect key="frame" x="164.5" y="253" width="15" height="15"/>
+                                                                            <rect key="frame" x="164.5" y="230.5" width="15" height="15"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="15" id="0DA-IN-TSw"/>
                                                                                 <constraint firstAttribute="height" constant="15" id="Pj6-In-7ki"/>
@@ -326,7 +326,7 @@
                                                                         <constraint firstItem="URk-5x-sgO" firstAttribute="top" secondItem="XLs-I0-ssF" secondAttribute="top" constant="8" id="KY9-em-tXY"/>
                                                                         <constraint firstItem="cGE-JD-hno" firstAttribute="leading" secondItem="XLs-I0-ssF" secondAttribute="leading" constant="50" id="N2A-1a-bfU"/>
                                                                         <constraint firstAttribute="trailing" secondItem="ciu-2e-AN7" secondAttribute="trailing" constant="50.5" id="N6r-Jl-4Hw"/>
-                                                                        <constraint firstItem="FCP-EV-hFJ" firstAttribute="top" secondItem="PgR-vu-Tcj" secondAttribute="bottom" constant="32.5" id="TJw-bm-qvp"/>
+                                                                        <constraint firstItem="FCP-EV-hFJ" firstAttribute="top" secondItem="PgR-vu-Tcj" secondAttribute="bottom" constant="10" id="TJw-bm-qvp"/>
                                                                         <constraint firstItem="ciu-2e-AN7" firstAttribute="top" secondItem="PgR-vu-Tcj" secondAttribute="bottom" constant="32.5" id="XHq-gd-EMy"/>
                                                                         <constraint firstItem="cGE-JD-hno" firstAttribute="top" secondItem="URk-5x-sgO" secondAttribute="bottom" constant="83" id="b69-Ou-z1w"/>
                                                                         <constraint firstAttribute="trailing" secondItem="cGE-JD-hno" secondAttribute="trailing" constant="50" id="fus-6s-T5S"/>
@@ -2987,7 +2987,7 @@
             <size key="intrinsicContentSize" width="5" height="19"/>
         </designable>
         <designable name="FCP-EV-hFJ">
-            <size key="intrinsicContentSize" width="5" height="19"/>
+            <size key="intrinsicContentSize" width="15" height="19"/>
         </designable>
         <designable name="FxV-jW-0W3">
             <size key="intrinsicContentSize" width="124" height="19"/>

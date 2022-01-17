@@ -140,8 +140,6 @@ extension MenuListVC : UITableViewDataSource, UITableViewDelegate, MenuListCellD
             
         } else if index == 3 {
             
-            
-           
             picker = UIPickerView(frame: CGRect(x: 0, y: self.view.frame.size.height - 300, width: self.view.frame.size.width, height: 300))
             picker.delegate = self
             picker.dataSource = self
@@ -174,7 +172,6 @@ extension MenuListVC : UITableViewDataSource, UITableViewDelegate, MenuListCellD
         }
     }
 }
-
 
 extension MenuListVC
 {
@@ -214,6 +211,7 @@ extension MenuListVC
             }
         }
     }
+    
     func GetUserPreference() {
         
         let userID: String = UserDefaults.standard.object(forKey: USERID) as? String ?? ""

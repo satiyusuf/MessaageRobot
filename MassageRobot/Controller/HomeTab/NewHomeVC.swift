@@ -1506,6 +1506,8 @@ class NewHomeTblCell : UITableViewCell , UICollectionViewDataSource , UICollecti
             if collectionView.tag == 0
             {
                 let temp = arrDynamicCollectionData[indexPath.row]
+               // cell.lbl_min.textColor = UIColor.darkGray
+               // cell.lbl_therapi.textColor = UIColor.darkGray
                 
                 let RoutineName = temp.getString(key: "routinename")
                 var arr = RoutineName.components(separatedBy: " ")
