@@ -81,7 +81,12 @@ class NewCreateSegmentVC: UIViewController, UIScrollViewDelegate {
         self.ColleRuler.delegate = self
         self.ColleRuler.dataSource = self
         
-        self.getUserDetailAPICall()
+        if strPath == "NotCreateRoutine" {
+            self.GetLoginUserProfile()
+        } else {
+            self.getUserDetailAPICall()
+        }
+       
         let nib = UINib(nibName: "SegmentCreate", bundle: nil)
         ColleData.register(nib, forCellWithReuseIdentifier: "SegmentCreate")
         NotificationCenter.default.addObserver(self, selector: #selector(self.TimeReceivedNotification(notification:)), name: Notification.Name("Time"), object: nil)
@@ -2930,3 +2935,64 @@ class RulerCell: UICollectionViewCell {
 
 //glutiusmaximus
 //gastrocnemius
+
+extension NewCreateSegmentVC
+{
+    func GetLoginUserProfile() {
+        
+        let userID: String = UserDefaults.standard.object(forKey: USERID) as? String ?? ""
+        if userID != "" {
+            let url = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select * from Userprofile where userid='\(userID)''"
+                    
+            print(url)
+            let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            callAPI(url: encodedUrl!) { [self] (json, data1) in
+                print(json)
+                self.hideLoading()
+                if json.getString(key: "status") == "false" {
+                    
+                    let string = json.getString(key: "response_message")
+                    let data = string.data(using: .utf8)!
+                    do {
+                        if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>]
+                        {
+                            if jsonArray.count > 0{
+                               print(jsonArray)
+                                let routingData = jsonArray[0]
+                                self.StrGender = routingData.getString(key: "gender")
+                                
+                                if StrGender == "F"
+                                {
+                                    self.ImgImage.image = UIImage(named: "F-grey female body front")
+                                }else{
+                                    self.ImgImage.image = UIImage(named: "grey male body front")
+                                }
+                                
+                                if strPath == "NotCreateRoutine" {
+                                    self.GetAllSegmentListApiCall(Type: "Fetch")
+                                }else {
+                                    let Dict = ["segment":"false"]
+                                    let Dict1 = ["segment":"false","duration":"28"]
+                                    arrSegmentList.append(Dict)
+                                    arrRulerCount.append(Dict1)
+                                    self.ColleData.reloadData()
+                                    self.ColleRuler.reloadData()
+                                }
+                                
+                            }else {
+                                print(jsonArray)
+                            }
+                
+                        } else {
+                            showToast(message: "Add You Profile")
+                            showToast(message: "Bad Json")
+                        }
+                    } catch let error as NSError {
+                        showToast(message: "Add You Profile")
+                        print(error)
+                    }
+                }
+            }
+        }
+    }
+}
