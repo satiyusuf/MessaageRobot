@@ -122,7 +122,8 @@ class SignupViewCell: UITableViewCell {
                 
             }else if password_text.text == ConfirmPassword.text{
                 //api call here
-                signup.getNewUser(userID: helper.shared.randomUserId(), firstname: firstName.text!, lastname: lastName.text!, email: Email.text!, lastlogin: df.string(from: Date()) , registerdate: df.string(from: Date()), role: "customer", password: password_text.text!)
+                signup.RegisterApi(Firstname: firstName.text!, Lastname: lastName.text!, Email: Email.text!, Password: password_text.text!, UserId: helper.shared.randomUserId())
+             //   signup.getNewUser(userID: helper.shared.randomUserId(), firstname: firstName.text!, lastname: lastName.text!, email: Email.text!, lastlogin: df.string(from: Date()) , registerdate: df.string(from: Date()), role: "customer", password: password_text.text!)
             }else{
                 showAlert(title: helper.shared.APP_ALERT_TITLE_OOPS, message: "Password is not matched", viewController: root)
             }
@@ -139,4 +140,38 @@ class SignupViewCell: UITableViewCell {
     @IBOutlet weak var viewBack: UIView!
     @IBOutlet weak var viewLeft: UIView!
     @IBOutlet weak var viewRight: UIView!
+}
+
+
+extension SignUpViewController {
+    
+    func RegisterApi(Firstname:String,Lastname:String,Email:String,Password:String,UserId:String) {
+    
+        guard isReachable else{return}
+        showLoading()
+        let url = "https://api.massagerobotics.com/user/register/"
+        let parameters = ["firstname":Firstname,"lastname":Lastname,"email":Email,"password":Password,"userid":UserId,"role":"customer"]
+        
+        ApiHelper.sharedInstance.PostMethodServiceCall(url: url, param: parameters) { [self] (response, error) in
+            self.hideLoading()
+            
+            if response != nil {
+                let Status = response!["status"] as! Bool
+                print("Status:-\(Status)")
+                if Status {
+                    let RespoData = response!["data"] as! [String:Any]
+                    self.navigationController?.popViewController(animated: true)
+                    print("RespoData:-\(RespoData)")
+                } else {
+                    let RespoData = response!["data"] as! [String:Any]
+                    let message = (RespoData["email"]! as! NSArray).mutableCopy() as! NSMutableArray
+                    let NewMeaage = message[0]
+                    print(message)
+                    showToast(message: NewMeaage as? String ?? "")
+                }
+            } else {
+                self.alert(message: "Something is wrong please try againt", title: "Error")
+            }
+        }
+    }
 }

@@ -6,59 +6,78 @@
 //
 
 import UIKit
+import Alamofire
+import Foundation
+import AuthenticationServices
+import GoogleSignIn
 
 class LoginViewController: UIViewController {
 
     //MARK:- Outlets
-    @IBOutlet weak var tableiew: UITableView!
-        
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @IBOutlet weak var txtPass: UITextField!
+    @IBOutlet weak var txtEmail: UITextField!
+    @IBOutlet weak var AppleLogin: UIView!
+    @IBOutlet weak var btnLogin: UIButton!
+    
+    //MARK:- Variable
+    var googleSignIn = GIDSignIn.sharedInstance
 
-        // Do any additional setup after loading the view.
-        
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
-        
-        SetUpUIView()
+        self.txtEmail.layer.cornerRadius = 7
+        self.txtPass.layer.cornerRadius = 7
+        self.btnLogin.layer.cornerRadius = 15
+     //   self.appleLoginButton()
     }
     
-    func SetUpUIView()  {
-        //self.tableiew.reloadData()
-            
-        UIGraphicsBeginImageContext(view.frame.size)
-        UIImage(named: "LogRegi")?.draw(in: self.view.bounds)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        view.backgroundColor = UIColor.init(patternImage: image!)
+    @IBAction func btnBack(_ sender: Any) {
     }
-    
-    override func viewDidLayoutSubviews() {
-        tableiew.isScrollEnabled = tableiew.contentSize.height > tableiew.frame.size.height
+    @IBAction func btnForGotPass(_ sender: Any) {
+        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
+        UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    func cellDESIGNform(dcell : loginviewcell){
+    @IBAction func btnLogin(_ sender: Any) {
         
-        dcell.selectionStyle = .none
-        
-        corrner_Raduis(value: 10, outlet: dcell.login_btn)
-        
-        corrner_Raduis(value: 3, outlet: dcell.username_txtfld)
-        
-        corrner_Raduis(value: 3, outlet: dcell.password_txtfld)
-        
-        corrner_Raduis(value: 15, outlet: dcell.viewBack)
-        
-        corrner_Raduis(value: 15, outlet: dcell.viewLeft)
-        
-        corrner_Raduis(value: 15, outlet: dcell.viewRight)
-        
-        dcell.viewLeft.dropShadow(color: UIColor.btnBGColor, opacity: 0.6, offSet: CGSize(width: -20, height: 8), radius: 5, scale: true)
-        dcell.viewRight.dropShadow(color: UIColor.btnBGColor, opacity: 0.6, offSet: CGSize(width: 20, height: 8), radius: 5, scale: true)
+        if(txtEmail.text?.isEmpty == true && txtPass.text?.isEmpty == true) {
+            self.alert(message: "Please enter your username and password.", title: "Error")
+        } else if txtEmail.text == "" {
+            self.alert(message: "Please enter your email.", title: "Error")
+        } else if txtPass.text == "" {
+            self.alert(message: "Please enter your password.", title: "Error")
+        } else if helper.shared.isValidEmail(emailID: txtEmail.text!) == false {
+            self.alert(message: "Please enter valid email address.", title: "Error")
+        } else {
+          //  login.NewApiCall(Email: emailID, Pass: password)
+             loginApi(username: self.txtEmail.text!, password: txtPass.text!)
+        }
     }
+    @IBAction func btnGoogleLogin(_ sender: Any) {
+        self.googleAuthLogin()
+    }
+    @IBAction func btnRegister(_ sender: Any) {
+        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
+        UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
+    }
+    @IBAction func btnLoginWithApple(_ sender: Any) {
+        
+        if #available(iOS 13.0, *) {
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            let request = appleIDProvider.createRequest()
+            request.requestedScopes = [.fullName, .email]
+            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+            authorizationController.delegate = self
+            authorizationController.presentationContextProvider = self
+            authorizationController.performRequests()
+        }
+    }
+}
+
+//MARK:- Api Call Function
+extension LoginViewController {
     
-    func loginApi(username : String ,
-                  password :  String)  {
+    func loginApi(username : String ,password :  String)  {
         
         let categoryListUrl = ApiUrls.baseURL
         let SignupSubUrl = ApiUrls.loginsubUrl
@@ -105,104 +124,147 @@ class LoginViewController: UIViewController {
             }
         }
     }
-}
-
-//MARK:- extension for tableview
-
-extension LoginViewController : UITableViewDelegate,UITableViewDataSource{
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! loginviewcell
-        
-        cellDESIGNform(dcell: cell)
-        
-        return cell
-    }
-}
-
-class TextField: UITextField {
-
-    let padding = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 5)
-
-    override open func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
-    }
-
-    override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
-    }
-
-    override open func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
-    }
-}
-
-class loginviewcell: UITableViewCell {
+    func NewApiCall(Email:String,Pass:String) {
     
-    var login = LoginViewController()
-    
-    func getTextFieldLeftAndRightView() -> UIView {
-        let paddingView: UIView = UIView.init(frame: CGRect(x:0, y: 0, width:10, height:10))
-        return paddingView
-    }
-    
-    @IBAction func loginAction_Action(_ sender: Any) {
+        guard isReachable else{return}
+        showLoading()
+        let url = "https://api.massagerobotics.com/user/login/"
+        let parameters = ["email":Email,"password":Pass]
         
-        if let root = UIApplication.topViewController() {
-            //do sth with root view controller
+        ApiHelper.sharedInstance.PostMethodServiceCall(url: url, param: parameters) { (response, error) in
+            self.hideLoading()
             
-            if(username_txtfld.text?.isEmpty == true && password_txtfld.text?.isEmpty == true) {
-                showAlert(title: helper.shared.APP_ALERT_TITLE_OOPS, message: "Please enter your username and password.", viewController: root)
-            }
-            else if username_txtfld.text == "" {
-                showAlert(title: helper.shared.APP_ALERT_TITLE_OOPS, message: "Please enter your username.", viewController: root)
-            }
-            else if password_txtfld.text == "" {
-                showAlert(title: helper.shared.APP_ALERT_TITLE_OOPS, message: "Please enter your password.", viewController: root)
-            }
-            else if helper.shared.isValidEmail(emailID: username_txtfld.text!) == false {
-                showAlert(title: helper.shared.APP_ALERT_TITLE_OOPS, message: "Please enter valid email address", viewController: root)
-            }
-            else {
-                username_txtfld.resignFirstResponder()
-                password_txtfld.resignFirstResponder()
-                
-                username_txtfld.textRect(forBounds: CGRect(x:0, y: 0, width:10, height:10))
-                password_txtfld.textRect(forBounds: CGRect(x:0, y: 0, width:10, height:10))
-                                
-                let emailID : String = username_txtfld!.text!
-                let password : String = password_txtfld!.text!
-                
-                print("\(emailID) \(password)")
-                
-                //Api call
-                
-                login.loginApi(username: emailID, password: password)
+            if response != nil {
+                let Status = response!["status"] as! Bool
+                if Status {
+                    let RespoData = response!["data"] as! [String:Any]
+                    print("RespoData:-\(RespoData)")
+                } else {
+                    let RespoData = response!["data"] as! [String:Any]
+                    let Messge = RespoData["non_field_errors"]
+                  //  self.alert(message: Message[0], title: "Error")
+                }
+            } else {
+                self.alert(message: "Something is wrong please try againt", title: "Error")
             }
         }
     }
     
-    
-    @IBAction func registerViewNAv(_ sender: Any) {
-        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
-        UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
+    private func googleAuthLogin() {
+        let googleConfig = GIDConfiguration(clientID: "139727097596-plbahmao0k41g5pah4kul8v42va458ij.apps.googleusercontent.com")
+        self.googleSignIn.signIn(with: googleConfig, presenting: self) { user, error in
+            
+            if error == nil {
+                guard let user = user else {
+                    print("Uh oh. The user cancelled the Google login.")
+                    return
+                }
+
+                let userId = user.userID ?? ""
+                print("Google User ID: \(userId)")
+                
+                let userIdToken = user.authentication.idToken ?? ""
+                print("Google ID Token: \(userIdToken)")
+                
+                let userFirstName = user.profile?.givenName ?? ""
+                print("Google User First Name: \(userFirstName)")
+                
+                let userLastName = user.profile?.familyName ?? ""
+                print("Google User Last Name: \(userLastName)")
+                
+                let userEmail = user.profile?.email ?? ""
+                print("Google User Email: \(userEmail)")
+                
+                let googleProfilePicURL = user.profile?.imageURL(withDimension: 150)?.absoluteString ?? ""
+                print("Google Profile Avatar URL: \(googleProfilePicURL)")
+            }
+        }
     }
-    
-    @IBAction func btnForgotPasswordAction(_ sender: Any) {
-        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
-        UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
-    }
-     
-    @IBOutlet weak var username_txtfld: UITextField!
-    @IBOutlet weak var password_txtfld: UITextField!
-    @IBOutlet weak var login_btn: UIButton!
-    
-    @IBOutlet weak var viewBack: UIView!
-    @IBOutlet weak var viewLeft: UIView!
-    @IBOutlet weak var viewRight: UIView!
 }
+
+//MARK:- Private Functin LoginWithApple
+extension LoginViewController {
+    
+    func appleLoginButton() {
+            if #available(iOS 13.0, *) {
+                let appleLoginBtn = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
+                appleLoginBtn.addTarget(self, action: #selector(actionHandleAppleSignin), for: .touchUpInside)
+                self.AppleLogin.addSubview(appleLoginBtn)
+             
+                appleLoginBtn.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    appleLoginBtn.trailingAnchor.constraint(equalTo:self.AppleLogin.trailingAnchor),
+                    appleLoginBtn.leadingAnchor.constraint(equalTo: self.AppleLogin.leadingAnchor),
+                    appleLoginBtn.topAnchor.constraint(equalTo: self.AppleLogin.topAnchor),
+                    appleLoginBtn.bottomAnchor.constraint(equalTo: self.AppleLogin.bottomAnchor)
+                    ])
+            }
+        }
+    
+    @objc func actionHandleAppleSignin() {
+        if #available(iOS 13.0, *) {
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            let request = appleIDProvider.createRequest()
+            request.requestedScopes = [.fullName, .email]
+            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+            authorizationController.delegate = self
+            authorizationController.presentationContextProvider = self
+            authorizationController.performRequests()
+        }
+    }
+}
+
+//MARK:-ASAuthorizationControllerDelegate
+extension LoginViewController: ASAuthorizationControllerDelegate {
+    
+    @available(iOS 13.0, *)
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print(error.localizedDescription)
+    }
+    @available(iOS 13.0, *)
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            // Get user data with Apple ID credentitial
+            let userId = appleIDCredential.user
+            let userFirstName = appleIDCredential.fullName?.givenName
+            let userLastName = appleIDCredential.fullName?.familyName
+            let userEmail = appleIDCredential.email
+            print("User ID: \(userId)")
+            print("User First Name: \(userFirstName ?? "")")
+            print("User Last Name: \(userLastName ?? "")")
+            print("User Email: \(userEmail ?? "")")
+            // Write your code here
+        } else if let passwordCredential = authorization.credential as? ASPasswordCredential {
+            // Get user data using an existing iCloud Keychain credential
+            let appleUsername = passwordCredential.user
+            let applePassword = passwordCredential.password
+            // Write your code here
+        }
+    }
+}
+//MARK:-ASAuthorizationControllerPresentationContextProviding
+extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+    @available(iOS 13.0, *)
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+           return self.view.window!
+    }
+}
+
+
+extension UIViewController {
+    
+    func alert(message: String, title: String = "")
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { action in
+            
+        })
+        
+        alert.addAction(ok)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+}
+

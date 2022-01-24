@@ -106,6 +106,7 @@
 		765B020F26FC5F7600EFF7AB /* NewHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHomeVC.swift; sourceTree = "<group>"; };
 		766E7A86274676B700B1D5B7 /* SearchFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterVC.swift; sourceTree = "<group>"; };
 		768F9B0D26FD929100381894 /* PDFViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFViewVC.swift; sourceTree = "<group>"; };
+		7B6EB72C279E8E8900493AC9 /* MassageRobot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MassageRobot.entitlements; sourceTree = "<group>"; };
 		BE5EC1757D44B6A666C3E760 /* Pods_MassageRobot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MassageRobot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFC6FD6127562F7900BECB6A /* SearchDataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDataVC.swift; sourceTree = "<group>"; };
 		EC95C85BD355C123C7E50F99 /* Pods-MassageRobot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MassageRobot.release.xcconfig"; path = "Target Support Files/Pods-MassageRobot/Pods-MassageRobot.release.xcconfig"; sourceTree = "<group>"; };
@@ -371,6 +372,7 @@
 		FF52EA772680DA7900193EA1 /* MassageRobot */ = {
 			isa = PBXGroup;
 			children = (
+				7B6EB72C279E8E8900493AC9 /* MassageRobot.entitlements */,
 				FF52EA782680DA7900193EA1 /* AppDelegate.swift */,
 				FF15638426810689008BB56E /* CustomDelegate.swift */,
 				FF156387268106F3008BB56E /* Model */,
@@ -864,6 +866,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = MassageRobot/MassageRobot.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
@@ -890,6 +893,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = MassageRobot/MassageRobot.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;

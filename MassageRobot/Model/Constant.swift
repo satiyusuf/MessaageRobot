@@ -27,6 +27,7 @@ let GetOkValue = "ok"
 //let screenWidth = screenSize.width
 //let screenHeight = screenSize.height
 
+let TOKEN = "token"
 let ISLOGIN = "isLogin"
 let ISHOMEPAGE = "isHomePage"
 let USERID = "userID"

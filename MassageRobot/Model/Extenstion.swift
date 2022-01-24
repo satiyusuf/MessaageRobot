@@ -97,7 +97,10 @@ extension UIViewController: NVActivityIndicatorViewable
         view.endEditing(true)
         if isReachable
         {
-            showLoading()
+            
+              showLoading()
+            
+          
             let url = URL(string: url)!
             var header: HTTPHeaders?
             header = ["Content-Type": "application/json"]
@@ -163,6 +166,8 @@ extension UIViewController: NVActivityIndicatorViewable
             showToast(message: "No internet connection.")
         }
     }
+    
+   
     
     func callHomeAPI(url: String, param: Parameters = [String: Any](), method: HTTPMethod = .post, isHeader: Bool = true, images: [UIImage] = [UIImage](), imageKeys: [String] = [String](), completionHandler: @escaping ([String: Any], Data?) -> ())
     {
@@ -666,3 +671,73 @@ func fontName() {
 //        }
 //    }
 //}
+
+class ApiHelper: NSObject {
+
+    static let sharedInstance = ApiHelper()
+    
+    
+    func GetMethodServiceCall(url : String, completion: @escaping (NSDictionary?,String?) -> ()) {
+
+        AF.request(url, method: .get)
+            .responseJSON { response in
+
+                switch response.result {
+                case .success:
+                    if response.value != nil //result.value != nil
+                    {
+                        let Res = response.value as! NSDictionary //result.value! as! NSDictionary
+                        print("GET : URL : \(url)")
+                        print("Response : \(Res)")
+                        completion(Res,nil)
+                    }
+                    else
+                    {
+                        completion(nil,"Something went wrong!!!")
+                    }
+
+                case .failure(let error):
+                    print(error)
+                    let err = String(decoding: response.data!, as: UTF8.self)
+                    print("{----------------------**** ECHO ****----------------------")
+                    print("GET : URL : \(url)")
+                    print("Echo : \(err)")
+                    completion(nil,error.localizedDescription)
+                }
+        }
+    }
+    
+    func PostMethodServiceCall(url : String, param : [String:String], completion: @escaping (NSDictionary?,String?) -> ()) {
+        
+        AF.request(url, method: .post, parameters: param)
+            .responseJSON { response in
+                
+                switch response.result {
+                case .success:
+                    if response.value != nil
+                    {
+                        let Res = response.value! as! NSDictionary
+                        print("POST :- URL : \(url)")
+                        print("PARAM :- \(param)")
+                        print("Response :- \(Res)")
+                        
+                        completion(Res,nil)
+                    }
+                    else
+                    {
+                        completion(nil,"Something went wrong!!!")
+                    }
+                case .failure(let error):
+                    //print(error)
+                    let err = String(decoding: response.data!, as: UTF8.self)
+                    print("{----------------------**** ECHO ****----------------------")
+                    print("POST : URL : \(url)")
+                    print("Echo : \(err)")
+                    
+                    completion(nil,error.localizedDescription)
+                }
+        }
+    }
+}
+
+

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class SegmentPlayVC: UIViewController {
 
@@ -68,45 +69,72 @@ class SegmentPlayVC: UIViewController {
     }
     
     func getRoutinSegmentDataListServiceCall() {
-        
+        self.hideLoading()
         let url = "https://massage-robotics-website.uc.r.appspot.com/rd?query='Select * from Routineentity where routineID = '\(strRoutingID!)''"
         
         print(url)
         
         let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
-        callAPI(url: encodedUrl!) { [self] (json, data1) in
-            print(json)
-            self.hideLoading()
-            if json.getString(key: "status") == "false"
-            {
-                let string = json.getString(key: "response_message")
-                let data = string.data(using: .utf8)!
-                do {
-                    if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
-                        arrSegmentList.append(contentsOf: jsonArray)
-                        
-                        for segmentDucation in arrSegmentList {
-                            totalStoreDu = Int(segmentDucation.getString(key: "duration")) ?? 0
-                            totalDuration = totalStoreDu + totalDuration
-                        }
-                        
-                        totalTime = totalDuration //60
-                        
-                        if totalDuration < 10 {
-                            lblDucation.text = "0" + String(totalTime) + ":00/00:00"
-                        }else {
-                            lblDucation.text = String(totalTime) + ":00/00:00"
-                        }
-                        tableView.reloadData()
-                    } else {
-                        showToast(message: "Bad Json")
-                    }
-                } catch let error as NSError {
-                    print(error)
+        AF.request(encodedUrl!, method:.post, parameters: [:],encoding: JSONEncoding.default) .responseJSON { (response) in
+            print("NewApiCallResponse:-\(response)")
+            
+            switch response.result {
+            case .success(let json):
+                self.arrSegmentList  = json as! [[String : Any]]
+                for segmentDucation in self.arrSegmentList {
+                    self.totalStoreDu = Int(segmentDucation.getString(key: "duration")) ?? 0
+                    self.totalDuration = self.totalStoreDu + self.totalDuration
                 }
+                
+                self.totalTime = self.totalDuration //60
+                
+                if self.totalDuration < 10 {
+                    self.lblDucation.text = "0" + String(self.totalTime) + ":00/00:00"
+                }else {
+                    self.lblDucation.text = String(self.totalTime) + ":00/00:00"
+                }
+                self.tableView.reloadData()
+                break
+            case .failure(let error):
+                print("failure:-\(error)")
+                break
             }
         }
+
+        
+//        callAPI(url: encodedUrl!) { [self] (json, data1) in
+//            print(json)
+//            self.hideLoading()
+//            if json.getString(key: "status") == "false"
+//            {
+//                let string = json.getString(key: "response_message")
+//                let data = string.data(using: .utf8)!
+//                do {
+//                    if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
+//                        arrSegmentList.append(contentsOf: jsonArray)
+//
+//                        for segmentDucation in arrSegmentList {
+//                            totalStoreDu = Int(segmentDucation.getString(key: "duration")) ?? 0
+//                            totalDuration = totalStoreDu + totalDuration
+//                        }
+//
+//                        totalTime = totalDuration //60
+//
+//                        if totalDuration < 10 {
+//                            lblDucation.text = "0" + String(totalTime) + ":00/00:00"
+//                        }else {
+//                            lblDucation.text = String(totalTime) + ":00/00:00"
+//                        }
+//                        tableView.reloadData()
+//                    } else {
+//                        showToast(message: "Bad Json")
+//                    }
+//                } catch let error as NSError {
+//                    print(error)
+//                }
+//            }
+//        }
     }
         
     @objc func setProgressBar() {
@@ -228,41 +256,69 @@ class SegmentPlayVC: UIViewController {
             return
         }
         
-        callAPI(url: encodedUrl, param: [:], method: .post) { [self] (json, data1) in
-            print(json)
-            self.hideLoading()
-            if json.getString(key: "status") == "success"
-            {
-                let string = json.getString(key: "message")
+        AF.request(encodedUrl, method:.post, parameters: [:],encoding: JSONEncoding.default) .responseJSON { [self] (response) in
+            print("NewApiCallResponse:-\(response)")
+            
+            switch response.result {
+            case .success(let json):
+                let string = (json as! NSDictionary)["message"] as! String
                 showToast(message: string)
-
-                timerTest = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(setProgressBar), userInfo: nil, repeats: true)
-                
-                if arrSegmentList.count > 0 {
-                    
-                    let indexPath = IndexPath(row: indxPath, section: 0)
-                    
+                self.timerTest = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.setProgressBar), userInfo: nil, repeats: true)
+                if self.arrSegmentList.count > 0 {
+                    let indexPath = IndexPath(row: self.indxPath, section: 0)
                     if let cell = tableView.cellForRow(at: indexPath) as? SegmentPlayCell {
                         let segmentData = arrSegmentList[indexPath.row]
-                        
                         cell.segmentTime = Int(segmentData.getString(key: "duration")) ?? 0
-
                         cell.totalDuration = cell.segmentTime/60
-                        //cell.segmentTime = cell.segmentTime * 60
-                        
                         cell.startTimerForCell()
-                    }else {
-                        
                     }
                 }
-            }else {
-                let string = json.getString(key: "response_message")
-                showToast(message: string)
+                break
+            case .failure(let error):
+                print("failure:-\(error)")
+                break
             }
         }
 
+       
+
+//
+//        callAPI(url: encodedUrl, param: [:], method: .post) { [self] (json, data1) in
+//            print(json)
+//            self.hideLoading()
+//            if json.getString(key: "status") == "success"
+//            {
+//                let string = json.getString(key: "message")
+//                showToast(message: string)
+//
+//                timerTest = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(setProgressBar), userInfo: nil, repeats: true)
+//
+//                if arrSegmentList.count > 0 {
+//
+//                    let indexPath = IndexPath(row: indxPath, section: 0)
+//
+//                    if let cell = tableView.cellForRow(at: indexPath) as? SegmentPlayCell {
+//                        let segmentData = arrSegmentList[indexPath.row]
+//
+//                        cell.segmentTime = Int(segmentData.getString(key: "duration")) ?? 0
+//
+//                        cell.totalDuration = cell.segmentTime/60
+//                        //cell.segmentTime = cell.segmentTime * 60
+//
+//                        cell.startTimerForCell()
+//                    }else {
+//
+//                    }
+//                }
+//            }else {
+//                let string = json.getString(key: "response_message")
+//                showToast(message: string)
+//            }
+//        }
     }
         
+    
+    
     func setRestartMassageRobotServiceCall() {
         
         let userID: String = UserDefaults.standard.object(forKey: USERID) as? String ?? ""
@@ -276,14 +332,13 @@ class SegmentPlayVC: UIViewController {
             return
         }
         
-        callAPI(url: encodedUrl, param: [:], method: .post) { [self] (json, data1) in
-            print(json)
-            self.hideLoading()
-            if json.getString(key: "status") == "success"
-            {
-                let string = json.getString(key: "message")
+        AF.request(encodedUrl, method:.post, parameters: [:],encoding: JSONEncoding.default) .responseJSON { [self] (response) in
+            print("NewApiCallResponse:-\(response)")
+            
+            switch response.result {
+            case .success(let json):
+                let string = (json as! NSDictionary)["message"] as! String
                 showToast(message: string)
-                
                 timerTest?.invalidate()
                 timerTest = nil
                 
@@ -329,11 +384,73 @@ class SegmentPlayVC: UIViewController {
                         }
                     }
                 }
-            }else {
-                let string = json.getString(key: "response_message")
-                showToast(message: string)
+                break
+            case .failure(let error):
+                print("failure:-\(error)")
+                break
             }
         }
+
+
+        
+//        callAPI(url: encodedUrl, param: [:], method: .post) { [self] (json, data1) in
+//            print(json)
+//            self.hideLoading()
+//            if json.getString(key: "status") == "success"
+//            {
+//                let string = json.getString(key: "message")
+//                showToast(message: string)
+//
+//                timerTest?.invalidate()
+//                timerTest = nil
+//
+//                timeRemaining = 0
+//
+//                if totalDuration < 10 {
+//                    lblDucation.text = "0" + String(totalDuration) + ":00/00:00"
+//                }else {
+//                    lblDucation.text = String(totalDuration) + ":00/00:00"
+//                }
+//
+//                horizontalProgressBar.progress = 0.0
+//
+//                indxPath = 0
+//
+//                self.setPlayPauseBtnAction()
+//
+//                if arrSegmentList.count > 0 {
+//
+//                    for i in 0..<arrSegmentList.count {
+//
+//                        let indexPath = IndexPath(row: i, section: 0)
+//
+//                        let segmentData = arrSegmentList[indexPath.row]
+//
+//                        if let cell = tableView.cellForRow(at: indexPath) as? SegmentPlayCell {
+//                            cell.horizontalBar.progress = 0.0
+//                            cell.timeRemaining = 0
+//
+//                            cell.setStopTimerForCell()
+//
+//                            let segTimeDuration = Int(segmentData.getString(key: "duration")) ?? 0
+//
+//                            let cal_Duration = segTimeDuration/60
+//
+//                            if cal_Duration < 10 {
+//                                cell.lblTime.text = "0" + String(cal_Duration) + ":00/00:00"
+//                            }else {
+//                                cell.lblTime.text = String(cal_Duration) + ":00/00:00"
+//                            }
+//                        }else {
+//
+//                        }
+//                    }
+//                }
+//            }else {
+//                let string = json.getString(key: "response_message")
+//                showToast(message: string)
+//            }
+//        }
     }
         
     func setStartMassageRobotServiceCall() {
@@ -350,38 +467,67 @@ class SegmentPlayVC: UIViewController {
             return
         }
         
-        callAPI(url: encodedUrl, param: [:], method: .post) { [self] (json, data1) in
-            print(json)
-            self.hideLoading()
-            if json.getString(key: "status") == "success"
-            {
-                let string = json.getString(key: "message")
+        
+        AF.request(encodedUrl, method:.post, parameters: [:],encoding: JSONEncoding.default) .responseJSON { [self] (response) in
+            print("NewApiCallResponse:-\(response)")
+
+            switch response.result {
+            case .success(let json):
+                let string = (json as! NSDictionary)["message"] as! String
                 showToast(message: string)
 
                 timerTest = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(setProgressBar), userInfo: nil, repeats: true)
-                
+
                 if arrSegmentList.count > 0 {
-                    
+
                     let indexPath = IndexPath(row: indxPath, section: 0)
-                    
                     if let cell = tableView.cellForRow(at: indexPath) as? SegmentPlayCell {
                         let segmentData = arrSegmentList[indexPath.row]
-                        
                         cell.segmentTime = Int(segmentData.getString(key: "duration")) ?? 0
-
                         cell.totalDuration = cell.segmentTime/60
-//                        cell.segmentTime = cell.segmentTime * 60
-                        
                         cell.startTimerForCell()
-                    }else {
-                        
                     }
                 }
-            }else {
-                let string = json.getString(key: "response_message")
-                showToast(message: string)
+                break
+            case .failure(let error):
+                print("failure:-\(error)")
+                break
             }
         }
+
+        
+//     `   callAPI(url: encodedUrl, param: [:], method: .post) { [self] (json, data1) in
+//            print(json)
+//            self.hideLoading()
+//            if json.getString(key: "status") == "success"
+//            {
+//                let string = json.getString(key: "message")
+//                showToast(message: string)
+//
+//                timerTest = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(setProgressBar), userInfo: nil, repeats: true)
+//
+//                if arrSegmentList.count > 0 {
+//
+//                    let indexPath = IndexPath(row: indxPath, section: 0)
+//
+//                    if let cell = tableView.cellForRow(at: indexPath) as? SegmentPlayCell {
+//                        let segmentData = arrSegmentList[indexPath.row]
+//
+//                        cell.segmentTime = Int(segmentData.getString(key: "duration")) ?? 0
+//
+//                        cell.totalDuration = cell.segmentTime/60
+////                        cell.segmentTime = cell.segmentTime * 60
+//
+//                        cell.startTimerForCell()
+//                    }else {
+//
+//                    }
+//                }
+//            }else {
+//                let string = json.getString(key: "response_message")
+//                showToast(message: string)
+//            }
+//        }`
     }
         
     func setPauseMassageRobotServiceCall() {
@@ -398,12 +544,13 @@ class SegmentPlayVC: UIViewController {
             return
         }
         
-        callAPI(url: encodedUrl, param: [:], method: .post) { [self] (json, data1) in
-            print(json)
-            self.hideLoading()
-            if json.getString(key: "status") == "success"
-            {
-                let string = json.getString(key: "message")
+        AF.request(encodedUrl, method:.post, parameters: [:],encoding: JSONEncoding.default) .responseJSON { [self] (response) in
+            print("NewApiCallResponse:-\(response)")
+            
+            switch response.result {
+            case .success(let json):
+                
+                let string = (json as! NSDictionary)["message"] as! String
                 showToast(message: string)
                 
                 timerTest?.invalidate()
@@ -420,11 +567,41 @@ class SegmentPlayVC: UIViewController {
                         
                     }
                 }
-            }else {
-                let string = json.getString(key: "response_message")
-                showToast(message: string)
+                break
+            case .failure(let error):
+                print("failure:-\(error)")
+                break
             }
         }
+
+        
+//        callAPI(url: encodedUrl, param: [:], method: .post) { [self] (json, data1) in
+//            print(json)
+//            self.hideLoading()
+//            if json.getString(key: "status") == "success"
+//            {
+//                let string = json.getString(key: "message")
+//                showToast(message: string)
+//
+//                timerTest?.invalidate()
+//                timerTest = nil
+//
+//                if arrSegmentList.count > 0 {
+//
+//                    let indexPath = IndexPath(row: indxPath, section: 0)
+//
+//                    if let cell = tableView.cellForRow(at: indexPath) as? SegmentPlayCell {
+//
+//                        cell.setStopTimerForCell()
+//                    }else {
+//
+//                    }
+//                }
+//            }else {
+//                let string = json.getString(key: "response_message")
+//                showToast(message: string)
+//            }
+//        }
     }
         
     func setStopMassageRobotServiceCall() {
@@ -440,12 +617,13 @@ class SegmentPlayVC: UIViewController {
             return
         }
         
-        callAPI(url: encodedUrl, param: [:], method: .post) { [self] (json, data1) in
-            print(json)
-            self.hideLoading()
-            if json.getString(key: "status") == "success"
-            {
-                let string = json.getString(key: "message")
+        AF.request(encodedUrl, method:.post, parameters: [:],encoding: JSONEncoding.default) .responseJSON { [self] (response) in
+            print("NewApiCallResponse:-\(response)")
+            
+            switch response.result {
+            case .success(let json):
+    
+                let string = (json as! NSDictionary)["message"] as! String
                 showToast(message: string)
                 
                 timerTest?.invalidate()
@@ -494,11 +672,73 @@ class SegmentPlayVC: UIViewController {
                         }
                     }
                 }
-            }else {
-                let string = json.getString(key: "response_message")
-                showToast(message: string)
+                break
+            case .failure(let error):
+                print("failure:-\(error)")
+                break
             }
         }
+
+        
+//        callAPI(url: encodedUrl, param: [:], method: .post) { [self] (json, data1) in
+//            print(json)
+//            self.hideLoading()
+//            if json.getString(key: "status") == "success"
+//            {
+//                let string = json.getString(key: "message")
+//                showToast(message: string)
+//
+//                timerTest?.invalidate()
+//                timerTest = nil
+//
+//                timeRemaining = 0
+//
+//                if totalDuration < 10 {
+//                    lblDucation.text = "0" + String(totalDuration) + ":00/00:00"
+//                }else {
+//                    lblDucation.text = String(totalDuration) + ":00/00:00"
+//                }
+//
+//                horizontalProgressBar.progress = 0.0
+//
+//                indxPath = 0
+//
+//                self.setPlayPauseBtnAction()
+//
+//                if arrSegmentList.count > 0 {
+//
+//                    for i in 0..<arrSegmentList.count {
+//
+//                        let indexPath = IndexPath(row: i, section: 0)
+//
+//                        let segmentData = arrSegmentList[indexPath.row]
+//
+//                        if let cell = tableView.cellForRow(at: indexPath) as? SegmentPlayCell {
+//                            cell.horizontalBar.progress = 0.0
+//
+//                            cell.timeRemaining = 0
+//
+//                            cell.setStopTimerForCell()
+//
+//                            let segTimeDuration = Int(segmentData.getString(key: "duration")) ?? 0
+//
+//                            let cal_Duration = segTimeDuration/60
+//
+//                            if cal_Duration < 10 {
+//                                cell.lblTime.text = "0" + String(cal_Duration) + ":00/00:00"
+//                            }else {
+//                                cell.lblTime.text = String(cal_Duration) + ":00/00:00"
+//                            }
+//                        }else {
+//
+//                        }
+//                    }
+//                }
+//            }else {
+//                let string = json.getString(key: "response_message")
+//                showToast(message: string)
+//            }
+//        }
     }
 }
 

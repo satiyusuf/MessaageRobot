@@ -19,5 +19,6 @@ target 'MassageRobot' do
   pod 'Firebase/Firestore'
   pod 'YACalendar'
   pod 'RangeSeekSlider'
-
+  pod 'GoogleSignIn'
+  
 end

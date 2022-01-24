@@ -194,11 +194,7 @@ extension SegmentCreate: UITextFieldDelegate
         txtRightPath.text = arrPath[textField.tag]
         picker.selectRow(txtRightPath.tag, inComponent: 0, animated: true)
     }
-        
-        if textField == self.txtTime || textField == self.txtLeftTool || textField == self.txtRightTool || textField == self.txtLeftPath || textField == self.txtRightPath  {
-            picker.reloadAllComponents()
-        }
-    }
+  }
 }
 
 
