@@ -175,3 +175,10 @@ extension SignUpViewController {
         }
     }
 }
+
+
+//guard let url = URL(string: "https://www.google.com/recaptcha/api2/demo") else {
+//    return
+//}
+//
+//let siteKey = "6Lfu1jYeAAAAAGF9VA9clM36PRaO0EUDhQzqfWWP"

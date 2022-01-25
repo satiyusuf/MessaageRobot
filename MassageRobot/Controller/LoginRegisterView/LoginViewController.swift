@@ -49,8 +49,9 @@ class LoginViewController: UIViewController {
         } else if helper.shared.isValidEmail(emailID: txtEmail.text!) == false {
             self.alert(message: "Please enter valid email address.", title: "Error")
         } else {
-          //  login.NewApiCall(Email: emailID, Pass: password)
-             loginApi(username: self.txtEmail.text!, password: txtPass.text!)
+            
+            NewApiCall(Email: txtEmail.text!, Pass: txtPass.text!)
+            // loginApi(username: self.txtEmail.text!, password: txtPass.text!)
         }
     }
     @IBAction func btnGoogleLogin(_ sender: Any) {
@@ -139,17 +140,71 @@ extension LoginViewController {
                 let Status = response!["status"] as! Bool
                 if Status {
                     let RespoData = response!["data"] as! [String:Any]
+                    self.UserDetails(Token: RespoData["token"] as? String ?? "")
                     print("RespoData:-\(RespoData)")
                 } else {
                     let RespoData = response!["data"] as! [String:Any]
-                    let Messge = RespoData["non_field_errors"]
-                  //  self.alert(message: Message[0], title: "Error")
+                    let message = (RespoData["non_field_errors"]! as! NSArray).mutableCopy() as! NSMutableArray
+                    let NewMeaage = message[0]
+                    print(message)
+                    self.showToast(message: NewMeaage as? String ?? "")
                 }
             } else {
-                self.alert(message: "Something is wrong please try againt", title: "Error")
+                self.showToast(message: "Something is wrong please try againt")
             }
         }
     }
+        
+        func UserDetails(Token:String) {
+            
+            guard isReachable else{return}
+            showLoading()
+            let url = "https://api.massagerobotics.com/user/profile/?userid"
+            
+            ApiHelper.sharedInstance.GetMethodServiceCall(url: url, Token: Token) { (response, error) in
+                
+                if response != nil {
+                    let Status = response!["status"] as! Bool
+                    if Status {
+                        let RespoData = response!["data"] as! [String:Any]
+                        print("RespoData:-\(RespoData)")
+                        
+                        let FirstName = RespoData["firstname"] as? String ?? ""
+                        let LastName = RespoData["lastname"] as? String ?? ""
+                        let strUserName = FirstName + " " + LastName
+                        let UserID = RespoData["userid"] as? String ?? ""
+                        let Email = RespoData["email"] as? String ?? ""
+                        
+                        UserDefaults.standard.set(strUserName, forKey: USERNAME)
+                        UserDefaults.standard.set(UserID, forKey: USERID)
+                        UserDefaults.standard.set(Email, forKey: EMAILID)
+                        UserDefaults.standard.set(FirstName, forKey: FIRSTNAME)
+                        
+                        let isHome: String = UserDefaults.standard.object(forKey: ISHOMEPAGE) as? String ?? "No"
+                        
+                        UserDefaults.standard.set("Yes", forKey: ISLOGIN)
+                        UserDefaults.standard.set("No", forKey: ISANSUPLOAD)
+                        
+                        if isHome == "Yes" {
+                            let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "TabViewController") as! TabViewController
+                            UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
+                        }else {
+                            let vc = UIStoryboard.init(name: "CreateToutine", bundle: Bundle.main).instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                            UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
+                        }
+                    } else {
+                        let RespoData = response!["data"] as! [String:Any]
+                        let message = (RespoData["non_field_errors"]! as! NSArray).mutableCopy() as! NSMutableArray
+                        let NewMeaage = message[0]
+                        print(message)
+                        self.showToast(message: NewMeaage as? String ?? "")
+                    }
+                } else {
+                    self.showToast(message: "Something is wrong please try againt")
+                }
+                
+            }
+        }
     
     private func googleAuthLogin() {
         let googleConfig = GIDConfiguration(clientID: "139727097596-plbahmao0k41g5pah4kul8v42va458ij.apps.googleusercontent.com")

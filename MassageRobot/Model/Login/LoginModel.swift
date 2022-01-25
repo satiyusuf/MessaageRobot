@@ -19,7 +19,7 @@ struct LogionModel:Codable{
     enum  CodingKeys:String,CodingKey{
         case email,firstname,lastlogin,lastname,password,registerdate,role,thumbnail,userid
     }
-    
+
     func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: CodingKeys.self)
             try container.encode(email, forKey: .email)
@@ -33,3 +33,4 @@ struct LogionModel:Codable{
         try container.encode(userid, forKey: .userid)
         }
 }
+

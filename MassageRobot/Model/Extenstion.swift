@@ -42,13 +42,11 @@ func borderColor(value : CGFloat, outlet :UIView){
     outlet.layer.masksToBounds = true
     outlet.layer.borderWidth = value
     outlet.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-    
 }
 
 func borderBtn(value : CGFloat, outlet :UIView){
     //corner radius and cornnerborder
     outlet.layer.cornerRadius = value
-    
 }
 
 func ViewBottom_DownRadius(value : Int, outlet : UIView)  {
@@ -97,10 +95,8 @@ extension UIViewController: NVActivityIndicatorViewable
         view.endEditing(true)
         if isReachable
         {
+            showLoading()
             
-              showLoading()
-            
-          
             let url = URL(string: url)!
             var header: HTTPHeaders?
             header = ["Content-Type": "application/json"]
@@ -677,9 +673,13 @@ class ApiHelper: NSObject {
     static let sharedInstance = ApiHelper()
     
     
-    func GetMethodServiceCall(url : String, completion: @escaping (NSDictionary?,String?) -> ()) {
+    func GetMethodServiceCall(url : String,Token:String, completion: @escaping (NSDictionary?,String?) -> ()) {
 
-        AF.request(url, method: .get)
+        var header: HTTPHeaders?
+        header = ["Content-Type": "application/json"]
+        header!["Authorization"] = "Token \(Token)"
+        
+        AF.request(url, method: .get,headers: header)
             .responseJSON { response in
 
                 switch response.result {

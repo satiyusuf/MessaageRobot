@@ -36,6 +36,9 @@ class MyPreferenceVC: UIViewController {
     var strQueAnsList: String = ""
     var staticpickervalue = ["Monthly", "Weekly", "Daily"]
                 
+    var pickervalue12 = ["Never", "Weekly", "Daily"]
+
+    
     var dictLocalStore = [String: AnyObject]()
     var dictPassAPIStore = [String]()
     
@@ -652,7 +655,7 @@ class MyPreferenceCollectioncell : UICollectionViewCell, UITextFieldDelegate  {
         }else if currentIndex == 10 {
             staticpickervalue = ["Yes", "No"]
         }else if currentIndex == 11 {
-            staticpickervalue = ["Yes", "No"]
+            staticpickervalue = ["Never", "Weekly", "Daily"]//["Yes", "No"]
         }else if currentIndex == 12 {
             staticpickervalue = ["Soft", "Hard"]
         }else if currentIndex == 13 {
