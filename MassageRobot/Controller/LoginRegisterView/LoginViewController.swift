@@ -131,9 +131,15 @@ extension LoginViewController {
         guard isReachable else{return}
         showLoading()
         let url = "https://api.massagerobotics.com/user/login/"
-        let parameters = ["email":Email,"password":Pass]
+        let parameters = ["email":Email,"password":Pass] as [String:Any]
+       
+        let jsonData = try? JSONSerialization.data(withJSONObject: [parameters])
+
+        //let NewParamJson = parameters.toJSONString()
+          print(jsonData)
+               
         
-        ApiHelper.sharedInstance.PostMethodServiceCall(url: url, param: parameters) { (response, error) in
+        ApiHelper.sharedInstance.PostMethodServiceCall(url: url, param: parameters, Token: "", method: .post) { (response, error) in
             self.hideLoading()
             
             if response != nil {
@@ -141,13 +147,13 @@ extension LoginViewController {
                 if Status {
                     let RespoData = response!["data"] as! [String:Any]
                     self.UserDetails(Token: RespoData["token"] as? String ?? "")
+                    UserDefaults.standard.set( RespoData["token"] as? String ?? "", forKey: TOKEN)
                     print("RespoData:-\(RespoData)")
                 } else {
                     let RespoData = response!["data"] as! [String:Any]
-                    let message = (RespoData["non_field_errors"]! as! NSArray).mutableCopy() as! NSMutableArray
-                    let NewMeaage = message[0]
+                    let message = RespoData["detail"] as? String ?? ""
                     print(message)
-                    self.showToast(message: NewMeaage as? String ?? "")
+                    self.showToast(message: message)
                 }
             } else {
                 self.showToast(message: "Something is wrong please try againt")
@@ -162,7 +168,7 @@ extension LoginViewController {
             let url = "https://api.massagerobotics.com/user/profile/?userid"
             
             ApiHelper.sharedInstance.GetMethodServiceCall(url: url, Token: Token) { (response, error) in
-                
+                self.hideLoading()
                 if response != nil {
                     let Status = response!["status"] as! Bool
                     if Status {

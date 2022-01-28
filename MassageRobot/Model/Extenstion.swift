@@ -707,9 +707,19 @@ class ApiHelper: NSObject {
         }
     }
     
-    func PostMethodServiceCall(url : String, param : [String:String], completion: @escaping (NSDictionary?,String?) -> ()) {
+    func PostMethodServiceCall(url : String, param : [String:Any],Token:String, method:HTTPMethod, completion: @escaping (NSDictionary?,String?) -> ()) {
         
-        AF.request(url, method: .post, parameters: param)
+        var TokenString = String()
+        
+        if Token.isEmpty == false {
+            TokenString = "Token \(Token)"
+        }
+        
+        var header: HTTPHeaders?
+        header = ["Content-Type": "application/json"]
+        header!["Authorization"] = TokenString
+        
+        AF.request(url, method: method, parameters: param ,encoding: JSONEncoding.default, headers: header )
             .responseJSON { response in
                 
                 switch response.result {

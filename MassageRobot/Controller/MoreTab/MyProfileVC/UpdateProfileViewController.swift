@@ -8,6 +8,7 @@
 import UIKit
 import SDWebImage
 import Firebase
+import Alamofire
 
 class UpdateProfileViewController: UIViewController, UITextFieldDelegate{
         
@@ -296,6 +297,7 @@ class UpdateProfileViewController: UIViewController, UITextFieldDelegate{
 
         // Do any additional setup after loading the view.
                    
+      
         for ageList in 18...100 {
             arrAge.append(String(ageList))
         }
@@ -349,7 +351,8 @@ class UpdateProfileViewController: UIViewController, UITextFieldDelegate{
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         viewBack.addGestureRecognizer(tap)
         
-        self.setUserProfileDataService()
+    //    self.setUserProfileDataService()
+        self.UserDataGet()
     }
     
     func saveImageToDocumentsDirectory(image: UIImage, withName: String) -> String? {
@@ -755,35 +758,45 @@ class UpdateProfileViewController: UIViewController, UITextFieldDelegate{
             return
         }
         
-        if isProfileUpdateAdd == true {
-            
-            let strAddress = txtAddress.text ?? ""
-            
-//            let strFullAddress = strAddress + " " + strCity + " " + strState + " " + strZipCode + " " + strCountry
-            
-//            addUpdateProfileurl = "https://massage-robotics-website.uc.r.appspot.com/rd?query='UPDATE Userprofile SET address='\(strFullAddress)',age='\(txtType.text ?? "")',children='\(txtChildren.text ?? "")',ethnicity='\(txtEthniciy.text ?? "")',gender='\(txtGender.text ?? "")',height='\(strHUnitValue)',income='\(txtIncome.text ?? "")',language='\(txtLanguage.text ?? "")',marital='\(txtMarriedSingle.text ?? "")',occupation='\(txtOccupation.text ?? "")',selfemployeed='\(txtSelfEmployeed.text ?? "")',thumbnail='\(strProImgName)',units='\(txtPreferredUnits.text ?? "")',weight='\(strWUnitValue)',city='\(txtCity.text ?? "")',state='\(txtState.text ?? "")',zip='\(txtzipCode.text ?? "")',country='\(txtCountry.text ?? "")',phone='\(txtPhoneNum.text ?? "")',heightunit='\(strHUnit)',weightunit='\(strWUnit)' WHERE userid='\(userID)''"
-            
-            addUpdateProfileurl = "https://massage-robotics-website.uc.r.appspot.com/rd?query='UPDATE Userprofile SET address='\(strAddress)',age='\(txtType.text ?? "")',children='\(txtChildren.text ?? "")',ethnicity='\(txtEthniciy.text ?? "")',gender='\(strGender)',height='\(strHUnitValue)',income='\(txtIncome.text ?? "")',language='\(txtLanguage.text ?? "")', marital='\(txtMarriedSingle.text ?? "")',occupation='\(txtOccupation.text ?? "")',selfemployeed='\(txtSelfEmployeed.text ?? "")',thumbnail='\(strProImgName)',units='\(txtPreferredUnits.text ?? "")',weight='\(strWUnitValue)' ,city='\(txtCity.text ?? "")',state='\(txtState.text ?? "")',zip='\(txtzipCode.text ?? "")',country='\(txtCountry.text ?? "")',phone='\(txtPhoneNum.text ?? "")',heightunit='\(strHUnit)',weightunit='\(strWUnit)' WHERE userid='\(userID)''"
-            
-//            addUpdateProfileurl = "https://massage-robotics-website.uc.r.appspot.com/rd?query='UPDATE Userprofile SET address='\(strFullAddress)',age='\(txtType.text ?? "")',children='\(txtChildren.text ?? "")',ethnicity='\(txtEthniciy.text ?? "")',gender='M',height='\(txtFeet.text ?? "")',income='\(txtIncome.text ?? "")',language='\(txtLanguage.text ?? "")', marital='\(txtMarriedSingle.text ?? "")',occupation='\(txtOccupation.text ?? "")',selfemployeed='\(txtSelfEmployeed.text ?? "")',thumbnail='\(strProImgName)',units='\(txtPreferredUnits.text ?? "")',weight='',city='\(txtCity.text ?? "")',state='\(txtState.text ?? "")',zip='\(txtzipCode.text ?? "")',country='\(txtCountry.text ?? "")',phone='\(txtPhoneNum.text ?? "")',heightunit='\(strHUnit)',weightunit='\(strWUnit)' WHERE userid='\(userID)''" User5ocy7ckrlrvl8zie
-        }else {
-            addUpdateProfileurl = "https://massage-robotics-website.uc.r.appspot.com/wt?tablename=UserProfile&row=[('\(userID)','\(txtAddress.text ?? "")','\(txtCity.text ?? "")','\(txtState.text ?? "")','\(txtzipCode.text ?? "")','\(txtPhoneNum.text ?? "")','\(txtCountry.text ?? "")','\(txtEthniciy.text ?? "")','\(strHUnitValue)','\(strHUnit)','\(strWUnitValue)','\(strWUnit)','\(txtIncome.text ?? "")','\(txtLanguage.text ?? "")','\(txtMarriedSingle.text ?? "")','\(txtOccupation.text ?? "")','\(txtSelfEmployeed.text ?? "")','\(txtType.text ?? "")','\(txtChildren.text ?? "")','\(txtGender.text ?? "")','\(txtPreferredUnits.text ?? "")')]"
-        }
-                                
-        print(addUpdateProfileurl)
+        let parameters = ["address":txtAddress.text!,"city":txtCity.text!,"state":txtState.text!,"zip":txtzipCode.text!,"phone":txtPhoneNum.text!,"country":txtCountry.text!,"ethnicity":txtEthniciy.text!,"height":strHUnitValue,"heightunit":strHUnit,"weight":txtWeight.text!,"weightunit":strWUnit,"income":txtIncome.text!,"language":txtLanguage.text!,"marital":txtMarriedSingle.text!,"occupation":txtOccupation.text!,"selfemployeed":txtSelfEmployeed.text!,"age":txtType.text,"children":txtChildren.text!,"gender":txtGender.text!,"units":txtPreferredUnits.text!,"thumbnail":strProImgName] as [String : Any]
         
-        let encodedUrl = addUpdateProfileurl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        
-        callAPI(url: encodedUrl!) { [self] (json, data1) in
+        if let json = try? JSONSerialization.data(withJSONObject: parameters, options: []) {
             print(json)
-            self.hideLoading()
-            if json.getString(key: "Response") == "UPDATE query executed Successfully" {
-                showToast(message: "User Profile Update Successfully.")
-            }else if json.getString(key: "Response") == "Success" {
-                showToast(message: "Add User Profile Successfully.")
-            }
-            self.navigationController?.popViewController(animated: true)
         }
+        
+//        let NewParamJson = parameters.toJSONString()
+//        print(NewParamJson)
+        
+        self.UserProfileDataUpdate(parameters: parameters )
+//        if isProfileUpdateAdd == true {
+//
+//            let strAddress = txtAddress.text ?? ""
+//
+////            let strFullAddress = strAddress + " " + strCity + " " + strState + " " + strZipCode + " " + strCountry
+//
+////            addUpdateProfileurl = "https://massage-robotics-website.uc.r.appspot.com/rd?query='UPDATE Userprofile SET address='\(strFullAddress)',age='\(txtType.text ?? "")',children='\(txtChildren.text ?? "")',ethnicity='\(txtEthniciy.text ?? "")',gender='\(txtGender.text ?? "")',height='\(strHUnitValue)',income='\(txtIncome.text ?? "")',language='\(txtLanguage.text ?? "")',marital='\(txtMarriedSingle.text ?? "")',occupation='\(txtOccupation.text ?? "")',selfemployeed='\(txtSelfEmployeed.text ?? "")',thumbnail='\(strProImgName)',units='\(txtPreferredUnits.text ?? "")',weight='\(strWUnitValue)',city='\(txtCity.text ?? "")',state='\(txtState.text ?? "")',zip='\(txtzipCode.text ?? "")',country='\(txtCountry.text ?? "")',phone='\(txtPhoneNum.text ?? "")',heightunit='\(strHUnit)',weightunit='\(strWUnit)' WHERE userid='\(userID)''"
+//
+//            addUpdateProfileurl = "https://massage-robotics-website.uc.r.appspot.com/rd?query='UPDATE Userprofile SET address='\(strAddress)',age='\(txtType.text ?? "")',children='\(txtChildren.text ?? "")',ethnicity='\(txtEthniciy.text ?? "")',gender='\(strGender)',height='\(strHUnitValue)',income='\(txtIncome.text ?? "")',language='\(txtLanguage.text ?? "")', marital='\(txtMarriedSingle.text ?? "")',occupation='\(txtOccupation.text ?? "")',selfemployeed='\(txtSelfEmployeed.text ?? "")',thumbnail='\(strProImgName)',units='\(txtPreferredUnits.text ?? "")',weight='\(strWUnitValue)' ,city='\(txtCity.text ?? "")',state='\(txtState.text ?? "")',zip='\(txtzipCode.text ?? "")',country='\(txtCountry.text ?? "")',phone='\(txtPhoneNum.text ?? "")',heightunit='\(strHUnit)',weightunit='\(strWUnit)' WHERE userid='\(userID)''"
+//
+////            addUpdateProfileurl = "https://massage-robotics-website.uc.r.appspot.com/rd?query='UPDATE Userprofile SET address='\(strFullAddress)',age='\(txtType.text ?? "")',children='\(txtChildren.text ?? "")',ethnicity='\(txtEthniciy.text ?? "")',gender='M',height='\(txtFeet.text ?? "")',income='\(txtIncome.text ?? "")',language='\(txtLanguage.text ?? "")', marital='\(txtMarriedSingle.text ?? "")',occupation='\(txtOccupation.text ?? "")',selfemployeed='\(txtSelfEmployeed.text ?? "")',thumbnail='\(strProImgName)',units='\(txtPreferredUnits.text ?? "")',weight='',city='\(txtCity.text ?? "")',state='\(txtState.text ?? "")',zip='\(txtzipCode.text ?? "")',country='\(txtCountry.text ?? "")',phone='\(txtPhoneNum.text ?? "")',heightunit='\(strHUnit)',weightunit='\(strWUnit)' WHERE userid='\(userID)''" User5ocy7ckrlrvl8zie
+//        }else {
+//            addUpdateProfileurl = "https://massage-robotics-website.uc.r.appspot.com/wt?tablename=UserProfile&row=[('\(userID)','\(txtAddress.text ?? "")','\(txtCity.text ?? "")','\(txtState.text ?? "")','\(txtzipCode.text ?? "")','\(txtPhoneNum.text ?? "")','\(txtCountry.text ?? "")','\(txtEthniciy.text ?? "")','\(strHUnitValue)','\(strHUnit)','\(strWUnitValue)','\(strWUnit)','\(txtIncome.text ?? "")','\(txtLanguage.text ?? "")','\(txtMarriedSingle.text ?? "")','\(txtOccupation.text ?? "")','\(txtSelfEmployeed.text ?? "")','\(txtType.text ?? "")','\(txtChildren.text ?? "")','\(txtGender.text ?? "")','\(txtPreferredUnits.text ?? "")')]"
+//        }
+                                
+//        print(addUpdateProfileurl)
+//
+//        let encodedUrl = addUpdateProfileurl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+////
+//        callAPI(url: encodedUrl!) { [self] (json, data1) in
+//            print(json)
+//            self.hideLoading()
+//            if json.getString(key: "Response") == "UPDATE query executed Successfully" {
+//                showToast(message: "User Profile Update Successfully.")
+//            }else if json.getString(key: "Response") == "Success" {
+//                showToast(message: "Add User Profile Successfully.")
+//            }
+//            self.navigationController?.popViewController(animated: true)
+//        }
     }
 }
 
@@ -1015,5 +1028,149 @@ extension UpdateProfileViewController: UINavigationControllerDelegate, UIImagePi
             }
           }*/
         }
+    }
+}
+
+
+extension UpdateProfileViewController {
+    
+    
+    private func UserProfileDataUpdate(parameters:[String:Any]){
+        
+        let token = UserDefaults.standard.object(forKey: TOKEN) as? String ?? ""
+        guard isReachable else{return}
+        showLoading()
+        let url = "https://api.massagerobotics.com/user/profile/"
+        
+        ApiHelper.sharedInstance.PostMethodServiceCall(url: url, param: parameters, Token: token, method: .patch) { [self] (response,error) in
+            self.hideLoading()
+            if response != nil {
+                let status = response!["status"] as! Bool
+                if status {
+                    showToast(message: "User Profile Update Successfully.")
+                    self.navigationController?.popViewController(animated: true)
+                } else {
+                    
+                }
+            } else {
+                self.showToast(message: "Something is wrong please try againt")
+            }
+        }
+    }
+    private func UserDataGet() {
+        
+        let token = UserDefaults.standard.object(forKey: TOKEN) as? String ?? ""
+        
+        guard isReachable else{return}
+        showLoading()
+        let url = "https://api.massagerobotics.com/user/profile/"
+        
+        ApiHelper.sharedInstance.GetMethodServiceCall(url: url, Token: token) { [self] (response, error) in
+            self.hideLoading()
+            if response != nil {
+                let Status = response!["status"] as! Bool
+                if Status {
+                    let RespoData = response!["data"] as! [String:Any]
+                    print("RespoData:-\(RespoData)")
+                    
+                    activityIndicat.startAnimating()
+                    
+                    isProfileUpdateAdd = true
+                                        
+                    txtType.text = RespoData.getString(key: "age")
+                    txtGender.text = RespoData.getString(key: "gender")
+                    txtEthniciy.text = RespoData.getString(key: "ethnicity")
+                    txtPreferredUnits.text = RespoData.getString(key: "units")
+                    
+                    if txtGender.text == "M" {
+                        txtGender.text = "Male"
+                        
+                    }
+                    else
+                    {
+                        txtGender.text = "Female"
+                    }
+                    
+                    if txtPreferredUnits.text == "Metric" {
+                        lblFeet.text = "Feet(ft):"
+                        lblWeight.text = "Weight(Kg):"
+                        
+                        arrFeet.removeAll()
+                        
+                        arrFeet = ["5.0","5.1","5.2","5.3","5.4","5.5","5.6","5.7","5.8","5.9","6.0","6.1","6.2","6.3","6.4","6.5","6.6","6.7","6.8","6.9","7.0","7.2","7.4","7.6"]
+                                                               
+                        for weightList in 60...300 {
+                            arrWeight.append(String(weightList))
+                        }
+                    }else {
+                        //Imperial
+                        lblFeet.text = "Feet(cm):"
+                        lblWeight.text = "Weight(Pound):"
+                        
+                        arrFeet.removeAll()
+                        
+                        arrFeet = ["152.4","155.4","158.4","161.5","164.5","167.6","170.6","173.7","176.7","179.8","182.8","185.9","188.9","192.0","195.0","198.1","201.1","204.2","207.2","210.3","213.3","216.4","219.4","222.5","225.5","228.6","231.6"]
+                        
+                        for weightList in 60...300 {
+                            let fltPounds = String(format: "%.2f", Double(weightList)*2.2046)
+                            arrWeight.append(String(fltPounds))
+                        }
+                    }
+                    
+                    txtWeight.text = RespoData.getString(key: "weight")
+                    txtFeet.text = RespoData.getString(key: "height")
+                    txtMarriedSingle.text = RespoData.getString(key: "marital")
+                    txtChildren.text = RespoData.getString(key: "children")
+                    txtCountry.text = RespoData.getString(key: "country")
+                    txtIncome.text = RespoData.getString(key: "income")
+                    txtOccupation.text = RespoData.getString(key: "occupation")
+                    txtSelfEmployeed.text = RespoData.getString(key: "selfemployeed")
+                    txtLanguage.text = RespoData.getString(key: "language")
+                    txtAddress.text = RespoData.getString(key: "address")
+                    txtzipCode.text = RespoData.getString(key: "zip")
+                    txtPhoneNum.text = RespoData.getString(key: "phone")
+                    txtState.text = RespoData.getString(key: "state")
+                    txtCity.text = RespoData.getString(key: "city")
+                                                
+                    if RespoData.getString(key: "thumbnail") != "" {
+                        strProImgNameThumnil = RespoData.getString(key: "thumbnail")
+                        self.loadProfileImg(strThumbnail: RespoData.getString(key: "thumbnail"))
+//
+//                                    let strURLThumb: String = "https://firebasestorage.googleapis.com/v0/b/massage-robotics-website.appspot.com/o/photos" + profileData.getString(key: "thumbnail") + "?alt=media"
+//                                    let urls = URL.init(string: strURLThumb)
+//                                    imgRoutine.sd_setImage(with: urls , placeholderImage: UIImage(named: "MyProfile"))
+                    }else {
+                        activityIndicat.stopAnimating()
+                        activityIndicat.isHidden = true;
+                        imgRoutine.image = UIImage(named: "MyProfile")
+                    }
+                } else {
+                    
+                    arrFeet.removeAll()
+                    
+                    isProfileUpdateAdd = false
+                    
+                    arrFeet = ["5.0","5.1","5.2","5.3","5.4","5.5","5.6","5.7","5.8","5.9","6.0","6.1","6.2","6.3","6.4","6.5","6.6","6.7","6.8","6.9","7.0","7.2","7.4","7.6"]
+                                                           
+                    for weightList in 60...300 {
+                        arrWeight.append(String(weightList))
+                    }
+                }
+            } else {
+                self.showToast(message: "Something is wrong please try againt")
+            }
+        }
+    }
+}
+
+
+extension Collection where Iterator.Element == [String:Any] {
+    func toJSONString(options: JSONSerialization.WritingOptions = .prettyPrinted) -> String {
+        if let arr = self as? [[String:Any]],
+            let dat = try? JSONSerialization.data(withJSONObject: arr, options: options),
+            let str = String(data: dat, encoding: String.Encoding.utf8) {
+            return str
+        }
+        return ""//"[]"
     }
 }

@@ -152,7 +152,7 @@ extension SignUpViewController {
         let url = "https://api.massagerobotics.com/user/register/"
         let parameters = ["firstname":Firstname,"lastname":Lastname,"email":Email,"password":Password,"userid":UserId,"role":"customer"]
         
-        ApiHelper.sharedInstance.PostMethodServiceCall(url: url, param: parameters) { [self] (response, error) in
+        ApiHelper.sharedInstance.PostMethodServiceCall(url: url, param: parameters, Token: "", method: .post) { [self] (response, error) in
             self.hideLoading()
             
             if response != nil {

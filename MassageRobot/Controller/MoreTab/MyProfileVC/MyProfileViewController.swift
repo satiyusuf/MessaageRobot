@@ -53,7 +53,8 @@ class MyProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.setUserProfileDataService()
+        //self.setUserProfileDataService()
+        self.UserDataGet()
     }
     
     func setUserProfileDataService() {
@@ -271,4 +272,90 @@ class ImageLoader {
       DispatchQueue.main.async { completionHandler(UIImage(data: data as Data)) }
     }
   }
+}
+
+extension MyProfileViewController {
+    
+    private func UserDataGet() {
+        
+        let token = UserDefaults.standard.object(forKey: TOKEN) as? String ?? ""
+        
+        guard isReachable else{return}
+        showLoading()
+        let url = "https://api.massagerobotics.com/user/profile/"
+        
+        ApiHelper.sharedInstance.GetMethodServiceCall(url: url, Token: token) { [self] (response, error) in
+            self.hideLoading()
+            if response != nil {
+                let Status = response!["status"] as! Bool
+                if Status {
+                    let RespoData = response!["data"] as! [String:Any]
+                    print("RespoData:-\(RespoData)")
+                    
+                    lblUserName.text = UserDefaults.standard.object(forKey: USERNAME) as? String ?? ""
+                    lblEmail.text = UserDefaults.standard.object(forKey: EMAILID) as? String ?? ""
+                    
+                    if RespoData.getString(key: "thumbnail") != "" {
+                        self.loadProfileImg(strThumbnail: RespoData.getString(key: "thumbnail"))
+                    }else {
+                        //activityIndicat.stopAnimating()
+                        //activityIndicat.isHidden = true;
+                        imgProfilePic.image = UIImage(named: "user-avtar")
+                    }
+                    
+                    lblAge.text = RespoData.getString(key: "age")
+                    lblGender.text = RespoData.getString(key: "gender")
+                    lblEthniciy.text = RespoData.getString(key: "ethnicity")
+                    lblPreferredUnits.text = RespoData.getString(key: "units")
+                    lblWeight.text = RespoData.getString(key: "weight")
+                    lblFeet.text = RespoData.getString(key: "height")
+                    lblMarried.text = RespoData.getString(key: "marital")
+                    lblChildren.text = RespoData.getString(key: "children")
+                    lblCountry.text = RespoData.getString(key: "country")
+                    lblIncome.text = RespoData.getString(key: "income")
+                    lblOccupation.text = RespoData.getString(key: "occupation")
+                    lblSelfEmployeed.text = RespoData.getString(key: "selfemployeed")
+                    lblLanguage.text = RespoData.getString(key: "language")
+                    lblAddress.text = RespoData.getString(key: "address")
+                    lblMobile.text = RespoData.getString(key: "phone")
+                    lblCity.text = RespoData.getString(key: "city")
+                    lblState.text = RespoData.getString(key: "state")
+                    lblZipCode.text = RespoData.getString(key: "zip")
+                    
+                    if lblGender.text == "M"
+                    {
+                        lblGender.text = "Male"
+                    }
+                    else
+                    {
+                        lblGender.text = "Female"
+                    }
+                    
+                    
+                    btnUpdate.setTitle("Update Profile", for: .normal)
+                    
+                } else {
+                    lblAge.text = "0"
+                    lblGender.text = "-"
+                    lblEthniciy.text = "-"
+                    lblPreferredUnits.text = "0"
+                    lblWeight.text = "0"
+                    lblFeet.text = "0"
+                    lblMarried.text = "-"
+                    lblChildren.text = "-"
+                    lblCountry.text = "-"
+                    lblIncome.text = "0"
+                    lblOccupation.text = "-"
+                    lblSelfEmployeed.text = "-"
+                    lblLanguage.text = "-"
+                    lblAddress.text = "-"
+                    
+                    btnUpdate.setTitle("Add You Profile", for: .normal)
+                }
+            } else {
+                self.showToast(message: "Something is wrong please try againt")
+            }
+            
+        }
+    }
 }

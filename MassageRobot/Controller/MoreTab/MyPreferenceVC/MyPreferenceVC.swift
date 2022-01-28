@@ -35,16 +35,17 @@ class MyPreferenceVC: UIViewController {
     var QueAnsList = [String]()
     var strQueAnsList: String = ""
     var staticpickervalue = ["Monthly", "Weekly", "Daily"]
-                
     var pickervalue12 = ["Never", "Weekly", "Daily"]
-
     
     var dictLocalStore = [String: AnyObject]()
     var dictPassAPIStore = [String]()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-                        
+                       
+        self.GetNewQuestionList()
+        
         localQueAndList.removeAll()
 
         ViewTop_UPRadius(value: 10, outlet: self.progressandCount )
@@ -52,14 +53,6 @@ class MyPreferenceVC: UIViewController {
         
         borderBtn(value: 10, outlet:self.previewBtn )
         borderBtn(value: 10, outlet:self.nextBtn )
-        
-//        let deviceHeight = UIScreen.main.nativeBounds.height
-//
-//        if deviceHeight <= 1334.0{
-//            self.topScreen_constrnt.constant = 20.0
-//        }else{
-//            self.topScreen_constrnt.constant = 62.0
-//        }
         
         UserDefaults.standard.set("", forKey: strQue1)
         UserDefaults.standard.set("", forKey: strQue2)
@@ -83,9 +76,9 @@ class MyPreferenceVC: UIViewController {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         BackView.addGestureRecognizer(tap)
-        self.setUserPreferenceQuestionService()
+      //  self.setUserPreferenceQuestionService()
         
-        getUserPreferenceQuestionAnswerData()
+        //getUserPreferenceQuestionAnswerData()
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
@@ -120,7 +113,7 @@ class MyPreferenceVC: UIViewController {
                     let data = string.data(using: .utf8)!
                     do {
                         if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>] {
-                            questionaryFile.append(contentsOf: jsonArray)
+                                questionaryFile.append(contentsOf: jsonArray)
                             
                             self.countText.text = "1 / \(questionaryFile.count)"
                             progressBar.progress = Float(Float(1)/Float(questionaryFile.count))
@@ -288,7 +281,8 @@ class MyPreferenceVC: UIViewController {
             
             isSubmitQue = true
             
-            self.setQueAnsServiceCall(strQueID: questionList.getString(key: "questionid"), strAns: strAnsQue)
+           // self.setQueAnsServiceCall(strQueID: questionList.getString(key: "questionid"), strAns: strAnsQue)
+            self.AnswerSubmit(QueID:  questionList.getString(key: "questionid"), Que: questionList.getString(key: "preferencequestion"), Ans: strAnsQue)
         }else{
             isSubmitQue = false
             
@@ -339,8 +333,8 @@ class MyPreferenceVC: UIViewController {
                 }
 //                let strAnsQue: String = UserDefaults.standard.object(forKey: QueAns) as? String ?? ""
                 
-                self.setQueAnsServiceCall(strQueID: questionList.getString(key: "questionid"), strAns: strAnsQue)
-                                
+                //self.setQueAnsServiceCall(strQueID: questionList.getString(key: "questionid"), strAns: strAnsQue)
+                self.AnswerSubmit(QueID:  questionList.getString(key: "questionid"), Que: questionList.getString(key: "preferencequestion"), Ans: strAnsQue)
                 self.currentIndexpath = IndexPath(row: Int(currentPlace) + 1, section: 0)
                 print(currentIndexpath.row)
                 
@@ -484,6 +478,7 @@ extension MyPreferenceVC : UICollectionViewDelegate,UICollectionViewDataSource,U
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MyPreferenceCollectioncell
         let questionList = questionaryFile[indexPath.row]
+       // cell.questionaryText.text = questionList.getString(key: "preferencequestion")
         cell.questionaryText.text = questionList.getString(key: "preferencequestion")
         self.currentIndexVal = indexPath.row
         print(self.currentIndexVal)
@@ -960,6 +955,78 @@ extension MyPreferenceCollectioncell:UIPickerViewDelegate, UIPickerViewDataSourc
             UserDefaults.standard.set(selectedCost, forKey: strQue18)
         }else if currentIndex == 18 {
             UserDefaults.standard.set(selectedCost, forKey: strQue19)
+        }
+    }
+}
+
+//MARK:- NewApi Call New Implimecation Code Here
+extension MyPreferenceVC {
+    
+    func GetNewQuestionList() {
+        
+        let Toke = UserDefaults.standard.object(forKey: TOKEN) as? String ?? ""
+        guard isReachable else{return}
+        showLoading()
+        let url = "https://api.massagerobotics.com/user/preference-questions/"
+        
+        ApiHelper.sharedInstance.GetMethodServiceCall(url: url, Token: Toke) { [self] (response, error) in
+            self.hideLoading()
+            if response != nil {
+                let Status = response!["status"] as! Bool
+                if Status {
+                    let RespoData = response!["data"] as! [[String:Any]]
+                    
+                    print("RespoData:-\(RespoData)")
+                    self.questionaryFile = RespoData
+                    print("arrNewQuestionList:-\(self.questionaryFile)")
+                    self.countText.text = "1 / \(questionaryFile.count)"
+                    progressBar.progress = Float(Float(1)/Float(questionaryFile.count))
+                    self.collectionObj.reloadData()
+                } else {
+                    let RespoData = response!["data"] as! [String:Any]
+                    let message = (RespoData["detail"]! as! NSArray).mutableCopy() as! NSMutableArray
+                    let NewMeaage = message[0]
+                    print(message)
+                    self.showToast(message: NewMeaage as? String ?? "")
+                }
+            } else {
+                self.showToast(message: "Something is wrong please try againt")
+            }
+        }
+    }
+    func AnswerSubmit(QueID:String,Que:String,Ans:String) {
+        
+        let Toke = UserDefaults.standard.object(forKey: TOKEN) as? String ?? ""
+        guard isReachable else{return}
+        showLoading()
+        let url = "https://api.massagerobotics.com/user/preference-questions/"
+        let param = ["preferencequestion":Que,"questionid":QueID,"answer":Ans]
+        ApiHelper.sharedInstance.PostMethodServiceCall(url: url, param: param, Token: Toke, method: .patch) { [self] (response, error) in
+            self.hideLoading()
+            if response != nil {
+                let status = response!["status"] as! Bool
+                if status {
+                    let RespoData = response!["data"] as! [String:Any]
+                   // self.showToast(message: RespoData!["message"] as? String ?? "")
+                    if isSubmitQue == true {
+                        let sb = UIStoryboard(name: "Menu", bundle: nil)
+                        let vc = sb.instantiateViewController(withIdentifier: "AnsQueListView") as! AnsQueListViewController
+                        vc.queAnsList.removeAll()
+                        vc.queAnsList.append(contentsOf: localQueAndList)
+                        navigationController?.pushViewController(vc, animated: false)
+                    }
+                    
+                } else {
+                //    let RespoData = response!["data"] as! [String:Any]
+                //    let message = (RespoData["detail"]! as! NSArray).mutableCopy() as! NSMutableArray
+//                    let NewMeaage = message[0]
+//                    print(message)
+                   // self.showToast(message: NewMeaage as? String ?? "")
+                }
+                
+            } else {
+                self.showToast(message: "Something is wrong please try againt")
+            }
         }
     }
 }
