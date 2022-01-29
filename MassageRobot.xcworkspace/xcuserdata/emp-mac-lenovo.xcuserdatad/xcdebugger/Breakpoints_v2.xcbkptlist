@@ -526,8 +526,8 @@
             filePath = "MassageRobot/Controller/LoginRegisterView/SignUpViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "184"
-            endingLineNumber = "184"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "RegisterApi(Firstname:Lastname:Email:Password:UserId:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -124,10 +124,14 @@ class SignupViewCell: UITableViewCell {
                 
             }else if password_text.text == ConfirmPassword.text{
                 //api call here
+                if txtCodeVerify.text?.isEmpty == true {
+                    showAlert(title: helper.shared.APP_ALERT_TITLE_OOPS, message: "please enter captcha code", viewController: root)
+
+                }
                 if lblCode.text == txtCodeVerify.text {
                     signup.RegisterApi(Firstname: firstName.text!, Lastname: lastName.text!, Email: Email.text!, Password: password_text.text!, UserId: helper.shared.randomUserId())
                 } else {
-                    showAlert(title: helper.shared.APP_ALERT_TITLE_OOPS, message: "Code are not match please try againt", viewController: root)
+                    showAlert(title: helper.shared.APP_ALERT_TITLE_OOPS, message: "captcha code are not match please try againt", viewController: root)
                     self.lblCode.text = randomString(length: 4)
                 }
              //   signup.getNewUser(userID: helper.shared.randomUserId(), firstname: firstName.text!, lastname: lastName.text!, email: Email.text!, lastlogin: df.string(from: Date()) , registerdate: df.string(from: Date()), role: "customer", password: password_text.text!)
@@ -176,7 +180,9 @@ extension SignUpViewController {
                 print("Status:-\(Status)")
                 if Status {
                     let RespoData = response!["data"] as! [String:Any]
-                    self.navigationController?.popViewController(animated: true)
+                    let message =  RespoData["detail"] as? String ?? ""
+                    print(message)
+                   // self.navigationController?.popViewController(animated: true)
                     print("RespoData:-\(RespoData)")
                 } else {
                     let RespoData = response!["data"] as! [String:Any]
