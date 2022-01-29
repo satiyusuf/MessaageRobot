@@ -107,6 +107,8 @@ extension SignUpViewController : UITableViewDataSource,UITableViewDelegate{
 
 class SignupViewCell: UITableViewCell {
     
+    @IBOutlet weak var txtCodeVerify: UITextField!
+    @IBOutlet weak var lblCode: UILabel!
     var signup = SignUpViewController()
     
     
@@ -122,7 +124,12 @@ class SignupViewCell: UITableViewCell {
                 
             }else if password_text.text == ConfirmPassword.text{
                 //api call here
-                signup.RegisterApi(Firstname: firstName.text!, Lastname: lastName.text!, Email: Email.text!, Password: password_text.text!, UserId: helper.shared.randomUserId())
+                if lblCode.text == txtCodeVerify.text {
+                    signup.RegisterApi(Firstname: firstName.text!, Lastname: lastName.text!, Email: Email.text!, Password: password_text.text!, UserId: helper.shared.randomUserId())
+                } else {
+                    showAlert(title: helper.shared.APP_ALERT_TITLE_OOPS, message: "Code are not match please try againt", viewController: root)
+                    self.lblCode.text = randomString(length: 4)
+                }
              //   signup.getNewUser(userID: helper.shared.randomUserId(), firstname: firstName.text!, lastname: lastName.text!, email: Email.text!, lastlogin: df.string(from: Date()) , registerdate: df.string(from: Date()), role: "customer", password: password_text.text!)
             }else{
                 showAlert(title: helper.shared.APP_ALERT_TITLE_OOPS, message: "Password is not matched", viewController: root)
@@ -140,6 +147,15 @@ class SignupViewCell: UITableViewCell {
     @IBOutlet weak var viewBack: UIView!
     @IBOutlet weak var viewLeft: UIView!
     @IBOutlet weak var viewRight: UIView!
+    
+    func randomString(length: Int) -> String {
+      let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+      return String((0..<length).map{ _ in letters.randomElement()! })
+    }
+    override func awakeFromNib() {
+            super.awakeFromNib()
+            self.lblCode.text = randomString(length: 4)
+        }
 }
 
 
@@ -164,10 +180,9 @@ extension SignUpViewController {
                     print("RespoData:-\(RespoData)")
                 } else {
                     let RespoData = response!["data"] as! [String:Any]
-                    let message = (RespoData["email"]! as! NSArray).mutableCopy() as! NSMutableArray
-                    let NewMeaage = message[0]
+                    let message =  RespoData["detail"] as? String ?? ""
                     print(message)
-                    showToast(message: NewMeaage as? String ?? "")
+                    showToast(message:message)
                 }
             } else {
                 self.alert(message: "Something is wrong please try againt", title: "Error")
