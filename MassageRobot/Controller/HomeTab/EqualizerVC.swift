@@ -17,11 +17,11 @@ class EqualizerVC: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        self.pickerKG.delegate = self
-        self.pickerKG.dataSource = self
-            
-        self.pickerRabbit.delegate = self
-        self.pickerRabbit.dataSource = self
+//        self.pickerKG.delegate = self
+//        self.pickerKG.dataSource = self
+//            
+//        self.pickerRabbit.delegate = self
+//        self.pickerRabbit.dataSource = self
     }
     
     @IBAction func btnBodyTopAction(_ sender: UIButton) {
