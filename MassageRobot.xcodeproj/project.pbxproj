@@ -16,6 +16,7 @@
 		765B021026FC5F7600EFF7AB /* NewHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765B020F26FC5F7600EFF7AB /* NewHomeVC.swift */; };
 		766E7A87274676B700B1D5B7 /* SearchFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766E7A86274676B700B1D5B7 /* SearchFilterVC.swift */; };
 		768F9B0E26FD929100381894 /* PDFViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768F9B0D26FD929100381894 /* PDFViewVC.swift */; };
+		7B2EA33D27AA53AE0036D8DE /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EA33C27AA53AE0036D8DE /* ChangePasswordVC.swift */; };
 		86F3322C3FD2C35421C5D74B /* Pods_MassageRobot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE5EC1757D44B6A666C3E760 /* Pods_MassageRobot.framework */; };
 		CFC6FD6227562F7900BECB6A /* SearchDataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC6FD6127562F7900BECB6A /* SearchDataVC.swift */; };
 		FF00D53D26AE730F00B440F4 /* SegmentPlayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00D53B26AE730F00B440F4 /* SegmentPlayCell.swift */; };
@@ -106,6 +107,7 @@
 		765B020F26FC5F7600EFF7AB /* NewHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHomeVC.swift; sourceTree = "<group>"; };
 		766E7A86274676B700B1D5B7 /* SearchFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterVC.swift; sourceTree = "<group>"; };
 		768F9B0D26FD929100381894 /* PDFViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFViewVC.swift; sourceTree = "<group>"; };
+		7B2EA33C27AA53AE0036D8DE /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		7B6EB72C279E8E8900493AC9 /* MassageRobot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MassageRobot.entitlements; sourceTree = "<group>"; };
 		BE5EC1757D44B6A666C3E760 /* Pods_MassageRobot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MassageRobot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFC6FD6127562F7900BECB6A /* SearchDataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDataVC.swift; sourceTree = "<group>"; };
@@ -518,6 +520,7 @@
 				FFF1A50D26B0490500A1B8A2 /* SignUpViewController.swift */,
 				FFF1A50E26B0490500A1B8A2 /* ForgotPasswordViewController.swift */,
 				FFF1A50F26B0490500A1B8A2 /* LoginViewController.swift */,
+				7B2EA33C27AA53AE0036D8DE /* ChangePasswordVC.swift */,
 			);
 			path = LoginRegisterView;
 			sourceTree = "<group>";
@@ -711,6 +714,7 @@
 				FF15639E26810707008BB56E /* Constant.swift in Sources */,
 				FF1563A326810707008BB56E /* GradientCircularProgressBar.swift in Sources */,
 				FFD830B726B9875B00EA1AA3 /* CalibrationViewController.swift in Sources */,
+				7B2EA33D27AA53AE0036D8DE /* ChangePasswordVC.swift in Sources */,
 				FF1563A426810707008BB56E /* PlainCircularProgressBar.swift in Sources */,
 				FF15638526810689008BB56E /* CustomDelegate.swift in Sources */,
 				FF9D058B268B37F20087E6BF /* CategoryRoutineViewController.swift in Sources */,

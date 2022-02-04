@@ -21,4 +21,6 @@ target 'MassageRobot' do
   pod 'RangeSeekSlider'
   pod 'GoogleSignIn'
   
+  pod 'BiometricAuthentication'
+
 end

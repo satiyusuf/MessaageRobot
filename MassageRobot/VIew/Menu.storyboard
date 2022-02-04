@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MgS-1e-fwr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MgS-1e-fwr">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -2954,6 +2954,166 @@
             </objects>
             <point key="canvasLocation" x="4697" y="94"/>
         </scene>
+        <!--Change PasswordVC-->
+        <scene sceneID="6iG-Lm-ini">
+            <objects>
+                <viewController storyboardIdentifier="ChangePasswordVC" id="wUI-LX-OCS" customClass="ChangePasswordVC" customModule="MassageRobot" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="T7G-JZ-hK0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogRegi" translatesAutoresizingMaskIntoConstraints="NO" id="XI3-H5-1HT">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B5e-mt-UCd">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pVO-AF-gBP">
+                                        <rect key="frame" x="16" y="0.0" width="48" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="48" id="QIm-1A-TNT"/>
+                                        </constraints>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="BackIcon">
+                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnBack:" destination="wUI-LX-OCS" eventType="touchUpInside" id="qt9-Yq-Ajs"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="pVO-AF-gBP" firstAttribute="top" secondItem="B5e-mt-UCd" secondAttribute="top" id="bwG-6v-yFL"/>
+                                    <constraint firstAttribute="height" constant="44" id="dX0-JB-ccO"/>
+                                    <constraint firstAttribute="bottom" secondItem="pVO-AF-gBP" secondAttribute="bottom" id="mDB-EN-0Wp"/>
+                                    <constraint firstItem="pVO-AF-gBP" firstAttribute="leading" secondItem="B5e-mt-UCd" secondAttribute="leading" constant="16" id="rdN-Yk-74b"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Xh-nm-fei">
+                                <rect key="frame" x="45" y="128" width="324" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="Qan-Ah-tNR"/>
+                                </constraints>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Password " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6x-NV-LnH">
+                                <rect key="frame" x="105.5" y="288" width="203.5" height="42"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="YLf-e8-aQb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="24"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="64t-eN-76q">
+                                <rect key="frame" x="45" y="370" width="324" height="155"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xbF-Bo-Qs6" customClass="TextField" customModule="MassageRobot" customModuleProvider="target">
+                                        <rect key="frame" x="4" y="63" width="316" height="38"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="contentStretch" x="0.94999999999999996" y="0.0" width="0.94999999999999996" height="1"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="38" id="voV-na-bVt"/>
+                                            <constraint firstAttribute="width" constant="316" id="xpZ-ii-aMc"/>
+                                        </constraints>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sE4-Nc-goi" customClass="TextField" customModule="MassageRobot" customModuleProvider="target">
+                                        <rect key="frame" x="4" y="116" width="316" height="38"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="contentStretch" x="0.94999999999999996" y="0.0" width="0.94999999999999996" height="1"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="316" id="RC4-P6-zP5"/>
+                                            <constraint firstAttribute="height" constant="38" id="ylD-q9-vJk"/>
+                                        </constraints>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Old Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BV0-lS-QVX" customClass="TextField" customModule="MassageRobot" customModuleProvider="target">
+                                        <rect key="frame" x="4" y="10" width="316" height="38"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="contentStretch" x="0.94999999999999996" y="0.0" width="0.90000000000000002" height="1"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="316" id="2cB-U1-28s"/>
+                                            <constraint firstAttribute="height" constant="38" id="OCY-RS-Tk0"/>
+                                        </constraints>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="BV0-lS-QVX" firstAttribute="top" secondItem="64t-eN-76q" secondAttribute="top" constant="10" id="4dd-mF-EBK"/>
+                                    <constraint firstItem="BV0-lS-QVX" firstAttribute="centerX" secondItem="64t-eN-76q" secondAttribute="centerX" id="Nkq-sd-K12"/>
+                                    <constraint firstAttribute="height" constant="155" id="WKe-ft-fe3"/>
+                                    <constraint firstItem="xbF-Bo-Qs6" firstAttribute="top" secondItem="BV0-lS-QVX" secondAttribute="bottom" constant="15" id="cMb-gB-w81"/>
+                                    <constraint firstItem="sE4-Nc-goi" firstAttribute="trailing" secondItem="xbF-Bo-Qs6" secondAttribute="trailing" id="ceG-FQ-bUj"/>
+                                    <constraint firstItem="xbF-Bo-Qs6" firstAttribute="centerX" secondItem="64t-eN-76q" secondAttribute="centerX" id="o5K-MF-Ewu"/>
+                                    <constraint firstItem="sE4-Nc-goi" firstAttribute="top" secondItem="xbF-Bo-Qs6" secondAttribute="bottom" constant="15" id="uuy-uN-0VP"/>
+                                    <constraint firstItem="sE4-Nc-goi" firstAttribute="leading" secondItem="xbF-Bo-Qs6" secondAttribute="leading" id="w6H-2f-XTq"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tUh-s4-UBz">
+                                <rect key="frame" x="80" y="555" width="254" height="40"/>
+                                <color key="backgroundColor" red="0.070224247870000006" green="0.63115769619999995" blue="0.74120312929999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="1do-GR-cSh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
+                                <state key="normal" title="Submit">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="btnSubmit:" destination="wUI-LX-OCS" eventType="touchUpInside" id="7hg-y4-c7k"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="CmY-21-dGY"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="B5e-mt-UCd" firstAttribute="leading" secondItem="CmY-21-dGY" secondAttribute="leading" id="0U6-eC-yRK"/>
+                            <constraint firstItem="6Xh-nm-fei" firstAttribute="leading" secondItem="CmY-21-dGY" secondAttribute="leading" constant="45" id="1q4-NS-VlF"/>
+                            <constraint firstItem="tUh-s4-UBz" firstAttribute="top" secondItem="64t-eN-76q" secondAttribute="bottom" constant="30" id="4PZ-2k-7Vy"/>
+                            <constraint firstItem="XI3-H5-1HT" firstAttribute="top" secondItem="T7G-JZ-hK0" secondAttribute="top" id="67O-GW-qZC"/>
+                            <constraint firstItem="CmY-21-dGY" firstAttribute="trailing" secondItem="XI3-H5-1HT" secondAttribute="trailing" id="8Yb-j6-nYX"/>
+                            <constraint firstItem="XI3-H5-1HT" firstAttribute="leading" secondItem="CmY-21-dGY" secondAttribute="leading" id="AZM-5b-6cg"/>
+                            <constraint firstItem="CmY-21-dGY" firstAttribute="trailing" secondItem="tUh-s4-UBz" secondAttribute="trailing" constant="80" id="CGX-Zk-znW"/>
+                            <constraint firstItem="B5e-mt-UCd" firstAttribute="trailing" secondItem="CmY-21-dGY" secondAttribute="trailing" id="Q4S-eW-sWB"/>
+                            <constraint firstItem="CmY-21-dGY" firstAttribute="trailing" secondItem="6Xh-nm-fei" secondAttribute="trailing" constant="45" id="QDw-hp-imj"/>
+                            <constraint firstItem="CmY-21-dGY" firstAttribute="trailing" secondItem="64t-eN-76q" secondAttribute="trailing" constant="45" id="h1z-r4-TGI"/>
+                            <constraint firstItem="B5e-mt-UCd" firstAttribute="top" secondItem="CmY-21-dGY" secondAttribute="top" id="hWE-Xl-1Qt"/>
+                            <constraint firstAttribute="bottom" secondItem="XI3-H5-1HT" secondAttribute="bottom" id="kWX-6j-mhi"/>
+                            <constraint firstItem="64t-eN-76q" firstAttribute="top" secondItem="w6x-NV-LnH" secondAttribute="bottom" constant="40" id="nmw-bF-bLn"/>
+                            <constraint firstItem="tUh-s4-UBz" firstAttribute="leading" secondItem="CmY-21-dGY" secondAttribute="leading" constant="80" id="npt-fd-n7q"/>
+                            <constraint firstItem="6Xh-nm-fei" firstAttribute="top" secondItem="B5e-mt-UCd" secondAttribute="bottom" constant="40" id="tGe-4o-5kz"/>
+                            <constraint firstItem="64t-eN-76q" firstAttribute="leading" secondItem="CmY-21-dGY" secondAttribute="leading" constant="45" id="uo7-b8-4HL"/>
+                            <constraint firstItem="w6x-NV-LnH" firstAttribute="top" secondItem="6Xh-nm-fei" secondAttribute="bottom" constant="10" id="yc3-qD-PGq"/>
+                            <constraint firstItem="w6x-NV-LnH" firstAttribute="centerX" secondItem="6Xh-nm-fei" secondAttribute="centerX" id="zeK-Ik-9xa"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="KdT-ZL-DZ4"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="txtConfiPass" destination="sE4-Nc-goi" id="khI-av-2z7"/>
+                        <outlet property="txtNewPass" destination="xbF-Bo-Qs6" id="VQI-SN-D29"/>
+                        <outlet property="txtOldPass" destination="BV0-lS-QVX" id="fC8-4y-Ks3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sb7-xH-X76" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5377" y="94"/>
+        </scene>
     </scenes>
     <designables>
         <designable name="0Uh-oZ-LEL">
@@ -3055,6 +3215,7 @@
     </designables>
     <resources>
         <image name="BackIcon" width="12" height="20.5"/>
+        <image name="LogRegi" width="414.5" height="935"/>
         <image name="More_Icon" width="38" height="8.5"/>
         <image name="ProductXY" width="590" height="1310"/>
         <image name="ProductXYMap" width="200" height="200"/>
@@ -3062,6 +3223,7 @@
         <image name="RedPlayIcon" width="75" height="86.602996826171875"/>
         <image name="down" width="15" height="13"/>
         <image name="edit_white" width="64" height="64"/>
+        <image name="logo" width="139" height="40"/>
         <image name="user-avtar" width="128" height="128"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

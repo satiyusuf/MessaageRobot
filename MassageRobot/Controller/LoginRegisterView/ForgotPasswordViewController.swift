@@ -78,23 +78,30 @@ class ForgotPasswordViewController: UIViewController {
     
     @IBAction func btnSendLinkAction(_ sender: UIButton) {
         
-        let alert = UIAlertController(title: "Alert!", message: "Please check your mail_id, we have send OTP.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-            self.setOTPViewOpen()
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func setOTPViewOpen() {
-        
-        for txt in self.txtOTP {
-            txt.text = ""
+        if txtEmailPhone.text?.isEmpty == true {
+            showToast(message: "Please Enter Your Email id")
+        } else if helper.shared.isValidEmail(emailID: txtEmailPhone.text!) == false {
+            showToast(message: "Please enter valid email address.")
+        } else {
+            self.Forgotpass()
         }
-        
-        self.viewBack.isHidden = false
-        self.viewAction.isHidden = false
-
-        self.isOTPViewOpen = true
+//        let alert = UIAlertController(title: "Alert!", message: "Please check your mail_id, we have send OTP.", preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+//            self.setOTPViewOpen()
+//        }))
+//        self.present(alert, animated: true, completion: nil)
+//    }
+//
+//    func setOTPViewOpen() {
+//
+//        for txt in self.txtOTP {
+//            txt.text = ""
+//        }
+//
+//        self.viewBack.isHidden = false
+//        self.viewAction.isHidden = false
+//
+//        self.isOTPViewOpen = true
     }
     
     @IBAction func btnSubmitOTPAction(_ sender: UIButton) {
@@ -152,5 +159,36 @@ extension ForgotPasswordViewController: UITextFieldDelegate {
         }
                 
         return true
+    }
+}
+
+
+//MARK:- Private function
+extension ForgotPasswordViewController {
+    
+    private func Forgotpass(){
+        
+      //  let token = UserDefaults.standard.object(forKey: TOKEN) as? String ?? ""
+        guard isReachable else{return}
+        showLoading()
+        let url = "https://api.massagerobotics.com/user/forgot-password/"
+        let parameters = ["email":self.txtEmailPhone.text!]
+        ApiHelper.sharedInstance.PostMethodServiceCall(url: url, param: parameters, Token: "", method: .post) { [self] (response,error) in
+            self.hideLoading()
+            if response != nil {
+                let status = response!["status"] as! Bool
+                if status {
+                    let alert = UIAlertController(title: "Alert!", message: "Please check your mail_id, we have send OTP.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        self.navigationController?.popViewController(animated: true)
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    showToast(message: "Your Password Not Change")
+                }
+            } else {
+                self.showToast(message: "Something is wrong please try againt")
+            }
+        }
     }
 }

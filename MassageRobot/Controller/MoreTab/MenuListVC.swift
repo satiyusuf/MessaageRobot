@@ -11,8 +11,8 @@ class MenuListVC: UIViewController {
 
     @IBOutlet weak var tblMenuList: UITableView!
     
-    let arrMenuList = ["My Profile", "My Preference", "Add New Routine","I'm Feeling Lucky","Contact Us", "Gallery", "Investors", "FAQ", "Calibration","Reset", "Logout"]
-    let menuItemIcon = ["MyProfile","MyPreference","AddNewRoutine","AddNewRoutine","ContactUs","Gallery","Investors","FAQ","CalibrationANdReset","CalibrationANdReset","Logout"]
+    let arrMenuList = ["My Profile", "My Preference", "Add New Routine","I'm Feeling Lucky","Contact Us", "Gallery", "Investors", "FAQ", "Calibration","Reset", "Logout","Change Password"]
+    let menuItemIcon = ["MyProfile","MyPreference","AddNewRoutine","AddNewRoutine","ContactUs","Gallery","Investors","FAQ","CalibrationANdReset","CalibrationANdReset","Logout","changepassword"]
     
     var MyProfileIs = false
     var MyPreferenceIs = false
@@ -82,7 +82,7 @@ class MenuListVC: UIViewController {
 extension MenuListVC : UITableViewDataSource, UITableViewDelegate, MenuListCellDelegate {
     //MARK:- Table View Delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 11
+        return 12
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -169,6 +169,9 @@ extension MenuListVC : UITableViewDataSource, UITableViewDelegate, MenuListCellD
             UserDefaults.standard.set("No", forKey: ISLOGIN)
             let vc = UIStoryboard.init(name: "CreateToutine", bundle: Bundle.main).instantiateViewController(withIdentifier: "NewHomeVC") as! NewHomeVC
             UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
+        } else if index == 11 {
+            let calibrationView = UIStoryboard(name: "Menu", bundle: nil).instantiateViewController(withIdentifier: "ChangePasswordVC") as! ChangePasswordVC
+            self.navigationController?.pushViewController(calibrationView, animated: true)
         }
     }
 }

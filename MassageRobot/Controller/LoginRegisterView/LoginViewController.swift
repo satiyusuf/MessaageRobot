@@ -10,6 +10,7 @@ import Alamofire
 import Foundation
 import AuthenticationServices
 import GoogleSignIn
+import BiometricAuthentication
 
 class LoginViewController: UIViewController {
 
@@ -18,6 +19,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var AppleLogin: UIView!
     @IBOutlet weak var btnLogin: UIButton!
+    @IBOutlet weak var btnLoginWithFace: UIButton!
     
     //MARK:- Variable
     var googleSignIn = GIDSignIn.sharedInstance
@@ -30,6 +32,13 @@ class LoginViewController: UIViewController {
         self.txtPass.layer.cornerRadius = 7
         self.btnLogin.layer.cornerRadius = 15
      //   self.appleLoginButton()
+        let EmailPrefrence = UserDefaults.standard.object(forKey: "EmailPrefrence") as? String ?? ""
+        let PasswordPrefrence = UserDefaults.standard.object(forKey: "PasswordPrefrence") as? String ?? ""
+        print("EmailPrefrence:\(EmailPrefrence),PasswordPrefrence:\(PasswordPrefrence)")
+        if EmailPrefrence.isEmpty == true && PasswordPrefrence.isEmpty == true {
+            self.btnLoginWithFace.isUserInteractionEnabled = false
+            print("false")
+        }
     }
     
     @IBAction func btnBack(_ sender: Any) {
@@ -49,7 +58,6 @@ class LoginViewController: UIViewController {
         } else if helper.shared.isValidEmail(emailID: txtEmail.text!) == false {
             self.alert(message: "Please enter valid email address.", title: "Error")
         } else {
-            
             NewApiCall(Email: txtEmail.text!, Pass: txtPass.text!)
             // loginApi(username: self.txtEmail.text!, password: txtPass.text!)
         }
@@ -71,6 +79,53 @@ class LoginViewController: UIViewController {
             authorizationController.delegate = self
             authorizationController.presentationContextProvider = self
             authorizationController.performRequests()
+        }
+    }
+    @IBAction func btnLoginWithFace(_ sender: Any)
+    {
+        // Set AllowableReuseDuration in seconds to bypass the authentication when user has just unlocked the device with biometric
+        BioMetricAuthenticator.shared.allowableReuseDuration = 30
+        
+        // start authentication
+        BioMetricAuthenticator.authenticateWithBioMetrics(reason: "") { [self] (result) in
+                
+            switch result {
+            case .success(let data):
+                print("data:-\(data)")
+                //self?.alert(message:"Face Login" , title: "Succssufully")
+                self.facelogin()
+                
+            case .failure(let error):
+                
+                switch error {
+                // device does not support biometric (face id or touch id) authentication
+                case .biometryNotAvailable:
+                    self.alert(message: error.message(), title: "BiometryNotAvailable")
+                // No biometry enrolled in this device, ask user to register fingerprint or face
+                case .biometryNotEnrolled:
+                    let alert = UIAlertController(title: "BiometryNotEnrolled", message: error.message(), preferredStyle: .alert)
+                    let ok = UIAlertAction(title: "Go to settings", style: .default, handler: { action in
+                        let url = URL(string: UIApplication.openSettingsURLString)
+                                    if UIApplication.shared.canOpenURL(url!) {
+                                        UIApplication.shared.open(url!, options: [:])
+                                    }
+                    })
+                    alert.addAction(ok)
+                    self.present(alert, animated: true, completion: nil)
+                // show alternatives on fallback button clicked
+                case .fallback:
+                    self.alert(message:"Login" , title: "Succssufully")
+                case .biometryLockedout:
+                    self.alert(message: error.message(), title: "BiometryLockedout")
+                // do nothing on canceled by system or user
+                case .canceledBySystem, .canceledByUser:
+                    break
+                    
+                // show error for any other reason
+                default:
+                    self.alert(message: error.message())
+                }
+            }
         }
     }
 }
@@ -125,20 +180,72 @@ extension LoginViewController {
             }
         }
     }
+    
+    func facelogin(){
+        let EmailPrefrence = UserDefaults.standard.object(forKey: "EmailPrefrence") as? String ?? ""
+        let PasswordPrefrence = UserDefaults.standard.object(forKey: "PasswordPrefrence") as? String ?? ""
+        let SocialType = UserDefaults.standard.object(forKey: "SocialType") as? String ?? "" //value(forKey: "SocialType")
+        print("EmailPrefrence:\(EmailPrefrence),PasswordPrefrence:\(PasswordPrefrence),SocialType:\(SocialType)")
+
+    
+        if EmailPrefrence.isEmpty == false && PasswordPrefrence.isEmpty == false && SocialType.isEmpty == false {
+            DispatchQueue.main.async {
+               self.NewApiCall(Email: EmailPrefrence, Pass: PasswordPrefrence)
+                self.SocialLogin(Email: EmailPrefrence, SocialID: PasswordPrefrence, SocialType: SocialType)
+           }
+        } else {
+            DispatchQueue.main.async {
+               self.NewApiCall(Email: EmailPrefrence, Pass: PasswordPrefrence)
+           }
+        }
+    }
         
     func NewApiCall(Email:String,Pass:String) {
     
-        guard isReachable else{return}
+        guard isReachable else{
+            return
+
+        }
         showLoading()
         let url = "https://api.massagerobotics.com/user/login/"
-        let parameters = ["email":Email,"password":Pass] as [String:Any]
-       
-        let jsonData = try? JSONSerialization.data(withJSONObject: [parameters])
+        var parameters = [String:Any]()
+        parameters = ["email":Email,"password":Pass]
+        UserDefaults.standard.set(txtEmail.text!, forKey: "EmailPrefrence")
+        UserDefaults.standard.set(txtPass.text!, forKey: "PasswordPrefrence")
+        ApiHelper.sharedInstance.PostMethodServiceCall(url: url, param: parameters, Token: "", method: .post) { (response, error) in
+            self.hideLoading()
+            
+            if response != nil {
+                let Status = response!["status"] as! Bool
+                if Status {
+                    let RespoData = response!["data"] as! [String:Any]
+                    self.UserDetails(Token: RespoData["token"] as? String ?? "")
+                    UserDefaults.standard.set( RespoData["token"] as? String ?? "", forKey: TOKEN)
+                    print("RespoData:-\(RespoData)")
+                } else {
+                    let RespoData = response!["data"] as! [String:Any]
+                    let message = RespoData["detail"] as? String ?? ""
+                    print(message)
+                    self.showToast(message: message)
+                }
+            } else {
+                self.showToast(message: "Something is wrong please try againt")
+            }
+        }
+    }
+    func SocialLogin(Email:String,SocialID:String,SocialType:String) {
+        UserDefaults.standard.set(Email, forKey: "EmailPrefrence")
+        UserDefaults.standard.set(SocialID, forKey: "PasswordPrefrence")
+        UserDefaults.standard.set(SocialType, forKey: "SocialType")
+        guard isReachable else{
+            return
 
-        //let NewParamJson = parameters.toJSONString()
-          print(jsonData)
-               
-        
+        }
+        showLoading()
+        let url = "https://api.massagerobotics.com/user/social/login/"
+        var parameters = [String:Any]()
+        parameters = ["email":Email,"issociallogin":"true","socialid":SocialID,"socialtype":SocialType]
+   
         ApiHelper.sharedInstance.PostMethodServiceCall(url: url, param: parameters, Token: "", method: .post) { (response, error) in
             self.hideLoading()
             
@@ -239,6 +346,7 @@ extension LoginViewController {
                 
                 let googleProfilePicURL = user.profile?.imageURL(withDimension: 150)?.absoluteString ?? ""
                 print("Google Profile Avatar URL: \(googleProfilePicURL)")
+                self.SocialLogin(Email: userEmail, SocialID: userId, SocialType: "google")
             }
         }
     }
@@ -295,6 +403,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
             print("User First Name: \(userFirstName ?? "")")
             print("User Last Name: \(userLastName ?? "")")
             print("User Email: \(userEmail ?? "")")
+            self.SocialLogin(Email: userEmail ?? "", SocialID: userId, SocialType: "apple")
             // Write your code here
         } else if let passwordCredential = authorization.credential as? ASPasswordCredential {
             // Get user data using an existing iCloud Keychain credential
@@ -314,18 +423,53 @@ extension LoginViewController: ASAuthorizationControllerPresentationContextProvi
 
 
 extension UIViewController {
-    
+
     func alert(message: String, title: String = "")
     {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
+
         let ok = UIAlertAction(title: "OK", style: .default, handler: { action in
-            
+
         })
-        
+
         alert.addAction(ok)
-        
+
         self.present(alert, animated: true, completion: nil)
     }
 }
 
+//// MARK: - Alerts
+//extension ViewController {
+//
+//    func showAlert(title: String, message: String) {
+//
+//        let okAction = AlertAction(title: OKTitle)
+//        let alertController = getAlertViewController(type: .alert, with: title, message: message, actions: [okAction], showCancel: false) { (button) in
+//        }
+//        present(alertController, animated: true, completion: nil)
+//    }
+//
+//    func showLoginSucessAlert() {
+//        showAlert(title: "Success", message: "Login successful")
+//    }
+//
+//    func showErrorAlert(message: String) {
+//        showAlert(title: "Error", message: message)
+//    }
+//
+//    func showGotoSettingsAlert(message: String) {
+//        let settingsAction = AlertAction(title: "Go to settings")
+//
+//        let alertController = getAlertViewController(type: .alert, with: "Error", message: message, actions: [settingsAction], showCancel: true, actionHandler: { (buttonText) in
+//            if buttonText == CancelTitle { return }
+//
+//            // open settings
+//            let url = URL(string: UIApplication.openSettingsURLString)
+//            if UIApplication.shared.canOpenURL(url!) {
+//                UIApplication.shared.open(url!, options: [:])
+//            }
+//
+//        })
+//        present(alertController, animated: true, completion: nil)
+//    }
+//}

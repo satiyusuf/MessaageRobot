@@ -182,7 +182,10 @@ extension SignUpViewController {
                     let RespoData = response!["data"] as! [String:Any]
                     let message =  RespoData["detail"] as? String ?? ""
                     print(message)
-                   // self.navigationController?.popViewController(animated: true)
+                    showToast(message: "Succssufully Register.")
+                    
+                    UIApplication.topViewController()?.self.navigationController?.popViewController(animated: true)
+            
                     print("RespoData:-\(RespoData)")
                 } else {
                     let RespoData = response!["data"] as! [String:Any]
