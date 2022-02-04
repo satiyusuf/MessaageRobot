@@ -212,6 +212,7 @@ extension LoginViewController {
         parameters = ["email":Email,"password":Pass]
         UserDefaults.standard.set(txtEmail.text!, forKey: "EmailPrefrence")
         UserDefaults.standard.set(txtPass.text!, forKey: "PasswordPrefrence")
+        UserDefaults.standard.removeObject(forKey: "SocialType")
         ApiHelper.sharedInstance.PostMethodServiceCall(url: url, param: parameters, Token: "", method: .post) { (response, error) in
             self.hideLoading()
             
