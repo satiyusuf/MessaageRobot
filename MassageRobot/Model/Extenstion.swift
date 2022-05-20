@@ -669,19 +669,24 @@ func fontName() {
 //}
 
 class ApiHelper: NSObject {
-
+    
     static let sharedInstance = ApiHelper()
     
     
     func GetMethodServiceCall(url : String,Token:String, completion: @escaping (NSDictionary?,String?) -> ()) {
-
+        
+        var TokenString = String()
+        if Token.isEmpty == false {
+            TokenString = "Token \(Token)"
+        }
+        
         var header: HTTPHeaders?
         header = ["Content-Type": "application/json"]
-        header!["Authorization"] = "Token \(Token)"
+        header!["Authorization"] = TokenString
         
         AF.request(url, method: .get,headers: header)
             .responseJSON { response in
-
+                
                 switch response.result {
                 case .success:
                     if response.value != nil //result.value != nil
@@ -695,7 +700,7 @@ class ApiHelper: NSObject {
                     {
                         completion(nil,"Something went wrong!!!")
                     }
-
+                    
                 case .failure(let error):
                     print(error)
                     let err = String(decoding: response.data!, as: UTF8.self)
@@ -704,7 +709,7 @@ class ApiHelper: NSObject {
                     print("Echo : \(err)")
                     completion(nil,error.localizedDescription)
                 }
-        }
+            }
     }
     
     func PostMethodServiceCall(url : String, param : [String:Any],Token:String, method:HTTPMethod, completion: @escaping (NSDictionary?,String?) -> ()) {
@@ -746,7 +751,7 @@ class ApiHelper: NSObject {
                     
                     completion(nil,error.localizedDescription)
                 }
-        }
+            }
     }
 }
 
